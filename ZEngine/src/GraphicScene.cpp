@@ -1,37 +1,34 @@
 ﻿#include <pch.h>
-#include <Rendering/Scenes/GraphicScene.h>
-#include <Rendering/Components/TransformComponent.h>
-#include <Rendering/Components/NameComponent.h>
-#include <Rendering/Components/MaterialComponent.h>
+#include <Core/Coroutine.h>
+#include <Helpers/MathHelper.h>
+#include <Rendering/Components/CameraComponent.h>
 #include <Rendering/Components/GeometryComponent.h>
 #include <Rendering/Components/LightComponent.h>
-#include <Rendering/Components/CameraComponent.h>
-#include <Rendering/Entities/GraphicSceneEntity.h>
-#include <Rendering/Materials/StandardMaterial.h>
+#include <Rendering/Components/MaterialComponent.h>
+#include <Rendering/Components/NameComponent.h>
+#include <Rendering/Components/TransformComponent.h>
 #include <Rendering/Components/UUIComponent.h>
 #include <Rendering/Components/ValidComponent.h>
+#include <Rendering/Entities/GraphicSceneEntity.h>
 #include <Rendering/Lights/DirectionalLight.h>
-#include <Core/Coroutine.h>
-
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
-#include <assimp/pbrmaterial.h>
-#include <Helpers/MathHelper.h>
-#include <fmt/format.h>
-
+#include <Rendering/Materials/StandardMaterial.h>
+#include <Rendering/Scenes/GraphicScene.h>
 #include <Rendering/Textures/Texture2D.h>
+#include <assimp/Importer.hpp>
+#include <assimp/pbrmaterial.h>
+#include <assimp/postprocess.h>
+#include <fmt/format.h>
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STB_IMAGE_RESIZE_IMPLEMENTATION
-#include <stb/stb_image_write.h>
 #include <stb/stb_image.h>
-#include <stb/stb_image_resize.h>
+#include <deprecated/stb_image_resize.h>
+#include <stb/stb_image_write.h>
 
-
-#define SCENE_ROOT_PARENT_ID -1
+#define SCENE_ROOT_PARENT_ID   -1
 #define SCENE_ROOT_DEPTH_LEVEL 0
-#define INVALID_SCENE_NODE_ID -1
-#define INVALID_TEXTURE_MAP 0xFFFFFFFF
+#define INVALID_SCENE_NODE_ID  -1
+#define INVALID_TEXTURE_MAP    0xFFFFFFFF
 
 using namespace ZEngine::Controllers;
 using namespace ZEngine::Rendering::Components;
@@ -494,20 +491,20 @@ namespace ZEngine::Rendering::Scenes
         /*
          * Texture files
          */
-        aiString              texture_filename;
-        aiTextureMapping      texture_mapping;
-        uint32_t              uv_index;
-        float                 blend                 = 1.0f;
-        aiTextureOp           texture_operation     = aiTextureOp_Add;
-        aiTextureMapMode      texture_map_mode[]    = {aiTextureMapMode_Wrap, aiTextureMapMode_Wrap};
-        uint32_t              texture_flags         = 0;
-        std::string_view      texture_dir_fomart    = "{0}\\{1}";
+        aiString                   texture_filename;
+        aiTextureMapping           texture_mapping;
+        uint32_t                   uv_index;
+        float                      blend              = 1.0f;
+        aiTextureOp                texture_operation  = aiTextureOp_Add;
+        aiTextureMapMode           texture_map_mode[] = {aiTextureMapMode_Wrap, aiTextureMapMode_Wrap};
+        uint32_t                   texture_flags      = 0;
+        constexpr std::string_view texture_dir_format = "{0}\\{1}";
 
         if (aiGetMaterialTexture(
                 assimp_material, aiTextureType_EMISSIVE, 0, &texture_filename, &texture_mapping, &uv_index, &blend, &texture_operation, texture_map_mode, &texture_flags) ==
             AI_SUCCESS)
         {
-            auto filename                      = fmt::format(texture_dir_fomart, material_texture_parent_path, texture_filename.C_Str());
+            auto filename                      = fmt::format(texture_dir_format, material_texture_parent_path, texture_filename.C_Str());
             output_material.EmissiveTextureMap = AddTexture(filename);
         }
 
@@ -515,7 +512,7 @@ namespace ZEngine::Rendering::Scenes
                 assimp_material, aiTextureType_DIFFUSE, 0, &texture_filename, &texture_mapping, &uv_index, &blend, &texture_operation, texture_map_mode, &texture_flags) ==
             AI_SUCCESS)
         {
-            auto filename                    = fmt::format(texture_dir_fomart, material_texture_parent_path, texture_filename.C_Str());
+            auto filename                    = fmt::format(texture_dir_format, material_texture_parent_path, texture_filename.C_Str());
             output_material.AlbedoTextureMap = AddTexture(filename);
         }
 
@@ -523,7 +520,7 @@ namespace ZEngine::Rendering::Scenes
                 assimp_material, aiTextureType_NORMALS, 0, &texture_filename, &texture_mapping, &uv_index, &blend, &texture_operation, texture_map_mode, &texture_flags) ==
             AI_SUCCESS)
         {
-            auto filename                    = fmt::format(texture_dir_fomart, material_texture_parent_path, texture_filename.C_Str());
+            auto filename                    = fmt::format(texture_dir_format, material_texture_parent_path, texture_filename.C_Str());
             output_material.NormalTextureMap = AddTexture(filename);
         }
 
@@ -533,7 +530,7 @@ namespace ZEngine::Rendering::Scenes
                     assimp_material, aiTextureType_HEIGHT, 0, &texture_filename, &texture_mapping, &uv_index, &blend, &texture_operation, texture_map_mode, &texture_flags) ==
                 AI_SUCCESS)
             {
-                auto filename                    = fmt::format(texture_dir_fomart, material_texture_parent_path, texture_filename.C_Str());
+                auto filename                    = fmt::format(texture_dir_format, material_texture_parent_path, texture_filename.C_Str());
                 output_material.NormalTextureMap = AddTexture(filename);
             }
         }
@@ -542,7 +539,7 @@ namespace ZEngine::Rendering::Scenes
                 assimp_material, aiTextureType_OPACITY, 0, &texture_filename, &texture_mapping, &uv_index, &blend, &texture_operation, texture_map_mode, &texture_flags) ==
             AI_SUCCESS)
         {
-            auto filename                     = fmt::format(texture_dir_fomart, material_texture_parent_path, texture_filename.C_Str());
+            auto filename                     = fmt::format(texture_dir_format, material_texture_parent_path, texture_filename.C_Str());
             output_material.OpacityTextureMap = AddTexture(filename);
             output_material.AlphaTest         = 0.5f;
         }
@@ -635,7 +632,7 @@ namespace ZEngine::Rendering::Scenes
         auto found = std::find(s_texture_file_collection.begin(), s_texture_file_collection.end(), std::string(filename));
         if (found == std::end(s_texture_file_collection))
         {
-            //s_raw_data->TextureCollection->Add(Textures::Texture2D::Read(filename));
+            // s_raw_data->TextureCollection->Add(Textures::Texture2D::Read(filename));
 
             s_texture_file_collection.emplace_back(filename.data());
             return (s_texture_file_collection.size() - 1);
@@ -649,13 +646,13 @@ namespace ZEngine::Rendering::Scenes
         std::unique_lock lock(s_scene_node_mutex);
 
         /*
-        * Ensuring output directory exist
-        */
-        const auto current_directoy = std::filesystem::current_path();
-        auto output_texture_dir = fmt::format("{0}\\{1}", current_directoy.string(), "__imported/out_textures/");
+         * Ensuring output directory exist
+         */
+        const auto current_directoy   = std::filesystem::current_path();
+        auto       output_texture_dir = fmt::format("{0}\\{1}", current_directoy.string(), "__imported/out_textures/");
 
         std::map<std::string_view, uint32_t> opacity_map_indices = {};
-        auto& material_map = s_raw_data->SceneNodeMaterialMap;
+        auto&                                material_map        = s_raw_data->SceneNodeMaterialMap;
         for (auto& material : material_map)
         {
             auto& material_data = material.second;
@@ -677,7 +674,7 @@ namespace ZEngine::Rendering::Scenes
 
             uint8_t* downscaled_texture_pixel = nullptr;
 
-            auto filename = std::filesystem::path(file).filename();
+            auto filename           = std::filesystem::path(file).filename();
             auto downscaled_texture = fmt::format("{0}{1}__rescaled.png", output_texture_dir, filename.string());
 
             int      width, height, channel;
@@ -732,8 +729,8 @@ namespace ZEngine::Rendering::Scenes
             stbi_write_png(downscaled_texture.c_str(), output_width, output_height, channel, mip_buffer.data(), 0);
 
             /*
-            * Override filename
-            */
+             * Override filename
+             */
             file = downscaled_texture;
 
             if (file_pixel)
@@ -754,7 +751,7 @@ namespace ZEngine::Rendering::Scenes
             std::filesystem::path asset_path(path);
             auto                  parent_directory = asset_path.parent_path();
 
-            Assimp::Importer importer = {};
+            Assimp::Importer importer   = {};
             uint32_t         read_flags = aiProcess_JoinIdenticalVertices | aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_SplitLargeMeshes |
                                   aiProcess_ImproveCacheLocality | aiProcess_RemoveRedundantMaterials | aiProcess_GenUVCoords | aiProcess_FlipUVs |
                                   aiProcess_ValidateDataStructure | aiProcess_FindDegenerates | aiProcess_FindInvalidData | aiProcess_LimitBoneWeights;

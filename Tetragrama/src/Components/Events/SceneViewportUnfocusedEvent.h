@@ -1,5 +1,5 @@
 #pragma once
-#include <ZEngine/ZEngine.h>
+#include <ZEngine.h>
 
 namespace Tetragrama::Components::Event {
 

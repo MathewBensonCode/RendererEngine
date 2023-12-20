@@ -4,15 +4,13 @@ project(ZEngineTests)
 
 enable_testing()
 
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-include_directories(${PROJECT_SOURCE_DIR}/include)
+find_package(GTest CONFIG REQUIRED)
 
-file(GLOB TEST_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+add_executable(ZEngineTests)
 
-add_executable(ZEngineTests ${TEST_SOURCES})
+target_sources(ZEngineTests PRIVATE IntrusivePtr_test.cpp
+                                    IntrusiveWeakPtr_test.cpp)
 
-target_link_libraries(ZEngineTests gtest gtest_main)
-
-target_link_libraries(ZEngineTests zEngineLib)
+target_link_libraries(ZEngineTests GTest::gtest_main zEngineLib)
 
 add_test(NAME ZEngineUnitTests COMMAND ZEngineTests)

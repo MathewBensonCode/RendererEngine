@@ -3,9 +3,9 @@
 #include <mutex>
 #include <regex>
 #include <condition_variable>
-#include <ZEngine/ZEngine.h>
+#include <ZEngine.h>
 #include <Message.h>
-#include <ZEngine/Logging/Logger.h>
+#include <Logging/Logger.h>
 
 namespace Tetragrama::Components
 {

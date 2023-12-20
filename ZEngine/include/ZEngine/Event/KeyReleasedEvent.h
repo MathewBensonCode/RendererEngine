@@ -20,7 +20,7 @@ namespace ZEngine::Event {
             return GetStaticCategory();
         }
         virtual std::string ToString() const override {
-            return fmt::format("KeyReleasedEvent : {0}", m_keycode);
+            return fmt::format("KeyReleasedEvent : {0}", static_cast<int>(m_keycode));
         }
     };
 } // namespace ZEngine::Event

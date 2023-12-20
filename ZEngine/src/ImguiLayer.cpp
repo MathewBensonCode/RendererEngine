@@ -1,10 +1,12 @@
-#include <pch.h>
+#include <imgui.h>
 #include <Layers/ImguiLayer.h>
-#include <ZEngineDef.h>
-#include <fmt/format.h>
-#include <ZEngine/Window/GlfwWindow/VulkanWindow.h>
 #include <Logging/LoggerDefinition.h>
 #include <Rendering/Renderers/ImGUIRenderer.h>
+#include <Window/GlfwWindow/VulkanWindow.h>
+#include <ZEngine.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_vulkan.h>
+#include <fmt/format.h>
 
 using namespace ZEngine::Rendering::Renderers;
 
@@ -12,9 +14,7 @@ namespace ZEngine::Layers
 {
     bool ImguiLayer::m_initialized = false;
 
-    ImguiLayer::~ImguiLayer()
-    {
-    }
+    ImguiLayer::~ImguiLayer() {}
 
     void ImguiLayer::Initialize()
     {
@@ -31,11 +31,7 @@ namespace ZEngine::Layers
             StyleDarkTheme();
 
             ImGuiIO& io = ImGui::GetIO();
-            io.ConfigViewportsNoTaskBarIcon = true;
-            io.ConfigViewportsNoDecoration  = true;
-            io.BackendFlags |= ImGuiBackendFlags_RendererHasViewports;
             io.BackendFlags |= ImGuiBackendFlags_RendererHasVtxOffset;
-            io.BackendFlags |= ImGuiBackendFlags_HasMouseHoveredViewport;
             io.BackendRendererName = "ZEngine";
 
             std::string_view default_layout_ini = "Settings/DefaultLayout.ini";
@@ -46,9 +42,7 @@ namespace ZEngine::Layers
                 io.IniFilename = default_layout_ini.data();
             }
 
-            // io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-            io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-            io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+            io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 
             auto& style            = ImGui::GetStyle();
             style.WindowBorderSize = 0.f;
@@ -57,17 +51,17 @@ namespace ZEngine::Layers
 
             auto window_property = current_window->GetWindowProperty();
             io.Fonts->AddFontFromFileTTF("Settings/Fonts/OpenSans/OpenSans-Bold.ttf", 17.f * window_property.DpiScale);
-            io.FontDefault = io.Fonts->AddFontFromFileTTF("Settings/Fonts/OpenSans/OpenSans-Regular.ttf", 17.f * window_property.DpiScale);
+            io.FontDefault     = io.Fonts->AddFontFromFileTTF("Settings/Fonts/OpenSans/OpenSans-Regular.ttf", 17.f * window_property.DpiScale);
             io.FontGlobalScale = window_property.DpiScale;
 
             ImGUIRenderer::Initialize(current_window->GetNativeWindow(), current_window->GetSwapchain());
-            auto& platform_io                  = ImGui::GetPlatformIO();
-            platform_io.Renderer_CreateWindow  = __ImGUIRendererCreateWindowCallback;
-            platform_io.Renderer_DestroyWindow = __ImGUIPlatformDestroyWindowCallback;
-            platform_io.Renderer_RenderWindow  = __ImGUIPlatformRenderWindowCallback;
-            platform_io.Renderer_SetWindowSize = __ImGUIPlatformSetWindowSizeCallback;
-            platform_io.Renderer_SwapBuffers   = __ImGUIPlatformSwapBuffersCallback;
-
+            /*  auto& platform_io                  = ImGui::GetPlatformIO();
+              platform_io.Renderer_CreateWindow  = __ImGUIRendererCreateWindowCallback;
+              platform_io.Renderer_DestroyWindow = __ImGUIPlatformDestroyWindowCallback;
+              platform_io.Renderer_RenderWindow  = __ImGUIPlatformRenderWindowCallback;
+              platform_io.Renderer_SetWindowSize = __ImGUIPlatformSetWindowSizeCallback;
+              platform_io.Renderer_SwapBuffers   = __ImGUIPlatformSwapBuffersCallback;
+  */
             m_initialized = true;
         }
     }
@@ -140,14 +134,12 @@ namespace ZEngine::Layers
 
     void ImguiLayer::AddUIComponent(std::vector<Ref<Components::UI::UIComponent>>&& components)
     {
-        std::for_each(std::begin(components), std::end(components),
-            [this](Ref<Components::UI::UIComponent>& component)
+        std::for_each(std::begin(components), std::end(components), [this](Ref<Components::UI::UIComponent>& component) {
+            if (!component->HasParentLayer())
             {
-                if (!component->HasParentLayer())
-                {
-                    component->SetParentLayer(this);
-                }
-            });
+                component->SetParentLayer(this);
+            }
+        });
 
         std::move(std::begin(components), std::end(components), std::back_inserter(m_ui_components));
     }
@@ -278,7 +270,7 @@ namespace ZEngine::Layers
         colors[ImGuiCol_TitleBgActive]    = ImVec4{0.15f, 0.1505f, 0.151f, 1.0f};
         colors[ImGuiCol_TitleBgCollapsed] = ImVec4{0.15f, 0.1505f, 0.151f, 1.0f};
 
-        colors[ImGuiCol_DockingPreview]   = ImVec4{0.2f, 0.205f, 0.21f, .5f};
+   //     colors[ImGuiCol_DockingPreview]   = ImVec4{0.2f, 0.205f, 0.21f, .5f};
         colors[ImGuiCol_SeparatorHovered] = ImVec4{1.f, 1.f, 1.0f, .5f};
         colors[ImGuiCol_SeparatorActive]  = ImVec4{1.f, 1.f, 1.0f, .5f};
         colors[ImGuiCol_CheckMark]        = ImVec4{1.0f, 1.f, 1.0f, 1.f};
@@ -286,46 +278,46 @@ namespace ZEngine::Layers
 
     void ImguiLayer::__ImGUIRendererCreateWindowCallback(ImGuiViewport* viewport)
     {
-        ImguiViewPortWindowChild* viewport_window = new ImguiViewPortWindowChild{viewport->PlatformHandle};
-        viewport->RendererUserData                = viewport_window;
+        ImguiViewPortWindowChild* viewport_window = new ImguiViewPortWindowChild{viewport->PlatformHandleRaw};
+        viewport->PlatformHandleRaw = viewport_window;
     }
 
     void ImguiLayer::__ImGUIPlatformDestroyWindowCallback(ImGuiViewport* viewport)
     {
-        if (viewport->RendererUserData)
+        if (viewport->PlatformHandleRaw)
         {
-            auto window_child = reinterpret_cast<ImguiViewPortWindowChild*>(viewport->RendererUserData);
+            auto window_child = reinterpret_cast<ImguiViewPortWindowChild*>(viewport->PlatformHandleRaw);
             Hardwares::VulkanDevice::DisposeCommandPool(window_child->CommandPool);
             window_child->Swapchain.reset();
             delete window_child;
         }
-        viewport->RendererUserData = nullptr;
+        viewport->PlatformHandleRaw = nullptr;
     }
 
     void ImguiLayer::__ImGUIPlatformRenderWindowCallback(ImGuiViewport* viewport, void* args)
     {
-        if (viewport->RendererUserData)
+        if (viewport->PlatformHandleRaw)
         {
-            auto window_child = reinterpret_cast<ImguiViewPortWindowChild*>(viewport->RendererUserData);
+            auto window_child = reinterpret_cast<ImguiViewPortWindowChild*>(viewport->PlatformHandleRaw);
             window_child->CommandPool->Tick();
-            ImGUIRenderer::DrawChildWindow(viewport->Size.x, viewport->Size.y, &window_child, viewport->DrawData);
+         //   ImGUIRenderer::DrawChildWindow(viewport->Size.x, viewport->Size.y, &window_child, viewport->DrawData);
         }
     }
 
     void ImguiLayer::__ImGUIPlatformSwapBuffersCallback(ImGuiViewport* viewport, void* args)
     {
-        if (viewport->RendererUserData)
+        if (viewport->PlatformHandleRaw)
         {
-            auto window_child = reinterpret_cast<ImguiViewPortWindowChild*>(viewport->RendererUserData);
+            auto window_child = reinterpret_cast<ImguiViewPortWindowChild*>(viewport->PlatformHandleRaw);
             window_child->Swapchain->Present();
         }
     }
 
     void ImguiLayer::__ImGUIPlatformSetWindowSizeCallback(ImGuiViewport* viewport, ImVec2 size)
     {
-        if (viewport->RendererUserData)
+        if (viewport->PlatformHandleRaw)
         {
-            auto window_child = reinterpret_cast<ImguiViewPortWindowChild*>(viewport->RendererUserData);
+            auto window_child = reinterpret_cast<ImguiViewPortWindowChild*>(viewport->PlatformHandleRaw);
             window_child->Swapchain->Resize();
         }
     }

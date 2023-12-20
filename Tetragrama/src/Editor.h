@@ -1,7 +1,7 @@
 #pragma once
-#include <ZEngine/Engine.h>
-#include <ZEngine/ZEngineDef.h>
-#include <ZEngine/Layers/ImguiLayer.h>
+#include <Engine.h>
+#include <ZEngineDef.h>
+#include <Layers/ImguiLayer.h>
 #include <Layers/RenderLayer.h>
 
 namespace Tetragrama

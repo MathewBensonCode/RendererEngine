@@ -22,7 +22,7 @@ namespace ZEngine::Event {
         }
 
         virtual std::string ToString() const override {
-            return fmt::format("MouseButtonPressedEvent : {0}", m_button);
+            return fmt::format("MouseButtonPressedEvent : {0}", static_cast<int>(m_button));
         }
     };
 } // namespace ZEngine::Event

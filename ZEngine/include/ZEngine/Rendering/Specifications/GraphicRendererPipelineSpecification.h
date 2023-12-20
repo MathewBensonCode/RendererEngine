@@ -12,7 +12,7 @@ namespace ZEngine::Rendering::Specifications
         bool                                      EnableDepthTest   = true;
         bool                                      EnableStencilTest = false;
         std::string                               DebugName;
-        ShaderSpecification                       ShaderSpecification;
+        ShaderSpecification                       GraphicRendererPipelineShaderSpecification;
         Ref<Rendering::Buffers::FramebufferVNext> TargetFrameBuffer;
     };
 }
