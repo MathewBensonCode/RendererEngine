@@ -1,5 +1,5 @@
 #pragma once
-#include <ZEngine/ZEngine.h>
+#include <ZEngine.h>
 #include <Message.h>
 
 namespace Tetragrama::Components {
@@ -19,7 +19,7 @@ namespace Tetragrama::Components {
         virtual bool OnUIComponentRaised(ZEngine::Components::UI::Event::UIComponentEvent&) override;
 
     private:
-        ImGuiDockNodeFlags m_dockspace_node_flag;
+        ImGuiTreeNodeFlags m_dockspace_node_flag;
         ImGuiWindowFlags   m_window_flags;
     };
 } // namespace Tetragrama::Components

@@ -1,5 +1,5 @@
 #pragma once
-#include <ZEngine/ZEngine.h>
+#include <ZEngine.h>
 #include <Components/DockspaceUIComponent.h>
 #include <Components/SceneViewportUIComponent.h>
 #include <Components/LogUIComponent.h>

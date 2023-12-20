@@ -1,7 +1,7 @@
 #include <pch.h>
 #include <InspectorViewUIComponent.h>
 #include <UIComponentDrawerHelper.h>
-#include <ZEngine/Helpers/MeshHelper.h>
+#include <Helpers/MeshHelper.h>
 
 using namespace ZEngine::Rendering::Materials;
 using namespace ZEngine::Rendering::Components;

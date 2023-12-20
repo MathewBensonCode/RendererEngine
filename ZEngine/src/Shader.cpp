@@ -1,12 +1,12 @@
 #include <pch.h>
-#include <vulkan/vulkan.h>
-#include <spirv_cross.hpp>
 #include <Hardwares/VulkanDevice.h>
-#include <Rendering/Shaders/ShaderReader.h>
-#include <Rendering/Shaders/Shader.h>
 #include <Logging/LoggerDefinition.h>
 #include <Rendering/Renderers/GraphicRenderer.h>
-
+#include <Rendering/Shaders/Shader.h>
+#include <Rendering/Shaders/ShaderReader.h>
+#include <ZEngine.h>
+#include <spirv_cross.hpp>
+#include <vulkan/vulkan.h>
 
 using namespace ZEngine::Rendering::Specifications;
 
@@ -74,7 +74,7 @@ namespace ZEngine::Rendering::Shaders
                 uint32_t binding = spirv_compiler->get_decoration(UB_resource.id, spv::DecorationBinding);
 
                 m_layout_binding_specification_map[set].emplace_back(LayoutBindingSpecification{
-                    .Set = set, .Binding = binding, .Name = UB_resource.name, .DescriptorType = DescriptorType::UNIFORM_BUFFER, .Flags = ShaderStageFlags::VERTEX});
+                    .Set = set, .Binding = binding, .Name = UB_resource.name, .LayoutBindingSpecificationDescriptorType = DescriptorType::UNIFORM_BUFFER, .Flags = ShaderStageFlags::VERTEX});
             }
 
             for (const auto& SB_resource : vertex_resources.storage_buffers)
@@ -83,7 +83,7 @@ namespace ZEngine::Rendering::Shaders
                 uint32_t binding = spirv_compiler->get_decoration(SB_resource.id, spv::DecorationBinding);
 
                 m_layout_binding_specification_map[set].emplace_back(LayoutBindingSpecification{
-                    .Set = set, .Binding = binding, .Name = SB_resource.name, .DescriptorType = DescriptorType::STORAGE_BUFFER, .Flags = ShaderStageFlags::VERTEX});
+                    .Set = set, .Binding = binding, .Name = SB_resource.name, .LayoutBindingSpecificationDescriptorType = DescriptorType::STORAGE_BUFFER, .Flags = ShaderStageFlags::VERTEX});
             }
         }
         /*
@@ -114,7 +114,7 @@ namespace ZEngine::Rendering::Shaders
                 uint32_t binding = spirv_compiler->get_decoration(UB_resource.id, spv::DecorationBinding);
 
                 m_layout_binding_specification_map[set].emplace_back(LayoutBindingSpecification{
-                    .Set = set, .Binding = binding, .Name = UB_resource.name, .DescriptorType = DescriptorType::UNIFORM_BUFFER, .Flags = ShaderStageFlags::FRAGMENT});
+                    .Set = set, .Binding = binding, .Name = UB_resource.name, .LayoutBindingSpecificationDescriptorType = DescriptorType::UNIFORM_BUFFER, .Flags = ShaderStageFlags::FRAGMENT});
             }
 
             for (const auto& SB_resource : fragment_resources.storage_buffers)
@@ -123,7 +123,7 @@ namespace ZEngine::Rendering::Shaders
                 uint32_t binding = spirv_compiler->get_decoration(SB_resource.id, spv::DecorationBinding);
 
                 m_layout_binding_specification_map[set].emplace_back(LayoutBindingSpecification{
-                    .Set = set, .Binding = binding, .Name = SB_resource.name, .DescriptorType = DescriptorType::STORAGE_BUFFER, .Flags = ShaderStageFlags::FRAGMENT});
+                    .Set = set, .Binding = binding, .Name = SB_resource.name, .LayoutBindingSpecificationDescriptorType = DescriptorType::STORAGE_BUFFER, .Flags = ShaderStageFlags::FRAGMENT});
             }
 
             for (const auto& SI_resource : fragment_resources.sampled_images)
@@ -148,7 +148,7 @@ namespace ZEngine::Rendering::Shaders
                     .Binding        = binding,
                     .Count          = count,
                     .Name           = SI_resource.name,
-                    .DescriptorType = DescriptorType::COMBINED_IMAGE_SAMPLER,
+                    .LayoutBindingSpecificationDescriptorType = DescriptorType::COMBINED_IMAGE_SAMPLER,
                     .Flags          = ShaderStageFlags::FRAGMENT});
             }
         }
@@ -170,7 +170,7 @@ namespace ZEngine::Rendering::Shaders
         for (const auto& layout_binding : m_layout_binding_specification_map)
         {
             const auto& binding_specification_collection = layout_binding.second;
-            auto find_it = std::find_if(binding_specification_collection.begin(), binding_specification_collection.end(), [&](const LayoutBindingSpecification& spec) {
+            auto        find_it = std::find_if(binding_specification_collection.begin(), binding_specification_collection.end(), [&](const LayoutBindingSpecification& spec) {
                 return spec.Name == name;
             });
 
@@ -220,7 +220,7 @@ namespace ZEngine::Rendering::Shaders
 
     void Shader::CreateDescriptorSetLayouts()
     {
-        auto device = Hardwares::VulkanDevice::GetNativeDeviceHandle();
+        auto        device        = Hardwares::VulkanDevice::GetNativeDeviceHandle();
         const auto& renderer_info = Renderers::GraphicRenderer::GetRendererInformation();
 
         std::vector<VkDescriptorPoolSize> pool_size_collection = {};
@@ -233,7 +233,7 @@ namespace ZEngine::Rendering::Shaders
             {
                 layout_binding_collection.emplace_back(VkDescriptorSetLayoutBinding{
                     .binding            = layout_binding_set.second[i].Binding,
-                    .descriptorType     = DescriptorTypeMap[static_cast<uint32_t>(layout_binding_set.second[i].DescriptorType)],
+                    .descriptorType     = DescriptorTypeMap[static_cast<uint32_t>(layout_binding_set.second[i].LayoutBindingSpecificationDescriptorType)],
                     .descriptorCount    = layout_binding_set.second[i].Count,
                     .stageFlags         = ShaderStageFlagsMap[static_cast<uint32_t>(layout_binding_set.second[i].Flags)],
                     .pImmutableSamplers = nullptr});

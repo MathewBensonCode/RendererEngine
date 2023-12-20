@@ -1,6 +1,6 @@
 #pragma once
 #include <ZEngine.h>
-#include <imgui/src/imgui_internal.h>
+#include <imgui_internal.h>
 
 namespace Tetragrama::Helpers {
     void DrawVec4Control(std::string_view label, ZEngine::Maths::Vector4& values, const std::function<void(ZEngine::Maths::Vector4&)>& callback = nullptr,

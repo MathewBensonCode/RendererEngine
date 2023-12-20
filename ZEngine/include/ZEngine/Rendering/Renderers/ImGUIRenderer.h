@@ -2,6 +2,7 @@
 #include <ZEngineDef.h>
 #include <Rendering/Swapchain.h>
 #include <Rendering/Pools/CommandPool.h>
+#include <vulkan/vulkan_core.h>
 
 namespace ZEngine::Rendering::Renderers
 {

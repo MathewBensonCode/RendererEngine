@@ -1,5 +1,5 @@
 #pragma once
-#include <ZEngine/ZEngine.h>
+#include <ZEngine.h>
 #include <vulkan/vulkan.h>
 #include <Components/Events/SceneViewportResizedEvent.h>
 #include <Components/Events/SceneViewportFocusedEvent.h>

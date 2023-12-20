@@ -34,7 +34,7 @@ namespace ZEngine
 } // namespace ZEngine
 
 
-#include "Logging/LoggerDefinition.h"
+#include <Logging/LoggerDefinition.h>
 
 #define ZENGINE_VALIDATE_ASSERT(condition, message) \
     {                                               \
@@ -42,7 +42,6 @@ namespace ZEngine
         {                                           \
             ZENGINE_CORE_CRITICAL(message)          \
             assert(condition && message);           \
-            __debugbreak();                         \
         }                                           \
     }
 

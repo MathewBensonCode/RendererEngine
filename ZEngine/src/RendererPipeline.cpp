@@ -6,7 +6,7 @@ namespace ZEngine::Rendering::Renderers::Pipelines
 {
     GraphicPipeline::GraphicPipeline(Specifications::GraphicRendererPipelineSpecification&& spec) : m_pipeline_specification(std::move(spec))
     {
-        m_shader = Shaders::Shader::Create(m_pipeline_specification.ShaderSpecification);
+        m_shader = Shaders::Shader::Create(m_pipeline_specification.GraphicRendererPipelineShaderSpecification);
     }
 
     Specifications::GraphicRendererPipelineSpecification& GraphicPipeline::GetSpecification()

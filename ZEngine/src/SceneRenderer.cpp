@@ -37,7 +37,7 @@ namespace ZEngine::Rendering::Renderers
         Specifications::GraphicRendererPipelineSpecification infinite_grid_spec = {};
         infinite_grid_spec.DebugName                                            = "Infinite-Grid-Pipeline";
         infinite_grid_spec.TargetFrameBuffer                       = GraphicRenderer::GetRenderTarget(RenderTarget::FRAME_OUTPUT);
-        infinite_grid_spec.ShaderSpecification = {.VertexFilename = "Shaders/Cache/infinite_grid_vertex.spv", .FragmentFilename = "Shaders/Cache/infinite_grid_fragment.spv"};
+        infinite_grid_spec.GraphicRendererPipelineShaderSpecification = {.VertexFilename = "Shaders/Cache/infinite_grid_vertex.spv", .FragmentFilename = "Shaders/Cache/infinite_grid_fragment.spv"};
         RenderPasses::RenderPassSpecification grid_color_pass = {};
         grid_color_pass.Pipeline                              = Pipelines::GraphicPipeline::Create(infinite_grid_spec);
         m_infinite_grid_pass                                  = RenderPasses::RenderPass::Create(grid_color_pass);
@@ -60,7 +60,7 @@ namespace ZEngine::Rendering::Renderers
         Specifications::GraphicRendererPipelineSpecification final_pipeline_spec = {};
         final_pipeline_spec.DebugName                                            = "Standard-Pipeline";
         final_pipeline_spec.TargetFrameBuffer                                    = Buffers::FramebufferVNext::Create(framebuffer_spec);
-        final_pipeline_spec.ShaderSpecification          = {.VertexFilename = "Shaders/Cache/final_color_vertex.spv", .FragmentFilename = "Shaders/Cache/final_color_fragment.spv"};
+        final_pipeline_spec.GraphicRendererPipelineShaderSpecification          = {.VertexFilename = "Shaders/Cache/final_color_vertex.spv", .FragmentFilename = "Shaders/Cache/final_color_fragment.spv"};
         RenderPasses::RenderPassSpecification color_pass = {};
         color_pass.DebugName                             = "Final-Color-Attachment";
         color_pass.Pipeline                              = Pipelines::GraphicPipeline::Create(final_pipeline_spec);

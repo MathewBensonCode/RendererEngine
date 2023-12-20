@@ -50,7 +50,7 @@ namespace ZEngine::Rendering::Buffers
 
     void Image2DBuffer::Dispose()
     {
-        if (this && m_buffer_image)
+        if (m_buffer_image)
         {
             Hardwares::VulkanDevice::EnqueueBufferImageForDeletion(m_buffer_image);
             m_buffer_image = {};

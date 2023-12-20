@@ -7,7 +7,7 @@
 #include <mutex>
 #include <Components/UIComponent.h>
 #include <Message.h>
-#include <ZEngine/Core/Coroutine.h>
+#include <Core/Coroutine.h>
 
 namespace Tetragrama::Messengers
 {
@@ -108,8 +108,8 @@ namespace Tetragrama::Messengers
         }
 
         template <typename TRecipient, typename TMessage, typename = std::enable_if_t<std::is_base_of_v<EmptyMessage, TMessage>>>
-        std::future<void> SendAsync(std::string_view token, TMessage&& message, std::function<void(void)>&& send_completion_callback)
-        {
+        std::future<void> SendAsync(std::string_view token, TMessage&& message, std::function<void(void)>&& send_completion_callback);
+       // {
             // try
             //{
             //     std::unique_lock lock(m_mutex);
@@ -141,7 +141,7 @@ namespace Tetragrama::Messengers
             // catch (...)
             //{
             //}
-        }
+        //}
 
         template <typename TRecipient, typename TMessage>
         void Register(TRecipient* const recipient, std::string_view token, action_callback&& callback)

@@ -19,7 +19,7 @@ namespace ZEngine::Event {
             return GetStaticCategory();
         }
         virtual std::string ToString() const override {
-            return fmt::format("MouseButtonReleasedEvent : {0}", m_button);
+            return fmt::format("MouseButtonReleasedEvent : {0}", static_cast<int>(m_button));
         }
     };
 } // namespace ZEngine::Event

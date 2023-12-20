@@ -16,21 +16,6 @@ get_filename_component (EXAMPLE_DIR "${ENLISTMENT_ROOT}/Examples" ABSOLUTE CACHE
 
 option (BUILD_SANDBOX_PROJECTS "build example projects that show how to use core engine" OFF)
 
-# Externals dependencies
-#
-add_subdirectory (${EXTERNAL_DIR}/fmt)
-add_subdirectory (${EXTERNAL_DIR}/imgui)
-add_subdirectory (${EXTERNAL_DIR}/glfw)
-add_subdirectory (${EXTERNAL_DIR}/spdlog)
-add_subdirectory (${EXTERNAL_DIR}/glm)
-add_subdirectory (${EXTERNAL_DIR}/entt)
-add_subdirectory (${EXTERNAL_DIR}/assimp)
-add_subdirectory (${EXTERNAL_DIR}/stduuid)
-add_subdirectory (${EXTERNAL_DIR}/yaml-cpp)
-add_subdirectory (${EXTERNAL_DIR}/SPIRV-Cross)
-add_subdirectory (${EXTERNAL_DIR}/gtest)
-add_subdirectory (${EXTERNAL_DIR}/VulkanMemoryAllocator)
-
 # Core engine lib is here
 #
 add_subdirectory(ZEngine)

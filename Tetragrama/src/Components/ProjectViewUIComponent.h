@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <ZEngine/ZEngine.h>
+#include <ZEngine.h>
 
 namespace Tetragrama::Components {
     class ProjectViewUIComponent : public ZEngine::Components::UI::UIComponent {

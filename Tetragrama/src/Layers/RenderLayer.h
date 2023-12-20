@@ -2,7 +2,7 @@
 #include <vector>
 #include <queue>
 #include <mutex>
-#include <ZEngine/ZEngine.h>
+#include <ZEngine.h>
 #include <Components/Events/SceneViewportResizedEvent.h>
 #include <Components/Events/SceneViewportFocusedEvent.h>
 #include <Components/Events/SceneViewportUnfocusedEvent.h>

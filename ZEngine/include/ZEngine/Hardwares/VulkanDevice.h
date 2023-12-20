@@ -1,18 +1,17 @@
 #pragma once
-#include <map>
-#include <vulkan/vulkan.h>
+#include <GLFW/glfw3.h>
 #include <Hardwares/VulkanLayer.h>
-#include <Rendering/Primitives/Semaphore.h>
+#include <Rendering/Pools/CommandPool.h>
 #include <Rendering/Primitives/Fence.h>
 #include <Rendering/Primitives/ImageMemoryBarrier.h>
+#include <Rendering/Primitives/Semaphore.h>
 #include <Rendering/ResourceTypes.h>
-#include <Rendering/Pools/CommandPool.h>
-#include <GLFW/glfw3.h>
 #include <vk_mem_alloc.h>
-
+#include <vulkan/vulkan.h>
 #include <chrono>
-#include <thread>
 #include <condition_variable>
+#include <map>
+#include <thread>
 
 namespace ZEngine::Hardwares
 {

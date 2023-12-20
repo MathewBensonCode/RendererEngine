@@ -1,4 +1,5 @@
 #pragma once 
+#include <string>
 #include <vulkan/vulkan.h>
 
 namespace ZEngine::Rendering::Specifications
@@ -57,7 +58,7 @@ namespace ZEngine::Rendering::Specifications
         uint32_t         Binding{0xFFFFFFFF};
         uint32_t         Count{1};
         std::string      Name;
-        DescriptorType   DescriptorType;
+        DescriptorType   LayoutBindingSpecificationDescriptorType;
         ShaderStageFlags Flags;
     };
 

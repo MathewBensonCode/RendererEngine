@@ -2,7 +2,7 @@
 #include <ZEngineDef.h>
 #include <type_traits>
 #include <entt/entt.hpp>
-#include <ZEngine/Logging/LoggerDefinition.h>
+#include <Logging/LoggerDefinition.h>
 
 namespace ZEngine::Rendering::Entities
 {

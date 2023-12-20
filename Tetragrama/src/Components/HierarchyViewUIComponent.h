@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <ZEngine/ZEngine.h>
+#include <ZEngine.h>
 #include <Message.h>
 #include <EditorCameraController.h>
 #include <mutex>

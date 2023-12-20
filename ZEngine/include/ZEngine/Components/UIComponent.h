@@ -5,7 +5,7 @@
 #include <Core/IUpdatable.h>
 #include <Layers/ImguiLayer.h>
 #include <ZEngineDef.h>
-#include <ZEngine/Components/UIComponentEvent.h>
+#include <Components/UIComponentEvent.h>
 
 namespace ZEngine::Layers {
     class ImguiLayer;

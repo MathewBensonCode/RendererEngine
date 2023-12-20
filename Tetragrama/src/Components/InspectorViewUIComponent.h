@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <mutex>
-#include <ZEngine/ZEngine.h>
+#include <ZEngine.h>
 #include <Message.h>
 
 namespace Tetragrama::Components
