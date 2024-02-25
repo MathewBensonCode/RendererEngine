@@ -214,11 +214,9 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
   target_compile_definitions(zEngineLib PUBLIC VK_USE_PLATFORM_WIN32_KHR
                                                GLFW_EXPOSE_NATIVE_WIN32)
 else()
-          target_compile_definitions(zEngineLib PUBLIC 
-    # VK_USE_PLATFORM_WAYLAND_KHR
-    #  GLFW_EXPOSE_NATIVE_WAYLAND
-    GLFW_NATIVE_INCLUDE_NONE
-    )
+  # target_compile_definitions(zEngineLib PUBLIC GLFW_NATIVE_INCLUDE_NONE)
+  target_compile_definitions(zEngineLib PUBLIC VK_USE_PLATFORM_WAYLAND_KHR
+                                               GLFW_EXPOSE_NATIVE_WAYLAND)
 endif()
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
