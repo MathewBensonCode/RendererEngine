@@ -11,7 +11,6 @@ set_property (GLOBAL PROPERTY USE_FOLDERS ON)
 # Core invariants
 #
 get_filename_component (ENLISTMENT_ROOT "." ABSOLUTE CACHE)
-get_filename_component (EXTERNAL_DIR "${ENLISTMENT_ROOT}/__externals" ABSOLUTE CACHE)
 get_filename_component (EXAMPLE_DIR "${ENLISTMENT_ROOT}/Examples" ABSOLUTE CACHE)
 
 include(${ENLISTMENT_ROOT}/Scripts/CMake/NuGet.cmake)
@@ -37,30 +36,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 	add_compile_definitions(_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING) # Fix Warning from VS 2022 +
 endif()
 
-# Externals dependencies
-#
-if (NOT LAUNCHER_ONLY)
-	add_subdirectory (${EXTERNAL_DIR}/fmt)
-	add_subdirectory (${EXTERNAL_DIR}/imgui)
-	add_subdirectory (${EXTERNAL_DIR}/glfw)
-	add_subdirectory (${EXTERNAL_DIR}/spdlog)
-	add_subdirectory (${EXTERNAL_DIR}/glm)
-	add_subdirectory (${EXTERNAL_DIR}/entt)
-	add_subdirectory (${EXTERNAL_DIR}/assimp)
-	add_subdirectory (${EXTERNAL_DIR}/stduuid)
-	add_subdirectory (${EXTERNAL_DIR}/yaml-cpp)
-	add_subdirectory (${EXTERNAL_DIR}/SPIRV-headers)
-	add_subdirectory (${EXTERNAL_DIR}/SPIRV-Tools)
-	add_subdirectory (${EXTERNAL_DIR}/glslang)
-	add_subdirectory (${EXTERNAL_DIR}/SPIRV-Cross)
-	add_subdirectory (${EXTERNAL_DIR}/gtest)
-	add_subdirectory (${EXTERNAL_DIR}/VulkanMemoryAllocator)
-
-	set (CMAKE_PREFIX_PATH
-		${CMAKE_PREFIX_PATH}
-		${EXTERNAL_DIR}/Vulkan-Headers/build/install/share/cmake
-	)
-	add_subdirectory (${EXTERNAL_DIR}/Vulkan-Loader)
+    include(externals.cmake)
 
 	# Core engine lib is here
 	#
@@ -69,7 +45,6 @@ if (NOT LAUNCHER_ONLY)
 	# Editor is here
 	#
 	add_subdirectory (Tetragrama)
-endif ()
 
 # Launcher is here
 #

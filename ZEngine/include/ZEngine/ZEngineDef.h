@@ -42,7 +42,8 @@ namespace ZEngine
     #include <signal.h>
     #define ZENGINE_DEBUG_BREAK() __builtin_trap();
 #else
-    #error "Platform not supported!"
+  #include <signal.h>
+ #define ZENGINE_DEBUG_BREAK() raise(SIGTRAP);
 #endif
 
 

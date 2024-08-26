@@ -8,13 +8,6 @@ project (ZEngine
 
 # Compiler verification in Linux
 #
-if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-	if ((NOT ${CMAKE_CXX_COMPILER_VERSION} MATCHES "11.*.*") AND (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang"))
-		message(FATAL_ERROR "CLANG compiler version should be 11.*.* !")
-	elseif ((NOT ${CMAKE_CXX_COMPILER_VERSION} MATCHES "11.*.*") AND (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU"))
-		message(FATAL_ERROR "GNU compiler version should be 11.*.* !")
-	endif ()
-endif ()
 
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set	(CMAKE_CXX_STANDARD 20)
