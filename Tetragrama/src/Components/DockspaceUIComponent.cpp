@@ -2,7 +2,7 @@
 #include <DockspaceUIComponent.h>
 #include <ZEngine/Logging/LoggerDefinition.h>
 #include <Event/EventDispatcher.h>
-#include <imgui/src/imgui_internal.h>
+#include <imgui_internal.h>
 #include <MessageToken.h>
 #include <Messengers/Messenger.h>
 #include <Helpers/WindowsHelper.h>

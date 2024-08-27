@@ -9,12 +9,12 @@
 #ifdef __GNUC__
 #define STBI_NO_SIMD
 #endif
-#include <stb/stb_image.h>
+#include <stb_image.h>
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STB_IMAGE_RESIZE_IMPLEMENTATION
-#include <stb/stb_image_write.h>
-#include <stb/stb_image_resize.h>
+#include <stb_image_write.h>
+#include <deprecated/stb_image_resize.h>
 
 namespace ZEngine::Rendering::Textures
 {

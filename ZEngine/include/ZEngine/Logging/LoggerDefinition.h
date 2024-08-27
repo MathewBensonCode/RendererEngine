@@ -10,4 +10,4 @@
 
 #define ZENGINE_CORE_ERROR(...) ::ZEngine::Logging::Logger::Error(fmt::format(__VA_ARGS__)); \
 
-#define ZENGINE_CORE_CRITICAL(...) ::ZEngine::Logging::Logger::Critical(fmt::format(__VA_ARGS__)); \
+#define ZENGINE_CORE_CRITICAL(...) ::ZEngine::Logging::Logger::Critical(fmt::format(__VA_ARGS__));

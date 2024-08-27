@@ -64,7 +64,8 @@ FetchContent_Declare(
   spirv
   GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Cross
   GIT_TAG vulkan-sdk-1.3.268.0
-  FIND_PACKAGE_ARGS NAMES spirv_cross_core REQUIRED)
+  # FIND_PACKAGE_ARGS NAMES spirv_cross_core REQUIRED
+  )
 
 FetchContent_Declare(
   VulkanMemoryAllocator
@@ -123,6 +124,8 @@ target_link_libraries(imguizmo PUBLIC imgui)
 
 add_library (imported::External_libs INTERFACE IMPORTED)
 
+target_include_directories(imported::External_libs INTERFACE ${FETCHCONTENT_BASE_DIR}/stbimage-src)
+
 target_link_libraries(imported::External_libs INTERFACE
 	vulkan
 	fmt
@@ -134,10 +137,10 @@ target_link_libraries(imported::External_libs INTERFACE
 	assimp
 	stduuid
 	yaml-cpp
-	spirv-cross-reflect 
+    spirv
+    spirv-cross-cpp
     spirv-cross-glsl
 	GPUOpen::VulkanMemoryAllocator
 	glslang  
-    SPIRV
 	SPIRV-Tools
 )

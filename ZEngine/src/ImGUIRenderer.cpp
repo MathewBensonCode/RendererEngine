@@ -3,7 +3,7 @@
 #include <Rendering/Textures/Texture2D.h>
 #include <Rendering/Renderers/GraphicRenderer.h>
 #include <backends/imgui_impl_vulkan.h>
-#include <ImGuizmo/ImGuizmo.h>
+#include <ImGuizmo.h>
 #include <Hardwares/VulkanDevice.h>
 #include <backends/imgui_impl_glfw.h>
 

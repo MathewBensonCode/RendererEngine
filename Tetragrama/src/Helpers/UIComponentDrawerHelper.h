@@ -1,6 +1,6 @@
 #pragma once
 #include <ZEngine.h>
-#include <imgui/src/imgui_internal.h>
+#include <imgui_internal.h>
 
 namespace Tetragrama::Helpers
 {

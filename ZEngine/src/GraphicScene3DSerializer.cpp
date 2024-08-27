@@ -31,6 +31,7 @@ namespace YAML {
             node.push_back(value.x);
             node.push_back(value.y);
             node.push_back(value.z);
+            return node;
         }
 
         static bool decode(const Node& node, glm::vec3& value) {
@@ -53,6 +54,7 @@ namespace YAML {
             node.push_back(value.y);
             node.push_back(value.z);
             node.push_back(value.w);
+            return node;
         }
 
         static bool decode(const Node& node, glm::vec4& value) {

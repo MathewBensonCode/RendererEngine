@@ -30,7 +30,7 @@ namespace ZEngine::Event {
         }
 
         virtual std::string ToString() const override {
-            return fmt::format("MouseButtonWheelEvent : {0}", m_button);
+            return fmt::format("MouseButtonWheelEvent : {0}", static_cast<int>(m_button));
         }
 
     private:

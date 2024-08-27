@@ -19,7 +19,7 @@ namespace ZEngine::Event {
             return GetStaticCategory();
         }
         virtual std::string ToString() const override {
-            return fmt::format("KeyPressedEvent : {0}, repeated count : {1}", this->m_keycode, m_repeat_count);
+            return fmt::format("KeyPressedEvent : {0}, repeated count : {1}", static_cast<int>(this->m_keycode), m_repeat_count);
         }
 
     protected:

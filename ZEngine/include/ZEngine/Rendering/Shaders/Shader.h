@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include <map>
 #include <ZEngineDef.h>
 #include <Rendering/Specifications/ShaderSpecification.h>

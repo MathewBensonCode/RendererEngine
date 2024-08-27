@@ -1,4 +1,3 @@
-#pragma once
 #include <pch.h>
 #include <Core/Coroutine.h>
 #include <Logging/LoggerDefinition.h>

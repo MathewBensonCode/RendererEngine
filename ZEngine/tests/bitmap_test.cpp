@@ -3,8 +3,8 @@
 #include <cmath>
 #include <Rendering/Buffers/Bitmap.h>
 
-#include <stb/stb_image.h>
-#include <stb/stb_image_write.h>
+#include <stb_image.h>
+#include <stb_image_write.h>
 
 using namespace ZEngine::Rendering::Buffers;
 
