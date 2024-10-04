@@ -48,7 +48,7 @@ endif()
 
 # Launcher is here
 #
-add_subdirectory (Panzerfaust)
+#add_subdirectory (Panzerfaust)
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 	set_property (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Panzerfaust)
@@ -69,17 +69,9 @@ elseif (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
 	endif ()
 endif ()
 
-add_custom_target (AssembleContent ALL
-	COMMENT "Copying assets and resources contents"
-	COMMAND pwsh ${CMAKE_CURRENT_SOURCE_DIR}/Scripts/PostBuild.ps1 -SystemName ${SYSTEM_NAME} -Architectures ${SYSTEM_ARCHITECTURE} -Configurations $<IF:$<CONFIG:Debug>,Debug,Release> $<$<BOOL:${LAUNCHER_ONLY}>:-LauncherOnly>
-)
-
-if (NOT LAUNCHER_ONLY)
-	add_dependencies(AssembleContent zEngineLib tetragrama)
-endif ()
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 	add_dependencies(AssembleContent Panzerfaust-WinBuild)
 else ()
-	add_dependencies(AssembleContent Panzerfaust)
+    #	add_dependencies(AssembleContent Panzerfaust)
 endif ()

@@ -5,7 +5,7 @@ include(FetchContent)
 FetchContent_Declare(
   fmt
   GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-  FIND_PACKAGE_ARGS NAMES fmt REQUIRED
+  FIND_PACKAGE_ARGS REQUIRED
   )
 
 FetchContent_Declare(
@@ -20,20 +20,20 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE)
 
 FetchContent_Declare(
-  glfw
+  glfw3
   GIT_REPOSITORY https://github.com/glfw/glfw.git
-  FIND_PACKAGE_ARGS NAMES glfw3 REQUIRED)
+  FIND_PACKAGE_ARGS REQUIRED)
 
 FetchContent_Declare(
   spdlog
   GIT_REPOSITORY https://github.com/gabime/spdlog.git
-  FIND_PACKAGE_ARGS NAMES spdlog REQUIRED)
+  FIND_PACKAGE_ARGS REQUIRED)
 
 FetchContent_Declare(
   glm
   GIT_REPOSITORY https://github.com/g-truc/glm.git
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS NAMES glm REQUIRED)
+  FIND_PACKAGE_ARGS REQUIRED)
 
 FetchContent_Declare(entt GIT_REPOSITRY https://github.com/skypjack/entt.git
                           FIND_PACKAGE_ARGS NAMES EnTT REQUIRED)
@@ -61,10 +61,13 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE)
 
 FetchContent_Declare(
-  spirv
-  GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Cross
-  GIT_TAG vulkan-sdk-1.3.268.0
-  # FIND_PACKAGE_ARGS NAMES spirv_cross_core REQUIRED
+  spirv_cross_core
+  FIND_PACKAGE_ARGS REQUIRED
+  )
+
+FetchContent_Declare(
+  spirv_cross_glsl
+  FIND_PACKAGE_ARGS REQUIRED
   )
 
 FetchContent_Declare(
@@ -74,11 +77,21 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE
   )
 
+FetchContent_Declare(
+    glslang
+    FIND_PACKAGE_ARGS REQUIRED 
+)
+
+FetchContent_Declare(
+    SPIRV-Tools
+    FIND_PACKAGE_ARGS REQUIRED
+)
+
 FetchContent_MakeAvailable(
   fmt
   imgui
   stbimage
-  glfw
+  glfw3
   spdlog
   glm
   entt
@@ -86,8 +99,12 @@ FetchContent_MakeAvailable(
   stduuid
   yaml-cpp
   ImGuizmo
-  spirv
-  VulkanMemoryAllocator)
+  spirv_cross_core
+  spirv_cross_glsl
+  VulkanMemoryAllocator
+  glslang
+  SPIRV-Tools
+  )
 
 find_package(Vulkan REQUIRED)
 
@@ -128,19 +145,18 @@ target_include_directories(imported::External_libs INTERFACE ${FETCHCONTENT_BASE
 
 target_link_libraries(imported::External_libs INTERFACE
 	vulkan
-	fmt
-	glm
+	fmt::fmt
+	glm::glm
 	imguizmo
-	spdlog
+	spdlog::spdlog
 	glfw
-	EnTT
-	assimp
+    EnTT::EnTT
+	assimp::assimp
 	stduuid
-	yaml-cpp
-    spirv
-    spirv-cross-cpp
+	yaml-cpp::yaml-cpp
+    spirv-cross-core
     spirv-cross-glsl
+    glslang::SPIRV
 	GPUOpen::VulkanMemoryAllocator
-	glslang  
 	SPIRV-Tools
 )

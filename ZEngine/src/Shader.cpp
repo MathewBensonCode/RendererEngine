@@ -22,7 +22,7 @@ namespace ZEngine::Rendering::Shaders
 namespace ZEngine::Rendering::Shaders
 {
 
-    Shader::Shader(const Specifications::ShaderSpecification& spec) : m_specification(spec)
+    Shader::Shader(const Specifications::ShaderSpecificationClass& spec) : m_specification(spec)
     {
         CreateModule();
         CreateDescriptorSetLayouts();
@@ -72,7 +72,7 @@ namespace ZEngine::Rendering::Shaders
                 uint32_t binding = spirv_compiler->get_decoration(UB_resource.id, spv::DecorationBinding);
 
                 m_layout_binding_specification_map[set].emplace_back(LayoutBindingSpecification{
-                    .Set = set, .Binding = binding, .Name = UB_resource.name, .DescriptorType = DescriptorType::UNIFORM_BUFFER, .Flags = ShaderStageFlags::VERTEX});
+                    .Set = set, .Binding = binding, .Name = UB_resource.name, .DescriptorType = DescriptorTypeEnum::UNIFORM_BUFFER, .Flags = ShaderStageFlags::VERTEX});
             }
 
             for (const auto& SB_resource : vertex_resources.storage_buffers)
@@ -81,7 +81,7 @@ namespace ZEngine::Rendering::Shaders
                 uint32_t binding = spirv_compiler->get_decoration(SB_resource.id, spv::DecorationBinding);
 
                 m_layout_binding_specification_map[set].emplace_back(LayoutBindingSpecification{
-                    .Set = set, .Binding = binding, .Name = SB_resource.name, .DescriptorType = DescriptorType::STORAGE_BUFFER, .Flags = ShaderStageFlags::VERTEX});
+                    .Set = set, .Binding = binding, .Name = SB_resource.name, .DescriptorType = DescriptorTypeEnum::STORAGE_BUFFER, .Flags = ShaderStageFlags::VERTEX});
             }
 
             for (const auto& pushConstant_resource : vertex_resources.push_constant_buffers)
@@ -134,7 +134,7 @@ namespace ZEngine::Rendering::Shaders
                 uint32_t binding = spirv_compiler->get_decoration(UB_resource.id, spv::DecorationBinding);
 
                 m_layout_binding_specification_map[set].emplace_back(LayoutBindingSpecification{
-                    .Set = set, .Binding = binding, .Name = UB_resource.name, .DescriptorType = DescriptorType::UNIFORM_BUFFER, .Flags = ShaderStageFlags::FRAGMENT});
+                    .Set = set, .Binding = binding, .Name = UB_resource.name, .DescriptorType = DescriptorTypeEnum::UNIFORM_BUFFER, .Flags = ShaderStageFlags::FRAGMENT});
             }
 
             for (const auto& SB_resource : fragment_resources.storage_buffers)
@@ -143,7 +143,7 @@ namespace ZEngine::Rendering::Shaders
                 uint32_t binding = spirv_compiler->get_decoration(SB_resource.id, spv::DecorationBinding);
 
                 m_layout_binding_specification_map[set].emplace_back(LayoutBindingSpecification{
-                    .Set = set, .Binding = binding, .Name = SB_resource.name, .DescriptorType = DescriptorType::STORAGE_BUFFER, .Flags = ShaderStageFlags::FRAGMENT});
+                    .Set = set, .Binding = binding, .Name = SB_resource.name, .DescriptorType = DescriptorTypeEnum::STORAGE_BUFFER, .Flags = ShaderStageFlags::FRAGMENT});
             }
 
             for (const auto& pushConstant_resource : fragment_resources.push_constant_buffers)
@@ -190,7 +190,7 @@ namespace ZEngine::Rendering::Shaders
                     .Binding        = binding,
                     .Count          = count,
                     .Name           = SI_resource.name,
-                    .DescriptorType = DescriptorType::COMBINED_IMAGE_SAMPLER,
+                    .DescriptorType = DescriptorTypeEnum::COMBINED_IMAGE_SAMPLER,
                     .Flags          = ShaderStageFlags::FRAGMENT});
             }
         }
@@ -420,12 +420,12 @@ namespace ZEngine::Rendering::Shaders
         m_push_constant_specification_collection.shrink_to_fit();
     }
 
-    Ref<Shader> Shader::Create(Specifications::ShaderSpecification&& spec)
+    Ref<Shader> Shader::Create(Specifications::ShaderSpecificationClass&& spec)
     {
         return CreateRef<Shader>(std::move(spec));
     }
 
-    Ref<Shader> Shader::Create(const Specifications::ShaderSpecification& spec)
+    Ref<Shader> Shader::Create(const Specifications::ShaderSpecificationClass& spec)
     {
         return CreateRef<Shader>(spec);
     }

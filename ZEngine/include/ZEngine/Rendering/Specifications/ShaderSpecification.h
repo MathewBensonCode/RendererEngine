@@ -4,7 +4,7 @@
 
 namespace ZEngine::Rendering::Specifications
 {
-    enum class DescriptorType : uint32_t
+    enum class DescriptorTypeEnum : uint32_t
     {
         SAMPLER = 0,
         COMBINED_IMAGE_SAMPLER,
@@ -58,7 +58,7 @@ namespace ZEngine::Rendering::Specifications
         uint32_t         Binding{0xFFFFFFFF};
         uint32_t         Count{1};
         std::string      Name;
-        DescriptorType   DescriptorType;
+        DescriptorTypeEnum   DescriptorType;
         ShaderStageFlags Flags;
     };
 
@@ -70,7 +70,7 @@ namespace ZEngine::Rendering::Specifications
         ShaderStageFlags Flags;
     };
 
-    struct ShaderSpecification
+    struct ShaderSpecificationClass
     {
         uint32_t    OverloadMaxSet   = 1;
         uint32_t    OverloadPoolSize = 0;

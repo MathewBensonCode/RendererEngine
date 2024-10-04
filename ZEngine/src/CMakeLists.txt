@@ -23,7 +23,7 @@ target_include_directories (zEngineLib
 		${PROJECT_SOURCE_DIR}/include/ZEngine
 )
 
-#target_precompile_headers(zEngineLib PRIVATE ${PROJECT_SOURCE_DIR}/include/ZEngine/pch.h)
+target_precompile_headers(zEngineLib PRIVATE ${PROJECT_SOURCE_DIR}/include/ZEngine/pch.h)
 
 if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
 	target_compile_definitions (zEngineLib PUBLIC ENABLE_VULKAN_VALIDATION_LAYER)

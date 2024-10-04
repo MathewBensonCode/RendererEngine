@@ -6,7 +6,7 @@ namespace ZEngine::Managers
 {
     std::unordered_map<std::string, Ref<Rendering::Shaders::Shader>> ShaderManager::s_shader_mappings = {};
 
-    Ref<Rendering::Shaders::Shader> ShaderManager::Get(ZEngine::Rendering::Specifications::ShaderSpecification& spec)
+    Ref<Rendering::Shaders::Shader> ShaderManager::Get(ZEngine::Rendering::Specifications::ShaderSpecificationClass& spec)
     {
         auto& shader = s_shader_mappings[spec.Name];
         if (!shader)

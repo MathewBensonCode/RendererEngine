@@ -31,7 +31,7 @@ namespace ZEngine::Managers
         static const std::string GetFragmentFilename(std::string_view key);
         static const std::string GetVertexFilename(std::string_view key);
 
-        static Ref<Rendering::Shaders::Shader> Get(ZEngine::Rendering::Specifications::ShaderSpecification& spec);
+        static Ref<Rendering::Shaders::Shader> Get(ZEngine::Rendering::Specifications::ShaderSpecificationClass& spec);
 
     private:
         static const std::string_view                                                     s_base_dir;

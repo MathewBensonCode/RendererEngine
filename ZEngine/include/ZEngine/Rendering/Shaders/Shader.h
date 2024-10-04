@@ -8,14 +8,14 @@ namespace ZEngine::Rendering::Shaders
     class Shader : public Helpers::RefCounted
     {
     public:
-        Shader(const Specifications::ShaderSpecification& spec);
+        Shader(const Specifications::ShaderSpecificationClass& spec);
         ~Shader();
 
         const std::vector<VkPipelineShaderStageCreateInfo>&                                GetStageCreateInfoCollection() const;
         const std::map<uint32_t, std::vector<Specifications::LayoutBindingSpecification>>& GetLayoutBindingSetMap() const;
         const std::vector<VkDescriptorSetLayoutBinding>&                                   GetLayoutBindingCollection() = delete;
-        const Specifications::ShaderSpecification&                                         GetSpecification() const     = delete;
-        Specifications::ShaderSpecification                                                GetSpecification()           = delete;
+        const Specifications::ShaderSpecificationClass&                                         GetSpecification() const     = delete;
+        Specifications::ShaderSpecificationClass                                                GetSpecification()           = delete;
         Specifications::LayoutBindingSpecification                                         GetLayoutBindingSpecification(std::string_view name) const;
         std::vector<VkDescriptorSetLayout>                                                 GetDescriptorSetLayout() const;
         std::vector<Specifications::LayoutBindingSpecification>                            GetLayoutBindingSpecificationCollection() const;
@@ -25,8 +25,8 @@ namespace ZEngine::Rendering::Shaders
         const std::vector<VkPushConstantRange>&                                            GetPushConstants() const;
         void                                                                               Dispose();
 
-        static Ref<Shader> Create(Specifications::ShaderSpecification&& spec);
-        static Ref<Shader> Create(const Specifications::ShaderSpecification& spec);
+        static Ref<Shader> Create(Specifications::ShaderSpecificationClass&& spec);
+        static Ref<Shader> Create(const Specifications::ShaderSpecificationClass& spec);
 
     private:
         void CreateModule();
@@ -34,7 +34,7 @@ namespace ZEngine::Rendering::Shaders
         void CreatePushConstantRange();
 
     private:
-        Specifications::ShaderSpecification                                         m_specification;
+        Specifications::ShaderSpecificationClass                                         m_specification;
         std::vector<VkDescriptorSetLayoutBinding>                                   m_layout_binding_collection;
         std::vector<VkShaderModule>                                                 m_shader_module_collection;
         std::vector<VkPipelineShaderStageCreateInfo>                                m_shader_create_info_collection;

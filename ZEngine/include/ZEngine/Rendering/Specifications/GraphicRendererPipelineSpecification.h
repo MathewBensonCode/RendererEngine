@@ -30,7 +30,7 @@ namespace ZEngine::Rendering::Specifications
         bool                                           EnableDepthWrite                   = true;
         bool                                           EnableStencilTest                  = false;
         const char*                                    DebugName                          = {};
-        ShaderSpecification                            ShaderSpecification                = {};
+        ShaderSpecificationClass                            ShaderSpecification                = {};
         Ref<Rendering::Buffers::FramebufferVNext>      TargetFrameBuffer                  = {};
         Ref<Rendering::Swapchain>                      SwapchainRenderTarget              = {};
         Ref<Renderers::RenderPasses::Attachment>       Attachment                         = {};
