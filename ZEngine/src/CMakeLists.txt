@@ -23,7 +23,7 @@ target_include_directories (zEngineLib
 		${PROJECT_SOURCE_DIR}/include/ZEngine
 )
 
-target_precompile_headers(zEngineLib PRIVATE ${PROJECT_SOURCE_DIR}/include/ZEngine/pch.h)
+target_precompile_headers(zEngineLib PUBLIC ${PROJECT_SOURCE_DIR}/include/ZEngine/pch.h)
 
 if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
 	target_compile_definitions (zEngineLib PUBLIC ENABLE_VULKAN_VALIDATION_LAYER)
@@ -36,13 +36,14 @@ target_compile_definitions (zEngineLib
 		YAML_CPP_STATIC_DEFINE
 )
 
+target_compile_definitions(zEngineLib PUBLIC GLM_ENABLE_EXPERIMENTAL)
+
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 	target_compile_definitions (zEngineLib PUBLIC VK_USE_PLATFORM_WIN32_KHR)
 endif()
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-    target_compile_definitions(zEngineLib PUBLIC GLM_ENABLE_EXPERIMENTAL)
-	target_link_libraries(zEngineLib PRIVATE stdc++fs)
+    target_link_libraries(zEngineLib PUBLIC stdc++fs)
 endif ()
 
 target_link_libraries (zEngineLib PUBLIC imported::External_libs)

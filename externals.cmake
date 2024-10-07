@@ -84,7 +84,7 @@ FetchContent_Declare(
 
 FetchContent_Declare(
     SPIRV-Tools
-    FIND_PACKAGE_ARGS REQUIRED
+    FIND_PACKAGE_ARGS
 )
 
 FetchContent_MakeAvailable(
@@ -144,7 +144,6 @@ add_library (imported::External_libs INTERFACE IMPORTED)
 target_include_directories(imported::External_libs INTERFACE ${FETCHCONTENT_BASE_DIR}/stbimage-src)
 
 target_link_libraries(imported::External_libs INTERFACE
-	vulkan
 	fmt::fmt
 	glm::glm
 	imguizmo
@@ -158,5 +157,5 @@ target_link_libraries(imported::External_libs INTERFACE
     spirv-cross-glsl
     glslang::SPIRV
 	GPUOpen::VulkanMemoryAllocator
-	SPIRV-Tools
+	SPIRV-Tools-static
 )

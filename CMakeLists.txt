@@ -44,7 +44,7 @@ endif()
 
 	# Editor is here
 	#
-	add_subdirectory (Tetragrama)
+    add_subdirectory (Tetragrama)
 
 # Launcher is here
 #
@@ -71,7 +71,7 @@ endif ()
 
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
-	add_dependencies(AssembleContent Panzerfaust-WinBuild)
+    #	add_dependencies(AssembleContent Panzerfaust-WinBuild)
 else ()
     #	add_dependencies(AssembleContent Panzerfaust)
 endif ()
