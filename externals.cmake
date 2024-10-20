@@ -37,7 +37,7 @@ FetchContent_Declare(
 
 FetchContent_Declare(
     EnTT 
-    GIT_REPOSITRY https://github.com/skypjack/entt.git
+    GIT_REPOSITORY https://github.com/skypjack/entt.git
     GIT_SHALLOW TRUE 
     FIND_PACKAGE_ARGS)
 
