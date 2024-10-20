@@ -35,20 +35,24 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE
   FIND_PACKAGE_ARGS REQUIRED)
 
-FetchContent_Declare(entt GIT_REPOSITRY https://github.com/skypjack/entt.git
-                          FIND_PACKAGE_ARGS NAMES EnTT REQUIRED)
+FetchContent_Declare(
+    EnTT 
+    GIT_REPOSITRY https://github.com/skypjack/entt.git
+    GIT_SHALLOW TRUE 
+    FIND_PACKAGE_ARGS)
 
 FetchContent_Declare(
   assimp
   GIT_REPOSITORY https://github.com/assimp/assimp.git
   GIT_TAG v5.3.0
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS NAMES assimp REQUIRED)
+  FIND_PACKAGE_ARGS)
 
 FetchContent_Declare(
   stduuid
   GIT_REPOSITORY https://github.com/mariusbancila/stduuid.git
-  FIND_PACKAGE_ARGS NAMES stduuid)
+  GIT_SHALLOW TRUE
+  FIND_PACKAGE_ARGS)
 
 FetchContent_Declare(
   yaml-cpp
