@@ -87,6 +87,11 @@ FetchContent_Declare(
     FIND_PACKAGE_ARGS REQUIRED
 )
 
+Fetchcontent_Declare(
+    GTest
+    FIND_PACKAGE_ARGS
+)
+
 FetchContent_MakeAvailable(
   fmt
   imgui
@@ -104,6 +109,7 @@ FetchContent_MakeAvailable(
   VulkanMemoryAllocator
   glslang
   SPIRV-Tools
+  GTest
   )
 
 find_package(Vulkan REQUIRED)
