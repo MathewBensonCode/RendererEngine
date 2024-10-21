@@ -2,7 +2,16 @@ cmake_minimum_required(VERSION 3.17)
 
 project(ZEngineTests)
 
-Find_Package(GTest REQUIRED)
+Fetchcontent_Declare(
+    GTest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_SHALLOW TRUE
+    FIND_PACKAGE_ARGS
+)
+
+Fetchcontent_Makeavailable(
+    GTest
+)
 
 enable_testing()
 
