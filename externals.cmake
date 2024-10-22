@@ -91,8 +91,11 @@ FetchContent_Declare(
     FIND_PACKAGE_ARGS REQUIRED
 )
 
+
 Fetchcontent_Declare(
     GTest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_SHALLOW TRUE
     FIND_PACKAGE_ARGS
 )
 
