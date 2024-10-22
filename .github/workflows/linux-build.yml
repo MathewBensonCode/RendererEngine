@@ -19,5 +19,12 @@ jobs:
     - name: Install development library
       run: sudo apt-get update && sudo apt-get install -y git libasound2-dev libgl1-mesa-dev libpulse-dev libdbus-1-dev libx11-dev libxcursor-dev libxext-dev libxi-dev libxinerama-dev libxrandr-dev libxss-dev libxt-dev libxxf86vm-dev cmake gcc g++ ninja-build libassimp-dev libfmt-dev libimgui-dev libstb-dev libglfw3-dev libspdlog-dev libglm-dev libyaml-cpp-dev libspirv-cross-c-shared-dev spirv-cross spirv-tools glslang-dev glslang-tools nlohmann-json3-dev
 
-    - name: CMake Build
-      run: mkdir ../build && cmake -B ../build -DCMAKE_BUILD_TYPE=Debug -G Ninja && cmake --build ../build
+    - name: Create CMake Build Directory
+      run: mkdir ../build && cmake -B ../build -DCMAKE_BUILD_TYPE=Debug -G Ninja
+
+    - name: Build
+      run: cmake --build ../build
+
+    - name: Test
+      run: ctest .
+      working-directory: ../build/ZEngine/tests
