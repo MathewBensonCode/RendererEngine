@@ -45,7 +45,8 @@ target_compile_definitions(${TARGET_NAME}
 
 target_link_libraries(${TARGET_NAME}
     PRIVATE
-        imported::zEngineLib
+    zEngineLib
+    nlohmann_json::nlohmann_json
 )
 
 set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME "zEngineEditor")

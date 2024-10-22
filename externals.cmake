@@ -5,6 +5,7 @@ include(FetchContent)
 FetchContent_Declare(
   fmt
   GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+  GIT_SHALLOW TRUE
   FIND_PACKAGE_ARGS REQUIRED
   )
 
@@ -22,11 +23,13 @@ FetchContent_Declare(
 FetchContent_Declare(
   glfw3
   GIT_REPOSITORY https://github.com/glfw/glfw.git
+  GIT_SHALLOW TRUE
   FIND_PACKAGE_ARGS REQUIRED)
 
 FetchContent_Declare(
   spdlog
   GIT_REPOSITORY https://github.com/gabime/spdlog.git
+  GIT_SHALLOW TRUE
   FIND_PACKAGE_ARGS REQUIRED)
 
 FetchContent_Declare(
@@ -57,6 +60,7 @@ FetchContent_Declare(
 FetchContent_Declare(
   yaml-cpp
   GIT_REPOSITORY https://github.com/jbeder/yaml-cpp
+  GIT_SHALLOW TRUE
   FIND_PACKAGE_ARGS NAMES yaml-cpp)
 
 FetchContent_Declare(
@@ -100,6 +104,14 @@ Fetchcontent_Declare(
     FIND_PACKAGE_ARGS
 )
 
+Fetchcontent_Declare(
+    nlohmann_json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_SHALLOW TRUE
+    FIND_PACKAGE_ARGS
+)
+
+
 FetchContent_MakeAvailable(
   fmt
   imgui
@@ -118,6 +130,7 @@ FetchContent_MakeAvailable(
   glslang
   SPIRV-Tools
   GTest
+  nlohmann_json
   )
 
 find_package(Vulkan REQUIRED)
