@@ -171,19 +171,20 @@ add_library (imported::External_libs INTERFACE IMPORTED)
 target_include_directories(imported::External_libs INTERFACE ${FETCHCONTENT_BASE_DIR}/stbimage-src)
 
 target_link_libraries(imported::External_libs INTERFACE
-	vulkan
 	fmt::fmt
 	glm::glm
 	imguizmo
 	spdlog::spdlog
-	glfw
     EnTT::EnTT
 	assimp::assimp
 	stduuid
 	yaml-cpp::yaml-cpp
     spirv-cross-core
     spirv-cross-glsl
+    glslang::glslang
+    glslang::glslang-default-resource-limits
     glslang::SPIRV
+    glslang::SPVRemapper
 	GPUOpen::VulkanMemoryAllocator
-	SPIRV-Tools
+	SPIRV-Tools-static
 )

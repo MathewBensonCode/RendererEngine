@@ -41,8 +41,8 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 endif()
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-    target_compile_definitions(zEngineLib PUBLIC GLM_ENABLE_EXPERIMENTAL)
 	target_link_libraries(zEngineLib PRIVATE stdc++fs)
 endif ()
 
+target_compile_definitions(zEngineLib PUBLIC GLM_ENABLE_EXPERIMENTAL)
 target_link_libraries (zEngineLib PUBLIC imported::External_libs)
