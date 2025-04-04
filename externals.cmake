@@ -70,12 +70,9 @@ FetchContent_Declare(
 
 FetchContent_Declare(
   spirv_cross_core
-  FIND_PACKAGE_ARGS REQUIRED
-  )
-
-FetchContent_Declare(
-  spirv_cross_glsl
-  FIND_PACKAGE_ARGS REQUIRED
+  GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Cross.git
+  GIT_TAG vulkan-sdk-1.4.309.0
+  GIT_SHALLOW TRUE
   )
 
 FetchContent_Declare(
@@ -125,7 +122,6 @@ FetchContent_MakeAvailable(
   yaml-cpp
   ImGuizmo
   spirv_cross_core
-  spirv_cross_glsl
   VulkanMemoryAllocator
   glslang
   SPIRV-Tools
@@ -180,11 +176,9 @@ target_link_libraries(imported::External_libs INTERFACE
 	stduuid
 	yaml-cpp::yaml-cpp
     spirv-cross-core
-    spirv-cross-glsl
     glslang::glslang
     glslang::glslang-default-resource-limits
     glslang::SPIRV
     glslang::SPVRemapper
 	GPUOpen::VulkanMemoryAllocator
-	SPIRV-Tools-static
 )
