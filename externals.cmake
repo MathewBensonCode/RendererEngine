@@ -61,7 +61,8 @@ FetchContent_Declare(
   yaml-cpp
   GIT_REPOSITORY https://github.com/jbeder/yaml-cpp
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS NAMES yaml-cpp)
+  FIND_PACKAGE_ARGS
+  )
 
 FetchContent_Declare(
   ImGuizmo
@@ -69,10 +70,11 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE)
 
 FetchContent_Declare(
-  spirv_cross_core
+  SPIRV-Cross
   GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Cross.git
   GIT_TAG vulkan-sdk-1.4.309.0
   GIT_SHALLOW TRUE
+  FIND_PACKAGE_ARGS
   )
 
 FetchContent_Declare(
@@ -80,6 +82,7 @@ FetchContent_Declare(
   GIT_REPOSITORY
     https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
   GIT_SHALLOW TRUE
+  FIND_PACKAGE_ARGS
   )
 
 FetchContent_Declare(
@@ -121,7 +124,7 @@ FetchContent_MakeAvailable(
   stduuid
   yaml-cpp
   ImGuizmo
-  spirv_cross_core
+  SPIRV-Cross
   VulkanMemoryAllocator
   glslang
   SPIRV-Tools
