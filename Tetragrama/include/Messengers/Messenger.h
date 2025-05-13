@@ -6,7 +6,7 @@
 #include <vector>
 #include <mutex>
 #include <Components/UIComponent.h>
-#include <Message.h>
+#include <Messengers/Message.h>
 #include <ZEngine/Core/Coroutine.h>
 
 namespace Tetragrama::Messengers

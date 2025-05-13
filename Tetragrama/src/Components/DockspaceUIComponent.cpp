@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <DockspaceUIComponent.h>
 #include <ZEngine/Logging/LoggerDefinition.h>
 #include <Event/EventDispatcher.h>

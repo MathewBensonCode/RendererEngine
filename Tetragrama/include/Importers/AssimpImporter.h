@@ -1,5 +1,5 @@
 #pragma once
-#include <IAssetImporter.h>
+#include <Importers/IAssetImporter.h>
 #include <assimp/Importer.hpp>
 #include <assimp/ProgressHandler.hpp>
 #include <assimp/scene.h>

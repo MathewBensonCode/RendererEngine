@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <Rendering/Materials/BasicMaterial.h>
 
 namespace ZEngine::Rendering::Materials {

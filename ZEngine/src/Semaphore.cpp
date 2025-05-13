@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <Rendering/Primitives/Semaphore.h>
 #include <Hardwares/VulkanDevice.h>
 

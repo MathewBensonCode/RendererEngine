@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <vulkan/vulkan.h>
 #include <spirv_cross.hpp>
 #include <Hardwares/VulkanDevice.h>

@@ -1,5 +1,8 @@
-#include <pch.h>
-#include "Editor.h"
+#include <fstream>
+#include <string>
+#include <string_view>
+#include <filesystem>
+#include <Editor.h>
 #include "nlohmann/json.hpp"
 
 #ifdef ZENGINE_PLATFORM

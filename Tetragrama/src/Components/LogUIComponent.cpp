@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <LogUIComponent.h>
 
 using namespace ZEngine::Logging;

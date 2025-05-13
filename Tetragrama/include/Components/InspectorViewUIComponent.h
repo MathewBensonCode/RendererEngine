@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <mutex>
-#include <ZEngine/ZEngine.h>
-#include <Message.h>
+#include <ZEngine.h>
+#include <Messengers/Message.h>
 
 namespace Tetragrama::Components
 {

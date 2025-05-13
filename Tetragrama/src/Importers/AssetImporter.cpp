@@ -1,5 +1,8 @@
-#include <pch.h>
-#include <IAssetImporter.h>
+#include <filesystem>
+#include <string>
+#include <fstream>
+#include <vector>
+#include <Importers/IAssetImporter.h>
 #include <fmt/format.h>
 
 namespace fs = std::filesystem;

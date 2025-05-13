@@ -1,6 +1,5 @@
-#include <pch.h>
-#include <ZEngine.h>
-#include <WindowsHelper.h>
+#include <ZEngine/ZEngine.h>
+#include <Helpers/WindowsHelper.h>
 
 #ifdef _WIN32
 #include <shobjidl.h>

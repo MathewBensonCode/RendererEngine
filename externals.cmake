@@ -42,27 +42,26 @@ FetchContent_Declare(
     EnTT 
     GIT_REPOSITORY https://github.com/skypjack/entt.git
     GIT_SHALLOW TRUE 
-    FIND_PACKAGE_ARGS)
+  FIND_PACKAGE_ARGS REQUIRED)
 
 FetchContent_Declare(
   assimp
   GIT_REPOSITORY https://github.com/assimp/assimp.git
   GIT_TAG v5.3.0
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS)
+  FIND_PACKAGE_ARGS REQUIRED)
 
 FetchContent_Declare(
   stduuid
   GIT_REPOSITORY https://github.com/mariusbancila/stduuid.git
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS)
+  FIND_PACKAGE_ARGS REQUIRED)
 
 FetchContent_Declare(
   yaml-cpp
   GIT_REPOSITORY https://github.com/jbeder/yaml-cpp
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS
-  )
+  FIND_PACKAGE_ARGS REQUIRED)
 
 FetchContent_Declare(
   ImGuizmo
@@ -70,20 +69,18 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE)
 
 FetchContent_Declare(
-  SPIRV-Cross
+  spirv_cross_core
   GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Cross.git
   GIT_TAG vulkan-sdk-1.4.309.0
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS
-  )
+  FIND_PACKAGE_ARGS REQUIRED)
 
 FetchContent_Declare(
   VulkanMemoryAllocator
   GIT_REPOSITORY
     https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS
-  )
+  FIND_PACKAGE_ARGS REQUIRED)
 
 FetchContent_Declare(
     glslang
@@ -99,18 +96,14 @@ FetchContent_Declare(
 Fetchcontent_Declare(
     GTest
     GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG v1.15.2
     GIT_SHALLOW TRUE
-    FIND_PACKAGE_ARGS
-)
+    FIND_PACKAGE_ARGS REQUIRED)
 
 Fetchcontent_Declare(
-    nlohmann_json
+  nlohmann_json
     GIT_REPOSITORY https://github.com/nlohmann/json.git
     GIT_SHALLOW TRUE
-    FIND_PACKAGE_ARGS
-)
-
+    FIND_PACKAGE_ARGS REQUIRED)
 
 FetchContent_MakeAvailable(
   fmt
@@ -119,12 +112,12 @@ FetchContent_MakeAvailable(
   glfw3
   spdlog
   glm
-  entt
+  EnTT
   assimp
   stduuid
   yaml-cpp
   ImGuizmo
-  SPIRV-Cross
+  spirv_cross_core
   VulkanMemoryAllocator
   glslang
   SPIRV-Tools

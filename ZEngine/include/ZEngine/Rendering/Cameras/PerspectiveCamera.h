@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <utility>
 #include <Rendering/Cameras/Camera.h>
 
 namespace ZEngine::Rendering::Cameras

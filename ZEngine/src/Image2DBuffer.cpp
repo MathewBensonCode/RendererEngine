@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <Rendering/Buffers/Image2DBuffer.h>
 
 namespace ZEngine::Rendering::Buffers

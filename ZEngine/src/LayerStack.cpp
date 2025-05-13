@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <Layers/LayerStack.h>
 
 namespace ZEngine::Layers

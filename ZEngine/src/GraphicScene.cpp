@@ -1,5 +1,4 @@
-﻿#include <pch.h>
-#include <Rendering/Scenes/GraphicScene.h>
+﻿#include <Rendering/Scenes/GraphicScene.h>
 #include <Core/Coroutine.h>
 #include <Rendering/Renderers/GraphicRenderer.h>
 #include <Rendering/Textures/Texture2D.h>

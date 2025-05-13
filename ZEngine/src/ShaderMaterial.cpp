@@ -1,5 +1,5 @@
-#include <pch.h>
 #include <Rendering/Materials/ShaderMaterial.h>
+    
 
 namespace ZEngine::Rendering::Materials {
 

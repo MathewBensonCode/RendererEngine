@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <ZEngineDef.h>
 #include <Rendering/Pools/CommandPool.h>
 #include <Hardwares/VulkanDevice.h>

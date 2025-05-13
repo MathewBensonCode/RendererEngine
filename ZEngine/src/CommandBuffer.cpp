@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <Rendering/Buffers/CommandBuffer.h>
 #include <Rendering/ResourceTypes.h>
 #include <Hardwares/VulkanDevice.h>

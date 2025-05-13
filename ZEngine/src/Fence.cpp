@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <Rendering/Primitives/Fence.h>
 #include <Hardwares/VulkanDevice.h>
 

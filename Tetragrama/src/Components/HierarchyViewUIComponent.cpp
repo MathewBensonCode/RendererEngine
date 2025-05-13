@@ -1,6 +1,5 @@
-#include <pch.h>
-#include <HierarchyViewUIComponent.h>
-#include <Messenger.h>
+#include <Components/HierarchyViewUIComponent.h>
+#include <Messengers/Messenger.h>
 #include <MessageToken.h>
 
 using namespace ZEngine;

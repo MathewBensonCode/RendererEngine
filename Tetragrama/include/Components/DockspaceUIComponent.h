@@ -1,6 +1,6 @@
 #pragma once
 #include <ZEngine/ZEngine.h>
-#include <Message.h>
+#include <Messengers/Message.h>
 #include <Importers/IAssetImporter.h>
 #include <Serializers/EditorSceneSerializer.h>
 

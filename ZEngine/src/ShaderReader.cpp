@@ -1,4 +1,4 @@
-#include <pch.h>
+#include <string_view>
 #include <Core/Coroutine.h>
 #include <Logging/LoggerDefinition.h>
 #include <Rendering/Shaders/ShaderReader.h>

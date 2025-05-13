@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <Window/CoreWindow.h>
 #include <ZEngineDef.h>
 #include <Window/GlfwWindow/VulkanWindow.h>

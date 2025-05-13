@@ -1,4 +1,7 @@
-#include <pch.h>
+#include <filesystem>
+#include <fmt/format.h>
+#include <fstream>
+#include <string>
 #include <Core/Coroutine.h>
 #include <Logging/LoggerDefinition.h>
 #include <Rendering/Shaders/Compilers/ShaderFileGenerator.h>

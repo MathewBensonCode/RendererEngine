@@ -1,5 +1,4 @@
-#include <pch.h>
-#include <AssimpImporter.h>
+#include <Importers/AssimpImporter.h>
 #include <assimp/postprocess.h>
 #include <Core/Coroutine.h>
 #include <Helpers/ThreadPool.h>

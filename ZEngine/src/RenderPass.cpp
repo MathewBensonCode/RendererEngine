@@ -1,4 +1,8 @@
-#include <pch.h>
+#include <string_view>
+#include <numeric>
+#include <algorithm>
+#include <iterator>
+#include <unordered_set>
 #include <Rendering/Renderers/RenderPasses/RenderPass.h>
 #include <Hardwares/VulkanDevice.h>
 #include <Engine.h>
@@ -335,7 +339,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
                 return;
             }
             m_input_collection.emplace_back(PassInput{
-                .Set = binding_spec.Set, .Binding = binding_spec.Binding, .DebugName = binding_spec.Name, .Type = PassInputType::UNIFORM_BUFFER_SET, .Input = buffer.get()});
+                .Set = binding_spec.Set, .Binding = binding_spec.Binding, .DebugName = binding_spec.Name, .Type = PassInputType::UNIFORM_BUFFER_SET, .Input = {buffer.get()}});
 
             m_perform_update = true;
         }
@@ -357,7 +361,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
                 return;
             }
             m_input_collection.emplace_back(PassInput{
-                .Set = binding_spec.Set, .Binding = binding_spec.Binding, .DebugName = binding_spec.Name, .Type = PassInputType::STORAGE_BUFFER_SET, .Input = buffer.get()});
+                .Set = binding_spec.Set, .Binding = binding_spec.Binding, .DebugName = binding_spec.Name, .Type = PassInputType::STORAGE_BUFFER_SET, .Input = {buffer.get()}});
 
             m_perform_update = true;
         }
@@ -379,7 +383,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
                 return;
             }
             m_input_collection.emplace_back(
-                PassInput{.Set = binding_spec.Set, .Binding = binding_spec.Binding, .DebugName = binding_spec.Name, .Type = PassInputType::TEXTURE_ARRAY, .Input = textures.get()});
+                PassInput{.Set = binding_spec.Set, .Binding = binding_spec.Binding, .DebugName = binding_spec.Name, .Type = PassInputType::TEXTURE_ARRAY, .Input = {textures.get()}});
 
             m_perform_update = true;
         }
@@ -401,7 +405,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
                 return;
             }
             m_input_collection.emplace_back(
-                PassInput{.Set = binding_spec.Set, .Binding = binding_spec.Binding, .DebugName = binding_spec.Name, .Type = PassInputType::UNIFORM_BUFFER, .Input = buffer.get()});
+                PassInput{.Set = binding_spec.Set, .Binding = binding_spec.Binding, .DebugName = binding_spec.Name, .Type = PassInputType::UNIFORM_BUFFER, .Input = {buffer.get()}});
 
             m_perform_update = true;
         }
@@ -423,7 +427,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
                 return;
             }
             m_input_collection.emplace_back(
-                PassInput{.Set = binding_spec.Set, .Binding = binding_spec.Binding, .DebugName = binding_spec.Name, .Type = PassInputType::STORAGE_BUFFER, .Input = buffer.get()});
+                PassInput{.Set = binding_spec.Set, .Binding = binding_spec.Binding, .DebugName = binding_spec.Name, .Type = PassInputType::STORAGE_BUFFER, .Input = {buffer.get()}});
 
             m_perform_update = true;
         }
@@ -445,7 +449,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
                 return;
             }
             m_input_collection.emplace_back(
-                PassInput{.Set = binding_spec.Set, .Binding = binding_spec.Binding, .DebugName = binding_spec.Name, .Type = PassInputType::TEXTURE, .Input = buffer.get()});
+                PassInput{.Set = binding_spec.Set, .Binding = binding_spec.Binding, .DebugName = binding_spec.Name, .Type = PassInputType::TEXTURE, .Input = {buffer.get()}});
 
             m_perform_update = true;
         }

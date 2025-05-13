@@ -2,7 +2,7 @@
 #include <string>
 #include <mutex>
 #include <ZEngine/ZEngine.h>
-#include <Message.h>
+#include <Messengers/Message.h>
 #include <EditorCameraController.h>
 
 namespace Tetragrama::Components

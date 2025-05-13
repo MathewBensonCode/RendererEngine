@@ -1,6 +1,5 @@
-#include <pch.h>
-#include <InspectorViewUIComponent.h>
-#include <UIComponentDrawerHelper.h>
+#include <Components/InspectorViewUIComponent.h>
+#include <Helpers/UIComponentDrawerHelper.h>
 #include <ZEngine/Helpers/MeshHelper.h>
 
 #ifndef GLM_ENABLE_EXPERIMENTAL

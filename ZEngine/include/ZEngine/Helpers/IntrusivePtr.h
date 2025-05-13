@@ -97,12 +97,12 @@ namespace ZEngine::Helpers
     public:
         IntrusivePtr() noexcept = default;
         IntrusivePtr(std::nullptr_t) noexcept {}
-        IntrusivePtr(T* ptr) noexcept(noexcept(T::IncrementRefCount(m_ptr))) : m_ptr(ptr)
+        IntrusivePtr(T* ptr) noexcept : m_ptr(ptr)
         {
             T::IncrementRefCount(m_ptr);
         }
 
-        IntrusivePtr(const IntrusivePtr& other) noexcept(noexcept(T::IncrementRefCount(m_ptr))) : m_ptr(other.m_ptr)
+        IntrusivePtr(const IntrusivePtr& other) noexcept : m_ptr(other.m_ptr)
         {
             T::IncrementRefCount(m_ptr);
         }
@@ -110,7 +110,7 @@ namespace ZEngine::Helpers
         IntrusivePtr(IntrusivePtr&& other) noexcept : m_ptr(other.detach()) {}
 
         template <class U, typename = std::enable_if_t<std::convertible_to<U*, T*>>>
-        IntrusivePtr(const IntrusivePtr<U>& other) noexcept(noexcept(T::IncrementRefCount(m_ptr))) : m_ptr(other.get())
+        IntrusivePtr(const IntrusivePtr<U>& other) noexcept : m_ptr(other.get())
         {
             T::IncrementRefCount(m_ptr);
         }
@@ -211,7 +211,7 @@ namespace ZEngine::Helpers
             return current;
         }
 
-        void attach(T* ptr) noexcept(noexcept(IntrusivePtr<T>(ptr)))
+        void attach(T* ptr) noexcept
         {
             IntrusivePtr<T> p(ptr);
             T::DecrementRefCount(p.m_ptr); // reset the count back to original since IntrusivePtr will increment it
@@ -341,7 +341,7 @@ namespace ZEngine::Helpers
     public:
         IntrusiveWeakPtr() noexcept = default;
         IntrusiveWeakPtr(std::nullptr_t) noexcept {}
-        IntrusiveWeakPtr(const IntrusiveWeakPtr& other) noexcept(noexcept(T::IncrementWeakRefCount(m_ptr))) : m_ptr(other.m_ptr)
+        IntrusiveWeakPtr(const IntrusiveWeakPtr& other) noexcept : m_ptr(other.m_ptr)
         {
             T::IncrementWeakRefCount(m_ptr);
         }
