@@ -6,7 +6,7 @@ FetchContent_Declare(
   fmt
   GIT_REPOSITORY https://github.com/fmtlib/fmt.git
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS REQUIRED
+  FIND_PACKAGE_ARGS 
   )
 
 FetchContent_Declare(
@@ -24,44 +24,44 @@ FetchContent_Declare(
   glfw3
   GIT_REPOSITORY https://github.com/glfw/glfw.git
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS REQUIRED)
+  FIND_PACKAGE_ARGS )
 
 FetchContent_Declare(
   spdlog
   GIT_REPOSITORY https://github.com/gabime/spdlog.git
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS REQUIRED)
+  FIND_PACKAGE_ARGS )
 
 FetchContent_Declare(
   glm
   GIT_REPOSITORY https://github.com/g-truc/glm.git
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS REQUIRED)
+  FIND_PACKAGE_ARGS )
 
 FetchContent_Declare(
-    EnTT 
-    GIT_REPOSITORY https://github.com/skypjack/entt.git
-    GIT_SHALLOW TRUE 
-  FIND_PACKAGE_ARGS REQUIRED)
+  EnTT 
+  GIT_REPOSITORY https://github.com/skypjack/entt.git
+  GIT_SHALLOW TRUE 
+  FIND_PACKAGE_ARGS)
 
 FetchContent_Declare(
   assimp
   GIT_REPOSITORY https://github.com/assimp/assimp.git
   GIT_TAG v5.3.0
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS REQUIRED)
+  FIND_PACKAGE_ARGS )
 
 FetchContent_Declare(
   stduuid
   GIT_REPOSITORY https://github.com/mariusbancila/stduuid.git
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS REQUIRED)
+  FIND_PACKAGE_ARGS )
 
 FetchContent_Declare(
   yaml-cpp
   GIT_REPOSITORY https://github.com/jbeder/yaml-cpp
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS REQUIRED)
+  FIND_PACKAGE_ARGS )
 
 FetchContent_Declare(
   ImGuizmo
@@ -73,23 +73,23 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Cross.git
   GIT_TAG vulkan-sdk-1.4.309.0
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS REQUIRED)
+  FIND_PACKAGE_ARGS )
 
 FetchContent_Declare(
   VulkanMemoryAllocator
   GIT_REPOSITORY
     https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS REQUIRED)
+  FIND_PACKAGE_ARGS )
 
 FetchContent_Declare(
     glslang
-    FIND_PACKAGE_ARGS REQUIRED 
+    FIND_PACKAGE_ARGS  
 )
 
 FetchContent_Declare(
     SPIRV-Tools
-    FIND_PACKAGE_ARGS REQUIRED
+    FIND_PACKAGE_ARGS 
 )
 
 
@@ -97,13 +97,13 @@ Fetchcontent_Declare(
     GTest
     GIT_REPOSITORY https://github.com/google/googletest.git
     GIT_SHALLOW TRUE
-    FIND_PACKAGE_ARGS REQUIRED)
+    FIND_PACKAGE_ARGS )
 
 Fetchcontent_Declare(
   nlohmann_json
     GIT_REPOSITORY https://github.com/nlohmann/json.git
     GIT_SHALLOW TRUE
-    FIND_PACKAGE_ARGS REQUIRED)
+    FIND_PACKAGE_ARGS )
 
 FetchContent_MakeAvailable(
   fmt
@@ -125,7 +125,7 @@ FetchContent_MakeAvailable(
   nlohmann_json
   )
 
-find_package(Vulkan REQUIRED)
+  find_package(Vulkan REQUIRED)
 
 set(IMGUIDIR ${FETCHCONTENT_BASE_DIR}/imgui-src)
 
