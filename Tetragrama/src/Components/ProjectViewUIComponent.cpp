@@ -1,5 +1,5 @@
 #include <string_view>
-#include <ProjectViewUIComponent.h>
+#include <Components/ProjectViewUIComponent.h>
 
 namespace Tetragrama::Components {
     ProjectViewUIComponent::ProjectViewUIComponent(std::string_view name, bool visibility) : UIComponent(name, visibility, false) {}

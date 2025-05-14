@@ -76,7 +76,7 @@ FetchContent_Declare(
   FIND_PACKAGE_ARGS )
 
 FetchContent_Declare(
-  VulkanMemoryAllocator
+    VulkanMemoryAllocator
   GIT_REPOSITORY
     https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
   GIT_SHALLOW TRUE

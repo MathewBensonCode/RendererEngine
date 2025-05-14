@@ -9,9 +9,6 @@ project (ZEngine
 # Compiler verification in Linux
 #
 
-set (CMAKE_CXX_STANDARD_REQUIRED ON)
-set (CMAKE_CXX_EXTENSIONS OFF) 
-set	(CMAKE_CXX_STANDARD 20)
 
 # ZEngine source files
 #
@@ -74,6 +71,7 @@ src/UIComponent.cpp
 src/ValidationStage.cpp
 src/VulkanDevice.cpp
 src/VulkanLayer.cpp
+src/GlfwWindow/VulkanWindow.cpp
 )
 
 target_include_directories (zEngineLib
@@ -103,4 +101,5 @@ endif ()
 
 target_compile_definitions(zEngineLib PUBLIC GLM_ENABLE_EXPERIMENTAL)
 target_link_libraries (zEngineLib PUBLIC imported::External_libs)
+
 add_subdirectory(tests)

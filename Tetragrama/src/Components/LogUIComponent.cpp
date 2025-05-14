@@ -1,4 +1,4 @@
-#include <LogUIComponent.h>
+#include <Components/LogUIComponent.h>
 
 using namespace ZEngine::Logging;
 

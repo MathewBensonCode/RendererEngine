@@ -1,9 +1,13 @@
 cmake_minimum_required (VERSION 3.17 FATAL_ERROR)
 
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_CXX_EXTENSIONS OFF) 
+set	(CMAKE_CXX_STANDARD 20)
+
 project (RendererEngine
 	VERSION 1.0
 	DESCRIPTION "Renderer Engine is an open-source 2D - 3D rendering engine written in C/C++"
-	LANGUAGES CXX C
+	LANGUAGES CXX
 )
 
 set_property (GLOBAL PROPERTY USE_FOLDERS ON)

@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <Window/GlfwWindow/VulkanWindow.h>
 #include <Engine.h>
 #include <Inputs/KeyCode.h>

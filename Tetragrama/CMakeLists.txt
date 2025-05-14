@@ -37,12 +37,6 @@ endif ()
 target_include_directories (Tetragrama
 	PRIVATE
         include/
-        include/Components/
-        # include/Layers/
-        # include/Messengers/
-        # include/Helpers/
-        # include/Importers/
-        # include/Serializers/
 )
 
 target_compile_definitions(Tetragrama

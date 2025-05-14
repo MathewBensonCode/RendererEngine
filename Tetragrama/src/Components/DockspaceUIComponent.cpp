@@ -1,4 +1,4 @@
-#include <DockspaceUIComponent.h>
+#include <Components/DockspaceUIComponent.h>
 #include <ZEngine/Logging/LoggerDefinition.h>
 #include <Event/EventDispatcher.h>
 #include <imgui_internal.h>
