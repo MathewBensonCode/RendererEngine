@@ -1,12 +1,11 @@
-#include <ZEngineDef.h>
-#include <Core/Coroutine.h>
-#include <Helpers/MeshHelper.h>
-#include <Rendering/Renderers/Storages/IVertex.h>
-#include <Hardwares/VulkanDevice.h>
+#include <ZEngine/Core/Coroutine.h>
+#include <ZEngine/Hardwares/VulkanDevice.h>
+#include <ZEngine/Helpers/MathHelper.h>
+#include <ZEngine/Helpers/MeshHelper.h>
+#include <ZEngine/Rendering/Renderers/Storages/IVertex.h>
+#include <ZEngine/ZEngineDef.h>
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
-
-#include <Helpers/MathHelper.h>
 
 using namespace ZEngine::Rendering::Renderers;
 

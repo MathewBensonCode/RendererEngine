@@ -1,8 +1,8 @@
+#include <ZEngine/Core/Coroutine.h>
+#include <ZEngine/Logging/LoggerDefinition.h>
+#include <ZEngine/Rendering/Shaders/Compilers/CompilationStage.h>
+#include <ZEngine/Rendering/Shaders/Compilers/ShaderCompiler.h>
 #include <string_view>
-#include <Core/Coroutine.h>
-#include <Logging/LoggerDefinition.h>
-#include <Rendering/Shaders/Compilers/CompilationStage.h>
-#include <Rendering/Shaders/Compilers/ShaderCompiler.h>
 
 namespace ZEngine::Rendering::Shaders::Compilers
 {

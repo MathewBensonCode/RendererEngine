@@ -1,9 +1,9 @@
-#include <Layers/ImguiLayer.h>
-#include <ZEngineDef.h>
-#include <fmt/format.h>
+#include <ZEngine/Layers/ImguiLayer.h>
+#include <ZEngine/Logging/LoggerDefinition.h>
+#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
 #include <ZEngine/Window/GlfwWindow/VulkanWindow.h>
-#include <Logging/LoggerDefinition.h>
-#include <Rendering/Renderers/GraphicRenderer.h>
+#include <ZEngine/ZEngineDef.h>
+#include <fmt/format.h>
 
 using namespace ZEngine::Rendering::Renderers;
 
@@ -11,13 +11,9 @@ namespace ZEngine::Layers
 {
     bool ImguiLayer::m_initialized = false;
 
-    ImguiLayer::~ImguiLayer()
-    {
-    }
+    ImguiLayer::~ImguiLayer() {}
 
-    void ImguiLayer::Initialize()
-    {
-    }
+    void ImguiLayer::Initialize() {}
 
     void ImguiLayer::Deinitialize()
     {
@@ -79,14 +75,12 @@ namespace ZEngine::Layers
 
     void ImguiLayer::AddUIComponent(std::vector<Ref<Components::UI::UIComponent>>&& components)
     {
-        std::for_each(std::begin(components), std::end(components),
-            [this](Ref<Components::UI::UIComponent>& component)
+        std::for_each(std::begin(components), std::end(components), [this](Ref<Components::UI::UIComponent>& component) {
+            if (!component->HasParentLayer())
             {
-                if (!component->HasParentLayer())
-                {
-                    component->SetParentLayer(this);
-                }
-            });
+                component->SetParentLayer(this);
+            }
+        });
 
         std::move(std::begin(components), std::end(components), std::back_inserter(m_ui_components));
     }

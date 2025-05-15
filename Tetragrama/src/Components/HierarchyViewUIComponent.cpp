@@ -1,6 +1,7 @@
-#include <Components/HierarchyViewUIComponent.h>
-#include <Messengers/Messenger.h>
-#include <MessageToken.h>
+#include <Tetragrama/Components/HierarchyViewUIComponent.h>
+#include <Tetragrama/MessageToken.h>
+#include <Tetragrama/Messengers/Messenger.h>
+#include <ImGuizmo.h>
 
 using namespace ZEngine;
 using namespace ZEngine::Rendering::Components;
@@ -135,7 +136,7 @@ namespace Tetragrama::Components
             if (ImGuizmo::IsUsing())
             {
                 // ZEngine::Maths::Vector3 translation, rotation, scale;
-                 //ZEngine::Maths::DecomposeTransformComponent(transform, translation, rotation, scale);
+                // ZEngine::Maths::DecomposeTransformComponent(transform, translation, rotation, scale);
 
                 // entity_transform_component.SetPosition(translation);
                 // entity_transform_component.SetScaleSize(scale);

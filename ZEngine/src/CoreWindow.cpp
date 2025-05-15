@@ -1,8 +1,8 @@
+#include <ZEngine/Engine.h>
+#include <ZEngine/Window/CoreWindow.h>
+#include <ZEngine/Window/GlfwWindow/VulkanWindow.h>
+#include <ZEngine/ZEngineDef.h>
 #include <functional>
-#include <Window/CoreWindow.h>
-#include <ZEngineDef.h>
-#include <Window/GlfwWindow/VulkanWindow.h>
-#include <Engine.h>
 
 using namespace ZEngine;
 using namespace ZEngine::Event;
@@ -15,9 +15,7 @@ namespace ZEngine::Window
         m_layer_stack_ptr = CreateScope<LayerStack>();
     }
 
-    CoreWindow::~CoreWindow()
-    {
-    }
+    CoreWindow::~CoreWindow() {}
 
     void CoreWindow::PushOverlayLayer(const Ref<Layer>& layer)
     {

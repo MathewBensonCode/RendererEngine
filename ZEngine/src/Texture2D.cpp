@@ -1,10 +1,10 @@
-#include <vector>
+#include <ZEngine/Core/Coroutine.h>
+#include <ZEngine/Hardwares/VulkanDevice.h>
+#include <ZEngine/Rendering/Buffers/Bitmap.h>
+#include <ZEngine/Rendering/Primitives/ImageMemoryBarrier.h>
+#include <ZEngine/Rendering/Textures/Texture2D.h>
 #include <string_view>
-#include <Core/Coroutine.h>
-#include <Rendering/Textures/Texture2D.h>
-#include <Hardwares/VulkanDevice.h>
-#include <Rendering/Primitives/ImageMemoryBarrier.h>
-#include <Rendering/Buffers/Bitmap.h>
+#include <vector>
 
 #define STB_IMAGE_IMPLEMENTATION
 #ifdef __GNUC__
@@ -14,8 +14,8 @@
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STB_IMAGE_RESIZE_IMPLEMENTATION
-#include <stb_image_write.h>
 #include <deprecated/stb_image_resize.h>
+#include <stb_image_write.h>
 
 namespace ZEngine::Rendering::Textures
 {
@@ -115,7 +115,7 @@ namespace ZEngine::Rendering::Textures
 
     Ref<Texture2D> Texture2D::Create(const Specifications::TextureSpecification& spec)
     {
-        Ref<Texture2D> texture = CreateRef<Texture2D>();
+        Ref<Texture2D> texture   = CreateRef<Texture2D>();
         texture->m_specification = spec;
         FillAsVulkanImage(texture, spec);
         return texture;

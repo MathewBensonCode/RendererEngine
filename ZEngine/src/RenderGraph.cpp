@@ -1,8 +1,8 @@
-#include <vector>
+#include <ZEngine/Rendering/Renderers/RenderGraph.h>
+#include <ZEngine/Rendering/Textures/Texture2D.h>
 #include <string>
 #include <string_view>
-#include <Rendering/Renderers/RenderGraph.h>
-#include <Rendering/Textures/Texture2D.h>
+#include <vector>
 
 namespace ZEngine::Rendering::Renderers
 {
@@ -168,8 +168,8 @@ namespace ZEngine::Rendering::Renderers
         }
 
         /*
-        * Reading sorting graph node in reverse order and Create resource and RenderPass Node
-        */
+         * Reading sorting graph node in reverse order and Create resource and RenderPass Node
+         */
         RenderPasses::RenderPassBuilder pass_builder = {};
 
         for (std::string_view node_name : m_sorted_nodes)
@@ -345,8 +345,8 @@ namespace ZEngine::Rendering::Renderers
                     pass_spec.Inputs.push_back(resource.ResourceInfo.TextureHandle);
                 }
                 /*
-                * The resource is an attachment from a RenderPass output, but the current node consumes it as Image for sampling operation
-                */
+                 * The resource is an attachment from a RenderPass output, but the current node consumes it as Image for sampling operation
+                 */
                 else if (resource.Type == RenderGraphResourceType::ATTACHMENT && input.Type == RenderGraphResourceType::TEXTURE)
                 {
                     pass_spec.InputTextures[input.BindingInputKeyName] = resource.ResourceInfo.TextureHandle;

@@ -16,6 +16,11 @@ FetchContent_Declare(
   GIT_TAG v1.89.9-docking)
 
 FetchContent_Declare(
+  ImGuizmo
+  GIT_REPOSITORY https://github.com/CedricGuillemet/ImGuizmo.git
+  GIT_SHALLOW TRUE)
+
+FetchContent_Declare(
   stbimage
   GIT_REPOSITORY https://github.com/nothings/stb.git
   GIT_SHALLOW TRUE)
@@ -63,10 +68,6 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE
   FIND_PACKAGE_ARGS )
 
-FetchContent_Declare(
-  ImGuizmo
-  GIT_REPOSITORY https://github.com/CedricGuillemet/ImGuizmo.git
-  GIT_SHALLOW TRUE)
 
 FetchContent_Declare(
   spirv_cross_core
@@ -108,6 +109,7 @@ Fetchcontent_Declare(
 FetchContent_MakeAvailable(
   fmt
   imgui
+  ImGuizmo
   stbimage
   glfw3
   spdlog
@@ -116,7 +118,6 @@ FetchContent_MakeAvailable(
   assimp
   stduuid
   yaml-cpp
-  ImGuizmo
   spirv_cross_core
   VulkanMemoryAllocator
   glslang
@@ -125,56 +126,3 @@ FetchContent_MakeAvailable(
   nlohmann_json
   )
 
-  find_package(Vulkan REQUIRED)
-
-set(IMGUIDIR ${FETCHCONTENT_BASE_DIR}/imgui-src)
-
-add_library(imgui STATIC)
-
-target_sources(
-  imgui
-  PRIVATE ${IMGUIDIR}/imgui.cpp
-          ${IMGUIDIR}/imgui_demo.cpp
-          ${IMGUIDIR}/imgui_draw.cpp
-          ${IMGUIDIR}/imgui_tables.cpp
-          ${IMGUIDIR}/imgui_widgets.cpp
-          ${IMGUIDIR}/misc/cpp/imgui_stdlib.cpp
-          ${IMGUIDIR}/backends/imgui_impl_glfw.cpp
-          ${IMGUIDIR}/backends/imgui_impl_vulkan.cpp)
-
-target_include_directories(imgui PUBLIC ${IMGUIDIR})
-
-target_compile_definitions(imgui PUBLIC GLFW_INCLUDE_VULKAN)
-
-target_link_libraries(imgui PUBLIC glfw Vulkan::Vulkan)
-
-add_library(imguizmo STATIC)
-
-target_sources(imguizmo
-               PRIVATE ${FETCHCONTENT_BASE_DIR}/imguizmo-src/ImGuizmo.cpp)
-
-target_include_directories(imguizmo
-                           PUBLIC ${FETCHCONTENT_BASE_DIR}/imguizmo-src)
-
-target_link_libraries(imguizmo PUBLIC imgui)
-
-add_library (imported::External_libs INTERFACE IMPORTED)
-
-target_include_directories(imported::External_libs INTERFACE ${FETCHCONTENT_BASE_DIR}/stbimage-src)
-
-target_link_libraries(imported::External_libs INTERFACE
-	fmt::fmt
-	glm::glm
-	imguizmo
-	spdlog::spdlog
-    EnTT::EnTT
-	assimp::assimp
-	stduuid
-	yaml-cpp::yaml-cpp
-    spirv-cross-core
-    glslang::glslang
-    glslang::glslang-default-resource-limits
-    glslang::SPIRV
-    glslang::SPVRemapper
-	GPUOpen::VulkanMemoryAllocator
-)

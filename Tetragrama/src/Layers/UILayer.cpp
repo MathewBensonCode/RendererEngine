@@ -1,6 +1,6 @@
-#include <Layers/UILayer.h>
-#include <Messengers/Messenger.h>
-#include <MessageToken.h>
+#include <Tetragrama/Layers/UILayer.h>
+#include <Tetragrama/MessageToken.h>
+#include <Tetragrama/Messengers/Messenger.h>
 
 using namespace Tetragrama::Messengers;
 

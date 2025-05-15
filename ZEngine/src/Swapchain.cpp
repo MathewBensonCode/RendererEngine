@@ -1,11 +1,11 @@
-#include <mutex>
-#include <set>
+#include <ZEngine/Hardwares/VulkanDevice.h>
+#include <ZEngine/Rendering/Specifications/AttachmentSpecification.h>
+#include <ZEngine/Rendering/Swapchain.h>
+#include <ZEngine/ZEngineDef.h>
 #include <limits>
-#include <ZEngineDef.h>
-#include <Rendering/Swapchain.h>
-#include <Rendering/Specifications/AttachmentSpecification.h>
-#include <Hardwares/VulkanDevice.h>
+#include <mutex>
 #include <random>
+#include <set>
 
 using namespace ZEngine::Rendering::Specifications;
 
@@ -94,7 +94,7 @@ namespace ZEngine::Rendering
         }
 
         Primitives::Semaphore* render_complete_semaphore = m_render_complete_semaphore_collection[m_current_frame_index].get();
-        if (!Hardwares::VulkanDevice::Present(m_handle, &frame_index, signal_semaphore, render_complete_semaphore,  signal_fence))
+        if (!Hardwares::VulkanDevice::Present(m_handle, &frame_index, signal_semaphore, render_complete_semaphore, signal_fence))
         {
             Resize();
             return;
@@ -134,7 +134,7 @@ namespace ZEngine::Rendering
     uint32_t Swapchain::GetCurrentFrameIndex()
     {
         std::lock_guard lock(m_image_mutex);
-        ZENGINE_VALIDATE_ASSERT(m_current_frame_index >= 0  && m_current_frame_index < m_framebuffer_collection.size(), "Index out of range")
+        ZENGINE_VALIDATE_ASSERT(m_current_frame_index >= 0 && m_current_frame_index < m_framebuffer_collection.size(), "Index out of range")
         return m_current_frame_index;
     }
 
@@ -341,4 +341,4 @@ namespace ZEngine::Rendering
         auto device = Hardwares::VulkanDevice::GetNativeDeviceHandle();
         ZENGINE_DESTROY_VULKAN_HANDLE(device, vkDestroySwapchainKHR, m_handle, nullptr)
     }
-}
+} // namespace ZEngine::Rendering

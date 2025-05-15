@@ -1,6 +1,6 @@
-#include <Rendering/Renderers/Pipelines/RendererPipeline.h>
-#include <Hardwares/VulkanDevice.h>
-#include <Managers/ShaderManager.h>
+#include <ZEngine/Hardwares/VulkanDevice.h>
+#include <ZEngine/Managers/ShaderManager.h>
+#include <ZEngine/Rendering/Renderers/Pipelines/RendererPipeline.h>
 
 namespace ZEngine::Rendering::Renderers::Pipelines
 {
@@ -108,11 +108,11 @@ namespace ZEngine::Rendering::Renderers::Pipelines
         depth_stencil_state_create_info.stencilTestEnable                     = m_pipeline_specification.EnableStencilTest ? VK_TRUE : VK_FALSE;
         if (m_pipeline_specification.EnableDepthTest)
         {
-            depth_stencil_state_create_info.depthTestEnable       = VK_TRUE;
-            depth_stencil_state_create_info.depthWriteEnable      = m_pipeline_specification.EnableDepthWrite ? VK_TRUE : VK_FALSE;
-            depth_stencil_state_create_info.depthCompareOp        = VK_COMPARE_OP_LESS_OR_EQUAL;
-            depth_stencil_state_create_info.minDepthBounds        = 0.0f;
-            depth_stencil_state_create_info.maxDepthBounds        = 1.0f;
+            depth_stencil_state_create_info.depthTestEnable  = VK_TRUE;
+            depth_stencil_state_create_info.depthWriteEnable = m_pipeline_specification.EnableDepthWrite ? VK_TRUE : VK_FALSE;
+            depth_stencil_state_create_info.depthCompareOp   = VK_COMPARE_OP_LESS_OR_EQUAL;
+            depth_stencil_state_create_info.minDepthBounds   = 0.0f;
+            depth_stencil_state_create_info.maxDepthBounds   = 1.0f;
         }
         /*
          * Color blend state and attachment

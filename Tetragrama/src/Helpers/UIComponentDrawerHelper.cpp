@@ -1,4 +1,4 @@
-#include <Helpers/UIComponentDrawerHelper.h>
+#include <Tetragrama/Helpers/UIComponentDrawerHelper.h>
 
 namespace Tetragrama::Helpers
 {
@@ -545,12 +545,7 @@ namespace Tetragrama::Helpers
         ImGui::PopStyleColor();
     }
 
-
-    void DrawEntityControl(
-        std::string_view                         component_name,
-        ZEngine::Rendering::Scenes::SceneEntity& entity,
-        ImGuiTreeNodeFlags                       flags,
-        std::function<void(void)>                callback)
+    void DrawEntityControl(std::string_view component_name, ZEngine::Rendering::Scenes::SceneEntity& entity, ImGuiTreeNodeFlags flags, std::function<void(void)> callback)
     {
         if (entity.GetNode() <= 0)
         {

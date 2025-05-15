@@ -1,10 +1,10 @@
-#include <Window/GlfwWindow/VulkanWindow.h>
-#include <Engine.h>
-#include <Inputs/KeyCode.h>
-#include <Logging/LoggerDefinition.h>
+#include <ZEngine/Engine.h>
+#include <ZEngine/Inputs/KeyCode.h>
+#include <ZEngine/Logging/LoggerDefinition.h>
+#include <ZEngine/Window/GlfwWindow/VulkanWindow.h>
 
 #ifdef _WIN32
-    #define GLFW_EXPOSE_NATIVE_WIN32
+#define GLFW_EXPOSE_NATIVE_WIN32
 #endif
 #include <GLFW/glfw3native.h>
 

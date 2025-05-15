@@ -1,0 +1,88 @@
+#pragma once
+
+#include <ZEngine/Core/IEventable.h>
+#include <ZEngine/Core/IInitializable.h>
+#include <ZEngine/Core/IRenderable.h>
+#include <ZEngine/Core/IUpdatable.h>
+#include <ZEngine/Core/TimeStep.h>
+#include <ZEngine/Event/CoreEvent.h>
+#include <ZEngine/Event/EventDispatcher.h>
+#include <ZEngine/Event/TextInputEvent.h>
+#include <ZEngine/Event/WindowClosedEvent.h>
+#include <ZEngine/Event/WindowResizedEvent.h>
+#include <ZEngine/Inputs/IKeyboardEventCallback.h>
+#include <ZEngine/Inputs/IMouseEventCallback.h>
+#include <ZEngine/Inputs/ITextInputEventCallback.h>
+#include <ZEngine/Layers/Layer.h>
+#include <ZEngine/Layers/LayerStack.h>
+#include <ZEngine/Rendering/Swapchain.h>
+#include <ZEngine/Window/ICoreWindowEventCallback.h>
+#include <ZEngine/Window/WindowConfiguration.h>
+#include <ZEngine/Window/WindowProperty.h>
+
+namespace ZEngine
+{
+    class Engine;
+}
+
+namespace ZEngine::Layers
+{
+    class Layer;
+    class LayerStack;
+} // namespace ZEngine::Layers
+
+namespace ZEngine::Window
+{
+
+    class CoreWindow : public Helpers ::RefCounted,
+                       public Inputs::IKeyboardEventCallback,
+                       public Inputs::IMouseEventCallback,
+                       public Inputs::ITextInputEventCallback,
+                       public Core::IUpdatable,
+                       public Core::IRenderable,
+                       public Core::IEventable,
+                       public Core::IInitializable,
+                       public ICoreWindowEventCallback
+    {
+
+    public:
+        using EventCallbackFn = std::function<void(Event::CoreEvent&)>;
+
+    public:
+        CoreWindow();
+        virtual ~CoreWindow();
+
+        virtual void             InitializeLayer()                = 0;
+        virtual uint32_t         GetHeight() const                = 0;
+        virtual uint32_t         GetWidth() const                 = 0;
+        virtual std::string_view GetTitle() const                 = 0;
+        virtual void             SetTitle(std::string_view title) = 0;
+        virtual bool             IsMinimized() const              = 0;
+
+        virtual bool IsVSyncEnable() const                                = 0;
+        virtual void SetVSync(bool value)                                 = 0;
+        virtual void SetCallbackFunction(const EventCallbackFn& callback) = 0;
+
+        virtual void* GetNativeWindow() const = 0;
+
+        virtual Ref<Rendering::Swapchain> GetSwapchain() const = 0;
+
+        virtual const WindowProperty& GetWindowProperty() const = 0;
+
+        virtual void  PollEvent() = 0;
+        virtual float GetTime()   = 0;
+
+        virtual void ForwardEventToLayers(Event::CoreEvent& event);
+
+        virtual void PushOverlayLayer(const Ref<Layers::Layer>& layer);
+        virtual void PushOverlayLayer(Ref<Layers::Layer>&& layer);
+        virtual void PushLayer(const Ref<Layers::Layer>& layer);
+        virtual void PushLayer(Ref<Layers::Layer>&& layer);
+
+    protected:
+        WindowProperty                              m_property;
+        ZEngine::Scope<ZEngine::Layers::LayerStack> m_layer_stack_ptr{nullptr};
+    };
+
+    CoreWindow* Create(const WindowConfiguration&);
+} // namespace ZEngine::Window

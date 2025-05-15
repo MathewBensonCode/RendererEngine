@@ -1,12 +1,12 @@
-﻿#include <Rendering/Scenes/GraphicScene.h>
-#include <Core/Coroutine.h>
-#include <Rendering/Renderers/GraphicRenderer.h>
-#include <Rendering/Textures/Texture2D.h>
-#include <Rendering/Components/LightComponent.h>
-#include <Rendering/Components/CameraComponent.h>
-#include <Rendering/Components/UUIComponent.h>
+﻿#include <ZEngine/Core/Coroutine.h>
+#include <ZEngine/Rendering/Components/CameraComponent.h>
+#include <ZEngine/Rendering/Components/LightComponent.h>
+#include <ZEngine/Rendering/Components/UUIComponent.h>
+#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
+#include <ZEngine/Rendering/Scenes/GraphicScene.h>
+#include <ZEngine/Rendering/Textures/Texture2D.h>
 
-#define NODE_PARENT_ID -1
+#define NODE_PARENT_ID  -1
 #define INVALID_NODE_ID -1
 
 using namespace ZEngine::Controllers;
@@ -138,12 +138,10 @@ namespace ZEngine::Rendering::Scenes
         return transform;
     }
 
-
     int SceneEntity::GetNode() const
     {
         return m_node;
     }
-
 
     void GraphicScene::Initialize()
     {
@@ -542,9 +540,9 @@ namespace ZEngine::Rendering::Scenes
             auto light_cmp = g_sceneEntityRegistry.view<LightComponent>();
             for (auto handle : light_cmp)
             {
-                auto light     = light_cmp.get<LightComponent>(handle).GetLight();
-                auto ligh_type = light->GetLightType();
-                switch (ligh_type)
+                auto light      = light_cmp.get<LightComponent>(handle).GetLight();
+                auto light_type = light->GetLightType();
+                switch (light_type)
                 {
                     case Lights::LightType::DIRECTIONAL:
                     {
@@ -678,16 +676,16 @@ namespace ZEngine::Rendering::Scenes
     {
         SceneEntity camera_entity;
 
-        //auto view_cameras = s_raw_data->EntityRegistry->view<CameraComponent>();
-        //for (auto entity : view_cameras)
+        // auto view_cameras = s_raw_data->EntityRegistry->view<CameraComponent>();
+        // for (auto entity : view_cameras)
         //{
-        //    auto& component = view_cameras.get<CameraComponent>(entity);
-        //    if (component.IsPrimaryCamera)
-        //    {
-        //        camera_entity = GraphicSceneEntity::CreateWrapper(s_raw_data->EntityRegistry, entity);
-        //        break;
-        //    }
-        //}
+        //     auto& component = view_cameras.get<CameraComponent>(entity);
+        //     if (component.IsPrimaryCamera)
+        //     {
+        //         camera_entity = GraphicSceneEntity::CreateWrapper(s_raw_data->EntityRegistry, entity);
+        //         break;
+        //     }
+        // }
         return camera_entity;
     }
 } // namespace ZEngine::Rendering::Scenes

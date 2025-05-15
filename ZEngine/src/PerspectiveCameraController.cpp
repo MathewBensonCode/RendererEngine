@@ -1,9 +1,9 @@
-#include <Controllers/PerspectiveCameraController.h>
-#include <Inputs/KeyCodeDefinition.h>
-#include <Inputs/IDevice.h>
-#include <Inputs/Keyboard.h>
-#include <Inputs/Mouse.h>
-#include <Event/EventDispatcher.h>
+#include <ZEngine/Controllers/PerspectiveCameraController.h>
+#include <ZEngine/Event/EventDispatcher.h>
+#include <ZEngine/Inputs/IDevice.h>
+#include <ZEngine/Inputs/KeyCodeDefinition.h>
+#include <ZEngine/Inputs/Keyboard.h>
+#include <ZEngine/Inputs/Mouse.h>
 
 using namespace ZEngine::Inputs;
 
@@ -108,9 +108,7 @@ namespace ZEngine::Controllers
         return m_perspective_camera;
     }
 
-    void PerspectiveCameraController::UpdateProjectionMatrix()
-    {
-    }
+    void PerspectiveCameraController::UpdateProjectionMatrix() {}
 
     bool PerspectiveCameraController::OnEvent(Event::CoreEvent& e)
     {

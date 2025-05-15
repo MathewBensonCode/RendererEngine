@@ -1,23 +1,22 @@
-#include <string>
-#include <set>
-#include <string_view>
-#include <mutex>
+#include <ZEngine/ZEngineDef.h>
 #include <deque>
 #include <map>
+#include <mutex>
+#include <set>
+#include <string>
+#include <string_view>
 #include <unordered_set>
-#include <ZEngineDef.h>
 
 /*
-* We define those Macros before inclusion of VulkanDevice.h so we can enable impl from VMA header
-*/
+ * We define those Macros before inclusion of VulkanDevice.h so we can enable impl from VMA header
+ */
 #define VMA_IMPLEMENTATION
 #define VMA_VULKAN_VERSION 1003000 // Vulkan 1.3
 
-#include <Hardwares/VulkanDevice.h>
-#include <Logging/LoggerDefinition.h>
-#include <Helpers/MemoryOperations.h>
-#include <Window/CoreWindow.h>
-
+#include <ZEngine/Hardwares/VulkanDevice.h>
+#include <ZEngine/Helpers/MemoryOperations.h>
+#include <ZEngine/Logging/LoggerDefinition.h>
+#include <ZEngine/Window/CoreWindow.h>
 
 using namespace std::chrono_literals;
 using namespace ZEngine::Rendering::Primitives;
@@ -416,8 +415,8 @@ namespace ZEngine::Hardwares
         vkDestroyDevice(s_logical_device, nullptr);
         vkDestroyInstance(s_vulkan_instance, nullptr);
 
-        s_logical_device           = VK_NULL_HANDLE;
-        s_vulkan_instance          = VK_NULL_HANDLE;
+        s_logical_device  = VK_NULL_HANDLE;
+        s_vulkan_instance = VK_NULL_HANDLE;
     }
 
     VkDevice VulkanDevice::GetNativeDeviceHandle()
@@ -469,7 +468,7 @@ namespace ZEngine::Hardwares
         VkSubmitInfo               submit_info                 = {};
         submit_info.sType                                      = VK_STRUCTURE_TYPE_SUBMIT_INFO;
         submit_info.pNext                                      = nullptr;
-        submit_info.waitSemaphoreCount                         =  0;
+        submit_info.waitSemaphoreCount                         = 0;
         submit_info.pWaitSemaphores                            = nullptr;
         submit_info.signalSemaphoreCount                       = 1;
         submit_info.pSignalSemaphores                          = signal_semaphore_collection.data();
@@ -520,13 +519,14 @@ namespace ZEngine::Hardwares
             std::lock_guard lock(s_deletion_queue_mutex);
             if (handle)
             {
-                auto find_it =  std::find_if(s_dirty_resource_collection.begin(), s_dirty_resource_collection.end(), [handle](const DirtyResource& res) {
+                auto find_it = std::find_if(s_dirty_resource_collection.begin(), s_dirty_resource_collection.end(), [handle](const DirtyResource& res) {
                     return res.Handle == handle;
                 });
 
                 if (find_it == std::end(s_dirty_resource_collection))
                 {
-                    s_dirty_resource_collection.push_back(DirtyResource{.FrameIndex = s_current_frame_index, .Handle = handle, .MarkedAsDirtyTime = std::chrono::steady_clock::now(), .Type = resource_type});
+                    s_dirty_resource_collection.push_back(
+                        DirtyResource{.FrameIndex = s_current_frame_index, .Handle = handle, .MarkedAsDirtyTime = std::chrono::steady_clock::now(), .Type = resource_type});
                 }
             }
         }
@@ -539,7 +539,7 @@ namespace ZEngine::Hardwares
             if (resource.Handle)
             {
                 resource.FrameIndex        = s_current_frame_index;
-                resource.Type = resource_type;
+                resource.Type              = resource_type;
                 resource.MarkedAsDirtyTime = std::chrono::steady_clock::now();
 
                 auto find_it = std::find_if(s_dirty_resource_collection.begin(), s_dirty_resource_collection.end(), [&resource](const DirtyResource& res) {
@@ -645,8 +645,8 @@ namespace ZEngine::Hardwares
         render_complete_semaphore->SetState(Rendering::Primitives::SemaphoreState::Idle);
 
         /*
-        * Cleanup current Frame allocated resource
-        */
+         * Cleanup current Frame allocated resource
+         */
         s_queue_submit_info_pool.clear();
 
         for (auto it = s_dirty_resource_collection.begin(); it != s_dirty_resource_collection.end();)

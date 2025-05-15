@@ -1,9 +1,9 @@
-#include <filesystem>
-#include <string>
-#include <fstream>
-#include <vector>
-#include <Importers/IAssetImporter.h>
+#include <Tetragrama/Importers/IAssetImporter.h>
 #include <fmt/format.h>
+#include <filesystem>
+#include <fstream>
+#include <string>
+#include <vector>
 
 namespace fs = std::filesystem;
 
@@ -54,8 +54,8 @@ namespace Tetragrama::Importers
             destination_file_fullnames.reserve(importer_data.Scene.Files.size());
             std::transform(
                 std::begin(importer_data.Scene.Files), std::end(importer_data.Scene.Files), std::back_inserter(destination_file_fullnames), [&config](std::string_view file) {
-                return fmt::format("{0}/{1}/{2}", config.OutputTextureFilesPath, config.AssetFilename, file);
-            });
+                    return fmt::format("{0}/{1}/{2}", config.OutputTextureFilesPath, config.AssetFilename, file);
+                });
 
             std::string   fullname_path = fmt::format("{0}/{1}.zematerials", config.OutputMaterialsPath, config.AssetFilename);
             std::ofstream out(fullname_path, std::ios::binary | std::ios::trunc);
@@ -287,4 +287,4 @@ namespace Tetragrama::Importers
             data.push_back(v);
         }
     }
-}
+} // namespace Tetragrama::Importers

@@ -1,6 +1,6 @@
-#include <Layers/RenderLayer.h>
-#include <Messengers/Messenger.h>
-#include <MessageToken.h>
+#include <Tetragrama/Layers/RenderLayer.h>
+#include <Tetragrama/MessageToken.h>
+#include <Tetragrama/Messengers/Messenger.h>
 
 using namespace ZEngine;
 using namespace ZEngine::Rendering::Scenes;

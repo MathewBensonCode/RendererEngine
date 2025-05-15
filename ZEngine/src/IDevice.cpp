@@ -1,6 +1,7 @@
-#include <Inputs/IDevice.h>
+#include <ZEngine/Inputs/IDevice.h>
 
-namespace ZEngine::Inputs {
+namespace ZEngine::Inputs
+{
 
     std::unordered_map<std::string, Ref<IDevice>> IDevice::m_devices;
 }

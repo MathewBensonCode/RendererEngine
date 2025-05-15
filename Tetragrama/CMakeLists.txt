@@ -36,7 +36,7 @@ endif ()
 
 target_include_directories (Tetragrama
 	PRIVATE
-        include/
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_compile_definitions(Tetragrama

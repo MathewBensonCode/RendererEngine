@@ -1,5 +1,5 @@
+#include <ZEngine/Helpers/MemoryOperations.h>
 #include <gtest/gtest.h>
-#include "Helpers/MemoryOperations.h"
 
 using namespace ZEngine::Helpers;
 
@@ -48,8 +48,8 @@ TEST(MemoryOperationsTest, SecureMemmove)
 
 TEST(MemoryOperationsTest, SecureStrncpy)
 {
-    char src[] = "Hello";
-    char dest[10] = { 0 };
+    char src[]    = "Hello";
+    char dest[10] = {0};
 
     EXPECT_EQ(secure_strncpy(dest, sizeof(dest), src, 5), MEMORY_OP_SUCCESS);
     EXPECT_STREQ(dest, "Hello");

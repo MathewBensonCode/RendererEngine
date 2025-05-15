@@ -1,4 +1,4 @@
-#include <Rendering/Buffers/Image2DBuffer.h>
+#include <ZEngine/Rendering/Buffers/Image2DBuffer.h>
 
 namespace ZEngine::Rendering::Buffers
 {
@@ -26,7 +26,9 @@ namespace ZEngine::Rendering::Buffers
             VK_SHARING_MODE_EXCLUSIVE,
             VK_SAMPLE_COUNT_1_BIT,
             VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-            image_aspect_flag_bit, layer_count, image_create_flag_bit);
+            image_aspect_flag_bit,
+            layer_count,
+            image_create_flag_bit);
     }
 
     Image2DBuffer::~Image2DBuffer()
