@@ -9,17 +9,20 @@ jobs:
     runs-on: windows-latest
 
     steps:
-
     - name: Checkout repository
       uses: actions/checkout@v3
+      uses: humbletim/vsdevenv-shell@v2
 
     - name: Create CMake Build Directory
+      shell: vsdevenv x64 pwsh {0}
       run: mkdir ../build && cmake -B ../build -DCMAKE_BUILD_TYPE=Debug -G Ninja
 
     - name: Build
+      shell: vsdevenv x64 pwsh {0}
       run: cmake --build ../build
 
     - name: Test
+      shell: vsdevenv x64 pwsh {0}
       run: ctest .
       working-directory: ../build/ZEngine/tests
 

@@ -85,11 +85,15 @@ FetchContent_Declare(
 
 FetchContent_Declare(
     glslang
+    GIT_REPOSITORY https://github.com/KhronosGroup/glslang.git
+    GIT_SHALLOW TRUE
     FIND_PACKAGE_ARGS  
 )
 
 FetchContent_Declare(
     SPIRV-Tools
+    GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Tools.git
+    GIT_SHALLOW TRUE
     FIND_PACKAGE_ARGS 
 )
 
