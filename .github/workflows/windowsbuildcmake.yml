@@ -10,8 +10,8 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
-      uses: humbletim/vsdevenv-shell@v2
+      -uses: actions/checkout@v3
+      -uses: humbletim/vsdevenv-shell@v2
 
     - name: Create CMake Build Directory
       shell: vsdevenv x64 pwsh {0}
