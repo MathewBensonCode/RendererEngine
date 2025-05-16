@@ -3,8 +3,8 @@
 name: ZEngine Linux Build
 
 on:
-  push:
-    branches: [ newcmakelinux ]
+#  push:
+#    branches: [ newcmakelinux ]
   pull_request:
     branches: [ master ]
 
