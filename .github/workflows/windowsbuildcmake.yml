@@ -1,27 +1,26 @@
-name: ZEngine Window Build
+name: ZEngine Window CMake Build
 
-on: workflow_call
+on:
+  push:
+    branches: [ newcmakelinux ]
 
 jobs:
-  cmake-build:
-    strategy:
-      matrix:
-        buildConfiguration: [Debug, Release]
-    uses: ./.github/workflows/job-cmakebuild-windows.yml
-    with:
-      configuration: ${{matrix.buildConfiguration}}
+  Windows-CMake-Build:
+    runs-on: windows-latest
 
-  test:
-    needs: cmake-build
-    strategy:
-      matrix:
-        testConfiguration: [Debug, Release]
-    uses: ./.github/workflows/job-test-windows.yml
-    with:
-      configuration: ${{matrix.testConfiguration}}
+    steps:
 
-  deploy:
-    needs: test
-    uses: ./.github/workflows/job-deploy-windows.yml
-    with:
-      configuration: Release
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Create CMake Build Directory
+      run: mkdir ../build && cmake -B ../build -DCMAKE_BUILD_TYPE=Debug -G Ninja
+
+    - name: Build
+      run: cmake --build ../build
+
+    - name: Test
+      run: ctest .
+      working-directory: ../build/ZEngine/tests
+
+
