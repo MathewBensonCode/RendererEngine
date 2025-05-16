@@ -2,7 +2,7 @@ name: ZEngine Window CMake Build
 
 on:
   push:
-branches: [ newcmakelinux ]
+    branches: [ newcmakelinux ]
 
 jobs:
   Windows-CMake-Build:
@@ -20,7 +20,7 @@ jobs:
         run: cmake --build ../build
 
       - name: Test
-        shell: pwsh
+        shell: pwsh {0}
         run: ctest .
         working-directory: ../build/ZEngine/tests
 
