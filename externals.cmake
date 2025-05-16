@@ -72,7 +72,7 @@ FetchContent_Declare(
 FetchContent_Declare(
   spirv_cross_core
   GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Cross.git
-  GIT_TAG vulkan-sdk-1.4.309.0
+  GIT_TAG main
   GIT_SHALLOW TRUE
   FIND_PACKAGE_ARGS )
 
@@ -87,6 +87,7 @@ FetchContent_Declare(
     glslang
     GIT_REPOSITORY https://github.com/KhronosGroup/glslang.git
     GIT_SHALLOW TRUE
+    GIT_TAG main-tot
     FIND_PACKAGE_ARGS  
 )
 
@@ -94,6 +95,7 @@ FetchContent_Declare(
     SPIRV-Tools
     GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Tools.git
     GIT_SHALLOW TRUE
+    GIT_TAG main
     FIND_PACKAGE_ARGS 
 )
 
