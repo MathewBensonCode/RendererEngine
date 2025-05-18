@@ -56,6 +56,8 @@ target_link_libraries(
          stduuid
          yaml-cpp::yaml-cpp
          spirv-cross-core
+         SPIRV-Tools-static
+         SPIRV-Tools-opt
          glslang::glslang
          glslang::glslang-default-resource-limits
          glslang::SPIRV
@@ -133,7 +135,7 @@ target_compile_definitions(
                     YAML_CPP_STATIC_DEFINE)
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
-  target_compile_definitions(zEngineLib PUBLIC VK_USE_PLATFORM_WIN32_KHR)
+    target_compile_definitions(zEngineLib PUBLIC VK_USE_PLATFORM_WIN32_KHR NOMINMAX)
 endif()
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")

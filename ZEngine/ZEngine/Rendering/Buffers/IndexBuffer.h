@@ -2,6 +2,7 @@
 #include <ZEngine/Hardwares/VulkanDevice.h>
 #include <ZEngine/Rendering/Buffers/GraphicBuffer.h>
 #include <ZEngine/ZEngineDef.h>
+#include <span>
 
 namespace ZEngine::Rendering::Buffers
 {
