@@ -1,6 +1,6 @@
 #pragma once
-#include <Rendering/Buffers/BufferLayout.h>
-#include <Rendering/Renderers/Storages/IVertex.h>
+#include <ZEngine/Rendering/Buffers/BufferLayout.h>
+#include <ZEngine/Rendering/Renderers/Storages/IVertex.h>
 #include <glm/glm.hpp>
 #include <array>
 

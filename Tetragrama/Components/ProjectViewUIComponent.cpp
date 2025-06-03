@@ -1,8 +1,8 @@
-#include <pch.h>
-#include <Editor.h>
-#include <Helpers/SearchPatternAlgorithm.h>
-#include <ProjectViewUIComponent.h>
+#include <Tetragrama/Components/ProjectViewUIComponent.h>
+#include <Tetragrama/Editor.h>
+#include <Tetragrama/Helpers/SearchPatternAlgorithm.h>
 #include <ZEngine/Helpers/MemoryOperations.h>
+#include <fstream>
 #include <imgui.h>
 
 using namespace ZEngine::Helpers;

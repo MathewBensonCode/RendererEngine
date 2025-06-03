@@ -1,7 +1,7 @@
 #pragma once
-#include <Core/CoreEvent.h>
-#include <Inputs/KeyCode.h>
-#include <ZEngineDef.h>
+#include <ZEngine/Core/CoreEvent.h>
+#include <ZEngine/Windows/Inputs/KeyCode.h>
+#include <ZEngine/ZEngineDef.h>
 
 namespace ZEngine::Windows::Events
 {
@@ -41,7 +41,7 @@ namespace ZEngine::Windows::Events
 
         virtual std::string ToString() const override
         {
-            return fmt::format("KeyPressedEvent : {0}, repeated count : {1}", m_keycode, m_repeat_count);
+            return fmt::format("KeyPressedEvent : {0}, repeated count : {1}", static_cast<int32_t>(m_keycode), m_repeat_count);
         }
 
     protected:
@@ -67,7 +67,7 @@ namespace ZEngine::Windows::Events
 
         virtual std::string ToString() const override
         {
-            return fmt::format("KeyReleasedEvent : {0}", m_keycode);
+            return fmt::format("KeyReleasedEvent : {0}", static_cast<int32_t>(m_keycode));
         }
     };
 } // namespace ZEngine::Windows::Events

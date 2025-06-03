@@ -1,6 +1,6 @@
-#include <pch.h>
-#include <Rendering/Cameras/PerspectiveCamera.h>
+#include <ZEngine/Rendering/Cameras/PerspectiveCamera.h>
 #include <glm/gtx/quaternion.hpp>
+#include <algorithm>
 
 namespace ZEngine::Rendering::Cameras
 {

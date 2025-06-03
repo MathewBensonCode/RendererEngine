@@ -1,5 +1,5 @@
-#include <Helpers/MemoryOperations.h>
-#include <Vec.h>
+#include <ZEngine/Core/Maths/Vec.h>
+#include <ZEngine/Helpers/MemoryOperations.h>
 #include <cstddef>
 
 namespace ZEngine::Core::Maths

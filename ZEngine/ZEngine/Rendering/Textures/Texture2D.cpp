@@ -1,14 +1,13 @@
-#include <pch.h>
-#include <Core/Coroutine.h>
-#include <Rendering/Buffers/Bitmap.h>
-#include <Rendering/Primitives/ImageMemoryBarrier.h>
-#include <Rendering/Textures/Texture2D.h>
+#include <ZEngine/Core/Coroutine.h>
+#include <ZEngine/Rendering/Buffers/Bitmap.h>
+#include <ZEngine/Rendering/Primitives/ImageMemoryBarrier.h>
+#include <ZEngine/Rendering/Textures/Texture2D.h>
 
 // #define STB_IMAGE_IMPLEMENTATION
 // #ifdef __GNUC__
 // #define STBI_NO_SIMD
 // #endif
-#include <stb/stb_image.h>
+#include <stb_image.h>
 
 // #define STB_IMAGE_WRITE_IMPLEMENTATION
 // #define STB_IMAGE_RESIZE_IMPLEMENTATION

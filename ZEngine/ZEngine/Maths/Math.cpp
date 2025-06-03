@@ -1,7 +1,4 @@
-#include <pch.h>
-#include <Maths/Math.h>
-
-#define GLM_ENABLE_EXPERIMENTAL
+#include <ZEngine/Maths/Math.h>
 #include <glm/gtx/matrix_decompose.hpp>
 
 namespace glm

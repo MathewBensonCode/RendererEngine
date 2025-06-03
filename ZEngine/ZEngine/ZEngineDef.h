@@ -1,5 +1,5 @@
 #pragma once
-#include <Logging/LoggerDefinition.h>
+#include <ZEngine/Logging/LoggerDefinition.h>
 
 #define BIT(x)                 (1 << (x))
 #define ZENGINE_EXIT_FAILURE() exit(EXIT_FAILURE);
@@ -12,7 +12,8 @@
 #include <signal.h>
 #define ZENGINE_DEBUG_BREAK() __builtin_trap();
 #else
-#error "Platform not supported!"
+#include <signal.h>
+#define ZENGINE_DEBUG_BREAK() raise(SIGTRAP);
 #endif
 
 #ifdef _MSC_VER
@@ -28,7 +29,7 @@
         if (!(condition))                           \
         {                                           \
             ZENGINE_CORE_CRITICAL(message)          \
-            assert(condition&& message);            \
+            assert(condition && message);           \
             ZENGINE_DEBUG_BREAK()                   \
         }                                           \
     }

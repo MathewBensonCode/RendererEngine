@@ -1,5 +1,4 @@
-#include <pch.h>
-#include <EditorWindow.h>
+#include <Tetragrama/EditorWindow.h>
 #include <ZEngine/Core/Coroutine.h>
 #include <ZEngine/Engine.h>
 #include <ZEngine/Event/EngineClosedEvent.h>

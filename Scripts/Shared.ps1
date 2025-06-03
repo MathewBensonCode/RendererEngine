@@ -185,8 +185,8 @@ function Find-GlslangValidator () {
 
 function Find-ClangFormat () {
     $repoConfiguration = Get-RepositoryConfiguration
-    $LLVMMinimumVersion = $repoConfiguration.Requirements.LLVM.Version
-    $LLVMMaximumVersion = $repoConfiguration.Requirements.LLVM.MaximumVersion
+#    $LLVMMinimumVersion = $repoConfiguration.Requirements.LLVM.Version
+#    $LLVMMaximumVersion = $repoConfiguration.Requirements.LLVM.MaximumVersion
 
     $candidates = @(
         'clang-format'
@@ -204,9 +204,7 @@ function Find-ClangFormat () {
         if ($clangFormatCommand) {
             if ((& $clangFormatCommand --version | Out-String) -match "clang-format version ([\d\.]*)") {
                 [Version] $clangFormatVersion = $Matches[1]
-                if ((CompareVersion $clangFormatVersion $LLVMMinimumVersion) -and (CompareVersion $LLVMMaximumVersion $clangFormatVersion)) {
                     return $clangFormatCommand.Source
-                }
             }
         }
     }

@@ -1,22 +1,22 @@
-#include <pch.h>
-#include <Helpers/ThreadPool.h>
-#include <ImGUIRenderer.h>
-#include <RendererPasses.h>
-#include <Rendering/Buffers/Bitmap.h>
-#include <Rendering/Renderers/Contracts/RendererDataContract.h>
-#include <Rendering/Renderers/GraphicRenderer.h>
-#include <Specifications/FormatSpecification.h>
+#include <ZEngine/Helpers/ThreadPool.h>
+#include <ZEngine/Rendering/Buffers/Bitmap.h>
+#include <ZEngine/Rendering/Renderers/Contracts/RendererDataContract.h>
+#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
+#include <ZEngine/Rendering/Renderers/ImGUIRenderer.h>
+#include <ZEngine/Rendering/Renderers/RendererPasses.h>
+#include <ZEngine/Rendering/Specifications/FormatSpecification.h>
+#include <filesystem>
 
 #define STB_IMAGE_IMPLEMENTATION
 #ifdef __GNUC__
 #define STBI_NO_SIMD
 #endif
-#include <stb/stb_image.h>
+#include <stb_image.h>
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STB_IMAGE_RESIZE_IMPLEMENTATION
-#include <stb/stb_image_resize.h>
-#include <stb/stb_image_write.h>
+#include <deprecated/stb_image_resize.h>
+#include <stb_image_write.h>
 
 using namespace ZEngine::Hardwares;
 using namespace ZEngine::Rendering::Specifications;

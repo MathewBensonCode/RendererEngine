@@ -1,8 +1,8 @@
 #pragma once
-#include <Importers/IAssetImporter.h>
-#include <Message.h>
-#include <Serializers/EditorSceneSerializer.h>
-#include <UIComponent.h>
+#include <Tetragrama/Components/UIComponent.h>
+#include <Tetragrama/Importers/IAssetImporter.h>
+#include <Tetragrama/Messengers/Message.h>
+#include <Tetragrama/Serializers/EditorSceneSerializer.h>
 #include <imgui.h>
 
 namespace Tetragrama::Components

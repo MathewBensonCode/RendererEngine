@@ -1,8 +1,8 @@
 #pragma once
-#include <EngineConfiguration.h>
-#include <Event/EngineClosedEvent.h>
-#include <Helpers/IntrusivePtr.h>
-#include <Windows/CoreWindow.h>
+#include <ZEngine/EngineConfiguration.h>
+#include <ZEngine/Event/EngineClosedEvent.h>
+#include <ZEngine/Helpers/IntrusivePtr.h>
+#include <ZEngine/Windows/CoreWindow.h>
 
 namespace ZEngine
 {

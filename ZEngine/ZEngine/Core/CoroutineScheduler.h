@@ -1,7 +1,7 @@
 #pragma once
-#include <Helpers/IntrusivePtr.h>
-#include <Helpers/ThreadSafeQueue.h>
-#include <ZEngineDef.h>
+#include <ZEngine/Helpers/IntrusivePtr.h>
+#include <ZEngine/Helpers/ThreadSafeQueue.h>
+#include <ZEngine/ZEngineDef.h>
 #include <atomic>
 #include <functional>
 
@@ -15,7 +15,7 @@ namespace ZEngine::Core
         ReadyCallback   Ready  = nullptr;
         ExecuteCallback Action = nullptr;
 
-        operator bool() noexcept
+                        operator bool() noexcept
         {
             return (Ready && Action);
         }

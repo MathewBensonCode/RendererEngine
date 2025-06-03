@@ -1,13 +1,13 @@
-#include <pch.h>
-#include <DockspaceUIComponent.h>
-#include <Editor.h>
-#include <Helpers/UIDispatcher.h>
-#include <Importers/AssimpImporter.h>
-#include <MessageToken.h>
-#include <Messengers/Messenger.h>
+#include <Tetragrama/Components/DockspaceUIComponent.h>
+#include <Tetragrama/Editor.h>
+#include <Tetragrama/Helpers/UIDispatcher.h>
+#include <Tetragrama/Importers/AssimpImporter.h>
+#include <Tetragrama/MessageToken.h>
+#include <Tetragrama/Messengers/Messenger.h>
 #include <ZEngine/Logging/LoggerDefinition.h>
+#include <Tetragrama/Helpers/UIComponentDrawerHelper.h>
 #include <fmt/format.h>
-#include <imgui/src/imgui_internal.h>
+#include <ImGuizmo.h>
 
 namespace fs = std::filesystem;
 
@@ -221,7 +221,7 @@ namespace Tetragrama::Components
 
             ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[0]);
             ImGui::SetCursorPos(ImVec2(10, ImGui::GetWindowSize().y - 30));
-            ImGui::TextColored(s_asset_importer_report_msg_color, s_asset_importer_report_msg.c_str());
+            ImGui::TextColored(s_asset_importer_report_msg_color, "%s", s_asset_importer_report_msg.c_str());
             ImGui::PopFont();
 
             ImGui::EndPopup();

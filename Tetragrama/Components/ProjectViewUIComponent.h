@@ -1,6 +1,7 @@
 #pragma once
-#include <UIComponent.h>
+#include <Tetragrama/Components/UIComponent.h>
 #include <ZEngine/Core/Memory/Allocator.h>
+#include <filesystem>
 
 namespace Tetragrama::Components
 {

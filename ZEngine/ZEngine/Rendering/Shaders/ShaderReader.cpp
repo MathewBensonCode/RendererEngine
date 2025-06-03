@@ -1,7 +1,7 @@
-#include <pch.h>
-#include <Core/Coroutine.h>
-#include <Logging/LoggerDefinition.h>
-#include <Rendering/Shaders/ShaderReader.h>
+#include <ZEngine/Core/Coroutine.h>
+#include <ZEngine/Logging/LoggerDefinition.h>
+#include <ZEngine/Rendering/Shaders/ShaderReader.h>
+#include <fstream>
 
 namespace ZEngine::Rendering::Shaders
 {
@@ -16,13 +16,13 @@ namespace ZEngine::Rendering::Shaders
         }
     }
 
-    std::vector<uint32_t> ShaderReader::ReadAsBinary(std::string_view filename)
+    std::vector<uint32_t> ShaderReader::ReadAsBinary(std::filesystem::path filename)
     {
         std::ifstream file_stream = {};
         file_stream.open(filename, std::ifstream::binary | std::ifstream::ate);
         if (!file_stream.is_open())
         {
-            ZENGINE_CORE_ERROR("====== Shader file : {} cannot be opened ======", filename.data())
+            ZENGINE_CORE_ERROR("====== Shader file : {} cannot be opened ======", filename.string())
             ZENGINE_EXIT_FAILURE()
         }
 
@@ -46,15 +46,14 @@ namespace ZEngine::Rendering::Shaders
         return ShaderType::UNKNOWN;
     }
 
-    std::future<ShaderOperationResult> ShaderReader::ReadAsync(std::string_view filename)
+    std::future<ShaderOperationResult> ShaderReader::ReadAsync(std::filesystem::path filename)
     {
         std::unique_lock<std::mutex> lock(m_lock);
-        std::filesystem::path        filepath(filename);
 
-        m_filestream.open(filename.data(), std::ifstream::in);
+        m_filestream.open(filename, std::ifstream::in);
         if (!m_filestream.is_open())
         {
-            ZENGINE_CORE_ERROR("====== Shader file : {} cannot be opened ======", filename.data())
+            ZENGINE_CORE_ERROR("====== Shader file : {} cannot be opened ======", filename.string())
             co_return ShaderOperationResult::FAILURE;
         }
 
@@ -67,16 +66,16 @@ namespace ZEngine::Rendering::Shaders
         buffer.assign((std::istreambuf_iterator<char>(m_filestream)), std::istreambuf_iterator<char>());
 
         m_shader_info_collection.Source = std::move(buffer);
-        m_shader_info_collection.Name   = filepath.stem().string();
-        m_shader_info_collection.Type   = GetShaderType(filepath);
+        m_shader_info_collection.Name   = filename.stem().string();
+        m_shader_info_collection.Type   = GetShaderType(filename);
 
         if (m_shader_info_collection.Type == ShaderType::UNKNOWN)
         {
-            ZENGINE_CORE_ERROR("====== Shader file : {} unsupported format ======", filename.data())
+            ZENGINE_CORE_ERROR("====== Shader file : {} unsupported format ======", filename.string())
             co_return ShaderOperationResult::FAILURE;
         }
 
-        ZENGINE_CORE_INFO("====== Shader file : {} read succeeded ======", filename.data())
+        ZENGINE_CORE_INFO("====== Shader file : {} read succeeded ======", filename.string())
         m_filestream.close();
         co_return ShaderOperationResult::SUCCESS;
     }
