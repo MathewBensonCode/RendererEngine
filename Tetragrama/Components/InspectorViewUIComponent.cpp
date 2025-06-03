@@ -6,6 +6,7 @@
 #include <ZEngine/Rendering/Components/LightComponent.h>
 #include <ZEngine/Rendering/Components/MaterialComponent.h>
 #include <ZEngine/Rendering/Textures/Texture2D.h>
+
 #include <glm/gtx/matrix_decompose.hpp>
 
 using namespace ZEngine::Rendering::Materials;

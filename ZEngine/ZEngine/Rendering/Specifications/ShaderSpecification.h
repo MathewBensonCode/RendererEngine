@@ -36,12 +36,12 @@ namespace ZEngine::Rendering::Specifications
 
     struct LayoutBindingSpecification
     {
-        uint32_t           Set{0xFFFFFFFF};
-        uint32_t           Binding{0xFFFFFFFF};
-        uint32_t           Count{1};
-        std::string        Name;
-        DescriptorTypeEnum DescriptorType;
-        ShaderStageFlags   Flags;
+        uint32_t         Set{0xFFFFFFFF};
+        uint32_t         Binding{0xFFFFFFFF};
+        uint32_t         Count{1};
+        std::string      Name;
+        DescriptorTypeEnum   DescriptorType;
+        ShaderStageFlags Flags;
     };
 
     struct PushConstantSpecification

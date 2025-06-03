@@ -1,5 +1,6 @@
-#include <Tetragrama/Components/HierarchyViewUIComponent.h>
 #include <Tetragrama/Editor.h>
+#include <Tetragrama/Components/HierarchyViewUIComponent.h>
+#include <ImGuizmo.h>
 #include <Tetragrama/Inputs/Keyboard.h>
 #include <Tetragrama/Inputs/Mouse.h>
 #include <Tetragrama/MessageToken.h>
@@ -11,7 +12,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui.h>
-#include <ImGuizmo.h>
 #include <stack>
 
 using namespace ZEngine;

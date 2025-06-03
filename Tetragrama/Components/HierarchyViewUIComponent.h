@@ -1,9 +1,11 @@
 #pragma once
-#include <Tetragrama/Components/UIComponent.h>
 #include <Tetragrama/Controllers/EditorCameraController.h>
-#include <Tetragrama/EditorScene.h>
 #include <Tetragrama/Messengers/Message.h>
+#include <Tetragrama/Components/UIComponent.h>
 #include <imgui.h>
+#include <future>
+#include <mutex>
+#include <string>
 
 namespace Tetragrama::Components
 {

@@ -18,7 +18,7 @@ namespace ZEngine::Rendering::Shaders
         Specifications::LayoutBindingSpecification                                                               GetLayoutBindingSpecification(const char* name);
 
         VkDescriptorPool                                                                                         m_descriptor_pool             = VK_NULL_HANDLE;
-        Specifications::ShaderSpecificationType                                                                  m_specification               = {};
+        Specifications::ShaderSpecificationType                                                                      m_specification               = {};
         Core::Memory::ArenaAllocator                                                                             LocalArena                    = {};
 
         Core::Containers::Array<Specifications::PushConstantSpecification>                                       PushConstantSpecifications    = {};

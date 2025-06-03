@@ -1,6 +1,6 @@
 #pragma once
-#include <ZEngine/Core/Containers/Array.h>
 #include <ZEngine/Core/Memory/Allocator.h>
+#include <ZEngine/Core/Containers/Array.h>
 #include <ZEngine/Helpers/MemoryOperations.h>
 #include <rapidhash.h>
 

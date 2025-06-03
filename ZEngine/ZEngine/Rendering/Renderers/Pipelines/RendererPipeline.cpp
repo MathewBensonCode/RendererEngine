@@ -1,6 +1,5 @@
 #include <ZEngine/Hardwares/VulkanDevice.h>
 #include <ZEngine/Rendering/Renderers/Pipelines/RendererPipeline.h>
-#include <array>
 
 using namespace ZEngine::Helpers;
 using namespace ZEngine::Core::Containers;

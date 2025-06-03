@@ -229,7 +229,7 @@ namespace ZEngine::Rendering::Shaders
                     LayoutBindingSpecificationMap[set].init(m_device->Arena, 10);
                 }
 
-                LayoutBindingSpecificationMap[set].push(LayoutBindingSpecification{.Set = set, .Binding = binding, .Count = count, .Name = SI_resource.name, .DescriptorType = DescriptorTypeEnum ::COMBINED_IMAGE_SAMPLER, .Flags = ShaderStageFlags::FRAGMENT});
+                LayoutBindingSpecificationMap[set].push(LayoutBindingSpecification{.Set = set, .Binding = binding, .Count = count, .Name = SI_resource.name, .DescriptorType= DescriptorTypeEnum ::COMBINED_IMAGE_SAMPLER, .Flags = ShaderStageFlags::FRAGMENT});
             }
         }
     }

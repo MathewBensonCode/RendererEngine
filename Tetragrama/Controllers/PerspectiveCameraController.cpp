@@ -1,9 +1,9 @@
 #include <Tetragrama/Controllers/PerspectiveCameraController.h>
+#include <ZEngine/Windows/Inputs/IDevice.h>
+#include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
 #include <Tetragrama/Inputs/Keyboard.h>
 #include <Tetragrama/Inputs/Mouse.h>
 #include <ZEngine/Core/EventDispatcher.h>
-#include <ZEngine/Windows/Inputs/IDevice.h>
-#include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
 
 using namespace ZEngine;
 using namespace ZEngine::Helpers;

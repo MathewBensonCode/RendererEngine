@@ -1,8 +1,8 @@
 ﻿#include <ZEngine/Core/Coroutine.h>
+#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
 #include <ZEngine/Rendering/Components/CameraComponent.h>
 #include <ZEngine/Rendering/Components/LightComponent.h>
 #include <ZEngine/Rendering/Components/UUIComponent.h>
-#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
 #include <ZEngine/Rendering/Scenes/GraphicScene.h>
 
 #define NODE_PARENT_ID  -1
@@ -174,7 +174,7 @@ namespace ZEngine::Rendering::Scenes
             int i = 0;
             for (auto& [node, mesh] : SceneData->NodeMeshes)
             {
-                DrawDataType& draw_data  = SceneData->DrawData[i];
+                DrawDataType& draw_data      = SceneData->DrawData[i];
                 draw_data.TransformIndex = node;
                 draw_data.MaterialIndex  = SceneData->NodeMaterials[node];
                 draw_data.VertexOffset   = SceneData->Meshes[mesh].VertexOffset;

@@ -67,7 +67,7 @@ namespace ZEngine::Rendering::Scenes
          */
         std::vector<float>                         Vertices                     = {};
         std::vector<uint32_t>                      Indices                      = {};
-        std::vector<DrawDataType>                  DrawData                     = {};
+        std::vector<DrawDataType>                      DrawData                     = {};
         std::vector<std::string>                   Names                        = {};
         std::vector<std::string>                   MaterialNames                = {};
         std::unordered_map<uint32_t, uint32_t>     NodeMeshes                   = {};

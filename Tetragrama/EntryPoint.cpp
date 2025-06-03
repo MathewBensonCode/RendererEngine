@@ -1,8 +1,8 @@
 #include <CLI/CLI.hpp>
-#include <Tetragrama/Editor.h>
 #include <ZEngine/Core/Memory/MemoryManager.h>
 #include <ZEngine/EngineConfiguration.h>
 #include <ZEngine/Logging/Logger.h>
+#include <Tetragrama/Editor.h>
 
 #ifdef ZENGINE_PLATFORM
 

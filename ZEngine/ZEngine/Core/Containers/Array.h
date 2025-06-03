@@ -1,6 +1,6 @@
 #pragma once
-#include <ZEngine/Core/Containers/InitializerList.h>
 #include <ZEngine/Core/Memory/Allocator.h>
+#include <ZEngine/Core/Containers/InitializerList.h>
 
 using namespace ZEngine::Core::Memory;
 

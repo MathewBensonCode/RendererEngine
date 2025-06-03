@@ -1,5 +1,5 @@
-#include <ZEngine/Helpers/ThreadPool.h>
 #include <gtest/gtest.h>
+#include <ZEngine/Helpers/ThreadPool.h>
 
 using namespace ZEngine::Helpers;
 

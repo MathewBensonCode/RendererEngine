@@ -24,7 +24,7 @@ target_sources(
 
 target_include_directories(imgui PUBLIC ${IMGUIDIR})
 
-target_compile_definitions(imgui PUBLIC GLFW_INCLUDE_VULKAN IMGUI_DEFINE_MATH_OPERATORS)
+target_compile_definitions(imgui PUBLIC GLFW_INCLUDE_VULKAN)
 
 target_link_libraries(imgui PUBLIC glfw Vulkan::Vulkan)
 

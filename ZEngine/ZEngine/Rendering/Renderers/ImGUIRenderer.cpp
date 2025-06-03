@@ -1,11 +1,11 @@
-#include <ZEngine/Hardwares/VulkanDevice.h>
 #include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
+#include <ZEngine/Hardwares/VulkanDevice.h>
 #include <ZEngine/Rendering/Renderers/ImGUIRenderer.h>
 #include <ZEngine/Windows/CoreWindow.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_vulkan.h>
-#include <algorithm>
 #include <filesystem>
+#include <algorithm>
 #include <string_view>
 #include "ImGuizmo.h"
 
@@ -104,7 +104,7 @@ namespace ZEngine::Rendering::Renderers
         auto font_tex_handle                               = renderer->CreateTexture(font_tex_spec);
         auto font_texture                                  = renderer->Device->GlobalTextures.Access(font_tex_handle);
 
-        io.Fonts->TexID                                    = reinterpret_cast<ImTextureID>(font_tex_handle.Index);
+        io.Fonts->TexID                                    = (ImTextureID) font_tex_handle.Index;
 
         auto                        font_image_info        = font_texture->ImageBuffer->GetDescriptorImageInfo();
         uint32_t                    frame_count            = renderer->Device->SwapchainImageCount;

@@ -1,12 +1,12 @@
-#include <Tetragrama/Components/SceneViewportUIComponent.h>
 #include <Tetragrama/MessageToken.h>
 #include <Tetragrama/Messengers/Messenger.h>
+#include <Tetragrama/Components/SceneViewportUIComponent.h>
 #include <ZEngine/Logging/LoggerDefinition.h>
 #include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
 #include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
 /**/
-#include <ImGuizmo.h>
 #include <Tetragrama/Editor.h>
+#include <ImGuizmo.h>
 
 using namespace Tetragrama::Components::Event;
 using namespace ZEngine::Rendering::Renderers;
@@ -96,7 +96,7 @@ namespace Tetragrama::Components
             m_refresh_texture_handle = false;
         }
 
-        ImGui::Image(reinterpret_cast<ImTextureID>(m_scene_texture.Index), m_viewport_size, ImVec2(0, 1), ImVec2(1, 0));
+        ImGui::Image((ImTextureID) m_scene_texture.Index, m_viewport_size, ImVec2(0, 1), ImVec2(1, 0));
         // ViewPort bound computation
         ImVec2 viewport_windows_size  = ImGui::GetWindowSize();
         ImVec2 minimum_bound          = ImGui::GetWindowPos();

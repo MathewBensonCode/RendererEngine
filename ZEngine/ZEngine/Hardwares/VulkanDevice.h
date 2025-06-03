@@ -18,7 +18,6 @@
 #include <ZEngine/Core/Containers/Strings.h>
 #include <ZEngine/Core/Memory/Allocator.h>
 #include <set>
-#include <span>
 // clang-format on
 
 namespace ZEngine::Windows
@@ -691,7 +690,7 @@ namespace ZEngine::Hardwares
         VkPhysicalDeviceFeatures                                                            PhysicalDeviceFeature              = {};
         VkPhysicalDeviceMemoryProperties                                                    PhysicalDeviceMemoryProperties     = {};
         VkSwapchainKHR                                                                      SwapchainHandle                    = VK_NULL_HANDLE;
-        VmaAllocator                                                                        Vma_Allocator                      = nullptr;
+        VmaAllocator                                                                        Vma_Allocator                       = nullptr;
         Core::Containers::Array<VkFormat>                                                   DefaultDepthFormats                = {};
         Rendering::Renderers::RenderPasses::Attachment*                                     SwapchainAttachment                = {};
         Core::Containers::Array<VkImageView>                                                SwapchainImageViews                = {};
