@@ -1,7 +1,7 @@
 #pragma once
-#include <Maths/Math.h>
-#include <Rendering/Lights/Light.h>
-#include <Rendering/Meshes/Mesh.h>
+#include <ZEngine/Maths/Math.h>
+#include <ZEngine/Rendering/Lights/Light.h>
+#include <ZEngine/Rendering/Meshes/Mesh.h>
 
 namespace ZEngine::Rendering::Mesh
 {

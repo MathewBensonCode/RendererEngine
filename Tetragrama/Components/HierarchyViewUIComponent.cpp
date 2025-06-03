@@ -1,18 +1,17 @@
-#include <pch.h>
-#include <Editor.h>
-#include <HierarchyViewUIComponent.h>
-#include <ImGuizmo/ImGuizmo.h>
-#include <Inputs/Keyboard.h>
-#include <Inputs/Mouse.h>
-#include <MessageToken.h>
-#include <Messenger.h>
+#include <Tetragrama/Components/HierarchyViewUIComponent.h>
+#include <Tetragrama/Editor.h>
+#include <Tetragrama/Inputs/Keyboard.h>
+#include <Tetragrama/Inputs/Mouse.h>
+#include <Tetragrama/MessageToken.h>
+#include <Tetragrama/Messengers/Messenger.h>
 #include <ZEngine/Engine.h>
 #include <ZEngine/Rendering/Scenes/GraphicScene.h>
 #include <ZEngine/Windows/Inputs/IDevice.h>
 #include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
 #include <glm/glm.hpp>
-#include <gtc/type_ptr.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <imgui.h>
+#include <ImGuizmo.h>
 #include <stack>
 
 using namespace ZEngine;

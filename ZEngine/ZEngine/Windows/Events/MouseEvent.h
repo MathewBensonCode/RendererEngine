@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Core/CoreEvent.h>
-#include <Inputs/KeyCode.h>
-#include <ZEngineDef.h>
+#include <ZEngine/Core/CoreEvent.h>
+#include <ZEngine/Windows/Inputs/KeyCode.h>
+#include <ZEngine/ZEngineDef.h>
 
 namespace ZEngine::Windows::Events
 {
@@ -43,7 +43,7 @@ namespace ZEngine::Windows::Events
 
         virtual std::string ToString() const override
         {
-            return fmt::format("MouseButtonPressedEvent : {0}", m_button);
+            return fmt::format("MouseButtonPressedEvent : {0}", static_cast<int32_t>(m_button));
         }
     };
 
@@ -66,7 +66,7 @@ namespace ZEngine::Windows::Events
 
         virtual std::string ToString() const override
         {
-            return fmt::format("MouseButtonReleasedEvent : {0}", m_button);
+            return fmt::format("MouseButtonReleasedEvent : {0}", static_cast<int32_t>(m_button));
         }
     };
 
@@ -136,7 +136,7 @@ namespace ZEngine::Windows::Events
 
         virtual std::string ToString() const override
         {
-            return fmt::format("MouseButtonWheelEvent : {0}", m_button);
+            return fmt::format("MouseButtonWheelEvent : {0}", static_cast<int32_t>(m_button));
         }
 
     private:

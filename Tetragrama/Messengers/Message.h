@@ -79,7 +79,7 @@ namespace Tetragrama::Messengers
         T* m_value{nullptr};
     };
 
-    template <typename T, size_t N>
+    template <typename T, std::size_t N>
     struct ArrayValueMessage : public EmptyMessage
     {
         ArrayValueMessage() {}

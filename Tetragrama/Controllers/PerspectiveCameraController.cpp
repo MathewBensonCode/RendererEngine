@@ -1,10 +1,9 @@
-#include <pch.h>
-#include <Controllers/PerspectiveCameraController.h>
-#include <Inputs/IDevice.h>
-#include <Inputs/KeyCodeDefinition.h>
-#include <Inputs/Keyboard.h>
-#include <Inputs/Mouse.h>
+#include <Tetragrama/Controllers/PerspectiveCameraController.h>
+#include <Tetragrama/Inputs/Keyboard.h>
+#include <Tetragrama/Inputs/Mouse.h>
 #include <ZEngine/Core/EventDispatcher.h>
+#include <ZEngine/Windows/Inputs/IDevice.h>
+#include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
 
 using namespace ZEngine;
 using namespace ZEngine::Helpers;

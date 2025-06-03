@@ -1,5 +1,5 @@
 #pragma once
-#include <Maths/Math.h>
+#include <ZEngine/Maths/Math.h>
 
 namespace ZEngine::Rendering::Components
 {

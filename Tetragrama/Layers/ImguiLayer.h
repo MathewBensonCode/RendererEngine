@@ -1,6 +1,6 @@
 #pragma once
-#include <Helpers/NodeHierarchyHelper.h>
-#include <UIComponent.h>
+#include <Tetragrama/Components/UIComponent.h>
+#include <Tetragrama/Helpers/NodeHierarchyHelper.h>
 #include <ZEngine/Core/Containers/Array.h>
 #include <ZEngine/Core/Containers/HashMap.h>
 #include <ZEngine/Core/Containers/Strings.h>

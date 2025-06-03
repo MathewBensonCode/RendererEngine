@@ -1,7 +1,7 @@
 #pragma once
-#include <Core/Containers/Array.h>
-#include <Core/Containers/Strings.h>
-#include <Helpers/IntrusivePtr.h>
+#include <ZEngine/Core/Containers/Array.h>
+#include <ZEngine/Core/Containers/Strings.h>
+#include <ZEngine/Helpers/IntrusivePtr.h>
 
 namespace ZEngine::Windows::Layers
 {

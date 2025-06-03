@@ -1,8 +1,8 @@
 #pragma once
-#include <Core/Containers/Array.h>
-#include <Core/Memory/Allocator.h>
-#include <MemoryOperations.h>
-#include <ZEngineDef.h>
+#include <ZEngine/Core/Containers/Array.h>
+#include <ZEngine/Core/Memory/Allocator.h>
+#include <ZEngine/Helpers/MemoryOperations.h>
+#include <ZEngine/ZEngineDef.h>
 #include <shared_mutex>
 
 #define INVALID_HANDLE_INDEX -1
@@ -18,9 +18,9 @@ namespace ZEngine::Helpers
     template <typename T>
     struct Handle
     {
-        uint32_t Index = UINT32_MAX;
+        unsigned long long Index = std::numeric_limits<unsigned long long>::max();
 
-        bool     Valid() const
+        bool               Valid() const
         {
             return Index != UINT32_MAX;
         }

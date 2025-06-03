@@ -1,6 +1,5 @@
-#include <pch.h>
-#include <GraphicRenderer.h>
-#include <Rendering/Renderers/RenderGraph.h>
+#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
+#include <ZEngine/Rendering/Renderers/RenderGraph.h>
 
 using namespace ZEngine::Core::Containers;
 

@@ -1,8 +1,8 @@
 #pragma once
-#include <Helpers/IntrusivePtr.h>
-#include <Maths/Math.h>
-#include <Rendering/Geometries/GeometryEnum.h>
-#include <Rendering/Renderers/Storages/GraphicVertex.h>
+#include <ZEngine/Helpers/IntrusivePtr.h>
+#include <ZEngine/Maths/Math.h>
+#include <ZEngine/Rendering/Geometries/GeometryEnum.h>
+#include <ZEngine/Rendering/Renderers/Storages/GraphicVertex.h>
 #include <algorithm>
 #include <vector>
 

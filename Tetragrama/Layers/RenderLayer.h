@@ -1,14 +1,11 @@
 #pragma once
-#include <Components/Events/SceneTextureAvailableEvent.h>
-#include <Components/Events/SceneViewportFocusedEvent.h>
-#include <Components/Events/SceneViewportResizedEvent.h>
-#include <Components/Events/SceneViewportUnfocusedEvent.h>
-#include <EditorCameraController.h>
-#include <Messengers/Message.h>
+#include <Tetragrama/Components/Events/SceneTextureAvailableEvent.h>
+#include <Tetragrama/Components/Events/SceneViewportFocusedEvent.h>
+#include <Tetragrama/Components/Events/SceneViewportResizedEvent.h>
+#include <Tetragrama/Components/Events/SceneViewportUnfocusedEvent.h>
+#include <Tetragrama/Controllers/EditorCameraController.h>
+#include <Tetragrama/Messengers/Message.h>
 #include <ZEngine/Serializers/GraphicSceneSerializer.h>
-#include <mutex>
-#include <queue>
-#include <vector>
 
 namespace Tetragrama::Layers
 {

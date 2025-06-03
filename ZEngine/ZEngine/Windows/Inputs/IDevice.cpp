@@ -1,5 +1,4 @@
-#include <pch.h>
-#include <Inputs/IDevice.h>
+#include <ZEngine/Windows/Inputs/IDevice.h>
 
 namespace ZEngine::Windows::Inputs
 {

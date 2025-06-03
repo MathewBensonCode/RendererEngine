@@ -1,6 +1,6 @@
-#include <Core/Memory/Allocator.h>
-#include <Core/Memory/MemoryManager.h>
-#include <Helpers/HandleManager.h>
+#include <ZEngine/Core/Memory/Allocator.h>
+#include <ZEngine/Core/Memory/MemoryManager.h>
+#include <ZEngine/Helpers/HandleManager.h>
 #include <gtest/gtest.h>
 #include <thread>
 
@@ -10,7 +10,7 @@ protected:
     void SetUp() override
     {
         manager.Initialize({.DefaultSize = ZKilo(10)});
-        auto arena = &(manager.ArenaAllocator);
+        auto arena = &(manager.m_ArenaAllocator);
         handle_manager.Initialize(arena, 10);
     }
 
@@ -114,7 +114,7 @@ TEST_F(HandleManagerTest, ReuseSlot)
 TEST_F(HandleManagerTest, ConcurrentAccess)
 {
     ZEngine::Helpers::HandleManager<int*> h_manager;
-    h_manager.Initialize(&(manager.ArenaAllocator), 40);
+    h_manager.Initialize(&(manager.m_ArenaAllocator), 40);
     const int                numThreads             = 4;
     const int                numOperationsPerThread = 10;
     std::vector<std::thread> threads;

@@ -1,9 +1,10 @@
 #pragma once
-#include <Helpers/MemoryOperations.h>
-#include <ZEngineDef.h>
+#include <ZEngine/Helpers/MemoryOperations.h>
+#include <ZEngine/ZEngineDef.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 #include <cmath>
+#include <csignal>
 #include <vector>
 
 namespace ZEngine::Rendering::Buffers
@@ -29,7 +30,7 @@ namespace ZEngine::Rendering::Buffers
          * The A and B values are normalized coordinates in the range [-1, 1], calculated from pixel coordinates (i, j)
          * and the face size.
          *
-         * Reference: "Real-Time Rendering, Fourth Edition" by Tomas Akenine-Möller, Eric Haines, Naty Hoffman
+         * Reference: "Real-Time Rendering, Fourth Edition" by Tomas Akenine-MÃ¶ller, Eric Haines, Naty Hoffman
          */
         static glm::vec3 FaceCoordToXYZ(int i, int j, int face_id, int face_size)
         {

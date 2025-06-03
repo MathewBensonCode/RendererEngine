@@ -83,26 +83,6 @@ if ($IsWindows) {
 }
 
 
-if(-Not $LauncherOnly) {
-    $RepoRoot = [IO.Path]::Combine($PSScriptRoot, "..")
-    Write-Host "Ensuring submodules are initialized and updated..."
-    & git -C $RepoRoot submodule update --init --recursive
-    
-    Write-Host "Configuring Vulkan-Header submodule..."
-    
-    $ExternalVulkanHeadersDir = Join-Path -Path $RepoRoot -ChildPath "__externals/Vulkan-Headers"
-    $ExternalVulkanHeadersOutputDir = Join-Path -Path $ExternalVulkanHeadersDir -ChildPath "build"
-    $ExternalVulkanHeadersInstallDir = Join-Path -Path $ExternalVulkanHeadersOutputDir -ChildPath "install"
-    
-    if(-Not (Test-Path -Path $ExternalVulkanHeadersInstallDir)) {
-        & $cMakeProgram -S $ExternalVulkanHeadersDir -B $ExternalVulkanHeadersOutputDir
-        & $cMakeProgram --install $ExternalVulkanHeadersOutputDir --prefix $ExternalVulkanHeadersInstallDir
-    }
-} else {
-    Write-Host "Skipping submodules initialization..."
-}
-
-
 function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
 
     $architecture = 'x64'
@@ -131,31 +111,12 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
     [string]$BuildDirectoryName = "Result." + $systemName + "." + $architecture + "." + $BuildDirectoryNameExtension
     [string]$buildDirectoryPath = [IO.Path]::Combine($RepoRoot, $BuildDirectoryName)
     [string]$cMakeCacheVariableOverride = ""
-    [string]$cMakeGenerator = ""
+    [string]$cMakeGenerator = "Ninja"
 
     # Create build directory
     if (-Not (Test-Path $buildDirectoryPath)) {
         $Null = New-Item -ItemType Directory -Path $BuildDirectoryPath -ErrorAction SilentlyContinue
     }
-
-    # Define CMake Generator arguments
-    $cMakeOptions = " -DCMAKE_SYSTEM_NAME=$systemName", " -DCMAKE_BUILD_TYPE=$configuration"
-    $submoduleCMakeOptions = @{
-        'ENTT'      = @("-DENTT_INCLUDE_HEADERS=ON")
-        'SPDLOG'    = @("-DSPDLOG_BUILD_SHARED=OFF", "-DBUILD_STATIC_LIBS=ON", "-DSPDLOG_FMT_EXTERNAL=ON", "-DSPDLOG_FMT_EXTERNAL_HO=OFF");
-        'GLFW '     = @("-DGLFW_BUILD_DOCS=OFF", "-DGLFW_BUILD_EXAMPLES=OFF", "-DGLFW_INSTALL=OFF");
-        'ASSIMP'    = @("-DASSIMP_BUILD_TESTS=OFF", "-DASSIMP_INSTALL=OFF", "-DASSIMP_BUILD_SAMPLES=OFF", "-DASSIMP_BUILD_ASSIMP_TOOLS=OFF", "-DASSIMP_BUILD_ALL_IMPORTERS_BY_DEFAULT=OFF", "-DASSIMP_BUILD_OBJ_IMPORTER=ON", "-DASSIMP_BUILD_ALL_EXPORTERS_BY_DEFAULT=OFF", "-DASSIMP_BUILD_OBJ_EXPORTER=ON");
-        'STDUUID'   = @("-DUUID_BUILD_TESTS=OFF", "-DUUID_USING_CXX20_SPAN=ON", "-DUUID_SYSTEM_GENERATOR=OFF");
-        'YAMLCPP'   = @("-DYAML_CPP_BUILD_TOOLS=OFF", "-DYAML_CPP_BUILD_TESTS=OFF", "-DYAML_CPP_FORMAT_SOURCE=OFF", "-DYAML_BUILD_SHARED_LIBS=OFF");
-        'FRAMEWORK' = @("-DBUILD_FRAMEWORK=ON");
-        'VULKAN_LOADER' = @("-DVULKAN_HEADERS_INSTALL_DIR=$ExternalVulkanHeadersInstallDir", "-DUSE_MASM=OFF", "-DUSE_GAS=OFF")
-        'SPIRV_TOOLS' = @("-DSPIRV_SKIP_EXECUTABLES=ON", "-DSPIRV_SKIP_TESTS=ON")
-        'SPIRV_CROSS' = @("-DSPIRV_CROSS_ENABLE_TESTS=OFF")
-        'LAUNCHER_ONLY' = @("-DLAUNCHER_ONLY=ON")
-        'GLM'       = @("-DCMAKE_POLICY_VERSION_MINIMUM=3.5")
-    }
-
-    $cMakeCacheVariableOverride = $cMakeOptions -join ' '
 
     # Define CMake Generator argument
     switch ($systemName) {
@@ -171,37 +132,9 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
             $cMakeCacheVariableOverride += ' -DCMAKE_CONFIGURATION_TYPES=Debug;Release '
         }
         "Linux" {
-            $cMakeGenerator = "-G `"Unix Makefiles`""
+            $cMakeGenerator = "-G Ninja"
 
-            # Set Linux build compiler
-            $env:CC = '/usr/bin/gcc-11'
-            $env:CXX = '/usr/bin/g++-11'
-        }
-        "Darwin" {
-            $cMakeGenerator = "-G `"Xcode`""
-            $cMakeCacheVariableOverride += ' ' + $submoduleCMakeOptions.FRAMEWORK -join ' '
-        }
-        Default {
-            throw 'This system is not supported'
-        }
-    }
-
-    if($LauncherOnly) {
-        $cMakeCacheVariableOverride += ' ' + $submoduleCMakeOptions.LAUNCHER_ONLY -join ' '
-    } else {
-        $cMakeCacheVariableOverride += ' ' + $submoduleCMakeOptions.ENT -join ' '
-        $cMakeCacheVariableOverride += ' ' + $submoduleCMakeOptions.SPDLOG -join ' '
-        $cMakeCacheVariableOverride += ' ' + $submoduleCMakeOptions.ASSIMP -join ' '
-        $cMakeCacheVariableOverride += ' ' + $submoduleCMakeOptions.STDUUID -join ' '
-        $cMakeCacheVariableOverride += ' ' + $submoduleCMakeOptions.YAMLCPP -join ' '
-        $cMakeCacheVariableOverride += ' ' + $submoduleCMakeOptions.VULKAN_LOADER -join ' '
-        $cMakeCacheVariableOverride += ' ' + $submoduleCMakeOptions.SPIRV_CROSS -join ' '
-        $cMakeCacheVariableOverride += ' ' + $submoduleCMakeOptions.SPIRV_TOOLS -join ' '
-        $cMakeCacheVariableOverride += ' ' + $submoduleCMakeOptions.GLFW -join ' '
-        $cMakeCacheVariableOverride += ' ' + $submoduleCMakeOptions.GLM -join ' '
-    }
-
-    $cMakeArguments = " -S $repositoryRootPath -B $buildDirectoryPath $cMakeGenerator $cMakeCacheVariableOverride"
+    $cMakeArguments = " -S $repositoryRootPath -B $buildDirectoryPath -G $cMakeGenerator $cMakeCacheVariableOverride -DCMAKE_BUILD_TYPE=$configuration"
 
     # CMake Generation process
     Write-Host $cMakeArguments
@@ -220,7 +153,7 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
             $buildToolOptions = '-nodeReuse:false'
         }
 
-        $buildArguments = "--build $buildDirectoryPath --config $configuration"
+        $buildArguments = "--build $buildDirectoryPath"
         if ($buildToolOptions) {
             $buildArguments = $buildArguments, $buildToolOptions -join " --"
         }
@@ -260,7 +193,7 @@ if(-Not $LauncherOnly) {
     }
 
 
-    # Run Shader Compilation
+#    Run Shader Compilation
     foreach ($config in $Configurations) {
         $shaderCompileScript = Join-Path $PSScriptRoot -ChildPath "ShaderCompile.ps1"
         & pwsh -File $shaderCompileScript -Configuration:$config -ForceRebuild:$true

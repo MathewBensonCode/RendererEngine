@@ -1,5 +1,4 @@
-#include <pch.h>
-#include <SearchPatternAlgorithm.h>
+#include <Tetragrama/Helpers/SearchPatternAlgorithm.h>
 #include <ZEngine/Helpers/MemoryOperations.h>
 
 using namespace ZEngine::Core::Memory;

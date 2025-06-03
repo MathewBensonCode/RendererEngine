@@ -1,6 +1,6 @@
 #pragma once
-#include <Rendering/Specifications/FormatSpecification.h>
-#include <ZEngineDef.h>
+#include <ZEngine/Rendering/Specifications/FormatSpecification.h>
+#include <ZEngine/ZEngineDef.h>
 
 namespace ZEngine::Rendering::Specifications
 {
@@ -32,13 +32,13 @@ namespace ZEngine::Rendering::Specifications
     {
         uint32_t              Width;
         uint32_t              Height;
-        ImageViewType         ImageViewType = ImageViewType::TYPE_2D;
+        ImageViewTypeEnum     ImageViewType = ImageViewTypeEnum::TYPE_2D;
         ImageBufferUsageType  BufferUsageType;
         VkFormat              ImageFormat;
         VkImageUsageFlags     ImageUsage;
         VkImageAspectFlagBits ImageAspectFlag;
         uint32_t              LayerCount      = 1U;
-        ImageCreateFlag       ImageCreateFlag = ImageCreateFlag::NONE;
+        ImageCreateFlagEnum   ImageCreateFlag = ImageCreateFlagEnum::NONE;
     };
 
 } // namespace ZEngine::Rendering::Specifications

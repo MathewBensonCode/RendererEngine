@@ -1,8 +1,8 @@
 #pragma once
-#include <Maths/Math.h>
-#include <Rendering/Entities/GraphicSceneEntity.h>
-#include <Serializers/GraphicSceneSerializer.h>
-#include <ZEngineDef.h>
+#include <ZEngine/Maths/Math.h>
+#include <ZEngine/Rendering/Entities/GraphicSceneEntity.h>
+#include <ZEngine/Serializers/GraphicSceneSerializer.h>
+#include <ZEngine/ZEngineDef.h>
 #include <yaml-cpp/yaml.h>
 
 namespace ZEngine::Serializers

@@ -1,8 +1,7 @@
-#include <pch.h>
-#include <Editor.h>
-#include <MessageToken.h>
-#include <Messengers/Messenger.h>
-#include <RenderLayer.h>
+#include <Tetragrama/Editor.h>
+#include <Tetragrama/Layers/RenderLayer.h>
+#include <Tetragrama/MessageToken.h>
+#include <Tetragrama/Messengers/Messenger.h>
 #include <ZEngine/Core/CoreEvent.h>
 #include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
 using namespace Tetragrama::Controllers;
