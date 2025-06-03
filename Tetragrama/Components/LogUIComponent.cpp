@@ -1,7 +1,6 @@
-#include <pch.h>
-#include <Helpers/MemoryOperations.h>
-#include <LogUIComponent.h>
-#include <SearchPatternAlgorithm.h>
+#include <ZEngine/Helpers/MemoryOperations.h>
+#include <Tetragrama/Components/LogUIComponent.h>
+#include <Tetragrama/Helpers/SearchPatternAlgorithm.h>
 #include <ZEngine/Core/Containers/Array.h>
 #include <imgui.h>
 

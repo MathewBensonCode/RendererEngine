@@ -6,60 +6,56 @@ project (Tetragrama
 	LANGUAGES CXX
 )
 
-set (CMAKE_CXX_STANDARD_REQUIRED ON)
-set	(CMAKE_CXX_STANDARD 20)
+add_executable (Tetragrama)
 
-file (GLOB_RECURSE HEADER_FILES CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
-file (GLOB_RECURSE CPP_FILES CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+target_include_directories (Tetragrama
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/..
+)
 
-source_group (TREE ${PROJECT_SOURCE_DIR} PREFIX "Source Files" FILES ${HEADER_FILES} ${CPP_FILES})
-
-set (TARGET_NAME tetragrama)
-
-if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
-    add_executable (${TARGET_NAME} WIN32)
-else()
-    add_executable (${TARGET_NAME})
-endif()
-
-target_sources(${TARGET_NAME} PUBLIC ${HEADER_FILES} ${CPP_FILES})
+target_sources(Tetragrama PRIVATE 
+    Controllers/EditorCameraController.cpp
+    Controllers/PerspectiveCameraController.cpp
+    EntryPoint.cpp
+    Editor.cpp
+    Importers/AssimpImporter.cpp
+    Importers/IAssetImporter.cpp
+    Helpers/SerializerCommonHelper.cpp
+    Helpers/SearchPatternAlgorithm.cpp
+    Helpers/UIComponentDrawerHelper.cpp
+    Managers/AssetManager.cpp
+    Serializers/EditorSceneSerializer.cpp
+    EditorScene.cpp
+    EditorWindow.cpp
+    Components/SceneViewportUIComponent.cpp
+    Components/HierarchyViewUIComponent.cpp
+    Components/DockspaceUIComponent.cpp
+    Components/InspectorViewUIComponent.cpp
+    Components/LogUIComponent.cpp
+    Components/ProjectViewUIComponent.cpp
+    Layers/RenderLayer.cpp
+    Layers/ImguiLayer.cpp
+)
 
 # We set this debugger directory to find assets and resources file
 # after being copied to Debug and Release output directories 
 #
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
-    set_target_properties(${TARGET_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)$(Configuration)")
+    set_target_properties(Tetragrama PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "$(ProjectDir)$(Configuration)")
 endif ()
 
-include(${EXTERNAL_DIR}/externals.cmake)
 
-target_include_directories (${TARGET_NAME}
-	PRIVATE
-        .
-        ./Components
-        ./Components/Events
-        ./Controllers
-        ./Inputs
-        ./Layers
-        ./Messengers
-        ./Helpers
-        ./Importers
-        ./Serializers
-        ./Managers
-		${ENLISTMENT_ROOT}/ZEngine
-)
-
-target_precompile_headers(${TARGET_NAME} PRIVATE pch.h)
-target_compile_definitions(${TARGET_NAME}
+target_compile_definitions(Tetragrama
     PRIVATE
         NOMINMAX
         UNICODE
         _UNICODE
 )
 
-target_link_libraries(${TARGET_NAME} PRIVATE
+target_link_libraries(Tetragrama
+    PRIVATE
     zEngineLib
-    imported::External_editorLibs
+    nlohmann_json::nlohmann_json
 )
 
-set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME "zEngineEditor")
+set_target_properties(Tetragrama PROPERTIES OUTPUT_NAME "zEngineEditor")

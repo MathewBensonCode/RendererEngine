@@ -1,5 +1,5 @@
-#include <pch.h>
-#include <ZEngineDef.h>
+#include <ZEngine/ZEngineDef.h>
+#include <filesystem>
 
 /*
  * We define those Macros before inclusion of VulkanDevice.h so we can enable impl from VMA header
@@ -7,13 +7,13 @@
 #define VMA_IMPLEMENTATION
 #define VMA_VULKAN_VERSION 1003000 // Vulkan 1.3
 
-#include <Hardwares/VulkanDevice.h>
-#include <Helpers/MemoryOperations.h>
-#include <Helpers/ThreadPool.h>
-#include <Logging/LoggerDefinition.h>
-#include <Rendering/Pools/CommandPool.h>
-#include <Rendering/Renderers/RenderPasses/Attachment.h>
-#include <Windows/CoreWindow.h>
+#include <ZEngine/Hardwares/VulkanDevice.h>
+#include <ZEngine/Helpers/MemoryOperations.h>
+#include <ZEngine/Helpers/ThreadPool.h>
+#include <ZEngine/Logging/LoggerDefinition.h>
+#include <ZEngine/Rendering/Pools/CommandPool.h>
+#include <ZEngine/Rendering/Renderers/RenderPasses/Attachment.h>
+#include <ZEngine/Windows/CoreWindow.h>
 
 using namespace std::chrono_literals;
 using namespace ZEngine::Rendering::Primitives;
@@ -370,7 +370,7 @@ namespace ZEngine::Hardwares
          * Creating VMA Allocators
          */
         VmaAllocatorCreateInfo vma_allocator_create_info = {.physicalDevice = PhysicalDevice, .device = LogicalDevice, .instance = Instance, .vulkanApiVersion = VK_API_VERSION_1_3};
-        ZENGINE_VALIDATE_ASSERT(vmaCreateAllocator(&vma_allocator_create_info, &VmaAllocator) == VK_SUCCESS, "Failed to create VMA Allocator")
+        ZENGINE_VALIDATE_ASSERT(vmaCreateAllocator(&vma_allocator_create_info, &Vma_Allocator) == VK_SUCCESS, "Failed to create VMA Allocator")
 
         m_buffer_manager.Initialize(this);
         EnqueuedCommandbuffers.init(Arena, m_buffer_manager.TotalCommandBufferCount, m_buffer_manager.TotalCommandBufferCount);
@@ -487,7 +487,7 @@ namespace ZEngine::Hardwares
 
     void VulkanDevice::Dispose()
     {
-        vmaDestroyAllocator(VmaAllocator);
+        vmaDestroyAllocator(Vma_Allocator);
 
         if (__destroyDebugMessengerPtr)
         {
@@ -703,7 +703,7 @@ namespace ZEngine::Hardwares
             }
 
             BufferView& buffer = DirtyBuffers[handle];
-            vmaDestroyBuffer(VmaAllocator, buffer.Handle, buffer.Allocation);
+            vmaDestroyBuffer(Vma_Allocator, buffer.Handle, buffer.Allocation);
             DirtyBuffers.Remove(handle);
         }
     }
@@ -724,7 +724,7 @@ namespace ZEngine::Hardwares
 
             vkDestroyImageView(LogicalDevice, buffer.ViewHandle, nullptr);
             vkDestroySampler(LogicalDevice, buffer.Sampler, nullptr);
-            vmaDestroyImage(VmaAllocator, buffer.Handle, buffer.Allocation);
+            vmaDestroyImage(Vma_Allocator, buffer.Handle, buffer.Allocation);
 
             DirtyBufferImages.Remove(handle);
         }
@@ -735,9 +735,9 @@ namespace ZEngine::Hardwares
         void* mapped_memory;
         if (data)
         {
-            ZENGINE_VALIDATE_ASSERT(vmaMapMemory(VmaAllocator, buffer.Allocation, &mapped_memory) == VK_SUCCESS, "Failed to map memory")
+            ZENGINE_VALIDATE_ASSERT(vmaMapMemory(Vma_Allocator, buffer.Allocation, &mapped_memory) == VK_SUCCESS, "Failed to map memory")
             ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(mapped_memory, data_size, data, data_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
-            vmaUnmapMemory(VmaAllocator, buffer.Allocation);
+            vmaUnmapMemory(Vma_Allocator, buffer.Allocation);
         }
     }
 
@@ -754,7 +754,7 @@ namespace ZEngine::Hardwares
         allocation_create_info.usage                   = VMA_MEMORY_USAGE_AUTO_PREFER_DEVICE;
         allocation_create_info.flags                   = vma_create_flags;
 
-        ZENGINE_VALIDATE_ASSERT(vmaCreateBuffer(VmaAllocator, &buffer_create_info, &allocation_create_info, &(buffer_view.Handle), &(buffer_view.Allocation), nullptr) == VK_SUCCESS, "Failed to create buffer");
+        ZENGINE_VALIDATE_ASSERT(vmaCreateBuffer(Vma_Allocator, &buffer_create_info, &allocation_create_info, &(buffer_view.Handle), &(buffer_view.Allocation), nullptr) == VK_SUCCESS, "Failed to create buffer");
 
         // Metadata info
         buffer_view.FrameIndex = CurrentFrameIndex;
@@ -800,7 +800,7 @@ namespace ZEngine::Hardwares
         allocation_create_info.usage                   = VMA_MEMORY_USAGE_AUTO_PREFER_DEVICE;
         allocation_create_info.flags                   = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT;
 
-        ZENGINE_VALIDATE_ASSERT(vmaCreateImage(VmaAllocator, &image_create_info, &allocation_create_info, &(buffer_image.Handle), &(buffer_image.Allocation), nullptr) == VK_SUCCESS, "Failed to create buffer");
+        ZENGINE_VALIDATE_ASSERT(vmaCreateImage(Vma_Allocator, &image_create_info, &allocation_create_info, &(buffer_image.Handle), &(buffer_image.Allocation), nullptr) == VK_SUCCESS, "Failed to create buffer");
 
         buffer_image.ViewHandle = CreateImageView(buffer_image.Handle, image_format, image_view_type, image_aspect_flag, layer_count);
         buffer_image.Sampler    = CreateImageSampler();
@@ -1317,7 +1317,7 @@ namespace ZEngine::Hardwares
                     BufferView& buffer = DirtyBuffers[handle];
                     if (buffer && buffer.FrameIndex == CurrentFrameIndex)
                     {
-                        vmaDestroyBuffer(VmaAllocator, buffer.Handle, buffer.Allocation);
+                        vmaDestroyBuffer(Vma_Allocator, buffer.Handle, buffer.Allocation);
                         buffer.Handle     = VK_NULL_HANDLE;
                         buffer.Allocation = VK_NULL_HANDLE;
                         DirtyBuffers.Remove(handle);
@@ -1343,7 +1343,7 @@ namespace ZEngine::Hardwares
                     {
                         vkDestroyImageView(LogicalDevice, buffer.ViewHandle, nullptr);
                         vkDestroySampler(LogicalDevice, buffer.Sampler, nullptr);
-                        vmaDestroyImage(VmaAllocator, buffer.Handle, buffer.Allocation);
+                        vmaDestroyImage(Vma_Allocator, buffer.Handle, buffer.Allocation);
                         buffer.Handle     = VK_NULL_HANDLE;
                         buffer.Allocation = VK_NULL_HANDLE;
                         DirtyBufferImages.Remove(handle);
@@ -1357,7 +1357,7 @@ namespace ZEngine::Hardwares
         ZENGINE_CORE_INFO("[*] Dirty Resource Collector stopped...")
     }
 
-    Helpers::Handle<Rendering::Shaders::Shader> VulkanDevice::CompileShader(Rendering::Specifications::ShaderSpecification& spec)
+    Helpers::Handle<Rendering::Shaders::Shader> VulkanDevice::CompileShader(Rendering::Specifications::ShaderSpecificationType& spec)
     {
         const char* base_dir           = "Shaders/Cache/";
         const char* vertex_name_part   = "_vertex.spv";
@@ -1879,12 +1879,12 @@ namespace ZEngine::Hardwares
         }
 
         VkMemoryPropertyFlags mem_prop_flags;
-        vmaGetAllocationMemoryProperties(m_device->VmaAllocator, m_vertex_buffer.Allocation, &mem_prop_flags);
+        vmaGetAllocationMemoryProperties(m_device->Vma_Allocator, m_vertex_buffer.Allocation, &mem_prop_flags);
 
         if (mem_prop_flags & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT)
         {
             VmaAllocationInfo allocation_info = {};
-            vmaGetAllocationInfo(m_device->VmaAllocator, m_vertex_buffer.Allocation, &allocation_info);
+            vmaGetAllocationInfo(m_device->Vma_Allocator, m_vertex_buffer.Allocation, &allocation_info);
             if (data && allocation_info.pMappedData)
             {
                 ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
@@ -1895,12 +1895,12 @@ namespace ZEngine::Hardwares
             BufferView        staging_buffer  = m_device->CreateBuffer(static_cast<VkDeviceSize>(this->m_byte_size), VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT | VMA_ALLOCATION_CREATE_MAPPED_BIT);
 
             VmaAllocationInfo allocation_info = {};
-            vmaGetAllocationInfo(m_device->VmaAllocator, staging_buffer.Allocation, &allocation_info);
+            vmaGetAllocationInfo(m_device->Vma_Allocator, staging_buffer.Allocation, &allocation_info);
 
             if (data && allocation_info.pMappedData)
             {
                 ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
-                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->VmaAllocator, staging_buffer.Allocation, 0, static_cast<VkDeviceSize>(this->m_byte_size)) == VK_SUCCESS, "Failed to flush allocation")
+                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->Vma_Allocator, staging_buffer.Allocation, 0, static_cast<VkDeviceSize>(this->m_byte_size)) == VK_SUCCESS, "Failed to flush allocation")
                 m_device->CopyBuffer(staging_buffer, m_vertex_buffer, static_cast<VkDeviceSize>(this->m_byte_size));
             }
 
@@ -1938,12 +1938,12 @@ namespace ZEngine::Hardwares
         }
 
         VkMemoryPropertyFlags mem_prop_flags;
-        vmaGetAllocationMemoryProperties(m_device->VmaAllocator, m_storage_buffer.Allocation, &mem_prop_flags);
+        vmaGetAllocationMemoryProperties(m_device->Vma_Allocator, m_storage_buffer.Allocation, &mem_prop_flags);
 
         if (mem_prop_flags & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT)
         {
             VmaAllocationInfo allocation_info = {};
-            vmaGetAllocationInfo(m_device->VmaAllocator, m_storage_buffer.Allocation, &allocation_info);
+            vmaGetAllocationInfo(m_device->Vma_Allocator, m_storage_buffer.Allocation, &allocation_info);
             if (data && allocation_info.pMappedData)
             {
                 ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
@@ -1954,12 +1954,12 @@ namespace ZEngine::Hardwares
             BufferView        staging_buffer  = m_device->CreateBuffer(static_cast<VkDeviceSize>(this->m_byte_size), VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT | VMA_ALLOCATION_CREATE_MAPPED_BIT);
 
             VmaAllocationInfo allocation_info = {};
-            vmaGetAllocationInfo(m_device->VmaAllocator, staging_buffer.Allocation, &allocation_info);
+            vmaGetAllocationInfo(m_device->Vma_Allocator, staging_buffer.Allocation, &allocation_info);
 
             if (data && allocation_info.pMappedData)
             {
                 ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
-                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->VmaAllocator, staging_buffer.Allocation, 0, static_cast<VkDeviceSize>(this->m_byte_size)) == VK_SUCCESS, "Failed to flush allocation")
+                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->Vma_Allocator, staging_buffer.Allocation, 0, static_cast<VkDeviceSize>(this->m_byte_size)) == VK_SUCCESS, "Failed to flush allocation")
                 m_device->CopyBuffer(staging_buffer, m_storage_buffer, static_cast<VkDeviceSize>(this->m_byte_size));
             }
 
@@ -1998,12 +1998,12 @@ namespace ZEngine::Hardwares
         }
 
         VkMemoryPropertyFlags mem_prop_flags;
-        vmaGetAllocationMemoryProperties(m_device->VmaAllocator, m_index_buffer.Allocation, &mem_prop_flags);
+        vmaGetAllocationMemoryProperties(m_device->Vma_Allocator, m_index_buffer.Allocation, &mem_prop_flags);
 
         if (mem_prop_flags & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT)
         {
             VmaAllocationInfo allocation_info = {};
-            vmaGetAllocationInfo(m_device->VmaAllocator, m_index_buffer.Allocation, &allocation_info);
+            vmaGetAllocationInfo(m_device->Vma_Allocator, m_index_buffer.Allocation, &allocation_info);
             if (data && allocation_info.pMappedData)
             {
                 ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
@@ -2014,12 +2014,12 @@ namespace ZEngine::Hardwares
             BufferView        staging_buffer  = m_device->CreateBuffer(static_cast<VkDeviceSize>(this->m_byte_size), VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT | VMA_ALLOCATION_CREATE_MAPPED_BIT);
 
             VmaAllocationInfo allocation_info = {};
-            vmaGetAllocationInfo(m_device->VmaAllocator, staging_buffer.Allocation, &allocation_info);
+            vmaGetAllocationInfo(m_device->Vma_Allocator, staging_buffer.Allocation, &allocation_info);
 
             if (data && allocation_info.pMappedData)
             {
                 ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
-                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->VmaAllocator, staging_buffer.Allocation, 0, static_cast<VkDeviceSize>(this->m_byte_size)) == VK_SUCCESS, "Failed to flush allocation")
+                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->Vma_Allocator, staging_buffer.Allocation, 0, static_cast<VkDeviceSize>(this->m_byte_size)) == VK_SUCCESS, "Failed to flush allocation")
                 m_device->CopyBuffer(staging_buffer, m_index_buffer, static_cast<VkDeviceSize>(this->m_byte_size));
             }
 
@@ -2058,12 +2058,12 @@ namespace ZEngine::Hardwares
         }
 
         VkMemoryPropertyFlags mem_prop_flags;
-        vmaGetAllocationMemoryProperties(m_device->VmaAllocator, m_indirect_buffer.Allocation, &mem_prop_flags);
+        vmaGetAllocationMemoryProperties(m_device->Vma_Allocator, m_indirect_buffer.Allocation, &mem_prop_flags);
 
         if (mem_prop_flags & VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT)
         {
             VmaAllocationInfo allocation_info = {};
-            vmaGetAllocationInfo(m_device->VmaAllocator, m_indirect_buffer.Allocation, &allocation_info);
+            vmaGetAllocationInfo(m_device->Vma_Allocator, m_indirect_buffer.Allocation, &allocation_info);
             if (data && allocation_info.pMappedData)
             {
                 ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
@@ -2074,12 +2074,12 @@ namespace ZEngine::Hardwares
             BufferView        staging_buffer  = m_device->CreateBuffer(static_cast<VkDeviceSize>(this->m_byte_size), VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT | VMA_ALLOCATION_CREATE_MAPPED_BIT);
 
             VmaAllocationInfo allocation_info = {};
-            vmaGetAllocationInfo(m_device->VmaAllocator, staging_buffer.Allocation, &allocation_info);
+            vmaGetAllocationInfo(m_device->Vma_Allocator, staging_buffer.Allocation, &allocation_info);
 
             if (data && allocation_info.pMappedData)
             {
                 ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
-                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->VmaAllocator, staging_buffer.Allocation, 0, VK_WHOLE_SIZE) == VK_SUCCESS, "Failed to flush allocation")
+                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->Vma_Allocator, staging_buffer.Allocation, 0, VK_WHOLE_SIZE) == VK_SUCCESS, "Failed to flush allocation")
                 m_device->CopyBuffer(staging_buffer, m_indirect_buffer, static_cast<VkDeviceSize>(this->m_byte_size));
             }
 
@@ -2120,7 +2120,7 @@ namespace ZEngine::Hardwares
         }
 
         VmaAllocationInfo allocation_info = {};
-        vmaGetAllocationInfo(m_device->VmaAllocator, m_uniform_buffer.Allocation, &allocation_info);
+        vmaGetAllocationInfo(m_device->Vma_Allocator, m_uniform_buffer.Allocation, &allocation_info);
 
         if (allocation_info.pMappedData)
         {
@@ -2149,13 +2149,13 @@ namespace ZEngine::Hardwares
         ZENGINE_VALIDATE_ASSERT(m_width > 0, "Image width must be greater then zero")
         ZENGINE_VALIDATE_ASSERT(m_height > 0, "Image height must be greater then zero")
 
-        Specifications::ImageViewType   image_view_type   = Specifications::ImageViewType::TYPE_2D;
-        Specifications::ImageCreateFlag image_create_flag = Specifications::ImageCreateFlag::NONE;
+        Specifications::ImageViewTypeEnum   image_view_type   = Specifications::ImageViewTypeEnum::TYPE_2D;
+        Specifications::ImageCreateFlagEnum image_create_flag = Specifications::ImageCreateFlagEnum::NONE;
 
         if (spec.BufferUsageType == Specifications::ImageBufferUsageType::CUBEMAP)
         {
-            image_view_type   = Specifications::ImageViewType::TYPE_CUBE;
-            image_create_flag = Specifications::ImageCreateFlag::CUBE_COMPATIBLE_BIT;
+            image_view_type   = Specifications::ImageViewTypeEnum::TYPE_CUBE;
+            image_create_flag = Specifications::ImageCreateFlagEnum::CUBE_COMPATIBLE_BIT;
         }
 
         m_buffer_image = m_device->CreateImage(m_width, m_height, VK_IMAGE_TYPE_2D, Specifications::ImageViewTypeMap[VALUE_FROM_SPEC_MAP(image_view_type)], spec.ImageFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_LAYOUT_UNDEFINED, spec.ImageUsage, VK_SHARING_MODE_EXCLUSIVE, VK_SAMPLE_COUNT_1_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, spec.ImageAspectFlag, spec.LayerCount, Specifications::ImageCreateFlagMap[VALUE_FROM_SPEC_MAP(image_create_flag)]);

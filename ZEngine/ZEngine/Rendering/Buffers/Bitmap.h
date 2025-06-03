@@ -1,9 +1,10 @@
 #pragma once
-#include <Helpers/MemoryOperations.h>
-#include <ZEngineDef.h>
+#include <ZEngine/Helpers/MemoryOperations.h>
+#include <ZEngine/ZEngineDef.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 #include <cmath>
+#include <csignal>
 #include <vector>
 
 namespace ZEngine::Rendering::Buffers

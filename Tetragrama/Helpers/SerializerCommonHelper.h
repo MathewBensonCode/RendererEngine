@@ -3,7 +3,7 @@
 #include <ZEngine/Core/Containers/HashMap.h>
 #include <ZEngine/Core/Containers/Strings.h>
 #include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngineDef.h>
+#include <ZEngine/ZEngineDef.h>
 #include <iostream>
 #include <type_traits>
 

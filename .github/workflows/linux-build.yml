@@ -4,56 +4,27 @@ name: ZEngine Linux Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ newcmake ]
   pull_request:
     branches: [ master ]
 
 jobs:
   Linux-Build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-          buildConfiguration: [Debug, Release]
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-#     - name: Checkout submodules
-#       run: git submodule update --init --recursive
+    - name: Install development library
+      run: sudo apt-get update && sudo apt-get install -y git libasound2-dev libgl1-mesa-dev libpulse-dev libdbus-1-dev libx11-dev libxcursor-dev libxext-dev libxi-dev libxinerama-dev libxrandr-dev libxss-dev libxt-dev libxxf86vm-dev cmake gcc g++ ninja-build libassimp-dev libfmt-dev libimgui-dev libstb-dev libglfw3-dev libspdlog-dev libglm-dev libyaml-cpp-dev libspirv-cross-c-shared-dev spirv-cross spirv-tools glslang-dev glslang-tools nlohmann-json3-dev dotnet-runtime-8.0 libgtest-dev
 
-#     - name: Install development library
-#       run: sudo apt-get install libasound2-dev libgl1-mesa-dev libpulse-dev libdbus-1-dev libx11-dev libxcursor-dev libxext-dev libxi-dev libxinerama-dev libxrandr-dev libxss-dev libxt-dev libxxf86vm-dev
+    - name: Create CMake Build Directory
+      run: mkdir ../build && cmake -B ../build -DCMAKE_BUILD_TYPE=Debug -G Ninja
 
-#     - name: Install CMake
-#       uses: jwlawson/actions-setup-cmake@v1.9
-#       with:
-#         cmake-version: '3.20.x'
+    - name: Build
+      run: cmake --build ../build
 
-#     - name: Install pre-requisite packages.
-#       run: sudo apt-get install -y wget apt-transport-https software-properties-common
-
-#     - name: Download the Microsoft repository GPG keys
-#       run: wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
-
-#     - name: Register the Microsoft repository GPG keys
-#       run: sudo dpkg -i packages-microsoft-prod.deb
-
-#     - name: Update the list of packages after we added packages.microsoft.com
-#       run: sudo apt-get update
-
-#     - name: Install PowerShell
-#       run: sudo apt-get install -y powershell
-
-#     - name: Add GCC Toolchain repository
-#       run: sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-
-#     - name: Install GCC compiler
-#       run: sudo apt install -y gcc-11
-
-#     - name: Install G++ compiler
-#       run: sudo apt install -y g++-11
-
-#     - name: CMake Build
-#       run: .\Scripts\BuildEngine.ps1 -Configurations ${{matrix.buildConfiguration}}
-#       shell: pwsh
+    - name: Test
+      run: ctest .
+      working-directory: ../build/ZEngine/tests

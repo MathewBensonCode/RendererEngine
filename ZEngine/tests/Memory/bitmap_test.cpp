@@ -1,7 +1,7 @@
-#include <Rendering/Buffers/Bitmap.h>
+#include <ZEngine/Rendering/Buffers/Bitmap.h>
 #include <gtest/gtest.h>
-#include <stb/stb_image.h>
-#include <stb/stb_image_write.h>
+#include <stb_image.h>
+#include <stb_image_write.h>
 #include <cmath>
 #include <filesystem>
 

@@ -1,9 +1,8 @@
-#include <pch.h>
 #include <CLI/CLI.hpp>
 #include <ZEngine/Core/Memory/MemoryManager.h>
 #include <ZEngine/EngineConfiguration.h>
 #include <ZEngine/Logging/Logger.h>
-#include "Editor.h"
+#include <Tetragrama/Editor.h>
 
 #ifdef ZENGINE_PLATFORM
 
@@ -24,7 +23,7 @@ int applicationEntryPoint(int argc, char* argv[])
     MemoryManager       manager = {};
     MemoryConfiguration config  = {.DefaultSize = ZGiga(2u)};
     manager.Initialize(config);
-    auto                arena      = &(manager.ArenaAllocator);
+    auto                arena      = &(manager.m_ArenaAllocator);
 
     LoggerConfiguration logger_cfg = {};
     Logger::Initialize(arena, logger_cfg);

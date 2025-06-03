@@ -1,6 +1,5 @@
-#include <pch.h>
-#include <InspectorViewUIComponent.h>
-#include <UIComponentDrawerHelper.h>
+#include <Tetragrama/Components/InspectorViewUIComponent.h>
+#include <Tetragrama/Helpers/UIComponentDrawerHelper.h>
 #include <ZEngine/Core/Coroutine.h>
 #include <ZEngine/Helpers/MeshHelper.h>
 #include <ZEngine/Rendering/Components/GeometryComponent.h>
@@ -8,7 +7,6 @@
 #include <ZEngine/Rendering/Components/MaterialComponent.h>
 #include <ZEngine/Rendering/Textures/Texture2D.h>
 
-#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/matrix_decompose.hpp>
 
 using namespace ZEngine::Rendering::Materials;

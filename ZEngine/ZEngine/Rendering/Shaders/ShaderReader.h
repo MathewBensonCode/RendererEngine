@@ -1,11 +1,10 @@
 #pragma once
-#include <Rendering/Shaders/ShaderInformation.h>
+#include <ZEngine/Rendering/Shaders/ShaderInformation.h>
 #include <glslang/Public/ShaderLang.h>
 #include <filesystem>
 #include <fstream>
 #include <future>
 #include <mutex>
-#include <unordered_map>
 
 namespace ZEngine::Rendering::Shaders
 {
@@ -19,7 +18,7 @@ namespace ZEngine::Rendering::Shaders
         ShaderReader();
         ~ShaderReader();
 
-        static std::vector<uint32_t>       ReadAsBinary(std::string_view filename);
+        static std::vector<uint32_t>       ReadAsBinary(std::filesystem::path filename);
 
         /**
          * Read asynchronously content of shader file
@@ -27,7 +26,7 @@ namespace ZEngine::Rendering::Shaders
          * @param filename  Path to the shader file
          * @return enum ShaderReaderState that describes the read operation state
          */
-        std::future<ShaderOperationResult> ReadAsync(std::string_view filename);
+        std::future<ShaderOperationResult> ReadAsync(std::filesystem::path filename);
 
         /**
          * Get shaders information collected during Reading process

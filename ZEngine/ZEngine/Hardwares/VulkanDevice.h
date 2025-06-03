@@ -2,21 +2,21 @@
 #include <vk_mem_alloc.h>
 #include <vulkan/vulkan.h>
 // clang-format off
-#include <Hardwares/VulkanLayer.h>
-#include <Helpers/HandleManager.h>
-#include <Helpers/MemoryOperations.h>
-#include <Helpers/ThreadSafeQueue.h>
-#include <Primitives/Fence.h>
-#include <Primitives/Semaphore.h>
-#include <Rendering/Pools/CommandPool.h>
-#include <Rendering/Primitives/ImageMemoryBarrier.h>
-#include <Rendering/ResourceTypes.h>
-#include <Rendering/Specifications/ShaderSpecification.h>
-#include <Rendering/Textures/Texture.h>
-#include <Core/Containers/Array.h>
-#include <Core/Containers/HashMap.h>
-#include <Core/Containers/Strings.h>
-#include <Core/Memory/Allocator.h>
+#include <ZEngine/Hardwares/VulkanLayer.h>
+#include <ZEngine/Helpers/HandleManager.h>
+#include <ZEngine/Helpers/MemoryOperations.h>
+#include <ZEngine/Helpers/ThreadSafeQueue.h>
+#include <ZEngine/Rendering/Primitives/Fence.h>
+#include <ZEngine/Rendering/Primitives/Semaphore.h>
+#include <ZEngine/Rendering/Pools/CommandPool.h>
+#include <ZEngine/Rendering/Primitives/ImageMemoryBarrier.h>
+#include <ZEngine/Rendering/ResourceTypes.h>
+#include <ZEngine/Rendering/Specifications/ShaderSpecification.h>
+#include <ZEngine/Rendering/Textures/Texture.h>
+#include <ZEngine/Core/Containers/Array.h>
+#include <ZEngine/Core/Containers/HashMap.h>
+#include <ZEngine/Core/Containers/Strings.h>
+#include <ZEngine/Core/Memory/Allocator.h>
 #include <set>
 // clang-format on
 
@@ -690,7 +690,7 @@ namespace ZEngine::Hardwares
         VkPhysicalDeviceFeatures                                                            PhysicalDeviceFeature              = {};
         VkPhysicalDeviceMemoryProperties                                                    PhysicalDeviceMemoryProperties     = {};
         VkSwapchainKHR                                                                      SwapchainHandle                    = VK_NULL_HANDLE;
-        VmaAllocator                                                                        VmaAllocator                       = nullptr;
+        VmaAllocator                                                                        Vma_Allocator                       = nullptr;
         Core::Containers::Array<VkFormat>                                                   DefaultDepthFormats                = {};
         Rendering::Renderers::RenderPasses::Attachment*                                     SwapchainAttachment                = {};
         Core::Containers::Array<VkImageView>                                                SwapchainImageViews                = {};
@@ -759,7 +759,7 @@ namespace ZEngine::Hardwares
         void                                                                                EnqueueCommandBuffer(CommandBuffer* const buffer);
         void                                                                                DirtyCollector();
 
-        Helpers::Handle<Rendering::Shaders::Shader>                                         CompileShader(Rendering::Specifications::ShaderSpecification& spec);
+        Helpers::Handle<Rendering::Shaders::Shader>                                         CompileShader(Rendering::Specifications::ShaderSpecificationType& spec);
 
     private:
         VulkanLayer                                              m_layer          = {};

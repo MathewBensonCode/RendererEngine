@@ -102,7 +102,7 @@ namespace ZEngine::Rendering::Specifications
         COMPUTE
     };
 
-    enum class ImageViewType : uint32_t
+    enum class ImageViewTypeEnum : uint32_t
     {
         TYPE_1D = 0,
         TYPE_2D,
@@ -120,7 +120,7 @@ namespace ZEngine::Rendering::Specifications
         VK_IMAGE_VIEW_TYPE_CUBE_ARRAY,
     };
 
-    enum class ImageCreateFlag
+    enum class ImageCreateFlagEnum
     {
         NONE = 0,
         SPARSE_BINDING_BIT,

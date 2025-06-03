@@ -1,10 +1,10 @@
 #pragma once
-#include <AssetManager.h>
-#include <EditorCameraController.h>
-#include <EditorScene.h>
-#include <Helpers/NodeHierarchyHelper.h>
-#include <Layers/ImguiLayer.h>
-#include <Layers/RenderLayer.h>
+#include <Tetragrama/Managers/AssetManager.h>
+#include <Tetragrama/Controllers/EditorCameraController.h>
+#include <Tetragrama/EditorScene.h>
+#include <Tetragrama/Helpers/NodeHierarchyHelper.h>
+#include <Tetragrama/Layers/ImguiLayer.h>
+#include <Tetragrama/Layers/RenderLayer.h>
 #include <ZEngine/Core/Containers/Array.h>
 #include <ZEngine/Core/Containers/Strings.h>
 #include <ZEngine/Core/Memory/Allocator.h>

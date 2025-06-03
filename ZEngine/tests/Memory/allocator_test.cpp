@@ -1,6 +1,6 @@
-#include <Core/Memory/Allocator.h>
-#include <Core/Memory/MemoryManager.h>
-#include <Helpers/MemoryOperations.h>
+#include <ZEngine/Core/Memory/Allocator.h>
+#include <ZEngine/Core/Memory/MemoryManager.h>
+#include <ZEngine/Helpers/MemoryOperations.h>
 #include <gtest/gtest.h>
 
 using namespace ZEngine;
@@ -82,14 +82,14 @@ TEST(AllocatorTest, ArenaMemoryManager)
         void  Func() {}
     };
 
-    int* intPtr    = ZPushArray(&(manager.ArenaAllocator), int, 1);
-    auto structPtr = ZPushStruct(&(manager.ArenaAllocator), Foo);
+    int* intPtr    = ZPushArray(&(manager.m_ArenaAllocator), int, 1);
+    auto structPtr = ZPushStruct(&(manager.m_ArenaAllocator), Foo);
 
     *intPtr        = 12;
     structPtr->x   = 12;
     structPtr->y   = 798.0f;
 
-    char* str      = ZPushString(&(manager.ArenaAllocator), 12);
+    char* str      = ZPushString(&(manager.m_ArenaAllocator), 12);
     Helpers::secure_memmove(str, 12, "hello", 5);
 
     EXPECT_EQ(*intPtr, 12);
@@ -121,7 +121,7 @@ TEST(AllocatorTest, ArenaMemoryTemp)
 {
     MemoryManager manager{};
     manager.Initialize({.DefaultSize = ZKilo(10)});
-    auto arena = &(manager.ArenaAllocator);
+    auto arena = &(manager.m_ArenaAllocator);
     {
         auto fooPtr  = ZPushStruct(arena, Foo);
         fooPtr->x    = 10;
@@ -142,7 +142,7 @@ TEST(AllocatorTest, ArenaMemoryPool)
 {
     MemoryManager manager{};
     manager.Initialize({.DefaultSize = ZKilo(10)});
-    auto arena = &(manager.ArenaAllocator);
+    auto arena = &(manager.m_ArenaAllocator);
     {
         PoolAllocator pool;
         pool.Initialize(arena, sizeof(Foo) * 100, sizeof(Foo));

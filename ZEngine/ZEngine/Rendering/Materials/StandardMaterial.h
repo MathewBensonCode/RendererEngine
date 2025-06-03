@@ -1,7 +1,7 @@
 #pragma once
-#include <Maths/Math.h>
-#include <Rendering/Lights/Light.h>
-#include <Rendering/Materials/ShaderMaterial.h>
+#include <ZEngine/Maths/Math.h>
+#include <ZEngine/Rendering/Lights/Light.h>
+#include <ZEngine/Rendering/Materials/ShaderMaterial.h>
 
 namespace ZEngine::Rendering::Materials
 {

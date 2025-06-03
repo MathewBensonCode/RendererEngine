@@ -1,8 +1,8 @@
 #pragma once
-#include <Core/Containers/Array.h>
-#include <Rendering/Buffers/Framebuffer.h>
-#include <Rendering/Renderers/RenderPasses/Attachment.h>
-#include <Rendering/Specifications/ShaderSpecification.h>
+#include <ZEngine/Core/Containers/Array.h>
+#include <ZEngine/Rendering/Buffers/Framebuffer.h>
+#include <ZEngine/Rendering/Renderers/RenderPasses/Attachment.h>
+#include <ZEngine/Rendering/Specifications/ShaderSpecification.h>
 
 namespace ZEngine::Rendering::Specifications
 {
@@ -29,7 +29,7 @@ namespace ZEngine::Rendering::Specifications
         uint32_t                                                   DepthCompareOp                     = VK_COMPARE_OP_LESS_OR_EQUAL;
         bool                                                       EnableStencilTest                  = false;
         const char*                                                DebugName                          = {};
-        ShaderSpecification                                        ShaderSpecification                = {};
+        ShaderSpecificationType                                        ShaderSpecification                = {};
         Rendering::Buffers::FramebufferVNext*                      TargetFrameBuffer                  = {};
         Renderers::RenderPasses::Attachment*                       Attachment                         = {};
         Core::Containers::Array<VertexInputBindingSpecification>   VertexInputBindingSpecifications   = {};

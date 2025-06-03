@@ -1,7 +1,7 @@
 #pragma once
-#include <Allocator.h>
-#include <Array.h>
-#include <Helpers/MemoryOperations.h>
+#include <ZEngine/Core/Memory/Allocator.h>
+#include <ZEngine/Core/Containers/Array.h>
+#include <ZEngine/Helpers/MemoryOperations.h>
 #include <rapidhash.h>
 
 using namespace ZEngine::Core::Memory;

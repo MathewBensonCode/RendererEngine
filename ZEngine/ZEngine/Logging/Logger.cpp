@@ -1,14 +1,14 @@
-#include <pch.h>
-#include <Core/Containers/Array.h>
-#include <Core/Containers/HashMap.h>
-#include <Core/Memory/Allocator.h>
-#include <Logging/Logger.h>
-#include <Logging/LoggerDefinition.h>
+#include <ZEngine/Core/Containers/Array.h>
+#include <ZEngine/Core/Containers/HashMap.h>
+#include <ZEngine/Core/Memory/Allocator.h>
+#include <ZEngine/Logging/Logger.h>
+#include <ZEngine/Logging/LoggerDefinition.h>
 #include <fmt/format.h>
 #include <spdlog/async.h>
 #include <spdlog/async_logger.h>
 #include <spdlog/details/thread_pool.h>
 #include <spdlog/sinks/rotating_file_sink.h>
+#include <filesystem>
 
 using namespace ZEngine::Core::Memory;
 

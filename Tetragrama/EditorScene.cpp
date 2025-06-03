@@ -1,6 +1,5 @@
-#include <pch.h>
-#include <EditorScene.h>
-#include <Managers/AssetManager.h>
+#include <Tetragrama/EditorScene.h>
+#include <Tetragrama/Managers/AssetManager.h>
 #include <stack>
 
 namespace Tetragrama

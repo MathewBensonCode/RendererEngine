@@ -1,6 +1,5 @@
-#include <pch.h>
-#include <Hardwares/VulkanDevice.h>
-#include <Rendering/Primitives/Fence.h>
+#include <ZEngine/Hardwares/VulkanDevice.h>
+#include <ZEngine/Rendering/Primitives/Fence.h>
 
 namespace ZEngine::Rendering::Primitives
 {

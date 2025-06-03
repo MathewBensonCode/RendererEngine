@@ -1,5 +1,5 @@
 #pragma once
-#include <Helpers/NodeHierarchyHelper.h>
+#include <Tetragrama/Helpers/NodeHierarchyHelper.h>
 #include <ZEngine/Core/Containers/Array.h>
 #include <ZEngine/Core/Containers/HashMap.h>
 #include <ZEngine/Core/Containers/Strings.h>

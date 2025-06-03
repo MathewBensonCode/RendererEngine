@@ -1,10 +1,9 @@
-﻿#include <pch.h>
-#include <Core/Coroutine.h>
-#include <Renderers/GraphicRenderer.h>
-#include <Rendering/Components/CameraComponent.h>
-#include <Rendering/Components/LightComponent.h>
-#include <Rendering/Components/UUIComponent.h>
-#include <Rendering/Scenes/GraphicScene.h>
+﻿#include <ZEngine/Core/Coroutine.h>
+#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
+#include <ZEngine/Rendering/Components/CameraComponent.h>
+#include <ZEngine/Rendering/Components/LightComponent.h>
+#include <ZEngine/Rendering/Components/UUIComponent.h>
+#include <ZEngine/Rendering/Scenes/GraphicScene.h>
 
 #define NODE_PARENT_ID  -1
 #define INVALID_NODE_ID -1
@@ -158,7 +157,7 @@ namespace ZEngine::Rendering::Scenes
         SceneData->Materials     = {Meshes::MeshMaterial{}};
         SceneData->MaterialFiles = {Meshes::MaterialFile{}};
         SceneData->DrawData      = {
-            DrawData{.TransformIndex = 0, .VertexOffset = 0, .IndexOffset = 0, .VertexCount = 1, .IndexCount = 1}
+            DrawDataType{.TransformIndex = 0, .VertexOffset = 0, .IndexOffset = 0, .VertexCount = 1, .IndexCount = 1}
         };
     }
 
@@ -175,7 +174,7 @@ namespace ZEngine::Rendering::Scenes
             int i = 0;
             for (auto& [node, mesh] : SceneData->NodeMeshes)
             {
-                DrawData& draw_data      = SceneData->DrawData[i];
+                DrawDataType& draw_data      = SceneData->DrawData[i];
                 draw_data.TransformIndex = node;
                 draw_data.MaterialIndex  = SceneData->NodeMaterials[node];
                 draw_data.VertexOffset   = SceneData->Meshes[mesh].VertexOffset;
@@ -273,7 +272,7 @@ namespace ZEngine::Rendering::Scenes
             vert_buf->SetData<float>(i, SceneData->Vertices);
             ind_buf->SetData<uint32_t>(i, SceneData->Indices);
             material_buf->SetData<Meshes::MeshMaterial>(i, SceneData->Materials);
-            indirect_datadraw_buf->SetData<DrawData>(i, SceneData->DrawData);
+            indirect_datadraw_buf->SetData<DrawDataType>(i, SceneData->DrawData);
             indirect_buf->SetData<VkDrawIndirectCommand>(i, indirect_commmands);
         }
 

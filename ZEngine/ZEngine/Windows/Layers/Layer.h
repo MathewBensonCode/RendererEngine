@@ -1,9 +1,9 @@
 #pragma once
-#include <Core/IEventable.h>
-#include <Core/IRenderable.h>
-#include <Core/IUpdatable.h>
-#include <Core/Memory/Allocator.h>
-#include <Windows/CoreWindow.h>
+#include <ZEngine/Core/IEventable.h>
+#include <ZEngine/Core/IRenderable.h>
+#include <ZEngine/Core/IUpdatable.h>
+#include <ZEngine/Core/Memory/Allocator.h>
+#include <ZEngine/Windows/CoreWindow.h>
 
 namespace ZEngine::Windows
 {

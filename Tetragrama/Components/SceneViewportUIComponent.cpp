@@ -1,13 +1,12 @@
-#include <pch.h>
-#include <MessageToken.h>
-#include <Messengers/Messenger.h>
-#include <SceneViewportUIComponent.h>
+#include <Tetragrama/MessageToken.h>
+#include <Tetragrama/Messengers/Messenger.h>
+#include <Tetragrama/Components/SceneViewportUIComponent.h>
 #include <ZEngine/Logging/LoggerDefinition.h>
 #include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
 #include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
 /**/
-#include <Editor.h>
-#include <ImGuizmo/ImGuizmo.h>
+#include <Tetragrama/Editor.h>
+#include <ImGuizmo.h>
 
 using namespace Tetragrama::Components::Event;
 using namespace ZEngine::Rendering::Renderers;

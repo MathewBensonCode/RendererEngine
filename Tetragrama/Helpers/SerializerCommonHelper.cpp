@@ -1,5 +1,4 @@
-#include <pch.h>
-#include <SerializerCommonHelper.h>
+#include <Tetragrama/Helpers/SerializerCommonHelper.h>
 #include <ZEngine/Helpers/MemoryOperations.h>
 
 using namespace ZEngine::Core::Containers;

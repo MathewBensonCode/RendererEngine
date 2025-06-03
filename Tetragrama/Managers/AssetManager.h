@@ -1,6 +1,6 @@
 #pragma once
-#include <Importers/AssetTypes.h>
-#include <Importers/IAssetImporter.h>
+#include <Tetragrama/Importers/AssetTypes.h>
+#include <Tetragrama/Importers/IAssetImporter.h>
 #include <ZEngine/Core/Containers/Array.h>
 #include <ZEngine/Core/Containers/HashMap.h>
 #include <ZEngine/Core/Containers/Strings.h>

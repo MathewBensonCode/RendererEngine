@@ -1,6 +1,6 @@
 #pragma once
-#include <Helpers/IntrusivePtr.h>
-#include <Rendering/Cameras/CameraEnum.h>
+#include <ZEngine/Helpers/IntrusivePtr.h>
+#include <ZEngine/Rendering/Cameras/CameraEnum.h>
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE

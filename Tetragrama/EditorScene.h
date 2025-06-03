@@ -1,12 +1,12 @@
 #pragma once
-#include <Helpers/NodeHierarchyHelper.h>
-#include <Importers/IAssetImporter.h>
+#include <Tetragrama/Helpers/NodeHierarchyHelper.h>
+#include <Tetragrama/Importers/IAssetImporter.h>
 #include <ZEngine/Core/Containers/Array.h>
 #include <ZEngine/Core/Containers/HashMap.h>
 #include <ZEngine/Core/Containers/Strings.h>
 #include <ZEngine/Core/Memory/Allocator.h>
 #include <ZEngine/Rendering/Scenes/GraphicScene.h>
-#include <ZEngineDef.h>
+#include <ZEngine/ZEngineDef.h>
 #include <glm/glm.hpp>
 #include <uuid.h>
 

@@ -1,15 +1,14 @@
 #pragma once
-#include <Camera.h>
-#include <Hardwares/VulkanDevice.h>
-#include <Helpers/ThreadSafeQueue.h>
-#include <ImGUIRenderer.h>
-#include <Primitives/Fence.h>
-#include <Primitives/Semaphore.h>
-#include <RenderPasses/RenderPass.h>
-#include <Rendering/Renderers/RenderGraph.h>
-#include <Textures/Texture.h>
+#include <ZEngine/Rendering/Cameras/Camera.h>
+#include <ZEngine/Hardwares/VulkanDevice.h>
+#include <ZEngine/Helpers/ThreadSafeQueue.h>
+#include <ZEngine/Rendering/Primitives/Fence.h>
+#include <ZEngine/Rendering/Primitives/Semaphore.h>
+#include <ZEngine/Rendering/Renderers/RenderPasses/RenderPass.h>
+#include <ZEngine/Rendering/Renderers/RenderGraph.h>
+#include <ZEngine/Rendering/Textures/Texture.h>
+#include <ZEngine/Rendering/Renderers/ImGUIRenderer.h>
 #include <vulkan/vulkan.h>
-#include <span>
 
 namespace ZEngine::Rendering::Renderers
 {

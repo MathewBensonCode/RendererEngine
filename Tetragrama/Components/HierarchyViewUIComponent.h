@@ -1,7 +1,7 @@
 #pragma once
-#include <EditorCameraController.h>
-#include <Message.h>
-#include <UIComponent.h>
+#include <Tetragrama/Controllers/EditorCameraController.h>
+#include <Tetragrama/Messengers/Message.h>
+#include <Tetragrama/Components/UIComponent.h>
 #include <imgui.h>
 #include <future>
 #include <mutex>

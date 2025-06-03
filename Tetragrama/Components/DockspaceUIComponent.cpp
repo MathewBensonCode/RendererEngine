@@ -1,13 +1,12 @@
-#include <pch.h>
-#include <DockspaceUIComponent.h>
-#include <Editor.h>
-#include <Helpers/UIDispatcher.h>
-#include <Importers/AssimpImporter.h>
-#include <MessageToken.h>
-#include <Messengers/Messenger.h>
+#include <Tetragrama/Components/DockspaceUIComponent.h>
+#include <Tetragrama/Editor.h>
+#include <Tetragrama/Helpers/UIDispatcher.h>
+#include <Tetragrama/Importers/AssimpImporter.h>
+#include <Tetragrama/MessageToken.h>
+#include <Tetragrama/Messengers/Messenger.h>
 #include <ZEngine/Logging/LoggerDefinition.h>
 #include <fmt/format.h>
-#include <imgui/src/imgui_internal.h>
+#include <imgui_internal.h>
 
 namespace fs = std::filesystem;
 

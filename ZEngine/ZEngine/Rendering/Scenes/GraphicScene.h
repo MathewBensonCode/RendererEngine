@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include <Hardwares/VulkanDevice.h>
-#include <Rendering/Lights/Light.h>
-#include <Rendering/Meshes/Mesh.h>
-#include <Textures/Texture.h>
-#include <ZEngineDef.h>
+#include <ZEngine/Hardwares/VulkanDevice.h>
+#include <ZEngine/Rendering/Lights/Light.h>
+#include <ZEngine/Rendering/Meshes/Mesh.h>
+#include <ZEngine/Rendering/Textures/Texture.h>
+#include <ZEngine/ZEngineDef.h>
 #include <entt/entt.hpp>
 #include <uuid.h>
 #include <future>
@@ -43,7 +43,7 @@ namespace ZEngine::Rendering::Scenes
         int DepthLevel   = -1;
     };
 
-    struct DrawData
+    struct DrawDataType
     {
         uint32_t TransformIndex = std::numeric_limits<uint32_t>::max();
         uint32_t MaterialIndex  = std::numeric_limits<uint32_t>::max();
@@ -67,7 +67,7 @@ namespace ZEngine::Rendering::Scenes
          */
         std::vector<float>                         Vertices                     = {};
         std::vector<uint32_t>                      Indices                      = {};
-        std::vector<DrawData>                      DrawData                     = {};
+        std::vector<DrawDataType>                      DrawData                     = {};
         std::vector<std::string>                   Names                        = {};
         std::vector<std::string>                   MaterialNames                = {};
         std::unordered_map<uint32_t, uint32_t>     NodeMeshes                   = {};
