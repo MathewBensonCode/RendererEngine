@@ -124,13 +124,13 @@ export namespace ZENGINE_COROUTINE_NAMESPACE
 
 } // namespace ZENGINE_COROUTINE_NAMESPACE
 
-template <typename T>
+export template <typename T>
 auto operator co_await(std::future<T>&& f)
 {
     return ZENGINE_COROUTINE_NAMESPACE::Awaiter<T>{f};
 }
 
-template <typename T>
+export template <typename T>
 auto operator co_await(std::future<T>& f)
 {
     return ZENGINE_COROUTINE_NAMESPACE::Awaiter<T>{f};

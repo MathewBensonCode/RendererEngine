@@ -44,6 +44,33 @@ export constexpr auto* ZPush(auto* allocator, auto size, std::source_location lo
     return allocator->Allocate(size, DEFAULT_ALIGNMENT, location.file_name(), location.line());
 }
 
+<<<<<<< HEAD
+=======
+export template<typename type>
+constexpr auto ZPushArray(auto* arena, auto count, std::source_location location = std::source_location::current())
+{
+    return ZPush(arena, (sizeof(type) * count), location);
+}
+
+export constexpr auto ZPushString(auto *arena, auto count)
+{
+    return ZPushArray<char>(arena, count);
+}
+
+export template<typename type>
+constexpr auto ZPushStruct(auto arena)
+{
+    return ZPushArray<type>(arena, 2);
+}
+
+export template<typename type>
+constexpr auto ZPushStructCtor(auto *arena)
+{ 
+    return ZPushStruct<type>(arena);
+}
+
+//export constexpr auto ZPushStructCtorArgs(arena, type, ...extra_args) (return new (ZPushStruct(arena, type)) type(__VA_ARGS__))
+>>>>>>> 8ccd0cb (more migrate header files to named modules)
 export void ZENGINE_VALIDATE_ASSERT(auto condition, auto message)
     {
         if (!(condition))
@@ -66,6 +93,7 @@ export constexpr auto ZResize(auto *allocator, auto *ptr, auto old_size, auto ne
 export void ZENGINE_EXIT_FAILURE(){
     exit(EXIT_FAILURE);
 }
+<<<<<<< HEAD
 /*
 export constexpr auto ZPushArray(auto* arena, auto type, auto count, std::source_location location = std::source_location::current())
 {
@@ -88,6 +116,11 @@ export constexpr auto ZPushStructCtor(auto arena, auto type)
 
 //export constexpr auto ZPushStructCtorArgs(arena, type, ...extra_args) (return new (ZPushStruct(arena, type)) type(__VA_ARGS__))
 
+=======
+
+
+/*
+>>>>>>> 8ccd0cb (more migrate header files to named modules)
 template <typename type>
 export constexpr auto ZPushDynamicArray(auto pool, type type_value, std::location location = std::location::current()){
     return reintepret_cast<type*>( pool->Allocate(location.file_name(), location.line()));

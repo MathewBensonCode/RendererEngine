@@ -4,6 +4,7 @@ import std;
 import ZEngine.Core.Memory.Allocator;
 import ZEngine.Windows.CoreWindow;
 import ZEngine.Windows.Inputs.KeyCode;
+import ZEngine.ZEngineDef;
 
 export namespace ZEngine::Windows::Inputs
 {
@@ -14,7 +15,7 @@ export namespace ZEngine::Windows::Inputs
         virtual ~IDevice() = default;
         const char*                                    m_name;
         static Core::Memory::ArenaAllocator*           Arena;
-        static std::map<const char*, ZRawPtr(IDevice)> Devices;
+        static std::map<const char*, IDevice*> Devices;
 
         static void                                    Initialize(Core::Memory::ArenaAllocator* arena)
         {
@@ -32,14 +33,14 @@ export namespace ZEngine::Windows::Inputs
                 return reinterpret_cast<T*>(it->second);
             }
 
-            IDevice* device = ZPushStructCtor(Arena, T);
+            IDevice* device = ZPushStructCtor<T>(Arena);
             auto     pair   = Devices.emplace(std::make_pair(type.name(), device));
             return reinterpret_cast<T*>(pair.first->second);
         }
 
-        virtual bool        IsKeyPressed(ZENGINE_KEYCODE key, Windows::CoreWindow* const window) const  = 0;
+        virtual bool        IsKeyPressed(ZEngine::Windows::Inputs::GlfwKeyCode key, Windows::CoreWindow* const window) const  = 0;
 
-        virtual bool        IsKeyReleased(ZENGINE_KEYCODE key, Windows::CoreWindow* const window) const = 0;
+        virtual bool        IsKeyReleased(ZEngine::Windows::Inputs::GlfwKeyCode key, Windows::CoreWindow* const window) const = 0;
 
         virtual const char* GetName() const
         {

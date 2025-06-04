@@ -5,6 +5,7 @@ import ZEngine.EngineConfiguration;
 import ZEngine.Event.EngineClosedEvent;
 import ZEngine.Helpers.IntrusivePtr;
 import ZEngine.Windows.CoreWindow;
+import ZEngine.Core.Memory.Allocator;
 
 export namespace ZEngine
 {
