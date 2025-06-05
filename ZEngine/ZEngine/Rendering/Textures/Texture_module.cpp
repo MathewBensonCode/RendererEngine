@@ -1,15 +1,19 @@
-#pragma once
-#include <ZEngine/Helpers/HandleManager.h>
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <ZEngine/Rendering/Specifications/TextureSpecification.h>
+module;
 #include <vulkan/vulkan.h>
+
+export module ZEngine.Rendering.Textures.Texture;
+
+import std;
+import ZEngine.Helpers.HandleManager;
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.Rendering.Specifications.TextureSpecification;
 
 namespace ZEngine::Hardwares
 {
     struct Image2DBuffer;
 }
 
-namespace ZEngine::Rendering::Textures
+export namespace ZEngine::Rendering::Textures
 {
     struct Texture
     {
@@ -19,9 +23,9 @@ namespace ZEngine::Rendering::Textures
         void                                 Initialize(const Specifications::TextureSpecification& spec, Hardwares::Image2DBuffer* const buffer);
 
         bool                                 IsDepthTexture = false;
-        uint32_t                             Width          = 1;
-        uint32_t                             Height         = 1;
-        uint32_t                             BytePerPixel   = 0;
+        std::uint32_t                             Width          = 1;
+        std::uint32_t                             Height         = 1;
+        std::uint32_t                             BytePerPixel   = 0;
         VkDeviceSize                         BufferSize     = 0;
         Specifications::TextureSpecification Specification  = {};
         Hardwares::Image2DBuffer*            ImageBuffer    = nullptr;
@@ -40,14 +44,3 @@ namespace ZEngine::Rendering::Textures
     Texture* CreateTexture(unsigned int width, unsigned int height, float r, float g, float b, float a);
 } // namespace ZEngine::Rendering::Textures
 
-namespace ZEngine::Helpers
-{
-    template <>
-    inline void HandleManager<Rendering::Textures::Texture>::Dispose()
-    {
-        for (size_t i = 0; i < m_count; ++i)
-        {
-            m_memory[i].Dispose();
-        }
-    }
-} // namespace ZEngine::Helpers

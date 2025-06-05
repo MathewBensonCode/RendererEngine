@@ -1,4 +1,7 @@
-#include <ZEngine/Rendering/Geometries/CubeGeometry.h>
+module ZEngine.Rendering.Geometries.CubeGeometry;
+
+import ZEngine.Rendering.Renderers.Storages.GraphicVertex;
+import ZEngine.Rendering.Geometries.GeometryEnum;
 
 namespace ZEngine::Rendering::Geometries
 {

@@ -1,22 +1,27 @@
-#pragma once
-#include <ZEngine/Rendering/Meshes/Mesh.h>
+module;
 
-namespace ZEngine::Rendering::Components
+export module ZEngine.Rendering.Components.GeometryComponent;
+
+import std;
+
+import ZEngine.Rendering.Meshes.Mesh;
+
+export namespace ZEngine::Rendering::Components
 {
     struct MeshComponent
     {
-        MeshComponent(uint32_t mesh_id)
+        MeshComponent(std::uint32_t mesh_id)
         {
             m_mesh_id = mesh_id;
         }
 
-        uint32_t GetMeshID() const
+        std::uint32_t GetMeshID() const
         {
             return m_mesh_id;
         }
 
     private:
-        uint32_t m_mesh_id{0xFFFFFFFF};
+        std::uint32_t m_mesh_id{0xFFFFFFFF};
     };
 
 } // namespace ZEngine::Rendering::Components

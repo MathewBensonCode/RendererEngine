@@ -1,4 +1,10 @@
-#include <ZEngine/Rendering/Primitives/ImageMemoryBarrier.h>
+module;
+#include <vulkan/vulkan.hpp>
+
+module ZEngine.Rendering.Primitives.ImageMemoryBarrier;
+
+import ZEngine.Rendering.Specifications.ImageMemoryBarrierSpecification;
+import ZEngine.Rendering.Specifications.FormatSpecification;
 
 using namespace ZEngine::Rendering::Specifications;
 
@@ -15,8 +21,8 @@ namespace ZEngine::Rendering::Primitives
         m_handle.subresourceRange.layerCount     = m_specification.LayerCount;
         m_handle.subresourceRange.levelCount     = 1;
         m_handle.image                           = specification.ImageHandle;
-        m_handle.oldLayout                       = ImageLayoutMap[static_cast<uint32_t>(specification.OldLayout)];
-        m_handle.newLayout                       = ImageLayoutMap[static_cast<uint32_t>(specification.NewLayout)];
+        m_handle.oldLayout                       = ImageLayoutMap[static_cast<std::uint32_t>(specification.OldLayout)];
+        m_handle.newLayout                       = ImageLayoutMap[static_cast<std::uint32_t>(specification.NewLayout)];
         m_handle.srcAccessMask                   = specification.SourceAccessMask;
         m_handle.dstAccessMask                   = specification.DestinationAccessMask;
     }

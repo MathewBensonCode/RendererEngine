@@ -1,23 +1,28 @@
-#pragma once
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Rendering/Buffers/Framebuffer.h>
-#include <ZEngine/Rendering/Renderers/RenderPasses/Attachment.h>
-#include <ZEngine/Rendering/Specifications/ShaderSpecification.h>
+module;
+
+export module ZEngine.Rendering.Specifications.GraphicRendererPipelineSpecification;
+
+import std;
+
+import ZEngine.Core.Containers.Array;
+import ZEngine.Rendering.Buffers.Framebuffer;
+import ZEngine.Rendering.Renderers.RenderPasses.Attachment;
+import ZEngine.Rendering.Specifications.ShaderSpecification;
 
 namespace ZEngine::Rendering::Specifications
 {
     struct VertexInputBindingSpecification
     {
-        uint32_t Stride  = 0;
-        uint32_t Rate    = 0;
-        uint32_t Binding = 0;
+        std::uint32_t Stride  = 0;
+        std::uint32_t Rate    = 0;
+        std::uint32_t Binding = 0;
     };
 
     struct VertexInputAttributeSpecification
     {
-        uint32_t    Location = 0;
-        uint32_t    Binding  = 0;
-        uint32_t    Offset   = 0;
+        std::uint32_t    Location = 0;
+        std::uint32_t    Binding  = 0;
+        std::uint32_t    Offset   = 0;
         ImageFormat Format   = ImageFormat::UNDEFINED;
     };
 
@@ -26,7 +31,7 @@ namespace ZEngine::Rendering::Specifications
         bool                                                       EnableBlending                     = false;
         bool                                                       EnableDepthTest                    = false;
         bool                                                       EnableDepthWrite                   = true;
-        uint32_t                                                   DepthCompareOp                     = VK_COMPARE_OP_LESS_OR_EQUAL;
+        std::uint32_t                                                   DepthCompareOp                     = VK_COMPARE_OP_LESS_OR_EQUAL;
         bool                                                       EnableStencilTest                  = false;
         const char*                                                DebugName                          = {};
         ShaderSpecificationType                                        ShaderSpecification                = {};

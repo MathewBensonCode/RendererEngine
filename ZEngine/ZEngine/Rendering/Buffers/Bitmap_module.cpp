@@ -1,13 +1,14 @@
-#pragma once
-#include <ZEngine/Helpers/MemoryOperations.h>
-#include <ZEngine/ZEngineDef.h>
+module;
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
-#include <cmath>
-#include <csignal>
-#include <vector>
 
-namespace ZEngine::Rendering::Buffers
+export module ZEngine.Rendering.Buffers.Bitmap;
+
+import std;
+import ZEngine.Helpers.MemoryOperations;
+import ZEngine.ZEngineDef;
+
+export namespace ZEngine::Rendering::Buffers
 {
 
     enum BitmapType
@@ -93,7 +94,7 @@ namespace ZEngine::Rendering::Buffers
         {
             if (data)
             {
-                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(Buffer.data(), Buffer.size(), data, Buffer.size()) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
+                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(Buffer.data(), Buffer.size(), data, Buffer.size()) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation");
             }
         }
         ~Bitmap() = default;
@@ -286,7 +287,7 @@ namespace ZEngine::Rendering::Buffers
                                 break;
                             }
                         }
-                        ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(destination, pixel_size, source + (pixel_pos_y * input_map.Width + pixel_pos_x) * pixel_size, pixel_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
+                        ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(destination, pixel_size, source + (pixel_pos_y * input_map.Width + pixel_pos_x) * pixel_size, pixel_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation");
                         destination += pixel_size;
                     }
                 }

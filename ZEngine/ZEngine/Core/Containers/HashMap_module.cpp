@@ -1,12 +1,16 @@
-#pragma once
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Helpers/MemoryOperations.h>
+module;
 #include <rapidhash.h>
+
+export module ZEngine.Core.Containers.HashMap;
+
+import std;
+import ZEngine.Core.Memory.Allocator;
+import ZEngine.Core.Containers.Array;
+import ZEngine.Helpers.MemoryOperations;
 
 using namespace ZEngine::Core::Memory;
 
-namespace ZEngine::Core::Containers
+export namespace ZEngine::Core::Containers
 {
     enum class EntryState
     {
@@ -27,9 +31,9 @@ namespace ZEngine::Core::Containers
     struct HashMap
     {
         using Entry     = HashEntry<K, V>;
-        using size_type = size_t;
+        using size_type = std::size_t;
 
-        void init(Memory::ArenaAllocator* allocator, size_type initial_capacity, size_t initial_size = 0U)
+        void init(Memory::ArenaAllocator* allocator, size_type initial_capacity, size_type initial_size = 0U)
         {
             m_allocator = allocator;
             m_entries.init(allocator, initial_capacity, initial_size);
@@ -103,7 +107,7 @@ namespace ZEngine::Core::Containers
             return find(key) != nullptr;
         }
 
-        size_t count(const K& key)
+        size_type count(const K& key)
         {
             size_type index = probe_for_key(key);
             return (index != size_type(-1) && m_entries[index].state == EntryState::Occupied) ? 1 : 0;

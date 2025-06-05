@@ -1,8 +1,9 @@
-#pragma once
-#include <ZEngine/Core/CoreEvent.h>
-#include <fmt/format.h>
+export module ZEngine.Windows.Events.WindowEvent;
 
-namespace ZEngine::Windows::Events
+import std;
+import ZEngine.Core.CoreEvent;
+
+export namespace ZEngine::Windows::Events
 {
     class WindowRestoredEvent : public Core::CoreEvent
     {
@@ -11,25 +12,24 @@ namespace ZEngine::Windows::Events
         {
             m_name = "WindowRestored";
         }
+
         ~WindowRestoredEvent() = default;
 
         Core::EventType GetType() const override
         {
-            return GetStaticType();
+            return Core::EventType::WindowRestored;
         }
 
         int GetCategory() const override
         {
-            return GetStaticCategory();
+            return Core::EventCategory::Engine;
         }
 
         std::string ToString() const override
         {
-            return fmt::format("WindowRestoredEvent");
+            return std::format("WindowRestoredEvent");
         }
 
-        EVENT_CATEGORY(Engine)
-        EVENT_TYPE(WindowRestored)
     };
 
     class WindowResizedEvent : public Core::CoreEvent
@@ -63,21 +63,18 @@ namespace ZEngine::Windows::Events
 
         Core::EventType GetType() const override
         {
-            return GetStaticType();
+            return Core::EventType::WindowResized;
         }
 
         int GetCategory() const override
         {
-            return GetStaticCategory();
+            return Core::EventCategory::Engine;
         }
 
         std::string ToString() const override
         {
-            return fmt::format("WindowResizeEvent X: {0}, Y: {1}", m_width, m_height);
+            return std::format("WindowResizeEvent X: {0}, Y: {1}", m_width, m_height);
         }
-
-        EVENT_CATEGORY(Engine)
-        EVENT_TYPE(WindowResized)
 
     private:
         unsigned int m_width{0};
@@ -95,21 +92,19 @@ namespace ZEngine::Windows::Events
 
         Core::EventType GetType() const override
         {
-            return GetStaticType();
+                return Core::EventType::WindowMinimized;
         }
 
         int GetCategory() const override
         {
-            return GetStaticCategory();
+            return Core::EventCategory::Engine;
         }
 
         std::string ToString() const override
         {
-            return fmt::format("WindowMinimizedEvent");
+            return std::format("WindowMinimizedEvent");
         }
 
-        EVENT_CATEGORY(Engine)
-        EVENT_TYPE(WindowMinimized)
     };
 
     class WindowMaximizedEvent : public Core::CoreEvent
@@ -123,21 +118,19 @@ namespace ZEngine::Windows::Events
 
         Core::EventType GetType() const override
         {
-            return GetStaticType();
+            return Core::EventType::WindowMaximized;
         }
 
         int GetCategory() const override
         {
-            return GetStaticCategory();
+            return Core::EventCategory::Engine;
         }
 
         std::string ToString() const override
         {
-            return fmt::format("WindowMaximizedEvent");
+            return std::format("WindowMaximizedEvent");
         }
 
-        EVENT_CATEGORY(Engine)
-        EVENT_TYPE(WindowMaximized)
     };
 
     class WindowClosedEvent : public Core::CoreEvent
@@ -151,20 +144,18 @@ namespace ZEngine::Windows::Events
 
         Core::EventType GetType() const override
         {
-            return GetStaticType();
+            return Core::EventType::WindowClosed;
         }
 
         int GetCategory() const override
         {
-            return GetStaticCategory();
+            return Core::EventCategory::Engine;
         }
 
         std::string ToString() const override
         {
-            return fmt::format("WindowClosedEvent");
+            return std::format("WindowClosedEvent");
         }
 
-        EVENT_CATEGORY(Engine)
-        EVENT_TYPE(WindowClosed)
     };
 } // namespace ZEngine::Windows::Events

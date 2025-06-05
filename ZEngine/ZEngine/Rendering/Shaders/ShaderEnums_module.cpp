@@ -1,6 +1,8 @@
-#pragma once
+export module ZEngine.Rendering.Shaders.ShaderEnums;
 
-namespace ZEngine::Rendering::Shaders
+import std;
+
+export namespace ZEngine::Rendering::Shaders
 {
 
     enum class ShaderType

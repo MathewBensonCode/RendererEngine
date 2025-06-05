@@ -1,14 +1,19 @@
-#pragma once
+module;
 #include <uuid.h>
-#include <string>
 
-namespace ZEngine::Rendering::Components
+export module ZEngine.Rendering.Components.UUIComponent;
+
+import std;
+
+export using namespace uuids;
+
+export namespace ZEngine::Rendering::Components
 {
     struct UUIComponent
     {
         UUIComponent()
         {
-            std::random_device                                     rd;
+            std::random_device                                     rd{};
             std::ranlux48_base                                     generator(rd());
             uuids::basic_uuid_random_generator<std::ranlux48_base> gen(&generator);
             Identifier = gen();

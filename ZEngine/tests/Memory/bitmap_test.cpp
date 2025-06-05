@@ -1,9 +1,9 @@
-#include <ZEngine/Rendering/Buffers/Bitmap.h>
+import ZEngine.Rendering.Buffers.Bitmap;
 #include <gtest/gtest.h>
 #include <stb_image.h>
 #include <stb_image_write.h>
-#include <cmath>
-#include <filesystem>
+
+
 
 using namespace ZEngine::Rendering::Buffers;
 

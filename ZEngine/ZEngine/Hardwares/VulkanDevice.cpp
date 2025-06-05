@@ -1,19 +1,19 @@
-#include <ZEngine/ZEngineDef.h>
-#include <filesystem>
-
+module;
 /*
  * We define those Macros before inclusion of VulkanDevice.h so we can enable impl from VMA header
  */
 #define VMA_IMPLEMENTATION
 #define VMA_VULKAN_VERSION 1003000 // Vulkan 1.3
+#include <vulkan/vulkan.h>
 
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Helpers/MemoryOperations.h>
-#include <ZEngine/Helpers/ThreadPool.h>
-#include <ZEngine/Logging/LoggerDefinition.h>
-#include <ZEngine/Rendering/Pools/CommandPool.h>
-#include <ZEngine/Rendering/Renderers/RenderPasses/Attachment.h>
-#include <ZEngine/Windows/CoreWindow.h>
+module ZEngine.Hardwares.VulkanDevice;
+
+import ZEngine.ZEngineDef;
+import ZEngine.Helpers.MemoryOperations;
+import ZEngine.Helpers.ThreadPool;
+import ZEngine.Logging.Logger;
+import ZEngine.Rendering.Pools.CommandPool;
+import ZEngine.Rendering.Renderers.RenderPasses.Attachment;
 
 using namespace std::chrono_literals;
 using namespace ZEngine::Rendering::Primitives;
@@ -164,7 +164,7 @@ namespace ZEngine::Hardwares
         /*Create Vulkan Device*/
         ZENGINE_VALIDATE_ASSERT(Instance != VK_NULL_HANDLE, "A Vulkan Instance must be created first!")
 
-        uint32_t gpu_device_count{0};
+        std::uint32_t gpu_device_count{0};
         vkEnumeratePhysicalDevices(Instance, &gpu_device_count, nullptr);
 
         Array<VkPhysicalDevice> physical_device_collection;
@@ -210,16 +210,16 @@ namespace ZEngine::Hardwares
             }
         }
 
-        uint32_t physical_device_queue_family_count{0};
+        std::uint32_t physical_device_queue_family_count{0};
         vkGetPhysicalDeviceQueueFamilyProperties(PhysicalDevice, &physical_device_queue_family_count, nullptr);
 
         Array<VkQueueFamilyProperties> physical_device_queue_family_collection;
         physical_device_queue_family_collection.init(scratch.Arena, physical_device_queue_family_count, physical_device_queue_family_count);
         vkGetPhysicalDeviceQueueFamilyProperties(PhysicalDevice, &physical_device_queue_family_count, physical_device_queue_family_collection.data());
 
-        uint32_t                queue_family_index      = 0;
+        std::uint32_t                queue_family_index      = 0;
         VkQueueFamilyProperties queue_family_properties = {};
-        for (size_t index = 0; index < physical_device_queue_family_count; ++index)
+        for (std::size_t index = 0; index < physical_device_queue_family_count; ++index)
         {
             if (physical_device_queue_family_collection[index].queueFlags & VK_QUEUE_GRAPHICS_BIT)
             {
@@ -255,7 +255,7 @@ namespace ZEngine::Hardwares
         auto                           family_index_collection      = std::set{GraphicFamilyIndex, TransferFamilyIndex};
         Array<VkDeviceQueueCreateInfo> queue_create_info_collection = {};
         queue_create_info_collection.init(scratch.Arena, family_index_collection.size());
-        for (uint32_t queue_family_index : family_index_collection)
+        for (std::uint32_t queue_family_index : family_index_collection)
         {
             VkDeviceQueueCreateInfo& queue_create_info = queue_create_info_collection.push_use(VkDeviceQueueCreateInfo{});
             queue_create_info.sType                    = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
@@ -309,7 +309,7 @@ namespace ZEngine::Hardwares
         }
 
         /* Surface format selection */
-        uint32_t                  format_count    = 0;
+        std::uint32_t                  format_count    = 0;
         Array<VkSurfaceFormatKHR> surface_formats = {};
         vkGetPhysicalDeviceSurfaceFormatsKHR(PhysicalDevice, Surface, &format_count, nullptr);
         if (format_count != 0)
@@ -330,7 +330,7 @@ namespace ZEngine::Hardwares
         }
 
         /* Present Mode selection */
-        uint32_t                present_mode_count = 0;
+        std::uint32_t                present_mode_count = 0;
         Array<VkPresentModeKHR> present_modes      = {};
         vkGetPhysicalDeviceSurfacePresentModesKHR(PhysicalDevice, Surface, &present_mode_count, nullptr);
         if (present_mode_count != 0)
@@ -468,7 +468,7 @@ namespace ZEngine::Hardwares
 
                 for (auto& req : WriteBindlessDescriptorSetRequests)
                 {
-                    write_descriptor_sets.push(VkWriteDescriptorSet{.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET, .pNext = nullptr, .dstSet = req.DstSet, .dstBinding = req.Binding, .dstArrayElement = (uint32_t) tex_handle.Index, .descriptorCount = 1, .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, .pImageInfo = &(image_info), .pBufferInfo = nullptr, .pTexelBufferView = nullptr});
+                    write_descriptor_sets.push(VkWriteDescriptorSet{.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET, .pNext = nullptr, .dstSet = req.DstSet, .dstBinding = req.Binding, .dstArrayElement = (std::uint32_t) tex_handle.Index, .descriptorCount = 1, .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, .pImageInfo = &(image_info), .pBufferInfo = nullptr, .pTexelBufferView = nullptr});
                 }
 
                 vkUpdateDescriptorSets(LogicalDevice, write_descriptor_sets.size(), write_descriptor_sets.data(), 0, nullptr);
@@ -580,7 +580,7 @@ namespace ZEngine::Hardwares
 
     QueueView VulkanDevice::GetQueue(Rendering::QueueType type)
     {
-        uint32_t queue_family_index = 0;
+        std::uint32_t queue_family_index = 0;
         switch (type)
         {
             case ZEngine::Rendering::QueueType::GRAPHIC_QUEUE:
@@ -626,8 +626,8 @@ namespace ZEngine::Hardwares
 
     void VulkanDevice::__cleanupDirtyResource()
     {
-        size_t dirty_resource_count = DirtyResources.Head();
-        for (size_t i = 0; i < dirty_resource_count; ++i)
+        std::size_t dirty_resource_count = DirtyResources.Head();
+        for (std::size_t i = 0; i < dirty_resource_count; ++i)
         {
             auto handle = DirtyResources.ToHandle(i);
 
@@ -692,8 +692,8 @@ namespace ZEngine::Hardwares
 
     void VulkanDevice::__cleanupBufferDirtyResource()
     {
-        size_t dirty_buffer_count = DirtyBuffers.Head();
-        for (size_t i = 0; i < dirty_buffer_count; ++i)
+        std::size_t dirty_buffer_count = DirtyBuffers.Head();
+        for (std::size_t i = 0; i < dirty_buffer_count; ++i)
         {
             auto handle = DirtyBuffers.ToHandle(i);
 
@@ -710,8 +710,8 @@ namespace ZEngine::Hardwares
 
     void VulkanDevice::__cleanupBufferImageDirtyResource()
     {
-        size_t dirty_buffer_image_count = DirtyBufferImages.Head();
-        for (size_t i = 0; i < dirty_buffer_image_count; ++i)
+        std::size_t dirty_buffer_image_count = DirtyBufferImages.Head();
+        for (std::size_t i = 0; i < dirty_buffer_image_count; ++i)
         {
             auto handle = DirtyBufferImages.ToHandle(i);
 
@@ -730,7 +730,7 @@ namespace ZEngine::Hardwares
         }
     }
 
-    void VulkanDevice::MapAndCopyToMemory(BufferView& buffer, size_t data_size, const void* data)
+    void VulkanDevice::MapAndCopyToMemory(BufferView& buffer, std::size_t data_size, const void* data)
     {
         void* mapped_memory;
         if (data)
@@ -776,7 +776,7 @@ namespace ZEngine::Hardwares
         EnqueueInstantCommandBuffer(command_buffer, VK_PIPELINE_STAGE_TRANSFER_BIT);
     }
 
-    BufferImage VulkanDevice::CreateImage(uint32_t width, uint32_t height, VkImageType image_type, VkImageViewType image_view_type, VkFormat image_format, VkImageTiling image_tiling, VkImageLayout image_initial_layout, VkImageUsageFlags image_usage, VkSharingMode image_sharing_mode, VkSampleCountFlagBits image_sample_count, VkMemoryPropertyFlags requested_properties, VkImageAspectFlagBits image_aspect_flag, uint32_t layer_count, VkImageCreateFlags image_create_flag_bit)
+    BufferImage VulkanDevice::CreateImage(std::uint32_t width, std::uint32_t height, VkImageType image_type, VkImageViewType image_view_type, VkFormat image_format, VkImageTiling image_tiling, VkImageLayout image_initial_layout, VkImageUsageFlags image_usage, VkSharingMode image_sharing_mode, VkSampleCountFlagBits image_sample_count, VkMemoryPropertyFlags requested_properties, VkImageAspectFlagBits image_aspect_flag, std::uint32_t layer_count, VkImageCreateFlags image_create_flag_bit)
     {
         BufferImage       buffer_image                 = {};
         VkImageCreateInfo image_create_info            = {};
@@ -840,7 +840,7 @@ namespace ZEngine::Hardwares
     VkFormat VulkanDevice::FindSupportedFormat(Core::Containers::ArrayView<VkFormat> format_collection, VkImageTiling image_tiling, VkFormatFeatureFlags feature_flags)
     {
         VkFormat supported_format = VK_FORMAT_UNDEFINED;
-        for (uint32_t i = 0; i < format_collection.size(); ++i)
+        for (std::uint32_t i = 0; i < format_collection.size(); ++i)
         {
             bool               found = false;
             VkFormatProperties format_properties;
@@ -873,7 +873,7 @@ namespace ZEngine::Hardwares
         return FindSupportedFormat(ArrayView<VkFormat>{DefaultDepthFormats}, VK_IMAGE_TILING_OPTIMAL, VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
     }
 
-    VkImageView VulkanDevice::CreateImageView(VkImage image, VkFormat image_format, VkImageViewType image_view_type, VkImageAspectFlagBits image_aspect_flag, uint32_t layer_count)
+    VkImageView VulkanDevice::CreateImageView(VkImage image, VkFormat image_format, VkImageViewType image_view_type, VkImageAspectFlagBits image_aspect_flag, std::uint32_t layer_count)
     {
         VkImageView           image_view{VK_NULL_HANDLE};
         VkImageViewCreateInfo image_view_create_info           = {};
@@ -896,7 +896,7 @@ namespace ZEngine::Hardwares
         return image_view;
     }
 
-    VkFramebuffer VulkanDevice::CreateFramebuffer(Core::Containers::ArrayView<VkImageView> attachments, const VkRenderPass& render_pass, uint32_t width, uint32_t height, uint32_t layer_number)
+    VkFramebuffer VulkanDevice::CreateFramebuffer(Core::Containers::ArrayView<VkImageView> attachments, const VkRenderPass& render_pass, std::uint32_t width, std::uint32_t height, std::uint32_t layer_number)
     {
         VkFramebuffer           framebuffer{VK_NULL_HANDLE};
         VkFramebufferCreateInfo framebuffer_create_info = {};
@@ -1011,7 +1011,7 @@ namespace ZEngine::Hardwares
         auto            scratch             = ZGetScratch(Arena);
 
         Array<uint32_t> family_indice       = {};
-        uint32_t        family_indice_count = HasSeperateTransfertQueueFamily ? 2 : 1;
+        std::uint32_t        family_indice_count = HasSeperateTransfertQueueFamily ? 2 : 1;
         family_indice.init(scratch.Arena, family_indice_count, family_indice_count);
         family_indice[0] = GraphicFamilyIndex;
         if (HasSeperateTransfertQueueFamily)
@@ -1149,7 +1149,7 @@ namespace ZEngine::Hardwares
         VkSemaphore          wait_semaphores[]   = {acquired_semaphore->GetHandle()};
         VkSemaphore          signal_semaphores[] = {render_complete_semaphore->GetHandle()};
         VkPipelineStageFlags stage_flags[]       = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
-        VkSubmitInfo         submit_info         = {.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO, .pNext = nullptr, .waitSemaphoreCount = 1, .pWaitSemaphores = wait_semaphores, .pWaitDstStageMask = stage_flags, .commandBufferCount = (uint32_t) buffer.size(), .pCommandBuffers = buffer.data(), .signalSemaphoreCount = 1, .pSignalSemaphores = signal_semaphores};
+        VkSubmitInfo         submit_info         = {.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO, .pNext = nullptr, .waitSemaphoreCount = 1, .pWaitSemaphores = wait_semaphores, .pWaitDstStageMask = stage_flags, .commandBufferCount = (std::uint32_t) buffer.size(), .pCommandBuffers = buffer.data(), .signalSemaphoreCount = 1, .pSignalSemaphores = signal_semaphores};
 
         auto                 submit              = vkQueueSubmit(queue, 1, &(submit_info), signal_fence->GetHandle());
         ZENGINE_VALIDATE_ASSERT(submit == VK_SUCCESS, "Failed to submit queue")
@@ -1165,7 +1165,7 @@ namespace ZEngine::Hardwares
         render_complete_semaphore->SetState(SemaphoreState::Submitted);
 
         VkSwapchainKHR   swapchains[]   = {SwapchainHandle};
-        uint32_t         frames[]       = {SwapchainImageIndex};
+        std::uint32_t         frames[]       = {SwapchainImageIndex};
         VkPresentInfoKHR present_info   = {.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR, .pNext = nullptr, .waitSemaphoreCount = 1, .pWaitSemaphores = signal_semaphores, .swapchainCount = 1, .pSwapchains = swapchains, .pImageIndices = frames};
 
         VkResult         present_result = vkQueuePresentKHR(queue, &present_info);
@@ -1235,8 +1235,8 @@ namespace ZEngine::Hardwares
 
             if (DirtyResources.CanRemove())
             {
-                uint32_t dirty_resource_count = DirtyResources.Head();
-                for (uint32_t i = 0; i < dirty_resource_count; ++i)
+                std::uint32_t dirty_resource_count = DirtyResources.Head();
+                for (std::uint32_t i = 0; i < dirty_resource_count; ++i)
                 {
                     auto handle = DirtyResources.ToHandle(i);
 
@@ -1304,8 +1304,8 @@ namespace ZEngine::Hardwares
 
             if (DirtyBuffers.CanRemove())
             {
-                uint32_t dirty_buffer_count = DirtyBuffers.Head();
-                for (uint32_t i = 0; i < dirty_buffer_count; ++i)
+                std::uint32_t dirty_buffer_count = DirtyBuffers.Head();
+                for (std::uint32_t i = 0; i < dirty_buffer_count; ++i)
                 {
                     auto handle = DirtyBuffers.ToHandle(i);
 
@@ -1327,8 +1327,8 @@ namespace ZEngine::Hardwares
 
             if (DirtyBufferImages.CanRemove())
             {
-                uint32_t dirty_buffer_image_count = DirtyBufferImages.Head();
-                for (uint32_t i = 0; i < dirty_buffer_image_count; ++i)
+                std::uint32_t dirty_buffer_image_count = DirtyBufferImages.Head();
+                for (std::uint32_t i = 0; i < dirty_buffer_image_count; ++i)
                 {
                     auto handle = DirtyBufferImages.ToHandle(i);
 
@@ -1511,7 +1511,7 @@ namespace ZEngine::Hardwares
         m_clear_value[0].color = {r, g, b, a};
     }
 
-    void CommandBuffer::ClearDepth(float depth_color, uint32_t stencil)
+    void CommandBuffer::ClearDepth(float depth_color, std::uint32_t stencil)
     {
         m_clear_value[1].depthStencil.depth   = depth_color;
         m_clear_value[1].depthStencil.stencil = stencil;
@@ -1522,8 +1522,8 @@ namespace ZEngine::Hardwares
         ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
 
         const auto&         render_pass_spec = render_pass->Specification;
-        const uint32_t      width            = render_pass->GetRenderAreaWidth();
-        const uint32_t      height           = render_pass->GetRenderAreaHeight();
+        const std::uint32_t      width            = render_pass->GetRenderAreaWidth();
+        const std::uint32_t      height           = render_pass->GetRenderAreaHeight();
 
         auto                scratch          = ZGetScratch(&LocalArena);
 
@@ -1603,7 +1603,7 @@ namespace ZEngine::Hardwares
         }
     }
 
-    void CommandBuffer::BindDescriptorSets(uint32_t frame_index)
+    void CommandBuffer::BindDescriptorSets(std::uint32_t frame_index)
     {
         ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
 
@@ -1650,7 +1650,7 @@ namespace ZEngine::Hardwares
         }
     }
 
-    void CommandBuffer::DrawIndexedIndirect(const Hardwares::IndirectBuffer& buffer, uint32_t count)
+    void CommandBuffer::DrawIndexedIndirect(const Hardwares::IndirectBuffer& buffer, std::uint32_t count)
     {
         ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
 
@@ -1660,14 +1660,14 @@ namespace ZEngine::Hardwares
         }
     }
 
-    void CommandBuffer::DrawIndexed(uint32_t index_count, uint32_t instanceCount, uint32_t first_index, int32_t vertex_offset, uint32_t first_instance)
+    void CommandBuffer::DrawIndexed(std::uint32_t index_count, std::uint32_t instanceCount, std::uint32_t first_index, int32_t vertex_offset, std::uint32_t first_instance)
     {
         ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
 
         vkCmdDrawIndexed(m_command_buffer, index_count, instanceCount, first_index, vertex_offset, first_instance);
     }
 
-    void CommandBuffer::Draw(uint32_t vertex_count, uint32_t instance_count, uint32_t first_index, uint32_t first_instance)
+    void CommandBuffer::Draw(std::uint32_t vertex_count, std::uint32_t instance_count, std::uint32_t first_index, std::uint32_t first_instance)
     {
         ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
 
@@ -1683,7 +1683,7 @@ namespace ZEngine::Hardwares
         vkCmdPipelineBarrier(m_command_buffer, barrier_spec.SourceStageMask, barrier_spec.DestinationStageMask, 0, 0, nullptr, 0, nullptr, 1, &barrier_handle);
     }
 
-    void CommandBuffer::CopyBufferToImage(const Hardwares::BufferView& source, Hardwares::BufferImage& destination, uint32_t width, uint32_t height, uint32_t layer_count, VkImageLayout new_layout)
+    void CommandBuffer::CopyBufferToImage(const Hardwares::BufferView& source, Hardwares::BufferImage& destination, std::uint32_t width, std::uint32_t height, std::uint32_t layer_count, VkImageLayout new_layout)
     {
         ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
 
@@ -1730,7 +1730,7 @@ namespace ZEngine::Hardwares
         vkCmdSetScissor(m_command_buffer, 0, 1, &scissor);
     }
 
-    void CommandBuffer::PushConstants(VkShaderStageFlags stage_flags, uint32_t offset, uint32_t size, const void* data)
+    void CommandBuffer::PushConstants(VkShaderStageFlags stage_flags, std::uint32_t offset, std::uint32_t size, const void* data)
     {
         ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
 
@@ -1858,7 +1858,7 @@ namespace ZEngine::Hardwares
         }
     }
 
-    void VertexBuffer::SetData(const void* data, size_t byte_size)
+    void VertexBuffer::SetData(const void* data, std::size_t byte_size)
     {
 
         if (byte_size == 0)
@@ -1918,7 +1918,7 @@ namespace ZEngine::Hardwares
         }
     }
 
-    void StorageBuffer::SetData(const void* data, uint32_t offset, size_t byte_size)
+    void StorageBuffer::SetData(const void* data, std::uint32_t offset, std::size_t byte_size)
     {
         if (byte_size == 0)
         {

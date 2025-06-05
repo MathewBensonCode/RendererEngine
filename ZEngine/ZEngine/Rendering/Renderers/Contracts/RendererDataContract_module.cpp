@@ -1,7 +1,13 @@
-#pragma once
+module;
+
 #include <glm/glm.hpp>
 
-namespace ZEngine::Rendering::Renderers::Contracts
+export module ZEngine.Rendering.Renderers.Contracts.RendererDataContract;
+
+import std;
+
+
+export namespace ZEngine::Rendering::Renderers::Contracts
 {
     struct UBOCameraLayout
     {

@@ -1,7 +1,10 @@
-#pragma once
-#include <string>
+module;
 
-namespace ZEngine::Rendering::Components
+export module ZEngine.Rendering.Components.ValidComponent;
+
+import std;
+
+export namespace ZEngine::Rendering::Components
 {
     struct ValidComponent
     {

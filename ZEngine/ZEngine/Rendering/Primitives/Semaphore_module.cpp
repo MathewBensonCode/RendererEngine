@@ -1,13 +1,16 @@
-#pragma once
-#include <ZEngine/Helpers/IntrusivePtr.h>
+module;
 #include <vulkan/vulkan.h>
 
-namespace ZEngine::Hardwares
-{
+export module ZEngine.Rendering.Primitives.Semaphore;
+
+import std;
+import ZEngine.Helpers.IntrusivePtr;
+
+namespace ZEngine::Hardwares{
     struct VulkanDevice;
 }
 
-namespace ZEngine::Rendering::Primitives
+export namespace ZEngine::Rendering::Primitives
 {
     enum class SemaphoreState
     {

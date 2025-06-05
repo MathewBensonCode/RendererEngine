@@ -1,15 +1,19 @@
-#pragma once
-#include <ZEngine/Rendering/ResourceTypes.h>
-#include <ZEngine/ZEngineDef.h>
+module;
 #include <vulkan/vulkan.h>
-#include <deque>
+
+export module ZEngine.Rendering.Pools.CommandPool;
+
+import std;
+import ZEngine.Rendering.ResourceTypes;
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.ZEngineDef;
 
 namespace ZEngine::Hardwares
 {
     struct VulkanDevice;
 }
 
-namespace ZEngine::Rendering::Pools
+export namespace ZEngine::Rendering::Pools
 {
     struct CommandPool : public Helpers::RefCounted
     {

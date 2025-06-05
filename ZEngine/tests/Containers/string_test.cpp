@@ -1,4 +1,4 @@
-#include <ZEngine/Core/Containers/Strings.h>
+import ZEngine.Core.Containers.Strings;
 #include <gtest/gtest.h>
 
 using namespace ZEngine::Core::Containers;
@@ -166,7 +166,7 @@ TEST_F(StringTest, StringViewSubstring)
     EXPECT_EQ(view.size(), 5);
     EXPECT_FALSE(view.empty());
 
-    for (size_t i = 0; i < view.size(); ++i)
+    for (std::size_t i = 0; i < view.size(); ++i)
     {
         EXPECT_EQ(view[i], text[i]);
     }

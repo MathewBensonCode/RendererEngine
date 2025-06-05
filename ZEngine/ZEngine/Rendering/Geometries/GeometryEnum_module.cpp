@@ -1,6 +1,11 @@
-#pragma once
+module;
 
-namespace ZEngine::Rendering::Geometries
+export module ZEngine.Rendering.Geometries.GeometryEnum;
+
+import std;
+
+
+export namespace ZEngine::Rendering::Geometries
 {
     enum class GeometryType
     {

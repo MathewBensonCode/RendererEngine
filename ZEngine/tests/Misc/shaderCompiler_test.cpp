@@ -1,6 +1,7 @@
-#include <ZEngine/Rendering/Shaders/Compilers/ShaderCompiler.h>
 #include <gtest/gtest.h>
-#include <filesystem>
+import ZEngine.Rendering.Shaders.Compilers.ShaderCompiler;
+import std;
+
 
 using namespace ZEngine::Rendering::Shaders::Compilers;
 namespace fs = std::filesystem;

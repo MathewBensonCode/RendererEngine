@@ -1,10 +1,10 @@
-#include <ZEngine/Maths/Math.h>
-
+module;
 #include <glm/gtx/matrix_decompose.hpp>
+
+module ZEngine.Maths.Math;
 
 namespace glm
 {
-
     bool DecomposeTransformComponent(const Matrix4& transform, Vector3& translation, Vector3& rotation, Vector3& scale)
     {
         // From glm::decompose in matrix_decompose.inl

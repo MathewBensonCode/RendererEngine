@@ -1,6 +1,8 @@
-#pragma once
+export module ZEngine.Core.TimeStep;
 
-namespace ZEngine::Core
+import std;
+
+export namespace ZEngine::Core
 {
 
     class TimeStep

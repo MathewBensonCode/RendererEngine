@@ -1,16 +1,19 @@
-#pragma once
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <ZEngine/Helpers/ThreadSafeQueue.h>
-#include <atomic>
-#include <thread>
+export module ZEngine.Helpers.ThreadPool;
 
-namespace ZEngine::Helpers
+import std;
+
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.Helpers.ThreadSafeQueue;
+
+
+
+export namespace ZEngine::Helpers
 {
 
     class ThreadPool
     {
     public:
-        ThreadPool(size_t maxThreadCount = std::thread::hardware_concurrency()) : m_maxThreadCount(maxThreadCount), m_taskQueue(CreateRef<ThreadSafeQueue<std::function<void()>>>()) {}
+        ThreadPool(std::size_t maxThreadCount = std::thread::hardware_concurrency()) : m_maxThreadCount(maxThreadCount), m_taskQueue(CreateRef<ThreadSafeQueue<std::function<void()>>>()) {}
 
         ~ThreadPool()
         {
@@ -33,8 +36,8 @@ namespace ZEngine::Helpers
         }
 
     private:
-        size_t                                      m_maxThreadCount;
-        size_t                                      m_currentThreadCount{0};
+        std::size_t                                      m_maxThreadCount;
+        std::size_t                                      m_currentThreadCount{0};
         std::atomic_bool                            m_cancellationToken{false};
         std::mutex                                  m_mutex;
         Ref<ThreadSafeQueue<std::function<void()>>> m_taskQueue;

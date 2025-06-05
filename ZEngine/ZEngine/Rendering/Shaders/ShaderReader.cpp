@@ -1,7 +1,8 @@
-#include <ZEngine/Core/Coroutine.h>
-#include <ZEngine/Logging/LoggerDefinition.h>
-#include <ZEngine/Rendering/Shaders/ShaderReader.h>
-#include <fstream>
+module ZEngine.Rendering.Shaders.ShaderReader;
+
+import ZEngine.Core.Coroutine;
+import ZEngine.Logging.Logger;
+import ZEngine.ZEngineDef;
 
 namespace ZEngine::Rendering::Shaders
 {
@@ -16,18 +17,18 @@ namespace ZEngine::Rendering::Shaders
         }
     }
 
-    std::vector<uint32_t> ShaderReader::ReadAsBinary(std::filesystem::path filename)
+    std::vector<std::uint32_t> ShaderReader::ReadAsBinary(std::filesystem::path filename)
     {
         std::ifstream file_stream = {};
         file_stream.open(filename, std::ifstream::binary | std::ifstream::ate);
         if (!file_stream.is_open())
         {
-            ZENGINE_CORE_ERROR("====== Shader file : {} cannot be opened ======", filename.string())
-            ZENGINE_EXIT_FAILURE()
+            ZEngine::Logging::Logger::Error(std::format("====== Shader file : {} cannot be opened ======", filename.string()));
+            ZENGINE_EXIT_FAILURE();
         }
 
-        size_t                buffer_size = static_cast<size_t>(file_stream.tellg());
-        std::vector<uint32_t> buffer(buffer_size / 4);
+        std::size_t                buffer_size = static_cast<std::size_t>(file_stream.tellg());
+        std::vector<std::uint32_t> buffer(buffer_size / 4);
         file_stream.seekg(std::ifstream::beg);
         file_stream.read(reinterpret_cast<char*>(buffer.data()), buffer_size);
         file_stream.close();
@@ -53,7 +54,7 @@ namespace ZEngine::Rendering::Shaders
         m_filestream.open(filename, std::ifstream::in);
         if (!m_filestream.is_open())
         {
-            ZENGINE_CORE_ERROR("====== Shader file : {} cannot be opened ======", filename.string())
+            ZEngine::Logging::Logger::Error(std::format("====== Shader file : {} cannot be opened ======", filename.string()));
             co_return ShaderOperationResult::FAILURE;
         }
 
@@ -71,11 +72,11 @@ namespace ZEngine::Rendering::Shaders
 
         if (m_shader_info_collection.Type == ShaderType::UNKNOWN)
         {
-            ZENGINE_CORE_ERROR("====== Shader file : {} unsupported format ======", filename.string())
+            ZEngine::Logging::Logger::Error(std::format("====== Shader file : {} unsupported format ======", filename.string()));
             co_return ShaderOperationResult::FAILURE;
         }
 
-        ZENGINE_CORE_INFO("====== Shader file : {} read succeeded ======", filename.string())
+        ZEngine::Logging::Logger::Info(std::format("====== Shader file : {} read succeeded ======", filename.string()));
         m_filestream.close();
         co_return ShaderOperationResult::SUCCESS;
     }

@@ -1,5 +1,7 @@
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Rendering/Textures/Texture.h>
+module ZEngine.Rendering.Textures.Texture;
+
+import ZEngine.Rendering.Specifications.FormatSpecification;
+import ZEngine.Hardwares.VulkanDevice;
 
 namespace ZEngine::Rendering::Textures
 {

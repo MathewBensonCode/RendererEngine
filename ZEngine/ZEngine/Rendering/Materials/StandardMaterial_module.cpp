@@ -1,9 +1,11 @@
-#pragma once
-#include <ZEngine/Maths/Math.h>
-#include <ZEngine/Rendering/Lights/Light.h>
-#include <ZEngine/Rendering/Materials/ShaderMaterial.h>
+export module ZEngine.Rendering.Materials.StandardMaterial;
 
-namespace ZEngine::Rendering::Materials
+import std;
+import ZEngine.Maths.Math;
+import ZEngine.Rendering.Lights.Light;
+import ZEngine.Rendering.Materials.ShaderMaterial;
+
+export namespace ZEngine::Rendering::Materials
 {
 
     class StandardMaterial : public ShaderMaterial

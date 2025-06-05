@@ -1,4 +1,6 @@
-#include <ZEngine/Helpers/ThreadPool.h>
+module ZEngine.Helpers.ThreadPool;
+
+import ZEngine.Helpers.IntrusivePtr;
 
 namespace ZEngine::Helpers
 {

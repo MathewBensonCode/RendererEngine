@@ -1,9 +1,10 @@
-#pragma once
-#include <ZEngine/Core/IPipeline.h>
-#include <ZEngine/Rendering/Shaders/ShaderInformation.h>
-#include <future>
+export module ZEngine.Rendering.Shaders.Compilers.ICompilerStage;
 
-namespace ZEngine::Rendering::Shaders::Compilers
+import std;
+import ZEngine.Core.IPipeline;
+import ZEngine.Rendering.Shaders.ShaderInformation;
+
+export namespace ZEngine::Rendering::Shaders::Compilers
 {
 
     struct ICompilerStage : public Core::IPipelineStage

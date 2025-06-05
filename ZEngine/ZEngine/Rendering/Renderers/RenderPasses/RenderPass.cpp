@@ -1,7 +1,10 @@
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Rendering/Renderers/RenderPasses/RenderPass.h>
-#include <fmt/format.h>
-#include <numeric>
+module;
+
+module ZEngine.Rendering.Renderers.RenderPasses.RenderPass;
+
+import std;
+import fmt;
+import ZEngine.Hardwares.VulkanDevice;
 
 using namespace ZEngine::Rendering::Buffers;
 using namespace ZEngine::Rendering::Specifications;
@@ -36,7 +39,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
             attachment_specification.DependenciesMap.init(device->Arena, 4);
             attachment_specification.SubpassDependencies.init(device->Arena, 4);
 
-            uint32_t color_map_index = 0;
+            std::uint32_t color_map_index = 0;
             for (const auto& handle : Specification.Inputs)
             {
                 const auto& texture                                                 = device->GlobalTextures.Access(handle);
@@ -260,8 +263,8 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
     {
         RenderTargets.clear();
 
-        uint32_t width  = 0;
-        uint32_t height = 0;
+        std::uint32_t width  = 0;
+        std::uint32_t height = 0;
         for (const auto& input : Specification.Inputs)
         {
             auto texture = m_device->GlobalTextures.Access(input);
@@ -321,12 +324,12 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         return Specification.SwapchainAsRenderTarget ? m_device->SwapchainAttachment : Attachment;
     }
 
-    uint32_t RenderPass::GetRenderAreaWidth() const
+    std::uint32_t RenderPass::GetRenderAreaWidth() const
     {
         return Specification.SwapchainAsRenderTarget ? m_device->SwapchainImageWidth : RenderAreaWidth;
     }
 
-    uint32_t RenderPass::GetRenderAreaHeight() const
+    std::uint32_t RenderPass::GetRenderAreaHeight() const
     {
         return Specification.SwapchainAsRenderTarget ? m_device->SwapchainImageHeight : RenderAreaHeight;
     }
@@ -376,7 +379,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         return *this;
     }
 
-    RenderPassBuilder& RenderPassBuilder::PipelineDepthCompareOp(uint32_t value)
+    RenderPassBuilder& RenderPassBuilder::PipelineDepthCompareOp(std::uint32_t value)
     {
         m_spec.PipelineSpecification.DepthCompareOp = value;
         return *this;
@@ -388,61 +391,61 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         return *this;
     }
 
-    RenderPassBuilder& RenderPassBuilder::SetShaderOverloadMaxSet(uint32_t count)
+    RenderPassBuilder& RenderPassBuilder::SetShaderOverloadMaxSet(std::uint32_t count)
     {
         m_spec.PipelineSpecification.ShaderSpecification.OverloadMaxSet = count;
         return *this;
     }
 
-    RenderPassBuilder& RenderPassBuilder::SetOverloadPoolSize(uint32_t count)
+    RenderPassBuilder& RenderPassBuilder::SetOverloadPoolSize(std::uint32_t count)
     {
         m_spec.PipelineSpecification.ShaderSpecification.OverloadPoolSize = count;
         return *this;
     }
 
-    RenderPassBuilder& RenderPassBuilder::SetInputBindingCount(uint32_t count)
+    RenderPassBuilder& RenderPassBuilder::SetInputBindingCount(std::uint32_t count)
     {
         m_spec.PipelineSpecification.VertexInputBindingSpecifications.init(Arena, count, count);
         return *this;
     }
 
-    RenderPassBuilder& RenderPassBuilder::SetStride(uint32_t input_binding_index, uint32_t value)
+    RenderPassBuilder& RenderPassBuilder::SetStride(std::uint32_t input_binding_index, std::uint32_t value)
     {
         m_spec.PipelineSpecification.VertexInputBindingSpecifications[input_binding_index].Stride = value;
         return *this;
     }
 
-    RenderPassBuilder& RenderPassBuilder::SetRate(uint32_t input_binding_index, uint32_t value)
+    RenderPassBuilder& RenderPassBuilder::SetRate(std::uint32_t input_binding_index, std::uint32_t value)
     {
         m_spec.PipelineSpecification.VertexInputBindingSpecifications[input_binding_index].Rate = value;
         return *this;
     }
 
-    RenderPassBuilder& RenderPassBuilder::SetInputAttributeCount(uint32_t count)
+    RenderPassBuilder& RenderPassBuilder::SetInputAttributeCount(std::uint32_t count)
     {
         m_spec.PipelineSpecification.VertexInputAttributeSpecifications.init(Arena, count, count);
         return *this;
     }
 
-    RenderPassBuilder& RenderPassBuilder::SetLocation(uint32_t input_attribute_index, uint32_t value)
+    RenderPassBuilder& RenderPassBuilder::SetLocation(std::uint32_t input_attribute_index, std::uint32_t value)
     {
         m_spec.PipelineSpecification.VertexInputAttributeSpecifications[input_attribute_index].Location = value;
         return *this;
     }
 
-    RenderPassBuilder& RenderPassBuilder::SetBinding(uint32_t input_attribute_index, uint32_t input_binding_index)
+    RenderPassBuilder& RenderPassBuilder::SetBinding(std::uint32_t input_attribute_index, std::uint32_t input_binding_index)
     {
         m_spec.PipelineSpecification.VertexInputAttributeSpecifications[input_attribute_index].Binding = m_spec.PipelineSpecification.VertexInputBindingSpecifications[input_binding_index].Binding;
         return *this;
     }
 
-    RenderPassBuilder& RenderPassBuilder::SetFormat(uint32_t input_attribute_index, Specifications::ImageFormat value)
+    RenderPassBuilder& RenderPassBuilder::SetFormat(std::uint32_t input_attribute_index, Specifications::ImageFormat value)
     {
         m_spec.PipelineSpecification.VertexInputAttributeSpecifications[input_attribute_index].Format = value;
         return *this;
     }
 
-    RenderPassBuilder& RenderPassBuilder::SetOffset(uint32_t input_attribute_index, uint32_t offset)
+    RenderPassBuilder& RenderPassBuilder::SetOffset(std::uint32_t input_attribute_index, std::uint32_t offset)
     {
         m_spec.PipelineSpecification.VertexInputAttributeSpecifications[input_attribute_index].Offset = offset;
         return *this;

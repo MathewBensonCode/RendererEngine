@@ -1,7 +1,9 @@
-#include <ZEngine/Engine.h>
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Logging/LoggerDefinition.h>
-#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
+module ZEngine.Engine;
+
+import std;
+import ZEngine.Hardwares.VulkanDevice;
+import ZEngine.Logging.Logger;
+import ZEngine.Rendering.Renderers.GraphicRenderer;
 
 namespace ZEngine
 {
@@ -20,7 +22,7 @@ namespace ZEngine
         g_device->Initialize(arena, window);
         g_renderer->Initialize(g_device);
 
-        ZENGINE_CORE_INFO("Engine initialized")
+        ZEngine::Logging::Logger::Info("Engine initialized");
     }
 
     void Engine::Deinitialize()
@@ -40,7 +42,7 @@ namespace ZEngine
         s_request_terminate = false;
         g_device->Dispose();
 
-        ZENGINE_CORE_INFO("Engine destroyed")
+        ZEngine::Logging::Logger::Info("Engine destroyed");
     }
 
     bool Engine::OnEngineClosed(Event::EngineClosedEvent& event)

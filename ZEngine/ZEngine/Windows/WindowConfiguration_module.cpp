@@ -1,24 +1,26 @@
-#pragma once
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Containers/Strings.h>
-#include <ZEngine/Helpers/IntrusivePtr.h>
+export module ZEngine.Windows.WindowConfiguration;
+
+import std;
+import ZEngine.Core.Containers.Array;
+import ZEngine.Core.Containers.Strings;
+import ZEngine.Helpers.IntrusivePtr;
 
 namespace ZEngine::Windows::Layers
 {
     class Layer;
 }
 
-namespace ZEngine::Windows
+export namespace ZEngine::Windows
 {
     struct WindowConfiguration
     {
-        uint32_t                                        Width       = 1500;
-        uint32_t                                        Height      = 800;
+        std::uint32_t                                        Width       = 1500;
+        std::uint32_t                                        Height      = 800;
         bool                                            EnableVsync = true;
         Core::Containers::String                        Title;
 
-        Core::Containers::Array<ZRawPtr(Layers::Layer)> RenderingLayerCollection;
-        Core::Containers::Array<ZRawPtr(Layers::Layer)> OverlayLayerCollection;
+        Core::Containers::Array<Layers::Layer*> RenderingLayerCollection;
+        Core::Containers::Array<Layers::Layer*> OverlayLayerCollection;
     };
 
 } // namespace ZEngine::Windows

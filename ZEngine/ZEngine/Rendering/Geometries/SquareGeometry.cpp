@@ -1,4 +1,6 @@
-#include <ZEngine/Rendering/Geometries/SquareGeometry.h>
+module ZEngine.Rendering.Geometries.SquareGeometry;
+
+import ZEngine.Rendering.Renderers.Storages.GraphicVertex;
 
 namespace ZEngine::Rendering::Geometries
 {

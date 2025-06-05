@@ -1,7 +1,9 @@
-#pragma once
-#include <ZEngine/Core/TimeStep.h>
+export module ZEngine.Core.IUpdatable;
 
-namespace ZEngine::Core
+import std;
+import ZEngine.Core.TimeStep;
+
+export namespace ZEngine::Core
 {
 
     struct IUpdatable

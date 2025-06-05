@@ -1,21 +1,25 @@
-#pragma once
-#include <ZEngine/Rendering/Cameras/Camera.h>
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Helpers/ThreadSafeQueue.h>
-#include <ZEngine/Rendering/Primitives/Fence.h>
-#include <ZEngine/Rendering/Primitives/Semaphore.h>
-#include <ZEngine/Rendering/Renderers/RenderPasses/RenderPass.h>
-#include <ZEngine/Rendering/Renderers/RenderGraph.h>
-#include <ZEngine/Rendering/Textures/Texture.h>
-#include <ZEngine/Rendering/Renderers/ImGUIRenderer.h>
+module;
 #include <vulkan/vulkan.h>
 
-namespace ZEngine::Rendering::Renderers
+export module ZEngine.Rendering.Renderers.GraphicRenderer;
+
+import std;
+import ZEngine.Rendering.Cameras.Camera;
+import ZEngine.Hardwares.VulkanDevice;
+import ZEngine.Helpers.ThreadSafeQueue;
+import ZEngine.Rendering.Primitives.Fence;
+import ZEngine.Rendering.Primitives.Semaphore;
+import ZEngine.Rendering.Renderers.RenderPasses.RenderPass;
+import ZEngine.Rendering.Renderers.RenderGraph;
+import ZEngine.Rendering.Textures.Texture;
+import ZEngine.Rendering.Renderers.ImGUIRenderer;
+
+export namespace ZEngine::Rendering::Renderers
 {
     struct ResizeRequest
     {
-        uint32_t Width;
-        uint32_t Height;
+        std::uint32_t Width;
+        std::uint32_t Height;
     };
 
     struct UpdateTextureRequest
@@ -62,8 +66,8 @@ namespace ZEngine::Rendering::Renderers
 
         ZRawPtr(RenderPasses::RenderPass) CreateRenderPass(const Specifications::RenderPassSpecification& spec);
         Textures::TextureHandle CreateTexture(const Specifications::TextureSpecification& spec);
-        Textures::TextureHandle CreateTexture(uint32_t width, uint32_t height);
-        Textures::TextureHandle CreateTexture(uint32_t width, uint32_t height, float r, float g, float b, float a);
+        Textures::TextureHandle CreateTexture(std::uint32_t width, std::uint32_t height);
+        Textures::TextureHandle CreateTexture(std::uint32_t width, std::uint32_t height, float r, float g, float b, float a);
     };
 
     struct AsyncResourceLoader

@@ -1,7 +1,13 @@
-#pragma once
-#include <ZEngine/Rendering/Lights/Light.h>
+module;
 
-namespace ZEngine::Rendering::Components
+export module ZEngine.Rendering.Components.LightComponent;
+
+import std;
+
+import ZEngine.Rendering.Lights.Light;
+import ZEngine.Helpers.IntrusivePtr;
+
+export namespace ZEngine::Rendering::Components
 {
     struct LightComponent
     {

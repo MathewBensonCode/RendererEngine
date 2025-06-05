@@ -1,4 +1,9 @@
-// #pragma once
+// module;
+//
+//.export module ZEngine.Rendering.Components.CameraComponent;
+//
+//import std;
+//
 // #include <Controllers/ICameraController.h>
 // #include <ZEngine/ZEngineDef.h>
 //

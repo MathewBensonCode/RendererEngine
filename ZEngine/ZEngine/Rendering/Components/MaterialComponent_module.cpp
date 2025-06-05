@@ -1,7 +1,9 @@
-#pragma once
-#include <ZEngine/Rendering/Materials/ShaderMaterial.h>
+export module ZEngine.Rendering.Components.MaterialComponent;
 
-namespace ZEngine::Rendering::Components
+import std;
+import ZEngine.Rendering.Materials.ShaderMaterial;
+
+export namespace ZEngine::Rendering::Components
 {
     struct MaterialComponent
     {

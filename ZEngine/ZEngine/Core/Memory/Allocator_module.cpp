@@ -1,9 +1,9 @@
-#pragma once
-#include <ZEngine/ZEngineDef.h>
-#include <stddef.h>
-#include <cstdint>
+export module ZEngine.Core.Memory.Allocator;
 
-namespace ZEngine::Core::Memory
+import std;
+import ZEngine.ZEngineDef;
+
+export namespace ZEngine::Core::Memory
 {
     struct ArenaAllocator;
     struct ArenaTemp;
@@ -11,31 +11,31 @@ namespace ZEngine::Core::Memory
     struct ArenaTemp
     {
         ArenaAllocator* Arena          = nullptr;
-        size_t          CurrentOffset  = 0;
-        size_t          PreviousOffset = 0;
+        std::size_t          CurrentOffset  = 0;
+        std::size_t          PreviousOffset = 0;
     };
 
     struct ArenaAllocator
     {
         ~ArenaAllocator() {};
 
-        void     Initialize(uint64_t size);
+        void     Initialize(std::uint64_t size);
         void     Shutdown();
 
-        void*    Allocate(size_t size, size_t alignment = DEFAULT_ALIGNMENT);
-        void*    Allocate(size_t size, size_t alignment, const char* file, int line);
+        void*    Allocate(std::size_t size, std::size_t alignment = DEFAULT_ALIGNMENT);
+        void*    Allocate(std::size_t size, std::size_t alignment, const char* file, int line);
 
-        void*    Resize(void* old_memory, size_t old_size, size_t new_size, size_t alignment = DEFAULT_ALIGNMENT);
+        void*    Resize(void* old_memory, std::size_t old_size, std::size_t new_size, std::size_t alignment = DEFAULT_ALIGNMENT);
         void     Clear();
 
-        void     CreateSubArena(size_t size, ArenaAllocator* out_arena);
+        void     CreateSubArena(std::size_t size, ArenaAllocator* out_arena);
 
-        uint8_t* m_memory                  = nullptr;
-        size_t   m_total_size              = 0;
-        size_t   m_initial_current_offset  = 0;
-        size_t   m_initial_previous_offset = 0;
-        size_t   m_current_offset          = 0;
-        size_t   m_previous_offset         = 0;
+        std::uint8_t* m_memory                  = nullptr;
+        std::size_t   m_total_size              = 0;
+        std::size_t   m_initial_current_offset  = 0;
+        std::size_t   m_initial_previous_offset = 0;
+        std::size_t   m_current_offset          = 0;
+        std::size_t   m_previous_offset         = 0;
     }; // struct ArenaAllocator
 
     struct PoolFreeNode
@@ -49,7 +49,7 @@ namespace ZEngine::Core::Memory
 
         ~PoolAllocator() {};
 
-        void          Initialize(Arena* arena, size_t size, size_t chunk_size, size_t alignment = DEFAULT_ALIGNMENT);
+        void          Initialize(Arena* arena, std::size_t size, std::size_t chunk_size, std::size_t alignment = DEFAULT_ALIGNMENT);
 
         void*         Allocate();
         void*         Allocate(const char* file, int line);
@@ -57,10 +57,10 @@ namespace ZEngine::Core::Memory
         void          Free(void* ptr);
         void          Clear();
 
-        uint8_t*      memory     = nullptr;
+        std::uint8_t*      memory     = nullptr;
         PoolFreeNode* head       = nullptr;
-        size_t        total_size = 0;
-        size_t        chunk_size = 0;
+        std::size_t        total_size = 0;
+        std::size_t        chunk_size = 0;
     };
 
     ArenaTemp BeginTempArena(ArenaAllocator* arena);

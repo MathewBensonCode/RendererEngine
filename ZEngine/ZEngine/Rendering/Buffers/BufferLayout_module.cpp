@@ -1,20 +1,15 @@
-#pragma once
-#include <cstdint>
-#include <initializer_list>
-#include <string>
-#include <string_view>
-#include <type_traits>
-#include <typeinfo>
-#include <vector>
+export module ZEngine.Rendering.Buffers.BufferLayout;
 
-namespace ZEngine::Rendering::Buffers::Layout
+import std;
+
+export namespace ZEngine::Rendering::Buffers::Layout
 {
 
     template <typename T, typename = std::enable_if_t<std::is_integral_v<T> || std::is_floating_point_v<T> || std::is_class_v<T>>>
     class ElementLayout
     {
     public:
-        explicit ElementLayout(size_t count = 0, std::string name = "", bool normalized = false, uint32_t format = 0 /* vulkan attrib description format*/) : m_name(name), m_count(count), m_size(count * sizeof(T)), m_normalized(normalized), m_data_type(typeid(T).name()), m_format(format) {}
+        explicit ElementLayout(std::size_t count = 0, std::string name = "", bool normalized = false, std::uint32_t format = 0 /* vulkan attrib description format*/) : m_name(name), m_count(count), m_size(count * sizeof(T)), m_normalized(normalized), m_data_type(typeid(T).name()), m_format(format) {}
 
         ~ElementLayout() = default;
 
@@ -34,39 +29,39 @@ namespace ZEngine::Rendering::Buffers::Layout
             return m_normalized;
         }
 
-        virtual size_t GetOffset() const
+        virtual std::size_t GetOffset() const
         {
             return m_offset;
         }
 
-        virtual size_t GetSize() const
+        virtual std::size_t GetSize() const
         {
             return m_size;
         }
 
-        virtual size_t GetCount() const
+        virtual std::size_t GetCount() const
         {
             return m_count;
         }
 
-        virtual void SetOffset(size_t value)
+        virtual void SetOffset(std::size_t value)
         {
             m_offset = value;
         }
 
-        virtual uint32_t GetFormat() const
+        virtual std::uint32_t GetFormat() const
         {
             return m_format;
         }
 
     protected:
         std::string m_name;
-        size_t      m_size{0};
-        size_t      m_offset{0};
-        size_t      m_count{0};
+        std::size_t      m_size{0};
+        std::size_t      m_offset{0};
+        std::size_t      m_count{0};
         bool        m_normalized{false};
         std::string m_data_type;
-        uint32_t    m_format;
+        std::uint32_t    m_format;
     };
 
     template <typename T>
@@ -95,9 +90,9 @@ namespace ZEngine::Rendering::Buffers::Layout
             return m_elements;
         }
 
-        size_t GetStride() const
+        std::size_t GetStride() const
         {
-            size_t x{0};
+            std::size_t x{0};
             for (const auto& element : m_elements)
             {
                 x += element.GetSize();

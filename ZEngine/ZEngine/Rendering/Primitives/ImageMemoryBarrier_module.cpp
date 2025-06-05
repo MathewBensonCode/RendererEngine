@@ -1,8 +1,13 @@
-#pragma once
-#include <ZEngine/Rendering/Specifications/ImageMemoryBarrierSpecification.h>
+module;
+
 #include <vulkan/vulkan.h>
 
-namespace ZEngine::Rendering::Primitives
+export module ZEngine.Rendering.Primitives.ImageMemoryBarrier;
+
+import std;
+import ZEngine.Rendering.Specifications.ImageMemoryBarrierSpecification;
+
+export namespace ZEngine::Rendering::Primitives
 {
     struct ImageMemoryBarrier
     {

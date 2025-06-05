@@ -1,9 +1,12 @@
-#pragma once
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Memory/Allocator.h>
+module;
 #include <vulkan/vulkan.h>
 
-namespace ZEngine::Hardwares
+export module ZEngine.Hardwares.VulkanLayer;
+
+import ZEngine.Core.Containers.Array;
+import ZEngine.Core.Memory.Allocator;
+
+export namespace ZEngine::Hardwares
 {
     struct LayerProperty
     {

@@ -1,12 +1,13 @@
-#pragma once
-#include <ZEngine/Rendering/Shaders/ShaderInformation.h>
+module;
 #include <glslang/Public/ShaderLang.h>
-#include <filesystem>
-#include <fstream>
-#include <future>
-#include <mutex>
 
-namespace ZEngine::Rendering::Shaders
+export module ZEngine.Rendering.Shaders.ShaderReader;
+
+import std;
+import ZEngine.Rendering.Shaders.ShaderInformation;
+import ZEngine.Rendering.Shaders.ShaderEnums;
+
+export namespace ZEngine::Rendering::Shaders
 {
 
     class ShaderReader
@@ -18,7 +19,7 @@ namespace ZEngine::Rendering::Shaders
         ShaderReader();
         ~ShaderReader();
 
-        static std::vector<uint32_t>       ReadAsBinary(std::filesystem::path filename);
+        static std::vector<std::uint32_t>       ReadAsBinary(std::filesystem::path filename);
 
         /**
          * Read asynchronously content of shader file

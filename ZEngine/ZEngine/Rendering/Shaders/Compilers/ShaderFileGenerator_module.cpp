@@ -1,9 +1,11 @@
-#pragma once
-#include <ZEngine/Rendering/Shaders/Compilers/ICompilerStage.h>
-#include <fmt/format.h>
-#include <string_view>
+export module ZEngine.Rendering.Shaders.Compilers.ShaderFileGenerator;
 
-namespace ZEngine::Rendering::Shaders::Compilers
+import std;
+import ZEngine.Rendering.Shaders.Compilers.ICompilerStage;
+import ZEngine.Rendering.Shaders.ShaderEnums;
+import ZEngine.Rendering.Shaders.ShaderInformation;
+
+export namespace ZEngine::Rendering::Shaders::Compilers
 {
 
     class ShaderFileGenerator : public ICompilerStage

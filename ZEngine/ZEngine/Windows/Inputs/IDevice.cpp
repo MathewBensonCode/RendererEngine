@@ -1,4 +1,6 @@
-#include <ZEngine/Windows/Inputs/IDevice.h>
+module ZEngine.Windows.Inputs.IDevice;
+
+import std;
 
 namespace ZEngine::Windows::Inputs
 {

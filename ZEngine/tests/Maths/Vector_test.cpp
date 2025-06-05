@@ -1,4 +1,4 @@
-#include <ZEngine/Core/Maths/Vec.h>
+import ZEngine.Core.Maths.Vec;
 #include <gtest/gtest.h>
 
 using namespace ZEngine::Core::Maths;

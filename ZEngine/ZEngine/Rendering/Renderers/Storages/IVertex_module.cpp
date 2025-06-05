@@ -1,9 +1,13 @@
-#pragma once
+module;
+
 #include <glm/glm.hpp>
 #include <vulkan/vulkan.h>
-#include <array>
 
-namespace ZEngine::Rendering::Renderers::Storages
+export module ZEngine.Rendering.Renderers.Storages.IVertex;
+
+import std;
+
+export namespace ZEngine::Rendering::Renderers::Storages
 {
 
     struct IVertex

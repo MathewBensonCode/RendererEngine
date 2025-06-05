@@ -1,4 +1,4 @@
-#pragma once
+module;
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -6,13 +6,17 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/quaternion.hpp>
 
-namespace ZEngine
+export module ZEngine.Maths.Math;
+
+import std;
+
+export namespace ZEngine
 {
     namespace Maths = glm;
 }
 
 // GLM extensions
-namespace glm
+export namespace glm
 {
     using Vector4    = vec4;
     using Vector3    = vec3;

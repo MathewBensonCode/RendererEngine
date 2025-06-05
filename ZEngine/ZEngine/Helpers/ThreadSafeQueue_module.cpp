@@ -1,12 +1,9 @@
-#pragma once
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <chrono>
-#include <condition_variable>
-#include <functional>
-#include <mutex>
-#include <queue>
+export module ZEngine.Helpers.ThreadSafeQueue;
 
-namespace ZEngine::Helpers
+import std;
+import ZEngine.Helpers.IntrusivePtr;
+
+export namespace ZEngine::Helpers
 {
     template <typename T>
     class ThreadSafeQueue : public Helpers::RefCounted
@@ -27,7 +24,7 @@ namespace ZEngine::Helpers
                 std::lock_guard<std::mutex> lock(m_mutex);
                 m_queue.emplace(task);
             }
-            m_condition.notify_one();
+           m_condition.notify_one();
         }
 
         bool Pop(T& task)
@@ -50,7 +47,7 @@ namespace ZEngine::Helpers
             return m_queue.empty();
         }
 
-        size_t Size() const
+        std::size_t Size() const
         {
             std::lock_guard<std::mutex> lock(m_mutex);
             return m_queue.size();

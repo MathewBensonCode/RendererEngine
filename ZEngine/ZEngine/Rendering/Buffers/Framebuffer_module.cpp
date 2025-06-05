@@ -1,12 +1,13 @@
-#pragma once
-#include <ZEngine/Rendering/Specifications/FrameBufferSpecification.h>
+module;
 #include <vulkan/vulkan.h>
-namespace ZEngine::Hardwares
-{
-    struct VulkanDevice;
-} // namespace ZEngine::Hardwares
 
-namespace ZEngine::Rendering::Buffers
+export module ZEngine.Rendering.Buffers.Framebuffer;
+
+import std;
+import ZEngine.Rendering.Specifications.FrameBufferSpecification;
+import ZEngine.Hardwares.VulkanDevice;
+
+export namespace ZEngine::Rendering::Buffers
 {
     struct FramebufferVNext
     {
@@ -17,10 +18,10 @@ namespace ZEngine::Rendering::Buffers
         VkFramebuffer                                        Handle{VK_NULL_HANDLE};
 
         void                                                 Create();
-        void                                                 Resize(uint32_t width = 1, uint32_t height = 1);
+        void                                                 Resize(std::uint32_t width = 1, std::uint32_t height = 1);
         void                                                 Dispose();
-        uint32_t                                             GetWidth() const;
-        uint32_t                                             GetHeight() const;
+        std::uint32_t                                             GetWidth() const;
+        std::uint32_t                                             GetHeight() const;
         Specifications::FrameBufferSpecificationVNext&       GetSpecification();
         const Specifications::FrameBufferSpecificationVNext& GetSpecification() const;
 

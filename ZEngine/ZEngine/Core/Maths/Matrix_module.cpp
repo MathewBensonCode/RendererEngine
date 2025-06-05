@@ -1,21 +1,24 @@
-#include <ZEngine/Helpers/MemoryOperations.h>
-#include <ZEngine/Core/Maths/Vec.h>
-#include <cstddef>
+export module ZEngine.Core.Maths.Matrix;
 
-namespace ZEngine::Core::Maths
+import std;
+import ZEngine.ZEngineDef;
+import ZEngine.Helpers.MemoryOperations;
+import ZEngine.Core.Maths.Vec;
+
+export namespace ZEngine::Core::Maths
 {
-    template <typename T, size_t R, size_t C, typename = std::enable_if_t<std::is_arithmetic_v<T> && (R >= 1) && (C >= 1)>>
+    template <typename T, std::size_t R, std::size_t C, typename = std::enable_if_t<std::is_arithmetic_v<T> && (R >= 1) && (C >= 1)>>
     struct Matrix
     {
         T  m_data[C][R]; // column-major storage
 
-        T& operator()(size_t row, size_t col)
+        T& operator()(std::size_t row, std::size_t col)
         {
             ZENGINE_VALIDATE_ASSERT(row < R && col < C, "Index out of range");
             return m_data[col][row];
         }
 
-        const T& operator()(size_t row, size_t col) const
+        const T& operator()(std::size_t row, std::size_t col) const
         {
             ZENGINE_VALIDATE_ASSERT(row < R && col < C, "Index out of range");
             return m_data[col][row];
@@ -24,9 +27,9 @@ namespace ZEngine::Core::Maths
         Matrix<T, R, C> operator+(const Matrix<T, R, C>& other) const
         {
             Matrix<T, R, C> result{};
-            for (size_t j = 0; j < C; ++j)
+            for (std::size_t j = 0; j < C; ++j)
             {
-                for (size_t i = 0; i < R; i++)
+                for (std::size_t i = 0; i < R; i++)
                 {
                     result(i, j) = (*this)(i, j) + other(i, j);
                 }
@@ -37,9 +40,9 @@ namespace ZEngine::Core::Maths
         Matrix<T, R, C> operator-(const Matrix<T, R, C>& other) const
         {
             Matrix<T, R, C> result{};
-            for (size_t j = 0; j < C; ++j)
+            for (std::size_t j = 0; j < C; ++j)
             {
-                for (size_t i = 0; i < R; i++)
+                for (std::size_t i = 0; i < R; i++)
                 {
                     result(i, j) = (*this)(i, j) - other(i, j);
                 }
@@ -50,9 +53,9 @@ namespace ZEngine::Core::Maths
         Matrix<T, R, C> operator*(T scalar) const
         {
             Matrix<T, R, C> result{};
-            for (size_t j = 0; j < C; ++j)
+            for (std::size_t j = 0; j < C; ++j)
             {
-                for (size_t i = 0; i < R; ++i)
+                for (std::size_t i = 0; i < R; ++i)
                 {
                     result(i, j) = (*this)(i, j) * scalar;
                 }
@@ -63,9 +66,9 @@ namespace ZEngine::Core::Maths
 
         Matrix<T, R, C>& operator+=(const Matrix<T, R, C>& other)
         {
-            for (size_t j = 0; j < C; ++j)
+            for (std::size_t j = 0; j < C; ++j)
             {
-                for (size_t i = 0; i < R; ++i)
+                for (std::size_t i = 0; i < R; ++i)
                 {
                     (*this)(i, j) += other(i, j);
                 }
@@ -75,9 +78,9 @@ namespace ZEngine::Core::Maths
 
         Matrix<T, R, C>& operator-=(const Matrix<T, R, C>& other)
         {
-            for (size_t j = 0; j < C; ++j)
+            for (std::size_t j = 0; j < C; ++j)
             {
-                for (size_t i = 0; i < R; ++i)
+                for (std::size_t i = 0; i < R; ++i)
                 {
                     (*this)(i, j) -= other(i, j);
                 }

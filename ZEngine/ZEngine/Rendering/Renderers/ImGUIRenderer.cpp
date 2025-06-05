@@ -1,13 +1,12 @@
-#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Rendering/Renderers/ImGUIRenderer.h>
-#include <ZEngine/Windows/CoreWindow.h>
+module;
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_vulkan.h>
-#include <filesystem>
-#include <algorithm>
-#include <string_view>
-#include "ImGuizmo.h"
+
+module ZEngine.Rendering.Renderers.ImGUIRenderer;
+
+import ZEngine.Rendering.Renderers.GraphicRenderer;
+import ZEngine.Hardwares.VulkanDevice;
+import ZEngine.Windows.CoreWindow;
 
 using namespace ZEngine::Hardwares;
 using namespace ZEngine::Rendering;
@@ -107,7 +106,7 @@ namespace ZEngine::Rendering::Renderers
         io.Fonts->TexID                                    = (ImTextureID) font_tex_handle.Index;
 
         auto                        font_image_info        = font_texture->ImageBuffer->GetDescriptorImageInfo();
-        uint32_t                    frame_count            = renderer->Device->SwapchainImageCount;
+        std::uint32_t                    frame_count            = renderer->Device->SwapchainImageCount;
         auto                        shader                 = m_ui_pass->Pipeline->Shader;
         auto&                       descriptor_set_map     = shader->DescriptorSetMap;
 
@@ -118,7 +117,7 @@ namespace ZEngine::Rendering::Renderers
         for (unsigned i = 0; i < frame_count; ++i)
         {
             auto set = descriptor_set_map[0][i];
-            write_descriptor_sets.push(VkWriteDescriptorSet{.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET, .pNext = nullptr, .dstSet = set, .dstBinding = 0, .dstArrayElement = (uint32_t) font_tex_handle.Index, .descriptorCount = 1, .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, .pImageInfo = &(font_image_info), .pBufferInfo = nullptr, .pTexelBufferView = nullptr});
+            write_descriptor_sets.push(VkWriteDescriptorSet{.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET, .pNext = nullptr, .dstSet = set, .dstBinding = 0, .dstArrayElement = (std::uint32_t) font_tex_handle.Index, .descriptorCount = 1, .descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, .pImageInfo = &(font_image_info), .pBufferInfo = nullptr, .pTexelBufferView = nullptr});
         }
 
         vkUpdateDescriptorSets(renderer->Device->LogicalDevice, write_descriptor_sets.size(), write_descriptor_sets.data(), 0, nullptr);
@@ -181,7 +180,7 @@ namespace ZEngine::Rendering::Renderers
         ImGuizmo::BeginFrame();
     }
 
-    void ImGUIRenderer::DrawFrame(uint32_t frame_index, Hardwares::CommandBuffer* const command_buffer)
+    void ImGUIRenderer::DrawFrame(std::uint32_t frame_index, Hardwares::CommandBuffer* const command_buffer)
     {
         ImGui::Render();
         ImDrawData* draw_data = ImGui::GetDrawData();
@@ -291,11 +290,11 @@ namespace ZEngine::Rendering::Renderers
                         VkRect2D scissor;
                         scissor.offset.x      = (int32_t) (clip_rect.x);
                         scissor.offset.y      = (int32_t) (clip_rect.y);
-                        scissor.extent.width  = (uint32_t) (clip_rect.z - clip_rect.x);
-                        scissor.extent.height = (uint32_t) (clip_rect.w - clip_rect.y);
+                        scissor.extent.width  = (std::uint32_t) (clip_rect.z - clip_rect.x);
+                        scissor.extent.height = (std::uint32_t) (clip_rect.w - clip_rect.y);
                         command_buffer->SetScissor(scissor);
 
-                        pc_data.TextureId = (uint32_t) (intptr_t) pcmd->TextureId;
+                        pc_data.TextureId = (std::uint32_t) (intptr_t) pcmd->TextureId;
                         command_buffer->PushConstants(VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(PushConstantData), &pc_data);
                         command_buffer->BindDescriptorSets(frame_index);
                         command_buffer->DrawIndexed(pcmd->ElemCount, 1, pcmd->IdxOffset + global_idx_offset, pcmd->VtxOffset + global_vtx_offset, 0);

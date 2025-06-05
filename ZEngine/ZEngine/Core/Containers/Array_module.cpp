@@ -1,17 +1,20 @@
-#pragma once
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Core/Containers/InitializerList.h>
+export module ZEngine.Core.Containers.Array;
+
+import std;
+import ZEngine.ZEngineDef;
+import ZEngine.Core.Memory.Allocator;
+import ZEngine.Core.Containers.InitializerList;
 
 using namespace ZEngine::Core::Memory;
 
-namespace ZEngine::Core::Containers
+export namespace ZEngine::Core::Containers
 {
 
     template <typename T>
     struct Array
     {
         using value_type      = T;
-        using size_type       = size_t;
+        using size_type       = std::size_t;
         using reference       = T&;
         using const_reference = const T&;
         using pointer         = T*;
@@ -48,13 +51,13 @@ namespace ZEngine::Core::Containers
 
         const_reference operator[](size_type index) const
         {
-            ZENGINE_VALIDATE_ASSERT(index < m_size, "Index out of range")
+            ZENGINE_VALIDATE_ASSERT(index < m_size, "Index out of range");
             return m_data[index];
         }
 
-        reference operator[](size_t index)
+        reference operator[](size_type index)
         {
-            ZENGINE_VALIDATE_ASSERT(index < m_size, "Index out of range")
+            ZENGINE_VALIDATE_ASSERT(index < m_size, "Index out of range");
             return m_data[index];
         }
 
@@ -80,25 +83,25 @@ namespace ZEngine::Core::Containers
 
         reference front()
         {
-            ZENGINE_VALIDATE_ASSERT(m_size > 0, "Index out of range")
+            ZENGINE_VALIDATE_ASSERT(m_size > 0, "Index out of range");
             return m_data[0];
         }
 
         const_reference front() const
         {
-            ZENGINE_VALIDATE_ASSERT(m_size > 0, "Index out of range")
+            ZENGINE_VALIDATE_ASSERT(m_size > 0, "Index out of range");
             return m_data[0];
         }
 
         reference back()
         {
-            ZENGINE_VALIDATE_ASSERT(m_size > 0, "Index out of range")
+            ZENGINE_VALIDATE_ASSERT(m_size > 0, "Index out of range");
             return m_data[m_size - 1];
         }
 
         const_reference back() const
         {
-            ZENGINE_VALIDATE_ASSERT(m_size > 0, "Index out of range")
+            ZENGINE_VALIDATE_ASSERT(m_size > 0, "Index out of range");
             return m_data[m_size - 1];
         }
 
@@ -168,7 +171,7 @@ namespace ZEngine::Core::Containers
 
         void pop()
         {
-            ZENGINE_VALIDATE_ASSERT(m_size > 0, "Index out of range")
+            ZENGINE_VALIDATE_ASSERT(m_size > 0, "Index out of range");
             --m_size;
         }
 
@@ -186,9 +189,9 @@ namespace ZEngine::Core::Containers
                 return;
             }
 
-            size_t old_alloc_size = m_capacity * sizeof(T);
-            size_t new_alloc_size = new_capacity * sizeof(T);
-            m_data                = static_cast<pointer>(ZResize(m_allocator, m_data, old_alloc_size, new_alloc_size, ZAlignof(value_type)));
+            size_type old_alloc_size = m_capacity * sizeof(T);
+            size_type new_alloc_size = new_capacity * sizeof(T);
+            m_data                = static_cast<pointer>(ZResize(m_allocator, m_data, old_alloc_size, new_alloc_size, ZAlignof<value_type>()));
             m_capacity            = new_capacity;
         }
 
@@ -201,28 +204,28 @@ namespace ZEngine::Core::Containers
     template <typename T>
     struct ArrayView
     {
-        ArrayView(T* data, size_t size) : m_data(data), m_size(size) {}
+        ArrayView(T* data, std::size_t size) : m_data(data), m_size(size) {}
         ArrayView(Array<T>& arr) : m_data(arr.data()), m_size(arr.size()) {}
 
-        void set(T* data, size_t size)
+        void set(T* data, std::size_t size)
         {
             m_data = data;
             m_size = size;
         }
 
-        T& operator[](size_t index)
+        T& operator[](std::size_t index)
         {
-            ZENGINE_VALIDATE_ASSERT(index < m_size, "Index out of range")
+            ZENGINE_VALIDATE_ASSERT(index < m_size, "Index out of range");
             return m_data[index];
         }
 
-        const T& operator[](size_t index) const
+        const T& operator[](std::size_t index) const
         {
-            ZENGINE_VALIDATE_ASSERT(index < m_size, "Index out of range")
+            ZENGINE_VALIDATE_ASSERT(index < m_size, "Index out of range");
             return m_data[index];
         }
 
-        size_t size() const
+        std::size_t size() const
         {
             return m_size;
         }
@@ -233,6 +236,6 @@ namespace ZEngine::Core::Containers
         }
 
         T*     m_data;
-        size_t m_size;
+        std::size_t m_size;
     };
 } // namespace ZEngine::Core::Containers

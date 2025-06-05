@@ -1,8 +1,10 @@
-#pragma once
-#include <ZEngine/Rendering/Materials/IMaterial.h>
-#include <ZEngine/Rendering/Shaders/Shader.h>
+export module ZEngine.Rendering.Materials.ShaderMaterial;
 
-namespace ZEngine::Rendering::Materials
+import ZEngine.Rendering.Materials.IMaterial;
+import ZEngine.Rendering.Shaders.Shader;
+import ZEngine.Helpers.IntrusivePtr;
+
+export namespace ZEngine::Rendering::Materials
 {
 
     class ShaderMaterial : public IMaterial

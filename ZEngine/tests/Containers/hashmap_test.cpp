@@ -1,5 +1,5 @@
-#include <ZEngine/Core/Containers/HashMap.h>
-#include <ZEngine/Core/Containers/Strings.h>
+import ZEngine.Core.Containers.HashMap;
+import ZEngine.Core.Containers.Strings;
 #include <gtest/gtest.h>
 
 using namespace ZEngine::Core::Containers;

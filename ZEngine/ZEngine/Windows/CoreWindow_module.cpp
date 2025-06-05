@@ -1,30 +1,25 @@
-#pragma once
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Containers/Strings.h>
-#include <ZEngine/Core/CoreEvent.h>
-#include <ZEngine/Core/EventDispatcher.h>
-#include <ZEngine/Core/IEventable.h>
-#include <ZEngine/Core/IInitializable.h>
-#include <ZEngine/Core/IRenderable.h>
-#include <ZEngine/Core/IUpdatable.h>
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Core/TimeStep.h>
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <ZEngine/Windows/Inputs/IInputEventCallback.h>
-#include <ZEngine/Windows/Layers/Layer.h>
-#include <ZEngine/Windows/WindowConfiguration.h>
-#include <ZEngine/Windows/WindowProperty.h>
-#include <future>
-#include <span>
+export module ZEngine.Windows.CoreWindow;
 
-namespace ZEngine::Windows::Layers
-{
-    class Layer;
-} // namespace ZEngine::Windows::Layers
+import std;
+import ZEngine.Core.Containers.Array;
+import ZEngine.Core.Containers.Strings;
+import ZEngine.Core.CoreEvent;
+import ZEngine.Core.EventDispatcher;
+import ZEngine.Core.IEventable;
+import ZEngine.Core.IInitializable;
+import ZEngine.Core.IRenderable;
+import ZEngine.Core.IUpdatable;
+import ZEngine.Core.Memory.Allocator;
+import ZEngine.Core.TimeStep;
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.Windows.Inputs.IInputEventCallback;
+import ZEngine.Windows.WindowConfiguration;
+import ZEngine.Windows.WindowProperty;
 
 namespace ZEngine::Windows
 {
-    class CoreWindow : public Inputs::IKeyboardEventCallback, public Inputs::IMouseEventCallback, public Inputs::ITextInputEventCallback, public Inputs::IWindowEventCallback, public Core::IUpdatable, public Core::IRenderable, public Core::IEventable
+   export class CoreWindow : public Inputs::IKeyboardEventCallback, public Inputs::IMouseEventCallback, public Inputs::ITextInputEventCallback, public Inputs::IWindowEventCallback, public Core::IUpdatable, public Core::IRenderable, public Core::IEventable
+
     {
 
     public:
@@ -37,8 +32,8 @@ namespace ZEngine::Windows
 
         Core::Containers::Array<const char*> RequiredExtensionLayers                                            = {};
 
-        virtual uint32_t                     GetHeight() const                                                  = 0;
-        virtual uint32_t                     GetWidth() const                                                   = 0;
+        virtual std::uint32_t                     GetHeight() const                                                  = 0;
+        virtual std::uint32_t                     GetWidth() const                                                   = 0;
         virtual Core::Containers::StringView GetTitle() const                                                   = 0;
         virtual void                         SetTitle(Core::Containers::StringView title)                       = 0;
         virtual bool                         IsMinimized() const                                                = 0;

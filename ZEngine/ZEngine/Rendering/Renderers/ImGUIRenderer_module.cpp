@@ -1,15 +1,16 @@
-#pragma once
-#include <ZEngine/Rendering/Renderers/RenderGraph.h>
-#include <ZEngine/Rendering/Renderers/RenderPasses/RenderPass.h>
-#include <ZEngine/ZEngineDef.h>
+export module ZEngine.Rendering.Renderers.ImGUIRenderer;
 
-namespace ZEngine::Rendering::Renderers
+import std;
+import ZEngine.Rendering.Renderers.RenderGraph;
+import ZEngine.Rendering.Renderers.RenderPasses.RenderPass;
+
+export namespace ZEngine::Rendering::Renderers
 {
     struct PushConstantData
     {
         float    Scale[2]     = {0};
         float    Translate[2] = {0};
-        uint32_t TextureId    = 0xFFFFFFFFu;
+        std::uint32_t TextureId    = 0xFFFFFFFFu;
     };
 
     struct GraphicRenderer;
@@ -21,7 +22,7 @@ namespace ZEngine::Rendering::Renderers
         void StyleDarkTheme();
 
         void NewFrame();
-        void DrawFrame(uint32_t frame_index, Hardwares::CommandBuffer* const command_buffer);
+        void DrawFrame(std::uint32_t frame_index, Hardwares::CommandBuffer* const command_buffer);
 
     private:
         GraphicRenderer*                 m_renderer;

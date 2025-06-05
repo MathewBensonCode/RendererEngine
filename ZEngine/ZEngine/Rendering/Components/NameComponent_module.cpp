@@ -1,7 +1,12 @@
-#pragma once
-#include <string>
+module;
 
-namespace ZEngine::Rendering::Components
+export module ZEngine.Rendering.Components.NameComponent;
+
+import std;
+
+
+
+export namespace ZEngine::Rendering::Components
 {
     struct NameComponent
     {

@@ -1,4 +1,4 @@
-#include <ZEngine/Helpers/MemoryOperations.h>
+import ZEngine.Helpers.MemoryOperations;
 #include <gtest/gtest.h>
 
 using namespace ZEngine::Helpers;

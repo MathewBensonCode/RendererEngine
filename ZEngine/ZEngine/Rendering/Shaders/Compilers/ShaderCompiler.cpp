@@ -1,7 +1,12 @@
-#include <ZEngine/Core/Coroutine.h>
-#include <ZEngine/Logging/LoggerDefinition.h>
-#include <ZEngine/Rendering/Shaders/Compilers/CompilationStage.h>
-#include <ZEngine/Rendering/Shaders/Compilers/ShaderCompiler.h>
+module ZEngine.Rendering.Shaders.Compilers.ShaderCompiler;
+
+import ZEngine.Core.Coroutine;
+import ZEngine.Logging.Logger;
+import ZEngine.Rendering.Shaders.Compilers.CompilationStage;
+import ZEngine.Rendering.Shaders.ShaderReader;
+import ZEngine.Rendering.Shaders.ShaderIncluder;
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.Rendering.Shaders.Compilers.ICompilerStage;
 
 using namespace ZEngine::Helpers;
 
@@ -38,7 +43,7 @@ namespace ZEngine::Rendering::Shaders::Compilers
         ShaderOperationResult read_operation = co_await m_reader->ReadAsync(m_source_file);
         if (read_operation == ShaderOperationResult::FAILURE)
         {
-            ZENGINE_CORE_CRITICAL("Compilation process stopped")
+            ZEngine::Logging::Logger::Critical(std::format("Compilation process stopped"));
             co_return ShaderCompilerResult{ShaderOperationResult::FAILURE, ShaderInformation{}};
         }
 
@@ -54,7 +59,7 @@ namespace ZEngine::Rendering::Shaders::Compilers
             if (!stage_info.IsSuccess)
             {
                 // Log the critical error or perform any necessary cleanup
-                ZENGINE_CORE_CRITICAL("Compilation process encountered a failure at stage ...");
+                ZEngine::Logging::Logger::Critical(std::format("Compilation process encountered a failure at stage ..."));;
                 co_return ShaderCompilerResult{ShaderOperationResult::FAILURE, ShaderInformation{}};
             }
 

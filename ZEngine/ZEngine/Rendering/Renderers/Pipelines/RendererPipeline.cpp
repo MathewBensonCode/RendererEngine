@@ -1,5 +1,7 @@
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Rendering/Renderers/Pipelines/RendererPipeline.h>
+module ZEngine.Rendering.Renderers.Pipelines.RendererPipeline;
+
+import std;
+import ZEngine.Hardwares.VulkanDevice;
 
 using namespace ZEngine::Helpers;
 using namespace ZEngine::Core::Containers;
@@ -117,10 +119,10 @@ namespace ZEngine::Rendering::Renderers::Pipelines
          */
         ZENGINE_VALIDATE_ASSERT(Specification.Attachment, "Attachment can't be null")
 
-        uint32_t                                   attachment_count = Specification.Attachment->GetColorAttachmentCount();
+        std::uint32_t                                   attachment_count = Specification.Attachment->GetColorAttachmentCount();
         Array<VkPipelineColorBlendAttachmentState> color_blend_attachment_states{};
         color_blend_attachment_states.init(scratch.Arena, attachment_count, attachment_count);
-        for (uint32_t i = 0; i < attachment_count; ++i)
+        for (std::uint32_t i = 0; i < attachment_count; ++i)
         {
             color_blend_attachment_states[i].colorWriteMask      = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
             color_blend_attachment_states[i].blendEnable         = Specification.EnableBlending ? VK_TRUE : VK_FALSE;

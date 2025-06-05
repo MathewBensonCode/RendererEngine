@@ -1,8 +1,10 @@
-#pragma once
-#include <ZEngine/Logging/LoggerConfiguration.h>
-#include <ZEngine/Windows/WindowConfiguration.h>
+export module ZEngine.EngineConfiguration;
 
-namespace ZEngine
+import std;
+import ZEngine.Logging.LoggerConfiguration;
+import ZEngine.Windows.WindowConfiguration;
+
+export namespace ZEngine
 {
 
     struct EngineConfiguration

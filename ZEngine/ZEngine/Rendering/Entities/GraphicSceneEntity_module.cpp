@@ -1,15 +1,18 @@
-#pragma once
-#include <ZEngine/Logging/LoggerDefinition.h>
-#include <ZEngine/ZEngineDef.h>
+module;
 #include <entt/entt.hpp>
-#include <type_traits>
 
-namespace ZEngine::Rendering::Scenes
+export module ZEngine.Rendering.Entities.GraphicSceneEntity;
+
+import std;
+import ZEngine.Logging.Logger;
+import ZEngine.ZEngineDef;
+
+export namespace ZEngine::Rendering::Scenes
 {
     struct SceneRawData;
 }
 
-namespace ZEngine::Rendering::Entities
+export namespace ZEngine::Rendering::Entities
 {
     class GraphicSceneEntity
     {
@@ -40,7 +43,7 @@ namespace ZEngine::Rendering::Entities
         {
             if (HasComponent<TComponent>())
             {
-                ZENGINE_CORE_ERROR("This component has already been added to this entity")
+                ZEngine::Logging::Logger::Error("This component has already been added to this entity");
                 return GetComponent<TComponent>();
             }
             auto registry = s_weak_registry_ptr.lock();
@@ -71,7 +74,7 @@ namespace ZEngine::Rendering::Entities
             return !((*this) == rhs);
         }
 
-        operator uint32_t() const
+        operator std::uint32_t() const
         {
             return static_cast<uint32_t>(m_entity_handle);
         }

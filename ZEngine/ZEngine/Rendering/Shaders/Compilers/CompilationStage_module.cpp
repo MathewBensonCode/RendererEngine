@@ -1,11 +1,17 @@
-#pragma once
-#include <ZEngine/Rendering/Shaders/Compilers/ICompilerStage.h>
-#include <ZEngine/Rendering/Shaders/ShaderIncluder.h>
+module;
 #include <glslang/Public/ResourceLimits.h>
 #include <glslang/Public/ShaderLang.h>
 #include <glslang/SPIRV/GlslangToSpv.h>
 
-namespace ZEngine::Rendering::Shaders::Compilers
+export module ZEngine.Rendering.Shaders.Compilers.CompilationStage;
+
+import std;
+import ZEngine.Rendering.Shaders.Compilers.ICompilerStage;
+import ZEngine.Rendering.Shaders.ShaderInformation;
+import ZEngine.Rendering.Shaders.ShaderEnums;
+import ZEngine.Rendering.Shaders.ShaderIncluder;
+
+export namespace ZEngine::Rendering::Shaders::Compilers
 {
     class CompilationStage : public ICompilerStage
     {

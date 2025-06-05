@@ -1,19 +1,21 @@
-#include <ZEngine/Core/Coroutine.h>
-#include <ZEngine/Helpers/MeshHelper.h>
-#include <ZEngine/Rendering/Components/CameraComponent.h>
-#include <ZEngine/Rendering/Components/GeometryComponent.h>
-#include <ZEngine/Rendering/Components/LightComponent.h>
-#include <ZEngine/Rendering/Components/MaterialComponent.h>
-#include <ZEngine/Rendering/Components/NameComponent.h>
-#include <ZEngine/Rendering/Components/TransformComponent.h>
-#include <ZEngine/Rendering/Components/UUIComponent.h>
-#include <ZEngine/Rendering/Geometries/CubeGeometry.h>
-#include <ZEngine/Rendering/Materials/BasicMaterial.h>
-#include <ZEngine/Rendering/Materials/StandardMaterial.h>
-#include <ZEngine/Rendering/Textures/Texture.h>
-#include <ZEngine/Serializers/GraphicScene3DSerializer.h>
-#include <fstream>
-#include <sstream>
+module ZEngine.Serializers.GraphicScene3DSerializer;
+
+import std;
+import ZEngine.Core.Coroutine;
+import ZEngine.Helpers.MeshHelper;
+import ZEngine.Rendering.Components.CameraComponent;
+import ZEngine.Rendering.Components.GeometryComponent;
+import ZEngine.Rendering.Components.LightComponent;
+import ZEngine.Rendering.Components.MaterialComponent;
+import ZEngine.Rendering.Components.NameComponent;
+import ZEngine.Rendering.Components.TransformComponent;
+import ZEngine.Rendering.Components.UUIComponent;
+import ZEngine.Rendering.Geometries.CubeGeometry;
+import ZEngine.Rendering.Materials.BasicMaterial;
+import ZEngine.Rendering.Materials.StandardMaterial;
+import ZEngine.Rendering.Textures.Texture;
+
+
 
 using namespace ZEngine::Rendering::Materials;
 using namespace ZEngine::Rendering::Components;

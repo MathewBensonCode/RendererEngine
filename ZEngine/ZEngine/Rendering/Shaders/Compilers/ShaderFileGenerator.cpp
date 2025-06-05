@@ -1,8 +1,8 @@
-#include <ZEngine/Core/Coroutine.h>
-#include <ZEngine/Logging/LoggerDefinition.h>
-#include <ZEngine/Rendering/Shaders/Compilers/ShaderFileGenerator.h>
-#include <filesystem>
-#include <fstream>
+module ZEngine.Rendering.Shaders.Compilers.ShaderFileGenerator;
+
+import std;
+import ZEngine.Core.Coroutine;
+import ZEngine.Logging.Logger;
 
 namespace ZEngine::Rendering::Shaders::Compilers
 {
@@ -25,9 +25,9 @@ namespace ZEngine::Rendering::Shaders::Compilers
     {
         std::filesystem::path file_path;
         if (information_list.Type == ShaderType::VERTEX)
-            file_path = std::filesystem::path(outputDirectory) / fmt::format("{}_vertex.spv", information_list.Name);
+            file_path = std::filesystem::path(std::format("{}/{}_vertex.spv", outputDirectory, information_list.Name));
         if (information_list.Type == ShaderType::FRAGMENT)
-            file_path = std::filesystem::path(outputDirectory) / fmt::format("{}_fragment.spv", information_list.Name);
+            file_path = std::filesystem::path(std::format("{}/{}_fragment.spv", outputDirectory, information_list.Name));
 
         return file_path.string();
     }
@@ -42,7 +42,7 @@ namespace ZEngine::Rendering::Shaders::Compilers
             m_information = {false, "Failed to open spriv file: " + output_file};
             co_return;
         }
-        out.write(reinterpret_cast<const char*>(information_list.BinarySource.data()), information_list.BinarySource.size() * sizeof(uint32_t));
+        out.write(reinterpret_cast<const char*>(information_list.BinarySource.data()), information_list.BinarySource.size() * sizeof(std::uint32_t));
 
         co_return;
     }

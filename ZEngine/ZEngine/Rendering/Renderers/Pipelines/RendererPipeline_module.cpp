@@ -1,11 +1,17 @@
-#pragma once
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Rendering/Shaders/Shader.h>
-#include <ZEngine/Rendering/Specifications/GraphicRendererPipelineSpecification.h>
-#include <ZEngine/ZEngineDef.h>
+module;
 #include <vulkan/vulkan.h>
 
-namespace ZEngine::Rendering::Renderers::Pipelines
+export module ZEngine.Rendering.Renderers.Pipelines.RendererPipeline;
+
+import std;
+
+import ZEngine.Hardwares.VulkanDevice;
+import ZEngine.Rendering.Shaders.Shader;
+import ZEngine.Rendering.Specifications.GraphicRendererPipelineSpecification;
+
+import ZEngine.ZEngineDef;
+
+export namespace ZEngine::Rendering::Renderers::Pipelines
 {
     struct GraphicPipeline
     {

@@ -1,12 +1,15 @@
-#pragma once
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Helpers/MemoryOperations.h>
+export module ZEngine.Core.Containers.Strings;
 
-namespace ZEngine::Core::Containers
+import std;
+import ZEngine.ZEngineDef;
+import ZEngine.Core.Memory.Allocator;
+import ZEngine.Helpers.MemoryOperations;
+
+export namespace ZEngine::Core::Containers
 {
     struct String
     {
-        using size_type       = size_t;
+        using size_type       = std::size_t;
         using value_type      = char;
         using pointer         = char*;
         using const_pointer   = const char*;
@@ -202,10 +205,10 @@ namespace ZEngine::Core::Containers
                 return;
             }
 
-            size_t old_alloc_size = m_capacity * sizeof(char);
-            size_t new_alloc_size = new_capacity * sizeof(char);
+            std::size_t old_alloc_size = m_capacity * sizeof(char);
+            std::size_t new_alloc_size = new_capacity * sizeof(char);
 
-            m_data                = static_cast<pointer>(ZResize(m_allocator, m_data, old_alloc_size, new_alloc_size, ZAlignof(value_type)));
+            m_data                = static_cast<pointer>(ZResize(m_allocator, m_data, old_alloc_size, new_alloc_size, alignof(char)));
             m_capacity            = new_capacity;
         }
 
@@ -217,7 +220,7 @@ namespace ZEngine::Core::Containers
 
     struct StringView
     {
-        using size_type = size_t;
+        using size_type = std::size_t;
 
         StringView() : m_data(nullptr), m_size(0) {}
 

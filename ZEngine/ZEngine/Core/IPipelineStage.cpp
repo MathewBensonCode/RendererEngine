@@ -1,4 +1,4 @@
-#include <ZEngine/Core/IPipeline.h>
+module ZEngine.Core.IPipeline;
 
 namespace ZEngine::Core
 {

@@ -1,7 +1,7 @@
-#include <ZEngine/Core/Coroutine.h>
-#include <ZEngine/Rendering/Buffers/Bitmap.h>
-#include <ZEngine/Rendering/Primitives/ImageMemoryBarrier.h>
-#include <ZEngine/Rendering/Textures/Texture2D.h>
+import ZEngine.Core.Coroutine;
+import ZEngine.Rendering.Buffers.Bitmap;
+import ZEngine.Rendering.Primitives.ImageMemoryBarrier;
+import ZEngine.Rendering.Textures.Texture2D;
 
 // #define STB_IMAGE_IMPLEMENTATION
 // #ifdef __GNUC__
@@ -122,7 +122,7 @@ namespace ZEngine::Rendering::Textures
     //     return texture;
     // }
 
-    // Ref<Texture2D> Texture2D::Create(uint32_t width, uint32_t height)
+    // Ref<Texture2D> Texture2D::Create(std::uint32_t width, std::uint32_t height)
     //{
     //     unsigned char                        image_data[] = {255, 255, 255, 255, '\0'};
 
@@ -135,7 +135,7 @@ namespace ZEngine::Rendering::Textures
     //    Create(spec);
     //}
 
-    // Ref<Texture2D> Texture2D::Create(uint32_t width, uint32_t height, float r, float g, float b, float a)
+    // Ref<Texture2D> Texture2D::Create(std::uint32_t width, std::uint32_t height, float r, float g, float b, float a)
     //{
     //     unsigned char image_data[]                = {0, 0, 0, 0, '\0'};
     //     image_data[0]                             = static_cast<unsigned char>(std::clamp(r, .0f, 255.0f));
@@ -177,12 +177,12 @@ namespace ZEngine::Rendering::Textures
     //    // Hardwares::VulkanDevice::MapAndCopyToMemory(staging_buffer, texture->m_buffer_size, spec.Data);
 
     //    ///* Create VkImage */
-    //    // uint32_t storage_bit   = spec.IsUsageStorage ? VK_IMAGE_USAGE_STORAGE_BIT : 0;
-    //    // uint32_t transfert_bit = spec.IsUsageTransfert ? VK_IMAGE_USAGE_TRANSFER_DST_BIT : 0;
-    //    // uint32_t sampled_bit   = spec.IsUsageSampled ? VK_IMAGE_USAGE_SAMPLED_BIT : 0;
-    //    // uint32_t image_aspect  = (spec.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ?
+    //    // std::uint32_t storage_bit   = spec.IsUsageStorage ? VK_IMAGE_USAGE_STORAGE_BIT : 0;
+    //    // std::uint32_t transfert_bit = spec.IsUsageTransfert ? VK_IMAGE_USAGE_TRANSFER_DST_BIT : 0;
+    //    // std::uint32_t sampled_bit   = spec.IsUsageSampled ? VK_IMAGE_USAGE_SAMPLED_BIT : 0;
+    //    // std::uint32_t image_aspect  = (spec.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ?
     //    VK_IMAGE_ASPECT_DEPTH_BIT : VK_IMAGE_ASPECT_COLOR_BIT;
-    //    // uint32_t image_usage_attachment =
+    //    // std::uint32_t image_usage_attachment =
     //    //     (spec.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ?
     //    VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT : VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 

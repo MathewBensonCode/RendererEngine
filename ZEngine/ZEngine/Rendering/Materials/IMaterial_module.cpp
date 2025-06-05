@@ -1,11 +1,12 @@
-#pragma once
-#include <ZEngine/Rendering/Shaders/ShaderEnums.h>
-#include <ZEngine/Rendering/Textures/Texture.h>
-#include <ZEngine/ZEngineDef.h>
-#include <string>
-#include <typeinfo>
+export module ZEngine.Rendering.Materials.IMaterial;
 
-namespace ZEngine::Rendering::Materials
+import std;
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.Rendering.Shaders.ShaderEnums;
+import ZEngine.Rendering.Textures.Texture;
+import ZEngine.ZEngineDef;
+
+export namespace ZEngine::Rendering::Materials
 {
 
     struct IMaterial : public Helpers::RefCounted

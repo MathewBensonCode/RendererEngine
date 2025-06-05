@@ -1,5 +1,7 @@
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Rendering/Buffers/Framebuffer.h>
+module ZEngine.Rendering.Buffers.Framebuffer;
+
+import std;
+import ZEngine.Hardwares.VulkanDevice;
 
 using namespace ZEngine::Helpers;
 using namespace ZEngine::Rendering::Specifications;
@@ -21,12 +23,12 @@ namespace ZEngine::Rendering::Buffers
         Dispose();
     }
 
-    uint32_t FramebufferVNext::GetWidth() const
+    std::uint32_t FramebufferVNext::GetWidth() const
     {
         return m_specification.Width;
     }
 
-    uint32_t FramebufferVNext::GetHeight() const
+    std::uint32_t FramebufferVNext::GetHeight() const
     {
         return m_specification.Height;
     }
@@ -60,7 +62,7 @@ namespace ZEngine::Rendering::Buffers
         ZReleaseScratch(scratch);
     }
 
-    void FramebufferVNext::Resize(uint32_t width, uint32_t height)
+    void FramebufferVNext::Resize(std::uint32_t width, std::uint32_t height)
     {
         m_specification.Width  = width;
         m_specification.Height = height;

@@ -1,6 +1,9 @@
-#pragma once
+export module ZEngine.Rendering.Cameras.CameraEnum;
 
-namespace ZEngine::Rendering::Cameras
+import std;
+
+
+export namespace ZEngine::Rendering::Cameras
 {
     enum class CameraType
     {

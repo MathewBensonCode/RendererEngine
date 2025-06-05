@@ -1,11 +1,11 @@
-#pragma once
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <ZEngine/Helpers/ThreadSafeQueue.h>
-#include <ZEngine/ZEngineDef.h>
-#include <atomic>
-#include <functional>
+export module ZEngine.Core.CoroutineScheduler;
 
-namespace ZEngine::Core
+import std;
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.Helpers.ThreadSafeQueue;
+import ZEngine.ZEngineDef;
+
+export namespace ZEngine::Core
 {
     struct CoroutineAction : public Helpers::RefCounted
     {

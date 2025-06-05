@@ -1,12 +1,14 @@
-#pragma once
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Containers/HashMap.h>
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Rendering/Specifications/ShaderSpecification.h>
-#include <ZEngine/ZEngineDef.h>
+export module ZEngine.Rendering.Shaders.Shader;
 
-namespace ZEngine::Rendering::Shaders
+import std;
+import ZEngine.Core.Containers.Array;
+import ZEngine.Core.Containers.HashMap;
+import ZEngine.Core.Memory.Allocator;
+import ZEngine.Hardwares.VulkanDevice;
+import ZEngine.Rendering.Specifications.ShaderSpecification;
+import ZEngine.ZEngineDef;
+
+export namespace ZEngine::Rendering::Shaders
 {
     struct Shader
     {
@@ -48,7 +50,7 @@ namespace ZEngine::Helpers
     template <>
     inline void HandleManager<Rendering::Shaders::Shader>::Dispose()
     {
-        for (size_t i = 0; i < m_count; ++i)
+        for (std::size_t i = 0; i < m_count; ++i)
         {
             m_memory[i].Dispose();
         }

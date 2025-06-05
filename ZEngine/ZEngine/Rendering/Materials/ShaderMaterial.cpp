@@ -1,4 +1,6 @@
-#include <ZEngine/Rendering/Materials/ShaderMaterial.h>
+module ZEngine.Rendering.Materials.ShaderMaterial;
+
+import ZEngine.Helpers.IntrusivePtr;
 
 using namespace ZEngine::Helpers;
 

@@ -1,31 +1,31 @@
-#pragma once
-#include <ZEngine/Rendering/Geometries/IGeometry.h>
-#include <ZEngine/Rendering/Materials/ShaderMaterial.h>
-#include <ZEngine/Rendering/Meshes/Mesh.h>
-#include <ZEngine/Rendering/Shaders/ShaderEnums.h>
-#include <ZEngine/ZEngineDef.h>
-#include <queue>
-#include <vector>
+export module ZEngine.Rendering.Renderers.Pipelines.GraphicRendererPipelineInformation;
 
-namespace ZEngine::Rendering::Renderers
+import std;
+import ZEngine.Rendering.Geometries.IGeometry;
+import ZEngine.Rendering.Materials.ShaderMaterial;
+import ZEngine.Rendering.Meshes.Mesh;
+import ZEngine.Rendering.Shaders.ShaderEnums;
+import ZEngine.ZEngineDef;
+
+export namespace ZEngine::Rendering::Renderers
 {
 
     struct GraphicRendererInformationRecord
     {
-        uint32_t ShaderIndex{0};
-        uint32_t GeometryIndex{0};
-        uint32_t MaterialIndex{0};
+        std::uint32_t ShaderIndex{0};
+        std::uint32_t GeometryIndex{0};
+        std::uint32_t MaterialIndex{0};
     };
 
     struct GraphicRendererPipelineInformation
     {
         bool                                                 IsPipelineStatesInitialized{false};
 
-        uint32_t                                             DesiredWidth{1};
-        uint32_t                                             DesiredHeight{1};
+        std::uint32_t                                             DesiredWidth{1};
+        std::uint32_t                                             DesiredHeight{1};
 
-        uint32_t                                             GeometryCollectionCount{0};
-        uint32_t                                             MaterialCollectionCount{0};
+        std::uint32_t                                             GeometryCollectionCount{0};
+        std::uint32_t                                             MaterialCollectionCount{0};
 
         std::vector<Rendering::Meshes::Mesh>                 MeshCollection;
         std::vector<Helpers::Ref<Geometries::IGeometry>>     GeometryCollection;

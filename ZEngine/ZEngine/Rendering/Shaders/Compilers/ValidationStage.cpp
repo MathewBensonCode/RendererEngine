@@ -1,7 +1,14 @@
-#include <ZEngine/Core/Coroutine.h>
-#include <ZEngine/Logging/LoggerDefinition.h>
-#include <ZEngine/Rendering/Shaders/Compilers/ShaderFileGenerator.h>
-#include <ZEngine/Rendering/Shaders/Compilers/ValidationStage.h>
+module;
+#include <spirv-tools/libspirv.hpp>
+#include <spirv-tools/optimizer.hpp>
+
+module ZEngine.Rendering.Shaders.Compilers.ValidationStage;
+
+import std;
+import ZEngine.Core.Coroutine;
+import ZEngine.Logging.Logger;
+import ZEngine.Rendering.Shaders.Compilers.ShaderFileGenerator;
+import ZEngine.Helpers.IntrusivePtr;
 
 using namespace ZEngine::Helpers;
 

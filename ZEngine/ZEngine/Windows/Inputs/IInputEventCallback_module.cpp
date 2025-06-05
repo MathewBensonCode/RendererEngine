@@ -1,10 +1,12 @@
-#pragma once
-#include <ZEngine/Windows/Events/KeyEvent.h>
-#include <ZEngine/Windows/Events/MouseEvent.h>
-#include <ZEngine/Windows/Events/TextInputEvent.h>
-#include <ZEngine/Windows/Events/WindowEvent.h>
+export module ZEngine.Windows.Inputs.IInputEventCallback;
 
-namespace ZEngine::Windows::Inputs
+import std;
+import ZEngine.Windows.Events.KeyEvent;
+import ZEngine.Windows.Events.MouseEvent;
+import ZEngine.Windows.Events.TextInputEvent;
+import ZEngine.Windows.Events.WindowEvent;
+
+export namespace ZEngine::Windows::Inputs
 {
     struct IMouseEventCallback
     {

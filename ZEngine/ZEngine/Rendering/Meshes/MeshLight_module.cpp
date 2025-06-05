@@ -1,9 +1,14 @@
-#pragma once
-#include <ZEngine/Maths/Math.h>
-#include <ZEngine/Rendering/Lights/Light.h>
-#include <ZEngine/Rendering/Meshes/Mesh.h>
+export module ZEngine.Rendering.Meshes.MeshLight;
 
-namespace ZEngine::Rendering::Mesh
+import std;
+import ZEngine.Maths.Math;
+import ZEngine.Rendering.Lights.Light;
+import ZEngine.Rendering.Meshes.Mesh;
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.Rendering.Geometries.IGeometry;
+import ZEngine.Rendering.Materials.ShaderMaterial;
+
+export namespace ZEngine::Rendering::Mesh
 {
 
     struct MeshLight : public Meshes::Mesh

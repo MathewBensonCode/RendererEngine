@@ -1,4 +1,4 @@
-#include <ZEngine/Rendering/Materials/StandardMaterial.h>
+module ZEngine.Rendering.Materials.StandardMaterial;
 
 using namespace ZEngine::Helpers;
 

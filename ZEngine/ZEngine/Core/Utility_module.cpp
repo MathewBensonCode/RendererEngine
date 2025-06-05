@@ -1,10 +1,12 @@
-#pragma once
-#include <cstring>
-#include <exception>
-#include <string>
-#include <typeinfo>
+module;
 
-namespace ZEngine::Core
+#include <cstring>
+
+export module ZEngine.Core.Utility;
+
+import std;
+
+export namespace ZEngine::Core
 {
 
     struct Utility

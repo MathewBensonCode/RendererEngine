@@ -1,13 +1,17 @@
-#pragma once
-#include <ZEngine/Helpers/IntrusivePtr.h>
+module;
 #include <vulkan/vulkan.h>
+
+export module ZEngine.Rendering.Primitives.Fence;
+
+import std;
+import ZEngine.Helpers.IntrusivePtr;
 
 namespace ZEngine::Hardwares
 {
     struct VulkanDevice;
 }
 
-namespace ZEngine::Rendering::Primitives
+export namespace ZEngine::Rendering::Primitives
 {
     enum class FenceState
     {

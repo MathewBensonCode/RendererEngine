@@ -1,14 +1,16 @@
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Containers/HashMap.h>
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Logging/Logger.h>
-#include <ZEngine/Logging/LoggerDefinition.h>
-#include <fmt/format.h>
+module;
+#include <spdlog/spdlog.h>
 #include <spdlog/async.h>
 #include <spdlog/async_logger.h>
 #include <spdlog/details/thread_pool.h>
 #include <spdlog/sinks/rotating_file_sink.h>
-#include <filesystem>
+
+module ZEngine.Logging.Logger;
+
+import ZEngine.Core.Containers.Array;
+import ZEngine.Core.Containers.HashMap;
+import ZEngine.Core.Memory.Allocator;
+import ZEngine.ZEngineDef;
 
 using namespace ZEngine::Core::Memory;
 
@@ -26,22 +28,22 @@ namespace ZEngine::Logging
         s_log_event_handlers.init(reinterpret_cast<ArenaAllocator*>(arena), 3);
 
         const auto current_directoy   = std::filesystem::current_path();
-        const auto log_directory      = fmt::format("{0}/{1}", current_directoy.string(), configuration.OutputDirectory);
+        const auto log_directory      = std::format("{0}/{1}", current_directoy.string(), configuration.OutputDirectory);
         auto       log_directory_path = std::filesystem::path(log_directory);
         if (!std::filesystem::exists(log_directory_path))
         {
             bool dir_created = std::filesystem::create_directory(log_directory_path);
             if (!dir_created)
             {
-                ZENGINE_CORE_CRITICAL("Failed to create log directory at : {}", log_directory_path.string())
-                ZENGINE_EXIT_FAILURE()
+                ZEngine::Logging::Logger::Critical(std::format("Failed to create log directory at : {}", log_directory_path.string()));
+                ZENGINE_EXIT_FAILURE();
             }
         }
 
         spdlog::init_thread_pool(8192, 2);
         spdlog::flush_every(std::chrono::duration_cast<std::chrono::seconds>(configuration.PeriodicFlush));
 
-        s_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(fmt::format("{0}/{1}", configuration.OutputDirectory, configuration.LogFilename), 1024 * 1024, 5, false);
+        s_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(std::format("{0}/{1}", configuration.OutputDirectory, configuration.LogFilename), 1024 * 1024, 5, false);
         s_logger_collection.push(std::make_shared<spdlog::async_logger>(configuration.EngineLoggerName, s_sink, spdlog::thread_pool()));
 
         for (auto& logger : s_logger_collection)
@@ -185,14 +187,14 @@ namespace ZEngine::Logging
         s_logger_collection.clear();
     }
 
-    uint32_t Logger::AddEventHandler(LogEventHandler handler)
+    std::uint32_t Logger::AddEventHandler(LogEventHandler handler)
     {
-        uint32_t cookie = g_cookie++;
+        std::uint32_t cookie = g_cookie++;
         s_log_event_handlers.insert(cookie, handler);
         return cookie;
     }
 
-    void Logger::RemoveEventHandler(uint32_t cookie)
+    void Logger::RemoveEventHandler(std::uint32_t cookie)
     {
         std::unique_lock l(s_mutex);
         s_log_event_handlers.remove(cookie);

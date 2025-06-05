@@ -1,8 +1,11 @@
-#pragma once
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <future>
+export module ZEngine.Core.ISerializer;
 
-namespace ZEngine::Core
+import std;
+
+import ZEngine.Helpers.IntrusivePtr;
+
+
+export namespace ZEngine::Core
 {
     struct SerializeInformation
     {

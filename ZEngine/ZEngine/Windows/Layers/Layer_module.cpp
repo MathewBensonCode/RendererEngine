@@ -1,16 +1,13 @@
-#pragma once
-#include <ZEngine/Core/IEventable.h>
-#include <ZEngine/Core/IRenderable.h>
-#include <ZEngine/Core/IUpdatable.h>
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Windows/CoreWindow.h>
+export module ZEngine.Windows.Layers.Layer;
 
-namespace ZEngine::Windows
-{
-    class CoreWindow;
-}
+import std;
+import ZEngine.Core.IEventable;
+import ZEngine.Core.IRenderable;
+import ZEngine.Core.IUpdatable;
+import ZEngine.Core.Memory.Allocator;
+import ZEngine.Windows.CoreWindow;
 
-namespace ZEngine::Windows::Layers
+export namespace ZEngine::Windows::Layers
 {
 
     struct Layer : public Core::IUpdatable, public Core::IEventable, public Core::IRenderable

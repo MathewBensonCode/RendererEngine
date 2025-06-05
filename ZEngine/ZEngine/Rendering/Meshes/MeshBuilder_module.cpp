@@ -1,4 +1,9 @@
-// #pragma once
+// module;
+//
+export module ZEngine.Rendering.Meshes.MeshBuilder;
+
+import std;
+//
 // #include <ZEngine/Rendering/Meshes/Mesh.h>
 // #include <ZEngine/Rendering/Lights/Light.h>
 // #include <ZEngine/Rendering/Textures/Texture2D.h>

@@ -1,7 +1,12 @@
-#pragma once
+module;
+
 #include <glm/glm.hpp>
 
-namespace ZEngine::Rendering
+export module ZEngine.Rendering.GPUTypes;
+
+import std;
+
+export namespace ZEngine::Rendering
 {
     struct gpuvec3
     {

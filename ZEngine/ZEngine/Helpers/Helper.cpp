@@ -1,45 +1,15 @@
-#include <ZEngine/Core/Coroutine.h>
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Helpers/MathHelper.h>
-#include <ZEngine/Helpers/MeshHelper.h>
-#include <ZEngine/Rendering/Renderers/Storages/IVertex.h>
-#include <ZEngine/ZEngineDef.h>
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
+import ZEngine.Core.Coroutine;
+import ZEngine.Hardwares.VulkanDevice;
+import ZEngine.Helpers.MathHelper;
+import ZEngine.Helpers.MeshHelper;
+import ZEngine.Rendering.Renderers.Storages.IVertex;
+import ZEngine.ZEngineDef;
 
 using namespace ZEngine::Rendering::Renderers;
 
 namespace ZEngine::Helpers
 {
 
-    Rendering::Meshes::MeshVNext CreateBuiltInMesh(Rendering::Meshes::MeshType mesh_type)
-    {
-        Rendering::Meshes::MeshVNext custom_mesh = {};
-        return custom_mesh;
-    }
-
-    bool ExtractMeshFromAssimpSceneNode(aiNode* const root_node, std::vector<uint32_t>* const mesh_id_collection_ptr)
-    {
-        if (!root_node || !mesh_id_collection_ptr)
-        {
-            return false;
-        }
-
-        for (int i = 0; i < root_node->mNumMeshes; ++i)
-        {
-            mesh_id_collection_ptr->push_back(root_node->mMeshes[i]);
-        }
-
-        if (root_node->mNumChildren > 0)
-        {
-            for (int i = 0; i < root_node->mNumChildren; ++i)
-            {
-                ExtractMeshFromAssimpSceneNode(root_node->mChildren[i], mesh_id_collection_ptr);
-            }
-        }
-
-        return true;
-    }
 
     std::vector<Rendering::Meshes::MeshVNext> ConvertAssimpMeshToZEngineMeshModel(const aiScene* assimp_scene, const std::vector<uint32_t>& assimp_mesh_ids)
     {
@@ -49,7 +19,7 @@ namespace ZEngine::Helpers
         {
             aiMesh*               assimp_mesh = assimp_scene->mMeshes[assimp_mesh_ids[i]];
 
-            uint32_t              vertex_count{0};
+            std::uint32_t              vertex_count{0};
             std::vector<float>    vertices = {};
             std::vector<uint32_t> indices  = {};
 
@@ -96,16 +66,4 @@ namespace ZEngine::Helpers
         return meshes;
     }
 
-    glm::mat4 ConvertToMat4(const aiMatrix4x4& m)
-    {
-        glm::mat4 mm;
-        for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < 4; j++)
-            {
-                mm[i][j] = m[i][j];
-            }
-        }
-        return mm;
-    }
 } // namespace ZEngine::Helpers

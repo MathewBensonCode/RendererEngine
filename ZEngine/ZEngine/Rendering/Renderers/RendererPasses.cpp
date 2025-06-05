@@ -1,5 +1,7 @@
-#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
-#include <ZEngine/Rendering/Renderers/RendererPasses.h>
+module ZEngine.Rendering.Renderers.RendererPasses;
+
+import std;
+import ZEngine.Rendering.Renderers.GraphicRenderer;
 
 using namespace ZEngine::Helpers;
 using namespace ZEngine::Rendering::Specifications;
@@ -40,14 +42,14 @@ namespace ZEngine::Rendering::Renderers
         }
     }
 
-    void InitialPass::Execute(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene_data, RenderPasses::RenderPass* const pass, Hardwares::CommandBuffer* const command_buffer, RenderGraph* const graph)
+    void InitialPass::Execute(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene_data, RenderPasses::RenderPass* const pass, Hardwares::CommandBuffer* const command_buffer, RenderGraph* const graph)
     {
         auto renderer      = graph->Renderer;
         auto vertex_buffer = renderer->Device->VertexBufferSetManager.Access(m_vb_handle);
         vertex_buffer->SetData<float>(frame_index, m_vertex_data);
     }
 
-    void InitialPass::Render(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Buffers::FramebufferVNext* const framebuffer, Hardwares::CommandBuffer* const command_buffer, RenderGraph* const graph)
+    void InitialPass::Render(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Buffers::FramebufferVNext* const framebuffer, Hardwares::CommandBuffer* const command_buffer, RenderGraph* const graph)
     {
         auto renderer      = graph->Renderer;
         auto vertex_buffer = renderer->Device->VertexBufferSetManager.Access(m_vb_handle);
@@ -101,7 +103,7 @@ namespace ZEngine::Rendering::Renderers
         (*pass)->Verify();
     }
 
-    void DepthPrePass::Execute(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* pass, Hardwares::CommandBuffer* command_buffer, RenderGraph* const graph)
+    void DepthPrePass::Execute(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* pass, Hardwares::CommandBuffer* command_buffer, RenderGraph* const graph)
     {
         /*
          * Composing Transform Data
@@ -114,7 +116,7 @@ namespace ZEngine::Rendering::Renderers
         transfor_buffer->SetData<glm::mat4>(frame_index, scene->GlobalTransforms);
     }
 
-    void DepthPrePass::Render(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* pass, Buffers::FramebufferVNext* framebuffer, Hardwares::CommandBuffer* command_buffer, RenderGraph* graph)
+    void DepthPrePass::Render(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* pass, Buffers::FramebufferVNext* framebuffer, Hardwares::CommandBuffer* command_buffer, RenderGraph* graph)
     {
         if (!scene || !scene->IndirectBufferHandle)
         {
@@ -189,9 +191,9 @@ namespace ZEngine::Rendering::Renderers
         (*pass)->Verify();
     }
 
-    void SkyboxPass::Execute(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene_data, RenderPasses::RenderPass* pass, Hardwares::CommandBuffer* command_buffer, RenderGraph* const graph) {}
+    void SkyboxPass::Execute(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene_data, RenderPasses::RenderPass* pass, Hardwares::CommandBuffer* command_buffer, RenderGraph* const graph) {}
 
-    void SkyboxPass::Render(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* pass, Buffers::FramebufferVNext* framebuffer, Hardwares::CommandBuffer* command_buffer, RenderGraph* graph)
+    void SkyboxPass::Render(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* pass, Buffers::FramebufferVNext* framebuffer, Hardwares::CommandBuffer* command_buffer, RenderGraph* graph)
     {
         auto renderer      = graph->Renderer;
         auto vertex_buffer = renderer->Device->VertexBufferSetManager.Access(m_vb_handle);
@@ -260,9 +262,9 @@ namespace ZEngine::Rendering::Renderers
         }
     }
 
-    void GridPass::Execute(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene_data, RenderPasses::RenderPass* pass, Hardwares::CommandBuffer* command_buffer, RenderGraph* const graph) {}
+    void GridPass::Execute(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene_data, RenderPasses::RenderPass* pass, Hardwares::CommandBuffer* command_buffer, RenderGraph* const graph) {}
 
-    void GridPass::Render(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* pass, Buffers::FramebufferVNext* framebuffer, Hardwares::CommandBuffer* command_buffer, RenderGraph* graph)
+    void GridPass::Render(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* pass, Buffers::FramebufferVNext* framebuffer, Hardwares::CommandBuffer* command_buffer, RenderGraph* graph)
     {
         auto renderer      = graph->Renderer;
         auto vertex_buffer = renderer->Device->VertexBufferSetManager.Access(m_vb_handle);
@@ -338,9 +340,9 @@ namespace ZEngine::Rendering::Renderers
         (*pass)->Verify();
     }
 
-    void GbufferPass::Execute(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene_data, RenderPasses::RenderPass* pass, Hardwares::CommandBuffer* command_buffer, RenderGraph* const graph) {}
+    void GbufferPass::Execute(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene_data, RenderPasses::RenderPass* pass, Hardwares::CommandBuffer* command_buffer, RenderGraph* const graph) {}
 
-    void GbufferPass::Render(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* pass, Buffers::FramebufferVNext* framebuffer, Hardwares::CommandBuffer* command_buffer, RenderGraph* graph)
+    void GbufferPass::Render(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* pass, Buffers::FramebufferVNext* framebuffer, Hardwares::CommandBuffer* command_buffer, RenderGraph* graph)
     {
         if (!scene || !scene->IndirectBufferHandle)
         {
@@ -413,7 +415,7 @@ namespace ZEngine::Rendering::Renderers
         (*pass)->Verify();
     }
 
-    void LightingPass::Execute(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene_data, RenderPasses::RenderPass* pass, Hardwares::CommandBuffer* command_buffer, RenderGraph* const graph)
+    void LightingPass::Execute(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene_data, RenderPasses::RenderPass* pass, Hardwares::CommandBuffer* command_buffer, RenderGraph* const graph)
     {
         auto directional_light_buffer_handle = graph->GetStorageBufferSet("g_scene_directional_light_buffer");
         auto point_light_buffer_handle       = graph->GetStorageBufferSet("g_scene_point_light_buffer");
@@ -434,7 +436,7 @@ namespace ZEngine::Rendering::Renderers
         spot_light_buffer->SetData<uint8_t>(frame_index, spot_light_data);
     }
 
-    void LightingPass::Render(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* pass, Buffers::FramebufferVNext* framebuffer, Hardwares::CommandBuffer* command_buffer, RenderGraph* graph)
+    void LightingPass::Render(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* pass, Buffers::FramebufferVNext* framebuffer, Hardwares::CommandBuffer* command_buffer, RenderGraph* graph)
     {
         if (!scene->IndirectBufferHandle)
         {

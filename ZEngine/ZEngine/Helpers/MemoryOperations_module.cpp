@@ -1,13 +1,9 @@
-#pragma once
-#include <ZEngine/ZEngineDef.h>
-#include <cstring>
+export module ZEngine.Helpers.MemoryOperations;
 
-#ifdef __STDC_LIB_EXT1__
-#define __STDC_WANT_LIB_EXT1__ 1
-#include <string.h>
-#endif
+import std;
+import ZEngine.ZEngineDef;
 
-namespace ZEngine::Helpers
+export namespace ZEngine::Helpers
 {
     constexpr int MEMORY_OP_SUCCESS = 0;
     constexpr int MEMORY_OP_FAILURE = -1;
@@ -18,7 +14,7 @@ namespace ZEngine::Helpers
 #define SECURE_C11_FUNCTIONS_AVAILABLE 0
 #endif
 
-    inline int secure_memset(void* destination, int value, size_t count, size_t destinationSize)
+    int secure_memset(void* destination, int value, std::size_t count, std::size_t destinationSize)
     {
         if (!destination)
         {
@@ -33,7 +29,7 @@ namespace ZEngine::Helpers
         return (std::memset(destination, value, count) == destination) ? MEMORY_OP_SUCCESS : MEMORY_OP_FAILURE;
     }
 
-    inline int secure_memcpy(void* dest, size_t destSize, const void* src, size_t count)
+    int secure_memcpy(void* dest, std::size_t destSize, const void* src, std::size_t count)
     {
         if (!dest || !src)
         {
@@ -54,7 +50,7 @@ namespace ZEngine::Helpers
 #endif
     }
 
-    inline int secure_memmove(void* dest, size_t destSize, const void* src, size_t count)
+    int secure_memmove(void* dest, std::size_t destSize, const void* src, std::size_t count)
     {
         if (!dest || !src)
         {
@@ -74,7 +70,7 @@ namespace ZEngine::Helpers
 #endif
     }
 
-    inline int secure_strncpy(char* dest, size_t destSize, const char* src, size_t count)
+    int secure_strncpy(char* dest, std::size_t destSize, const char* src, std::size_t count)
     {
         if (!dest || !src)
         {
@@ -93,7 +89,7 @@ namespace ZEngine::Helpers
         return (std::strncpy(dest, src, count) == dest) ? MEMORY_OP_SUCCESS : MEMORY_OP_FAILURE;
 #endif
     }
-    inline size_t secure_strlen(const char* str)
+    std::size_t secure_strlen(const char* str)
     {
         if (!str)
         {
@@ -102,14 +98,14 @@ namespace ZEngine::Helpers
         return std::strlen(str);
     }
 
-    inline int secure_strcpy(char* dest, size_t destSize, const char* src)
+    int secure_strcpy(char* dest, std::size_t destSize, const char* src)
     {
         if (!dest || !src)
         {
             return MEMORY_OP_FAILURE;
         }
 
-        size_t srcLength = secure_strlen(src);
+        std::size_t srcLength = secure_strlen(src);
         if (srcLength + 1 > destSize)
         {
             return MEMORY_OP_FAILURE;
@@ -123,7 +119,7 @@ namespace ZEngine::Helpers
 #endif
     }
 
-    inline int secure_strcmp(const char* str1, const char* str2)
+    int secure_strcmp(const char* str1, const char* str2)
     {
         if (!str1 || !str2)
         {
@@ -143,7 +139,7 @@ namespace ZEngine::Helpers
         return static_cast<unsigned char>(*str1) - static_cast<unsigned char>(*str2);
     }
 
-    inline int secure_memcmp(const void* ptr1, size_t ptr1Size, const void* ptr2, size_t ptr2Size, size_t num)
+    int secure_memcmp(const void* ptr1, std::size_t ptr1Size, const void* ptr2, std::size_t ptr2Size, std::size_t num)
     {
         if (!ptr1 || !ptr2)
         {
@@ -158,19 +154,19 @@ namespace ZEngine::Helpers
         return std::memcmp(ptr1, ptr2, num);
     }
 
-    inline bool is_power_of_two(uintptr_t x)
+    bool is_power_of_two(std::uintptr_t x)
     {
         return (x & (x - 1)) == 0;
     }
 
-    inline uintptr_t memory_align(uintptr_t ptr, size_t align)
+    std::uintptr_t memory_align(std::uintptr_t ptr, std::size_t align)
     {
-        uintptr_t p, a, mod;
+        std::uintptr_t p, a, mod;
 
         ZENGINE_VALIDATE_ASSERT(is_power_of_two(align), "Alignment should be power of two");
 
         p   = ptr;
-        a   = static_cast<uintptr_t>(align);
+        a   = static_cast<std::uintptr_t>(align);
         mod = p & (a - 1);
         if (mod != 0)
         {
@@ -179,11 +175,11 @@ namespace ZEngine::Helpers
         return p;
     }
 
-    inline size_t memory_align_size_t(size_t ptr, size_t align)
+    std::size_t memory_align_size_t(std::size_t ptr, std::size_t align)
     {
-        size_t p, a, mod;
+        std::size_t p, a, mod;
 
-        ZENGINE_VALIDATE_ASSERT(is_power_of_two((uintptr_t) align), "Alignment should be power of two");
+        ZENGINE_VALIDATE_ASSERT(is_power_of_two((std::uintptr_t) align), "Alignment should be power of two");
 
         p   = ptr;
         a   = align;

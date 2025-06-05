@@ -1,11 +1,13 @@
-#pragma once
-#include <ZEngine/Core/IPipeline.h>
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <ZEngine/Rendering/Shaders/ShaderReader.h>
-#include <future>
-#include <mutex>
+export module ZEngine.Rendering.Shaders.Compilers.ShaderCompiler;
 
-namespace ZEngine::Rendering::Shaders::Compilers
+import std;
+import ZEngine.Core.IPipeline;
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.Rendering.Shaders.ShaderReader;
+import ZEngine.Rendering.Shaders.ShaderInformation;
+import ZEngine.Rendering.Shaders.ShaderEnums;
+
+export namespace ZEngine::Rendering::Shaders::Compilers
 {
     struct ShaderCompilerResult
     {

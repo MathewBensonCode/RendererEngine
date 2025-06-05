@@ -1,6 +1,6 @@
-#pragma once
+export module ZEngine.Rendering.ResourceTypes;
 
-namespace ZEngine::Rendering
+export namespace ZEngine::Rendering
 {
     enum class QueueType
     {

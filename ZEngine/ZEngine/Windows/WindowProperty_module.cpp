@@ -1,8 +1,10 @@
-#pragma once
-#include <ZEngine/Core/Containers/Strings.h>
-#include <ZEngine/Core/CoreEvent.h>
+export module ZEngine.Windows.WindowProperty;
 
-namespace ZEngine::Windows
+import std;
+import ZEngine.Core.Containers.Strings;
+import ZEngine.Core.CoreEvent;
+
+export namespace ZEngine::Windows
 {
     struct WindowProperty
     {

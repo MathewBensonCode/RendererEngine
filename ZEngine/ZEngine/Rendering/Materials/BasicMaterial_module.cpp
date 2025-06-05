@@ -1,7 +1,10 @@
-#pragma once
-#include <ZEngine/Rendering/Materials/ShaderMaterial.h>
+export module ZEngine.Rendering.Materials.BasicMaterial;
 
-namespace ZEngine::Rendering::Materials
+import std;
+import ZEngine.Rendering.Materials.ShaderMaterial;
+import ZEngine.Rendering.Textures.Texture;
+
+export namespace ZEngine::Rendering::Materials
 {
 
     class BasicMaterial : public ShaderMaterial

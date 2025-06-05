@@ -1,132 +1,135 @@
-#pragma once
-#include <ZEngine/ZEngineDef.h>
+export module ZEngine.Windows.Inputs.KeyCodeDefinition;
 
-#define ZENGINE_KEY_UNKNOWN       ZEngine::Windows::Inputs::GlfwKey::KEY_UNKNOWN
-#define ZENGINE_KEY_SPACE         ZEngine::Windows::Inputs::GlfwKey::KEY_SPACE
-#define ZENGINE_KEY_APOSTROPHE    ZEngine::Windows::Inputs::GlfwKey::KEY_APOSTROPHE
-#define ZENGINE_KEY_COMMA         ZEngine::Windows::Inputs::GlfwKey::KEY_COMMA
-#define ZENGINE_KEY_MINUS         ZEngine::Windows::Inputs::GlfwKey::KEY_MINUS
-#define ZENGINE_KEY_PERIOD        ZEngine::Windows::Inputs::GlfwKey::KEY_PERIOD
-#define ZENGINE_KEY_SLASH         ZEngine::Windows::Inputs::GlfwKey::KEY_SLASH
-#define ZENGINE_KEY_0             ZEngine::Windows::Inputs::GlfwKey::KEY_0
-#define ZENGINE_KEY_1             ZEngine::Windows::Inputs::GlfwKey::KEY_1
-#define ZENGINE_KEY_2             ZEngine::Windows::Inputs::GlfwKey::KEY_2
-#define ZENGINE_KEY_3             ZEngine::Windows::Inputs::GlfwKey::KEY_3
-#define ZENGINE_KEY_4             ZEngine::Windows::Inputs::GlfwKey::KEY_4
-#define ZENGINE_KEY_5             ZEngine::Windows::Inputs::GlfwKey::KEY_5
-#define ZENGINE_KEY_6             ZEngine::Windows::Inputs::GlfwKey::KEY_6
-#define ZENGINE_KEY_7             ZEngine::Windows::Inputs::GlfwKey::KEY_7
-#define ZENGINE_KEY_8             ZEngine::Windows::Inputs::GlfwKey::KEY_8
-#define ZENGINE_KEY_9             ZEngine::Windows::Inputs::GlfwKey::KEY_9
-#define ZENGINE_KEY_SEMICOLON     ZEngine::Windows::Inputs::GlfwKey::KEY_SEMICOLON
-#define ZENGINE_KEY_EQUAL         ZEngine::Windows::Inputs::GlfwKey::KEY_EQUAL
-#define ZENGINE_KEY_A             ZEngine::Windows::Inputs::GlfwKey::KEY_A
-#define ZENGINE_KEY_B             ZEngine::Windows::Inputs::GlfwKey::KEY_B
-#define ZENGINE_KEY_C             ZEngine::Windows::Inputs::GlfwKey::KEY_C
-#define ZENGINE_KEY_D             ZEngine::Windows::Inputs::GlfwKey::KEY_D
-#define ZENGINE_KEY_E             ZEngine::Windows::Inputs::GlfwKey::KEY_E
-#define ZENGINE_KEY_F             ZEngine::Windows::Inputs::GlfwKey::KEY_F
-#define ZENGINE_KEY_G             ZEngine::Windows::Inputs::GlfwKey::KEY_G
-#define ZENGINE_KEY_H             ZEngine::Windows::Inputs::GlfwKey::KEY_H
-#define ZENGINE_KEY_I             ZEngine::Windows::Inputs::GlfwKey::KEY_I
-#define ZENGINE_KEY_J             ZEngine::Windows::Inputs::GlfwKey::KEY_J
-#define ZENGINE_KEY_K             ZEngine::Windows::Inputs::GlfwKey::KEY_K
-#define ZENGINE_KEY_L             ZEngine::Windows::Inputs::GlfwKey::KEY_L
-#define ZENGINE_KEY_M             ZEngine::Windows::Inputs::GlfwKey::KEY_M
-#define ZENGINE_KEY_N             ZEngine::Windows::Inputs::GlfwKey::KEY_N
-#define ZENGINE_KEY_O             ZEngine::Windows::Inputs::GlfwKey::KEY_O
-#define ZENGINE_KEY_P             ZEngine::Windows::Inputs::GlfwKey::KEY_P
-#define ZENGINE_KEY_Q             ZEngine::Windows::Inputs::GlfwKey::KEY_Q
-#define ZENGINE_KEY_R             ZEngine::Windows::Inputs::GlfwKey::KEY_R
-#define ZENGINE_KEY_S             ZEngine::Windows::Inputs::GlfwKey::KEY_S
-#define ZENGINE_KEY_T             ZEngine::Windows::Inputs::GlfwKey::KEY_T
-#define ZENGINE_KEY_U             ZEngine::Windows::Inputs::GlfwKey::KEY_U
-#define ZENGINE_KEY_V             ZEngine::Windows::Inputs::GlfwKey::KEY_V
-#define ZENGINE_KEY_W             ZEngine::Windows::Inputs::GlfwKey::KEY_W
-#define ZENGINE_KEY_X             ZEngine::Windows::Inputs::GlfwKey::KEY_X
-#define ZENGINE_KEY_Y             ZEngine::Windows::Inputs::GlfwKey::KEY_Y
-#define ZENGINE_KEY_Z             ZEngine::Windows::Inputs::GlfwKey::KEY_Z
-#define ZENGINE_KEY_LEFT_BRACKET  ZEngine::Windows::Inputs::GlfwKey::KEY_LEFT_BRACKET
-#define ZENGINE_KEY_BACKSLASH     ZEngine::Windows::Inputs::GlfwKey::KEY_BACKSLASH
-#define ZENGINE_KEY_RIGHT_BRACKET ZEngine::Windows::Inputs::GlfwKey::KEY_RIGHT_BRACKET
-#define ZENGINE_KEY_GRAVE_ACCENT  ZEngine::Windows::Inputs::GlfwKey::KEY_GRAVE_ACCENT
-#define ZENGINE_KEY_WORLD_1       ZEngine::Windows::Inputs::GlfwKey::KEY_WORLD_1
-#define ZENGINE_KEY_WORLD_2       ZEngine::Windows::Inputs::GlfwKey::KEY_WORLD_2
-#define ZENGINE_KEY_ESCAPE        ZEngine::Windows::Inputs::GlfwKey::KEY_ESCAPE
-#define ZENGINE_KEY_ENTER         ZEngine::Windows::Inputs::GlfwKey::KEY_ENTER
-#define ZENGINE_KEY_TAB           ZEngine::Windows::Inputs::GlfwKey::KEY_TAB
-#define ZENGINE_KEY_BACKSPACE     ZEngine::Windows::Inputs::GlfwKey::KEY_BACKSPACE
-#define ZENGINE_KEY_INSERT        ZEngine::Windows::Inputs::GlfwKey::KEY_INSERT
-#define ZENGINE_KEY_DELETE        ZEngine::Windows::Inputs::GlfwKey::KEY_DELETE
-#define ZENGINE_KEY_RIGHT         ZEngine::Windows::Inputs::GlfwKey::KEY_RIGHT
-#define ZENGINE_KEY_LEFT          ZEngine::Windows::Inputs::GlfwKey::KEY_LEFT
-#define ZENGINE_KEY_DOWN          ZEngine::Windows::Inputs::GlfwKey::KEY_DOWN
-#define ZENGINE_KEY_UP            ZEngine::Windows::Inputs::GlfwKey::KEY_UP
-#define ZENGINE_KEY_PAGE_UP       ZEngine::Windows::Inputs::GlfwKey::KEY_PAGE_UP
-#define ZENGINE_KEY_PAGE_DOWN     ZEngine::Windows::Inputs::GlfwKey::KEY_PAGE_DOWN
-#define ZENGINE_KEY_HOME          ZEngine::Windows::Inputs::GlfwKey::KEY_HOME
-#define ZENGINE_KEY_END           ZEngine::Windows::Inputs::GlfwKey::KEY_END
-#define ZENGINE_KEY_CAPS_LOCK     ZEngine::Windows::Inputs::GlfwKey::KEY_CAPS_LOCK
-#define ZENGINE_KEY_SCROLL_LOCK   ZEngine::Windows::Inputs::GlfwKey::KEY_SCROLL_LOCK
-#define ZENGINE_KEY_NUM_LOCK      ZEngine::Windows::Inputs::GlfwKey::KEY_NUM_LOCK
-#define ZENGINE_KEY_PRINT_SCREEN  ZEngine::Windows::Inputs::GlfwKey::KEY_PRINT_SCREEN
-#define ZENGINE_KEY_PAUSE         ZEngine::Windows::Inputs::GlfwKey::KEY_PAUSE
-#define ZENGINE_KEY_F1            ZEngine::Windows::Inputs::GlfwKey::KEY_F1
-#define ZENGINE_KEY_F2            ZEngine::Windows::Inputs::GlfwKey::KEY_F2
-#define ZENGINE_KEY_F3            ZEngine::Windows::Inputs::GlfwKey::KEY_F3
-#define ZENGINE_KEY_F4            ZEngine::Windows::Inputs::GlfwKey::KEY_F4
-#define ZENGINE_KEY_F5            ZEngine::Windows::Inputs::GlfwKey::KEY_F5
-#define ZENGINE_KEY_F6            ZEngine::Windows::Inputs::GlfwKey::KEY_F6
-#define ZENGINE_KEY_F7            ZEngine::Windows::Inputs::GlfwKey::KEY_F7
-#define ZENGINE_KEY_F8            ZEngine::Windows::Inputs::GlfwKey::KEY_F8
-#define ZENGINE_KEY_F9            ZEngine::Windows::Inputs::GlfwKey::KEY_F9
-#define ZENGINE_KEY_F10           ZEngine::Windows::Inputs::GlfwKey::KEY_F10
-#define ZENGINE_KEY_F11           ZEngine::Windows::Inputs::GlfwKey::KEY_F11
-#define ZENGINE_KEY_F12           ZEngine::Windows::Inputs::GlfwKey::KEY_F12
-#define ZENGINE_KEY_F13           ZEngine::Windows::Inputs::GlfwKey::KEY_F13
-#define ZENGINE_KEY_F14           ZEngine::Windows::Inputs::GlfwKey::KEY_F14
-#define ZENGINE_KEY_F15           ZEngine::Windows::Inputs::GlfwKey::KEY_F15
-#define ZENGINE_KEY_F16           ZEngine::Windows::Inputs::GlfwKey::KEY_F16
-#define ZENGINE_KEY_F17           ZEngine::Windows::Inputs::GlfwKey::KEY_F17
-#define ZENGINE_KEY_F18           ZEngine::Windows::Inputs::GlfwKey::KEY_F18
-#define ZENGINE_KEY_F19           ZEngine::Windows::Inputs::GlfwKey::KEY_F19
-#define ZENGINE_KEY_F20           ZEngine::Windows::Inputs::GlfwKey::KEY_F20
-#define ZENGINE_KEY_F21           ZEngine::Windows::Inputs::GlfwKey::KEY_F21
-#define ZENGINE_KEY_F22           ZEngine::Windows::Inputs::GlfwKey::KEY_F22
-#define ZENGINE_KEY_F23           ZEngine::Windows::Inputs::GlfwKey::KEY_F23
-#define ZENGINE_KEY_F24           ZEngine::Windows::Inputs::GlfwKey::KEY_F24
-#define ZENGINE_KEY_F25           ZEngine::Windows::Inputs::GlfwKey::KEY_F25
-#define ZENGINE_KEY_KP_0          ZEngine::Windows::Inputs::GlfwKey::KEY_KP_0
-#define ZENGINE_KEY_KP_1          ZEngine::Windows::Inputs::GlfwKey::KEY_KP_1
-#define ZENGINE_KEY_KP_2          ZEngine::Windows::Inputs::GlfwKey::KEY_KP_2
-#define ZENGINE_KEY_KP_3          ZEngine::Windows::Inputs::GlfwKey::KEY_KP_3
-#define ZENGINE_KEY_KP_4          ZEngine::Windows::Inputs::GlfwKey::KEY_KP_4
-#define ZENGINE_KEY_KP_5          ZEngine::Windows::Inputs::GlfwKey::KEY_KP_5
-#define ZENGINE_KEY_KP_6          ZEngine::Windows::Inputs::GlfwKey::KEY_KP_6
-#define ZENGINE_KEY_KP_7          ZEngine::Windows::Inputs::GlfwKey::KEY_KP_7
-#define ZENGINE_KEY_KP_8          ZEngine::Windows::Inputs::GlfwKey::KEY_KP_8
-#define ZENGINE_KEY_KP_9          ZEngine::Windows::Inputs::GlfwKey::KEY_KP_9
-#define ZENGINE_KEY_KP_DECIMAL    ZEngine::Windows::Inputs::GlfwKey::KEY_KP_DECIMAL
-#define ZENGINE_KEY_KP_DIVIDE     ZEngine::Windows::Inputs::GlfwKey::KEY_KP_DIVIDE
-#define ZENGINE_KEY_KP_MULTIPLY   ZEngine::Windows::Inputs::GlfwKey::KEY_KP_MULTIPLY
-#define ZENGINE_KEY_KP_SUBTRACT   ZEngine::Windows::Inputs::GlfwKey::KEY_KP_SUBTRACT
-#define ZENGINE_KEY_KP_ADD        ZEngine::Windows::Inputs::GlfwKey::KEY_KP_ADD
-#define ZENGINE_KEY_KP_ENTER      ZEngine::Windows::Inputs::GlfwKey::KEY_KP_ENTER
-#define ZENGINE_KEY_KP_EQUAL      ZEngine::Windows::Inputs::GlfwKey::KEY_KP_EQUAL
-#define ZENGINE_KEY_LEFT_SHIFT    ZEngine::Windows::Inputs::GlfwKey::KEY_LEFT_SHIFT
-#define ZENGINE_KEY_LEFT_CONTROL  ZEngine::Windows::Inputs::GlfwKey::KEY_LEFT_CONTROL
-#define ZENGINE_KEY_LEFT_ALT      ZEngine::Windows::Inputs::GlfwKey::KEY_LEFT_ALT
-#define ZENGINE_KEY_LEFT_SUPER    ZEngine::Windows::Inputs::GlfwKey::KEY_LEFT_SUPER
-#define ZENGINE_KEY_RIGHT_SHIFT   ZEngine::Windows::Inputs::GlfwKey::KEY_RIGHT_SHIFT
-#define ZENGINE_KEY_RIGHT_CONTROL ZEngine::Windows::Inputs::GlfwKey::KEY_RIGHT_CONTROL
-#define ZENGINE_KEY_RIGHT_ALT     ZEngine::Windows::Inputs::GlfwKey::KEY_RIGHT_ALT
-#define ZENGINE_KEY_RIGHT_SUPER   ZEngine::Windows::Inputs::GlfwKey::KEY_RIGHT_SUPER
-#define ZENGINE_KEY_MENU          ZEngine::Windows::Inputs::GlfwKey::KEY_MENU
-#define ZENGINE_KEY_MOUSE_LEFT    ZEngine::Windows::Inputs::GlfwKey::MOUSE_BUTTON_LEFT
-#define ZENGINE_KEY_MOUSE_RIGHT   ZEngine::Windows::Inputs::GlfwKey::MOUSE_BUTTON_RIGHT
-#define ZENGINE_KEY_MOUSE_MIDDLE  ZEngine::Windows::Inputs::GlfwKey::MOUSE_BUTTON_MIDDLE
-#define ZENGINE_MOUSE_BUTTON_4    ZEngine::Windows::Inputs::GlfwKey::MOUSE_BUTTON_4
-#define ZENGINE_MOUSE_BUTTON_5    ZEngine::Windows::Inputs::GlfwKey::MOUSE_BUTTON_5
-#define ZENGINE_MOUSE_BUTTON_6    ZEngine::Windows::Inputs::GlfwKey::MOUSE_BUTTON_6
-#define ZENGINE_MOUSE_BUTTON_7    ZEngine::Windows::Inputs::GlfwKey::MOUSE_BUTTON_7
-#define ZENGINE_MOUSE_BUTTON_8    ZEngine::Windows::Inputs::GlfwKey::MOUSE_BUTTON_8
+import ZEngine.Windows.Inputs.KeyCode;
+
+using namespace ZEngine::Windows::Inputs;
+
+export auto ZENGINE_KEY_UNKNOWN = GlfwKeyCode::KEY_UNKNOWN;
+export auto ZENGINE_KEY_SPACE = GlfwKeyCode::KEY_SPACE;
+export auto ZENGINE_KEY_APOSTROPHE = GlfwKeyCode::KEY_APOSTROPHE;
+export auto ZENGINE_KEY_COMMA = GlfwKeyCode::KEY_COMMA;
+export auto ZENGINE_KEY_MINUS = GlfwKeyCode::KEY_MINUS;
+export auto ZENGINE_KEY_PERIOD = GlfwKeyCode::KEY_PERIOD;
+export auto ZENGINE_KEY_SLASH = GlfwKeyCode::KEY_SLASH;
+export auto ZENGINE_KEY_0 = GlfwKeyCode::KEY_0;
+export auto ZENGINE_KEY_1 = GlfwKeyCode::KEY_1;
+export auto ZENGINE_KEY_2 = GlfwKeyCode::KEY_2;
+export auto ZENGINE_KEY_3 = GlfwKeyCode::KEY_3;
+export auto ZENGINE_KEY_4 = GlfwKeyCode::KEY_4;
+export auto ZENGINE_KEY_5 = GlfwKeyCode::KEY_5;
+export auto ZENGINE_KEY_6 = GlfwKeyCode::KEY_6;
+export auto ZENGINE_KEY_7 = GlfwKeyCode::KEY_7;
+export auto ZENGINE_KEY_8 = GlfwKeyCode::KEY_8;
+export auto ZENGINE_KEY_9 = GlfwKeyCode::KEY_9;
+export auto ZENGINE_KEY_SEMICOLON = GlfwKeyCode::KEY_SEMICOLON;
+export auto ZENGINE_KEY_EQUAL = GlfwKeyCode::KEY_EQUAL;
+export auto ZENGINE_KEY_A = GlfwKeyCode::KEY_A;
+export auto ZENGINE_KEY_B = GlfwKeyCode::KEY_B;
+export auto ZENGINE_KEY_C = GlfwKeyCode::KEY_C;
+export auto ZENGINE_KEY_D = GlfwKeyCode::KEY_D;
+export auto ZENGINE_KEY_E = GlfwKeyCode::KEY_E;
+export auto ZENGINE_KEY_F = GlfwKeyCode::KEY_F;
+export auto ZENGINE_KEY_G = GlfwKeyCode::KEY_G;
+export auto ZENGINE_KEY_H = GlfwKeyCode::KEY_H;
+export auto ZENGINE_KEY_I = GlfwKeyCode::KEY_I;
+export auto ZENGINE_KEY_J = GlfwKeyCode::KEY_J;
+export auto ZENGINE_KEY_K = GlfwKeyCode::KEY_K;
+export auto ZENGINE_KEY_L = GlfwKeyCode::KEY_L;
+export auto ZENGINE_KEY_M = GlfwKeyCode::KEY_M;
+export auto ZENGINE_KEY_N = GlfwKeyCode::KEY_N;
+export auto ZENGINE_KEY_O = GlfwKeyCode::KEY_O;
+export auto ZENGINE_KEY_P = GlfwKeyCode::KEY_P;
+export auto ZENGINE_KEY_Q = GlfwKeyCode::KEY_Q;
+export auto ZENGINE_KEY_R = GlfwKeyCode::KEY_R;
+export auto ZENGINE_KEY_S = GlfwKeyCode::KEY_S;
+export auto ZENGINE_KEY_T = GlfwKeyCode::KEY_T;
+export auto ZENGINE_KEY_U = GlfwKeyCode::KEY_U;
+export auto ZENGINE_KEY_V = GlfwKeyCode::KEY_V;
+export auto ZENGINE_KEY_W = GlfwKeyCode::KEY_W;
+export auto ZENGINE_KEY_X = GlfwKeyCode::KEY_X;
+export auto ZENGINE_KEY_Y = GlfwKeyCode::KEY_Y;
+export auto ZENGINE_KEY_Z = GlfwKeyCode::KEY_Z;
+export auto ZENGINE_KEY_LEFT_BRACKET = GlfwKeyCode::KEY_LEFT_BRACKET;
+export auto ZENGINE_KEY_BACKSLASH = GlfwKeyCode::KEY_BACKSLASH;
+export auto ZENGINE_KEY_RIGHT_BRACKET = GlfwKeyCode::KEY_RIGHT_BRACKET;
+export auto ZENGINE_KEY_GRAVE_ACCENT = GlfwKeyCode::KEY_GRAVE_ACCENT;
+export auto ZENGINE_KEY_WORLD_1 = GlfwKeyCode::KEY_WORLD_1;
+export auto ZENGINE_KEY_WORLD_2 = GlfwKeyCode::KEY_WORLD_2;
+export auto ZENGINE_KEY_ESCAPE = GlfwKeyCode::KEY_ESCAPE;
+export auto ZENGINE_KEY_ENTER = GlfwKeyCode::KEY_ENTER;
+export auto ZENGINE_KEY_TAB = GlfwKeyCode::KEY_TAB;
+export auto ZENGINE_KEY_BACKSPACE = GlfwKeyCode::KEY_BACKSPACE;
+export auto ZENGINE_KEY_INSERT = GlfwKeyCode::KEY_INSERT;
+export auto ZENGINE_KEY_DELETE = GlfwKeyCode::KEY_DELETE;
+export auto ZENGINE_KEY_RIGHT = GlfwKeyCode::KEY_RIGHT;
+export auto ZENGINE_KEY_LEFT = GlfwKeyCode::KEY_LEFT;
+export auto ZENGINE_KEY_DOWN = GlfwKeyCode::KEY_DOWN;
+export auto ZENGINE_KEY_UP = GlfwKeyCode::KEY_UP;
+export auto ZENGINE_KEY_PAGE_UP = GlfwKeyCode::KEY_PAGE_UP;
+export auto ZENGINE_KEY_PAGE_DOWN = GlfwKeyCode::KEY_PAGE_DOWN;
+export auto ZENGINE_KEY_HOME = GlfwKeyCode::KEY_HOME;
+export auto ZENGINE_KEY_END = GlfwKeyCode::KEY_END;
+export auto ZENGINE_KEY_CAPS_LOCK = GlfwKeyCode::KEY_CAPS_LOCK;
+export auto ZENGINE_KEY_SCROLL_LOCK = GlfwKeyCode::KEY_SCROLL_LOCK;
+export auto ZENGINE_KEY_NUM_LOCK = GlfwKeyCode::KEY_NUM_LOCK;
+export auto ZENGINE_KEY_PRINT_SCREEN = GlfwKeyCode::KEY_PRINT_SCREEN;
+export auto ZENGINE_KEY_PAUSE = GlfwKeyCode::KEY_PAUSE;
+export auto ZENGINE_KEY_F1 = GlfwKeyCode::KEY_F1;
+export auto ZENGINE_KEY_F2 = GlfwKeyCode::KEY_F2;
+export auto ZENGINE_KEY_F3 = GlfwKeyCode::KEY_F3;
+export auto ZENGINE_KEY_F4 = GlfwKeyCode::KEY_F4;
+export auto ZENGINE_KEY_F5 = GlfwKeyCode::KEY_F5;
+export auto ZENGINE_KEY_F6 = GlfwKeyCode::KEY_F6;
+export auto ZENGINE_KEY_F7 = GlfwKeyCode::KEY_F7;
+export auto ZENGINE_KEY_F8 = GlfwKeyCode::KEY_F8;
+export auto ZENGINE_KEY_F9 = GlfwKeyCode::KEY_F9;
+export auto ZENGINE_KEY_F10 = GlfwKeyCode::KEY_F10;
+export auto ZENGINE_KEY_F11 = GlfwKeyCode::KEY_F11;
+export auto ZENGINE_KEY_F12 = GlfwKeyCode::KEY_F12;
+export auto ZENGINE_KEY_F13 = GlfwKeyCode::KEY_F13;
+export auto ZENGINE_KEY_F14 = GlfwKeyCode::KEY_F14;
+export auto ZENGINE_KEY_F15 = GlfwKeyCode::KEY_F15;
+export auto ZENGINE_KEY_F16 = GlfwKeyCode::KEY_F16;
+export auto ZENGINE_KEY_F17 = GlfwKeyCode::KEY_F17;
+export auto ZENGINE_KEY_F18 = GlfwKeyCode::KEY_F18;
+export auto ZENGINE_KEY_F19 = GlfwKeyCode::KEY_F19;
+export auto ZENGINE_KEY_F20 = GlfwKeyCode::KEY_F20;
+export auto ZENGINE_KEY_F21 = GlfwKeyCode::KEY_F21;
+export auto ZENGINE_KEY_F22 = GlfwKeyCode::KEY_F22;
+export auto ZENGINE_KEY_F23 = GlfwKeyCode::KEY_F23;
+export auto ZENGINE_KEY_F24 = GlfwKeyCode::KEY_F24;
+export auto ZENGINE_KEY_F25 = GlfwKeyCode::KEY_F25;
+export auto ZENGINE_KEY_KP_0 = GlfwKeyCode::KEY_KP_0;
+export auto ZENGINE_KEY_KP_1 = GlfwKeyCode::KEY_KP_1;
+export auto ZENGINE_KEY_KP_2 = GlfwKeyCode::KEY_KP_2;
+export auto ZENGINE_KEY_KP_3 = GlfwKeyCode::KEY_KP_3;
+export auto ZENGINE_KEY_KP_4 = GlfwKeyCode::KEY_KP_4;
+export auto ZENGINE_KEY_KP_5 = GlfwKeyCode::KEY_KP_5;
+export auto ZENGINE_KEY_KP_6 = GlfwKeyCode::KEY_KP_6;
+export auto ZENGINE_KEY_KP_7 = GlfwKeyCode::KEY_KP_7;
+export auto ZENGINE_KEY_KP_8 = GlfwKeyCode::KEY_KP_8;
+export auto ZENGINE_KEY_KP_9 = GlfwKeyCode::KEY_KP_9;
+export auto ZENGINE_KEY_KP_DECIMAL = GlfwKeyCode::KEY_KP_DECIMAL;
+export auto ZENGINE_KEY_KP_DIVIDE = GlfwKeyCode::KEY_KP_DIVIDE;
+export auto ZENGINE_KEY_KP_MULTIPLY = GlfwKeyCode::KEY_KP_MULTIPLY;
+export auto ZENGINE_KEY_KP_SUBTRACT = GlfwKeyCode::KEY_KP_SUBTRACT;
+export auto ZENGINE_KEY_KP_ADD = GlfwKeyCode::KEY_KP_ADD;
+export auto ZENGINE_KEY_KP_ENTER = GlfwKeyCode::KEY_KP_ENTER;
+export auto ZENGINE_KEY_KP_EQUAL = GlfwKeyCode::KEY_KP_EQUAL;
+export auto ZENGINE_KEY_LEFT_SHIFT = GlfwKeyCode::KEY_LEFT_SHIFT;
+export auto ZENGINE_KEY_LEFT_CONTROL = GlfwKeyCode::KEY_LEFT_CONTROL;
+export auto ZENGINE_KEY_LEFT_ALT = GlfwKeyCode::KEY_LEFT_ALT;
+export auto ZENGINE_KEY_LEFT_SUPER = GlfwKeyCode::KEY_LEFT_SUPER;
+export auto ZENGINE_KEY_RIGHT_SHIFT = GlfwKeyCode::KEY_RIGHT_SHIFT;
+export auto ZENGINE_KEY_RIGHT_CONTROL = GlfwKeyCode::KEY_RIGHT_CONTROL;
+export auto ZENGINE_KEY_RIGHT_ALT = GlfwKeyCode::KEY_RIGHT_ALT;
+export auto ZENGINE_KEY_RIGHT_SUPER = GlfwKeyCode::KEY_RIGHT_SUPER;
+export auto ZENGINE_KEY_MENU = GlfwKeyCode::KEY_MENU;
+export auto ZENGINE_KEY_MOUSE_LEFT = GlfwKeyCode::MOUSE_BUTTON_LEFT;
+export auto ZENGINE_KEY_MOUSE_RIGHT = GlfwKeyCode::MOUSE_BUTTON_RIGHT;
+export auto ZENGINE_KEY_MOUSE_MIDDLE = GlfwKeyCode::MOUSE_BUTTON_MIDDLE;
+export auto ZENGINE_MOUSE_BUTTON_4 = GlfwKeyCode::MOUSE_BUTTON_4;
+export auto ZENGINE_MOUSE_BUTTON_5 = GlfwKeyCode::MOUSE_BUTTON_5;
+export auto ZENGINE_MOUSE_BUTTON_6 = GlfwKeyCode::MOUSE_BUTTON_6;
+export auto ZENGINE_MOUSE_BUTTON_7 = GlfwKeyCode::MOUSE_BUTTON_7;
+export auto ZENGINE_MOUSE_BUTTON_8 = GlfwKeyCode::MOUSE_BUTTON_8;

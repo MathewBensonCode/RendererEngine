@@ -1,4 +1,4 @@
-#include <ZEngine/Core/Containers/Array.h>
+import ZEngine.Core.Containers.Array;
 #include <gtest/gtest.h>
 
 using namespace ZEngine::Core::Containers;

@@ -1,21 +1,18 @@
-#pragma once
-#include <ZEngine/Rendering/Buffers/Framebuffer.h>
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Containers/HashMap.h>
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Rendering/Renderers/RenderPasses/RenderPass.h>
-#include <ZEngine/Rendering/Scenes/GraphicScene.h>
-#include <ZEngine/Rendering/Specifications/TextureSpecification.h>
-#include <ZEngine/Rendering/Textures/Texture.h>
-#include <ZEngine/ZEngineDef.h>
+export module ZEngine.Rendering.Renderers.RenderGraph;
 
-namespace ZEngine::Rendering::Renderers
+import std;
+import ZEngine.Rendering.Buffers.Framebuffer;
+import ZEngine.Core.Containers.Array;
+import ZEngine.Core.Containers.HashMap;
+import ZEngine.Hardwares.VulkanDevice;
+import ZEngine.Rendering.Renderers.RenderPasses.RenderPass;
+import ZEngine.Rendering.Scenes.GraphicScene;
+import ZEngine.Rendering.Specifications.TextureSpecification;
+import ZEngine.Rendering.Textures.Texture;
+import ZEngine.ZEngineDef;
+
+export namespace ZEngine::Rendering::Renderers
 {
-    struct GraphicRenderer;
-    struct RenderGraphBuilder;
-    struct RenderGraphNode;
-    struct RenderGraph;
-
     enum RenderGraphResourceType
     {
         UNDEFINED = -1,
@@ -76,8 +73,8 @@ namespace ZEngine::Rendering::Renderers
     {
         virtual void Setup(std::string_view name, RenderGraph* const graph)                                                                                                                                                                                   = 0;
         virtual void Compile(RenderPasses::RenderPass** const pass, RenderGraph* const graph, Rendering::Scenes::SceneRawData* const scene)                                                                                                                   = 0;
-        virtual void Execute(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Hardwares::CommandBuffer* const command_buffer, RenderGraph* const graph)                                              = 0;
-        virtual void Render(uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Buffers::FramebufferVNext* const framebuffer, Hardwares::CommandBuffer* const command_buffer, RenderGraph* const graph) = 0;
+        virtual void Execute(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Hardwares::CommandBuffer* const command_buffer, RenderGraph* const graph)                                              = 0;
+        virtual void Render(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Buffers::FramebufferVNext* const framebuffer, Hardwares::CommandBuffer* const command_buffer, RenderGraph* const graph) = 0;
     };
 
     struct RenderGraphNode
@@ -105,8 +102,8 @@ namespace ZEngine::Rendering::Renderers
 
         void                               Setup();
         void                               Compile(Rendering::Scenes::SceneRawData* const scene_data);
-        void                               Execute(uint32_t frame_index, Hardwares::CommandBuffer* const command_buffer, Rendering::Scenes::SceneRawData* const scene_data);
-        void                               Resize(uint32_t width, uint32_t height);
+        void                               Execute(std::uint32_t frame_index, Hardwares::CommandBuffer* const command_buffer, Rendering::Scenes::SceneRawData* const scene_data);
+        void                               Resize(std::uint32_t width, std::uint32_t height);
         void                               Dispose();
         RenderGraphResource&               GetResource(const char*);
         Textures::TextureHandle            GetRenderTarget(const char*);

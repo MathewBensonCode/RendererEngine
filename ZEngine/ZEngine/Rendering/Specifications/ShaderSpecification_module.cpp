@@ -1,10 +1,14 @@
-#pragma once
-#include <vulkan/vulkan.h>
-#include <string>
+module;
 
-namespace ZEngine::Rendering::Specifications
+#include <vulkan/vulkan.h>
+
+export module ZEngine.Rendering.Specifications.ShaderSpecification;
+
+import std;
+
+export namespace ZEngine::Rendering::Specifications
 {
-    enum class DescriptorTypeEnum : uint32_t
+    enum class DescriptorTypeEnum : std::uint32_t
     {
         SAMPLER = 0,
         COMBINED_IMAGE_SAMPLER,
@@ -19,9 +23,9 @@ namespace ZEngine::Rendering::Specifications
         INPUT_ATTACHMENT
     };
 
-    static VkDescriptorType DescriptorTypeMap[] = {VK_DESCRIPTOR_TYPE_SAMPLER, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER, VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT};
+    VkDescriptorType DescriptorTypeMap[] = {VK_DESCRIPTOR_TYPE_SAMPLER, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER, VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC, VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT};
 
-    enum class ShaderStageFlags : uint32_t
+    enum class ShaderStageFlags : std::uint32_t
     {
         VERTEX = 0,
         TESSELLATION_CONTROL,
@@ -32,13 +36,13 @@ namespace ZEngine::Rendering::Specifications
         ALL_GRAPHICS
     };
 
-    static VkShaderStageFlags ShaderStageFlagsMap[] = {VK_SHADER_STAGE_VERTEX_BIT, VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT, VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT, VK_SHADER_STAGE_GEOMETRY_BIT, VK_SHADER_STAGE_FRAGMENT_BIT, VK_SHADER_STAGE_COMPUTE_BIT, VK_SHADER_STAGE_ALL_GRAPHICS};
+    VkShaderStageFlags ShaderStageFlagsMap[] = {VK_SHADER_STAGE_VERTEX_BIT, VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT, VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT, VK_SHADER_STAGE_GEOMETRY_BIT, VK_SHADER_STAGE_FRAGMENT_BIT, VK_SHADER_STAGE_COMPUTE_BIT, VK_SHADER_STAGE_ALL_GRAPHICS};
 
     struct LayoutBindingSpecification
     {
-        uint32_t         Set{0xFFFFFFFF};
-        uint32_t         Binding{0xFFFFFFFF};
-        uint32_t         Count{1};
+        std::uint32_t         Set{0xFFFFFFFF};
+        std::uint32_t         Binding{0xFFFFFFFF};
+        std::uint32_t         Count{1};
         std::string      Name;
         DescriptorTypeEnum   DescriptorType;
         ShaderStageFlags Flags;
@@ -47,15 +51,15 @@ namespace ZEngine::Rendering::Specifications
     struct PushConstantSpecification
     {
         std::string      Name;
-        uint32_t         Size;
-        uint32_t         Offset;
+        std::uint32_t         Size;
+        std::uint32_t         Offset;
         ShaderStageFlags Flags;
     };
 
     struct ShaderSpecificationType
     {
-        uint32_t    OverloadMaxSet   = 1;
-        uint32_t    OverloadPoolSize = 0;
+        std::uint32_t    OverloadMaxSet   = 1;
+        std::uint32_t    OverloadPoolSize = 0;
         const char* VertexFilename   = {};
         const char* FragmentFilename = {};
         const char* Name             = {};

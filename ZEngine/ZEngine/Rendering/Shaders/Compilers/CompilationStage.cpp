@@ -1,7 +1,16 @@
-#include <ZEngine/Core/Coroutine.h>
-#include <ZEngine/Logging/LoggerDefinition.h>
-#include <ZEngine/Rendering/Shaders/Compilers/CompilationStage.h>
-#include <ZEngine/Rendering/Shaders/Compilers/ValidationStage.h>
+module;
+#include <glslang/Public/ResourceLimits.h>
+#include <glslang/Public/ShaderLang.h>
+#include <glslang/SPIRV/GlslangToSpv.h>
+
+module ZEngine.Rendering.Shaders.Compilers.CompilationStage;
+
+import std;
+import ZEngine.Core.Coroutine;
+import ZEngine.Logging.Logger;
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.Rendering.Shaders.Compilers.ValidationStage;
+import ZEngine.Rendering.Shaders.ShaderIncluder;
 
 using namespace ZEngine::Helpers;
 

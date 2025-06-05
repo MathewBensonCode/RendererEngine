@@ -2,7 +2,16 @@ cmake_minimum_required(VERSION 3.30 FATAL_ERROR)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
+
+set(CMAKE_EXPERIMENTAL_CXX_IMPORT_STD
+    # This specific value changes as experimental support evolves. See
+    # `Help/dev/experimental.rst` in the CMake source corresponding to
+    # your CMake build for the exact value to use.
+    # old version   "0e5b6991-d74f-4b3d-a41c-cf096e0b2508")
+    #"a9e1cf81-9932-4810-974b-6eccaf14e457")
+    "d0edc3af-4c50-42ea-a356-e2862fe7a444")
+
 
 project(
   RendererEngine
@@ -40,6 +49,9 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 	add_compile_definitions(_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING) # Fix Warning from VS 2022 +
 endif()
 
+set(CMAKE_CXX_MODULE_STD 1)
+
+
 include(externals.cmake)
 
 # Core engine lib is here
@@ -48,11 +60,11 @@ add_subdirectory(ZEngine)
 
 # Editor is here
 #
-add_subdirectory(Tetragrama)
+#add_subdirectory(Tetragrama)
 
 # Launcher is here
 #
- add_subdirectory (Panzerfaust)
+# add_subdirectory (Panzerfaust)
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
   set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT

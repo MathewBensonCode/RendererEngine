@@ -1,7 +1,16 @@
-#pragma once
-#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
+export module ZEngine.Core.IRenderable;
 
-namespace ZEngine::Core
+import std;
+
+namespace ZEngine::Rendering::Renderers{
+    struct GraphicRenderer;
+}
+
+namespace ZEngine::Hardwares{
+    struct CommandBuffer;
+}
+
+export namespace ZEngine::Core
 {
 
     struct IRenderable

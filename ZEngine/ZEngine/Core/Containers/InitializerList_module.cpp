@@ -1,16 +1,18 @@
-#pragma once
-#include <ZEngine/Core/Memory/Allocator.h>
+export module ZEngine.Core.Containers.InitializerList;
+
+import std;
+import ZEngine.Core.Memory.Allocator;
 
 using namespace ZEngine::Core::Memory;
 
-namespace ZEngine::Core::Containers
+export namespace ZEngine::Core::Containers
 {
 
     template <typename T>
     struct InitializerList
     {
         using value_type      = T;
-        using size_type       = size_t;
+        using size_type       = std::size_t;
         using reference       = T&;
         using const_reference = const T&;
         using iterator        = T*;
@@ -67,13 +69,13 @@ namespace ZEngine::Core::Containers
     template <typename T, typename... Args>
     InitializerList<T> make_initializer_list(Memory::ArenaAllocator* allocator, T first, Args... args)
     {
-        size_t count  = sizeof...(args) + 1;
+        std::size_t count  = sizeof...(args) + 1;
 
-        T*     buffer = static_cast<T*>(ZAlloc(allocator, count * sizeof(T), ZAlignof(T)));
+        T*     buffer = static_cast<T*>(ZAlloc(allocator, count * sizeof(T), ZAlignof(first)));
 
         buffer[0]     = first;
 
-        size_t i      = 1;
+        std::size_t i      = 1;
         ((buffer[i++] = static_cast<T>(args)), ...);
 
         return InitializerList<T>(buffer, count);

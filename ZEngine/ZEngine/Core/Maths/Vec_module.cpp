@@ -1,9 +1,11 @@
-#pragma once
-#include <ZEngine/ZEngineDef.h>
-#include <cmath>
-#include <type_traits>
+module;
+#include <unistd.h>
+export module ZEngine.Core.Maths.Vec;
 
-namespace ZEngine::Core::Maths
+import std;
+import ZEngine.ZEngineDef;
+
+export namespace ZEngine::Core::Maths
 {
     template <typename T, size_t N, typename = std::enable_if_t<std::is_arithmetic_v<T> && (N >= 1)>>
     struct Vec

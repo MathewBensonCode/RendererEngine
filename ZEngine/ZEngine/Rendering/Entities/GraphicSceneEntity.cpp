@@ -1,4 +1,9 @@
-#include <ZEngine/Rendering/Entities/GraphicSceneEntity.h>
+module;
+#include <entt/entt.hpp>
+
+module ZEngine.Rendering.Entities.GraphicSceneEntity;
+
+import std;
 
 namespace ZEngine::Rendering::Entities
 {

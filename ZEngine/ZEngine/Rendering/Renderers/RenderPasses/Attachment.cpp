@@ -1,7 +1,7 @@
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Rendering/Renderers/RenderPasses/Attachment.h>
-#include <ZEngine/ZEngineDef.h>
+import ZEngine.Core.Containers.Array;
+import ZEngine.Hardwares.VulkanDevice;
+import ZEngine.Rendering.Renderers.RenderPasses.Attachment;
+import ZEngine.ZEngineDef;
 
 using namespace ZEngine::Hardwares;
 using namespace ZEngine::Rendering::Specifications;
@@ -27,7 +27,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         color_attachment_reference_collection.init(scratch.Arena, 5);
         subpass_dependency_collection.init(scratch.Arena, 5);
 
-        for (uint32_t i = 0; i < m_specification.ColorsMap.size(); ++i)
+        for (std::uint32_t i = 0; i < m_specification.ColorsMap.size(); ++i)
         {
             auto&    color        = m_specification.ColorsMap[i];
 
@@ -126,12 +126,12 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         return m_specification;
     }
 
-    uint32_t Attachment::GetColorAttachmentCount() const
+    std::uint32_t Attachment::GetColorAttachmentCount() const
     {
         return m_color_attachment_count;
     }
 
-    uint32_t Attachment::GetDepthAttachmentCount() const
+    std::uint32_t Attachment::GetDepthAttachmentCount() const
     {
         return m_depth_attachment_count;
     }

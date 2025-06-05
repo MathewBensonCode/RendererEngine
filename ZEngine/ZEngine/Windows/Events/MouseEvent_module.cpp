@@ -1,72 +1,62 @@
-#pragma once
+export module ZEngine.Windows.Events.MouseEvent;
 
-#include <ZEngine/Core/CoreEvent.h>
-#include <ZEngine/Windows/Inputs/KeyCode.h>
-#include <ZEngine/ZEngineDef.h>
+import std;
+import ZEngine.Core.CoreEvent;
+import ZEngine.Windows.Inputs.KeyCode;
+import ZEngine.ZEngineDef;
 
-namespace ZEngine::Windows::Events
+export namespace ZEngine::Windows::Events
 {
 
     class MouseEvent : public Core::CoreEvent
     {
     public:
         MouseEvent() = default;
-        explicit MouseEvent(ZENGINE_KEYCODE button) : m_button(button) {}
+        explicit MouseEvent(Inputs::GlfwKeyCode button) : m_button(button) {}
 
-        ZENGINE_KEYCODE GetButton() const
+        Inputs::GlfwKeyCode GetButton() const
         {
             return m_button;
         }
 
-        EVENT_CATEGORY(Mouse | Core::EventCategory::Input)
-
     protected:
-        ZENGINE_KEYCODE m_button{0};
+        Inputs::GlfwKeyCode m_button{0};
     };
 
     class MouseButtonPressedEvent : public MouseEvent
     {
     public:
-        MouseButtonPressedEvent(ZENGINE_KEYCODE button) : MouseEvent(button) {}
-
-        EVENT_TYPE(MouseButtonPressed)
+        MouseButtonPressedEvent(Inputs::GlfwKeyCode button) : MouseEvent(button) {}
 
         virtual Core::EventType GetType() const override
         {
-            return GetStaticType();
+            return Core::EventType::MouseButtonPressed;
         }
 
         virtual int GetCategory() const override
         {
-            return GetStaticCategory();
+            return Core::EventCategory::Mouse | Core::EventCategory::Input;
         }
 
         virtual std::string ToString() const override
         {
-            return fmt::format("MouseButtonPressedEvent : {0}", static_cast<int32_t>(m_button));
+            return std::format("MouseButtonPressedEvent : {0}", static_cast<int>(m_button));
         }
     };
 
     class MouseButtonReleasedEvent : public MouseEvent
     {
     public:
-        explicit MouseButtonReleasedEvent(ZENGINE_KEYCODE button) : MouseEvent(button) {}
-
-        EVENT_TYPE(MouseButtonReleased)
+        explicit MouseButtonReleasedEvent(Inputs::GlfwKeyCode button) : MouseEvent(button) {}
 
         virtual Core::EventType GetType() const override
         {
-            return GetStaticType();
-        }
-
-        virtual int GetCategory() const override
-        {
-            return GetStaticCategory();
+            return Core::EventType::MouseButtonReleased;
         }
 
         virtual std::string ToString() const override
         {
-            return fmt::format("MouseButtonReleasedEvent : {0}", static_cast<int32_t>(m_button));
+            return std::format("MouseButtonReleasedEvent : {0}", static_cast<int>(m_button));
         }
     };
 
@@ -85,21 +75,14 @@ namespace ZEngine::Windows::Events
             return m_ypos;
         }
 
-        EVENT_TYPE(MouseMoved)
-
         virtual Core::EventType GetType() const override
         {
-            return GetStaticType();
-        }
-
-        virtual int GetCategory() const override
-        {
-            return GetStaticCategory();
+            return Core::EventType::MouseMoved;
         }
 
         virtual std::string ToString() const override
         {
-            return fmt::format("MouseButtonMovedEvent");
+            return std::format("MouseButtonMovedEvent");
         }
 
     private:
@@ -122,21 +105,14 @@ namespace ZEngine::Windows::Events
             return m_offset_y;
         }
 
-        EVENT_TYPE(MouseWheel)
-
         virtual Core::EventType GetType() const override
         {
-            return GetStaticType();
-        }
-
-        virtual int GetCategory() const override
-        {
-            return GetStaticCategory();
+            return Core::EventType::MouseWheel;
         }
 
         virtual std::string ToString() const override
         {
-            return fmt::format("MouseButtonWheelEvent : {0}", static_cast<int32_t>(m_button));
+            return std::format("MouseWheelEvent : {0}", static_cast<std::int32_t>(m_button));
         }
 
     private:

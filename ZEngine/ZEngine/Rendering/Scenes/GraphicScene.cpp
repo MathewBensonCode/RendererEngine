@@ -1,12 +1,15 @@
-﻿#include <ZEngine/Core/Coroutine.h>
-#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
-#include <ZEngine/Rendering/Components/CameraComponent.h>
-#include <ZEngine/Rendering/Components/LightComponent.h>
-#include <ZEngine/Rendering/Components/UUIComponent.h>
-#include <ZEngine/Rendering/Scenes/GraphicScene.h>
-
+﻿module;
 #define NODE_PARENT_ID  -1
 #define INVALID_NODE_ID -1
+
+module ZEngine.Rendering.Scenes.GraphicScene;
+
+import std;
+import ZEngine.Core.Coroutine;
+import ZEngine.Rendering.Renderers.GraphicRenderer;
+import ZEngine.Rendering.Components.CameraComponent;
+import ZEngine.Rendering.Components.LightComponent;
+import ZEngine.Rendering.Components.UUIComponent;
 
 using namespace ZEngine::Rendering::Components;
 using namespace ZEngine::Helpers;
@@ -191,7 +194,7 @@ namespace ZEngine::Rendering::Scenes
             indirect_commmands.resize(SceneData->DrawData.size());
         }
 
-        for (uint32_t i = 0; i < SceneData->DrawData.size(); ++i)
+        for (std::uint32_t i = 0; i < SceneData->DrawData.size(); ++i)
         {
             indirect_commmands[i] = {
                 .vertexCount   = SceneData->DrawData[i].IndexCount,
@@ -396,9 +399,9 @@ namespace ZEngine::Rendering::Scenes
             MergeVector(std::span{scene.Indices}, indices);
             MergeVector(std::span{scene.Meshes}, meshes);
 
-            uint32_t vtxOffset = SceneData->SVertexDataSize / 8; /* 8 is the number of per-vertex attributes: position, normal + UV */
+            std::uint32_t vtxOffset = SceneData->SVertexDataSize / 8; /* 8 is the number of per-vertex attributes: position, normal + UV */
 
-            for (size_t j = 0; j < (uint32_t) scene.Meshes.size(); j++)
+            for (std::size_t j = 0; j < (std::uint32_t) scene.Meshes.size(); j++)
             {
                 // m.vertexCount, m.lodCount and m.streamCount do not change
                 // m.vertexOffset also does not change, because vertex offsets are local (i.e., baked into the indices)
@@ -406,15 +409,15 @@ namespace ZEngine::Rendering::Scenes
             }
 
             // shift individual indices
-            for (size_t j = 0; j < scene.Indices.size(); j++)
+            for (std::size_t j = 0; j < scene.Indices.size(); j++)
             {
                 indices[SceneData->SIndexDataSize + j] += vtxOffset;
             }
 
-            SceneData->SMeshCountOffset += (uint32_t) scene.Meshes.size();
+            SceneData->SMeshCountOffset += (std::uint32_t) scene.Meshes.size();
 
-            SceneData->SIndexDataSize   += (uint32_t) scene.Indices.size();
-            SceneData->SVertexDataSize  += (uint32_t) scene.Vertices.size();
+            SceneData->SIndexDataSize   += (std::uint32_t) scene.Indices.size();
+            SceneData->SVertexDataSize  += (std::uint32_t) scene.Vertices.size();
         }
     }
 
@@ -445,7 +448,7 @@ namespace ZEngine::Rendering::Scenes
             m.VertexOffset         = 0;
             m.IndexOffset          = 0;
             m.VertexUnitStreamSize = sizeof(float) * (3 + 3 + 2);
-            m.IndexUnitStreamSize  = sizeof(uint32_t);
+            m.IndexUnitStreamSize  = sizeof(std::uint32_t);
             m.StreamOffset         = (m.VertexUnitStreamSize * m.VertexOffset);
             m.IndexStreamOffset    = (m.IndexUnitStreamSize * m.IndexOffset);
             m.TotalByteSize        = (m.VertexCount * m.VertexUnitStreamSize) + (m.IndexCount * m.IndexUnitStreamSize);
@@ -453,13 +456,13 @@ namespace ZEngine::Rendering::Scenes
             MergeVector(std::span{vertices}, SceneData->Vertices);
             MergeVector(std::span{indices}, SceneData->Indices);
 
-            uint32_t vtx_off                                            = SceneData->SVertexDataSize / 8;
+            std::uint32_t vtx_off                                            = SceneData->SVertexDataSize / 8;
             SceneData->Meshes[SceneData->SMeshCountOffset].IndexOffset += SceneData->SIndexDataSize;
             SceneData->Indices[SceneData->SIndexDataSize]              += vtx_off;
 
             SceneData->SMeshCountOffset++;
             SceneData->SIndexDataSize      += indices.size();
-            SceneData->SVertexDataSize     += (uint32_t) vertices.size();
+            SceneData->SVertexDataSize     += (std::uint32_t) vertices.size();
 
             SceneData->NodeMeshes[node_id]  = SceneData->Meshes.size() - 1;
 
@@ -662,7 +665,7 @@ namespace ZEngine::Rendering::Scenes
             std::vector<int> root_scene_nodes;
 
             const auto&      hierarchy = SceneData->NodeHierarchies;
-            for (uint32_t i = 0; i < hierarchy.size(); ++i)
+            for (std::uint32_t i = 0; i < hierarchy.size(); ++i)
             {
                 if (hierarchy[i].Parent == NODE_PARENT_ID)
                 {

@@ -1,9 +1,9 @@
-#pragma once
+export module ZEngine.Windows.Events.TextInputEvent;
 
-#include <ZEngine/Core/CoreEvent.h>
-#include <fmt/format.h>
+import std;
+import ZEngine.Core.CoreEvent;
 
-namespace ZEngine::Windows::Events
+export namespace ZEngine::Windows::Events
 {
 
     class TextInputEvent : public Core::CoreEvent
@@ -11,22 +11,19 @@ namespace ZEngine::Windows::Events
     public:
         TextInputEvent(std::string_view content) : m_text(content) {}
 
-        EVENT_TYPE(TextInput)
-        EVENT_CATEGORY(Keyboard | Core::EventCategory::Input)
-
         virtual Core::EventType GetType() const override
         {
-            return GetStaticType();
+            return Core::EventType::TextInput;
         }
 
         virtual int GetCategory() const override
         {
-            return GetStaticCategory();
+            return Core::EventCategory::Keyboard | Core::EventCategory::Input;
         }
 
         virtual std::string ToString() const override
         {
-            return fmt::format("TextInputEvent : {0}", this->m_text);
+            return std::format("TextInputEvent : {0}", m_text);
         }
 
         std::string_view GetText() const

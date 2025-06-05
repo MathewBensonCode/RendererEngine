@@ -1,4 +1,4 @@
-#include <ZEngine/Helpers/IntrusivePtr.h>
+import ZEngine.Helpers.IntrusivePtr;
 #include <gtest/gtest.h>
 
 using namespace ZEngine::Helpers;

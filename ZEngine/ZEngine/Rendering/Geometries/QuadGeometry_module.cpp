@@ -1,7 +1,11 @@
-#pragma once
-#include <ZEngine/Rendering/Geometries/IGeometry.h>
+module;
 
-namespace ZEngine::Rendering::Geometries
+export module ZEngine.Rendering.Geometries.QuadGeometry;
+
+import std;
+import ZEngine.Rendering.Geometries.IGeometry;
+
+export namespace ZEngine::Rendering::Geometries
 {
 
     struct QuadGeometry : public IGeometry

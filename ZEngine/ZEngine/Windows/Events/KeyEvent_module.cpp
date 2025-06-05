@@ -1,47 +1,46 @@
-#pragma once
-#include <ZEngine/Core/CoreEvent.h>
-#include <ZEngine/Windows/Inputs/KeyCode.h>
-#include <ZEngine/ZEngineDef.h>
+export module ZEngine.Windows.Events.KeyEvent;
 
-namespace ZEngine::Windows::Events
+import std;
+import ZEngine.Core.CoreEvent;
+import ZEngine.Windows.Inputs.KeyCode;
+import ZEngine.ZEngineDef;
+
+export namespace ZEngine::Windows::Events
 {
 
     class KeyEvent : public Core::CoreEvent
     {
     public:
-        KeyEvent(ZENGINE_KEYCODE key) : m_keycode(key) {}
+        KeyEvent(Inputs::GlfwKeyCode key) : m_keycode(key) {}
 
-        ZENGINE_KEYCODE GetKeyCode() const
+        Inputs::GlfwKeyCode GetKeyCode() const
         {
             return m_keycode;
         }
 
-        EVENT_CATEGORY(Keyboard | Core::EventCategory::Input)
-
     protected:
-        ZENGINE_KEYCODE m_keycode;
+        Inputs::GlfwKeyCode m_keycode;
     };
 
     class KeyPressedEvent : public KeyEvent
     {
     public:
-        KeyPressedEvent(ZENGINE_KEYCODE key, int repeat_count) : KeyEvent(key), m_repeat_count(repeat_count) {}
+        KeyPressedEvent(Inputs::GlfwKeyCode key, int repeat_count) : KeyEvent(key), m_repeat_count(repeat_count) {}
 
-        EVENT_TYPE(KeyPressed)
 
         virtual Core::EventType GetType() const override
         {
-            return GetStaticType();
+            return Core::EventType::KeyPressed;
         }
 
         virtual int GetCategory() const override
         {
-            return GetStaticCategory();
+            return Core::EventCategory::Keyboard | Core::EventCategory::Input;
         }
 
         virtual std::string ToString() const override
         {
-            return fmt::format("KeyPressedEvent : {0}, repeated count : {1}", static_cast<int32_t>(m_keycode), m_repeat_count);
+            return std::format("KeyPressedEvent : {0}, repeated count : {1}", static_cast<int>(m_keycode), static_cast<int>(m_repeat_count));
         }
 
     protected:
@@ -51,23 +50,21 @@ namespace ZEngine::Windows::Events
     class KeyReleasedEvent : public KeyEvent
     {
     public:
-        KeyReleasedEvent(ZENGINE_KEYCODE key) : KeyEvent(key) {}
-
-        EVENT_TYPE(KeyReleased)
+        KeyReleasedEvent(Inputs::GlfwKeyCode key) : KeyEvent(key) {}
 
         virtual Core::EventType GetType() const override
         {
-            return GetStaticType();
+            return Core::EventType::KeyReleased;
         }
 
         virtual int GetCategory() const override
         {
-            return GetStaticCategory();
+            return Core::EventCategory::Keyboard;
         }
 
         virtual std::string ToString() const override
         {
-            return fmt::format("KeyReleasedEvent : {0}", static_cast<int32_t>(m_keycode));
+            return std::format("KeyReleasedEvent : {0}", static_cast<std::int32_t>(m_keycode));
         }
     };
 } // namespace ZEngine::Windows::Events

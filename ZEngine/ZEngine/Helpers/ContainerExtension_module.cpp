@@ -1,7 +1,9 @@
-#pragma once
-#include <vector>
+export module ZEngine.Helpers.ContainerExtension;
 
-namespace ZEngine::Helpers
+import std;
+
+
+export namespace ZEngine::Helpers
 {
     template <typename T>
     std::vector<T> FindItems(const std::vector<T>& v, std::function<bool(const T&)> func)

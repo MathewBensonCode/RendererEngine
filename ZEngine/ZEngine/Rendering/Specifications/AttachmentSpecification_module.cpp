@@ -1,10 +1,14 @@
-#pragma once
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Containers/HashMap.h>
-#include <ZEngine/Rendering/Specifications/FormatSpecification.h>
+module;
 #include <vulkan/vulkan.h>
 
-namespace ZEngine::Rendering::Specifications
+export module ZEngine.Rendering.Specifications.AttachmentSpecification;
+
+import std;
+import ZEngine.Core.Containers.Array;
+import ZEngine.Core.Containers.HashMap;
+import ZEngine.Rendering.Specifications.FormatSpecification;
+
+export namespace ZEngine::Rendering::Specifications
 {
 
     struct SubPassSpecification

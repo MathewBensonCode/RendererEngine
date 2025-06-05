@@ -1,13 +1,32 @@
-#pragma once
-#include <ZEngine/Logging/Logger.h>
-#include <fmt/format.h>
+module;
+export module ZEngine.Logging.LoggerDefinition;
 
-#define ZENGINE_CORE_INFO(...)     ::ZEngine::Logging::Logger::Info(fmt::format(__VA_ARGS__));
+import std;
+import fmt;
+import ZEngine.Logging.Logger;
 
-#define ZENGINE_CORE_TRACE(...)    ::ZEngine::Logging::Logger::Trace(fmt::format(__VA_ARGS__));
+export template<typename ...args>
+auto ZENGINE_CORE_INFO(args ...myargs){ 
+    ZEngine::Logging::Logger::Info(fmt::format(myargs...));
+}
 
-#define ZENGINE_CORE_WARN(...)     ::ZEngine::Logging::Logger::Warn(fmt::format(__VA_ARGS__));
+export template<typename ...args>
+auto ZENGINE_CORE_TRACE(args ...myargs){ 
+    ZEngine::Logging::Logger::Trace(fmt::format(myargs...));
+}
 
-#define ZENGINE_CORE_ERROR(...)    ::ZEngine::Logging::Logger::Error(fmt::format(__VA_ARGS__));
+export template<typename ...args>
+auto ZENGINE_CORE_WARN(args ...myargs){ 
+    ZEngine::Logging::Logger::Warn(fmt::format(myargs...));
+}
 
-#define ZENGINE_CORE_CRITICAL(...) ::ZEngine::Logging::Logger::Critical(fmt::format(__VA_ARGS__));
+
+export template<typename ...args>
+auto ZENGINE_CORE_ERROR(args ...myargs){ 
+    ZEngine::Logging::Logger::Error(fmt::format(myargs...));
+}
+
+export template<typename ...args>
+auto ZENGINE_CORE_CRITICAL(args ...myargs){ 
+    ZEngine::Logging::Logger::Critical(fmt::format(myargs...));
+}

@@ -1,8 +1,8 @@
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Core/Memory/MemoryManager.h>
-#include <ZEngine/Helpers/HandleManager.h>
 #include <gtest/gtest.h>
-#include <thread>
+
+import ZEngine.Core.Memory.Allocator;
+import ZEngine.Core.Memory.MemoryManager;
+import ZEngine.Helpers.HandleManager;
 
 class HandleManagerTest : public ::testing::Test
 {
@@ -83,7 +83,7 @@ TEST_F(HandleManagerTest, FullCapacity)
     std::vector<ZEngine::Helpers::Handle<int*>> handles;
     std::vector<int>                            values(handle_manager.Size());
 
-    for (size_t i = 0; i < handle_manager.Size(); ++i)
+    for (std::size_t i = 0; i < handle_manager.Size(); ++i)
     {
         values[i]   = static_cast<int>(i);
         auto handle = handle_manager.Add(&values[i]);

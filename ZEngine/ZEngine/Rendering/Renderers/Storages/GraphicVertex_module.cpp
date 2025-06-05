@@ -1,10 +1,14 @@
-#pragma once
-#include <ZEngine/Rendering/Buffers/BufferLayout.h>
-#include <ZEngine/Rendering/Renderers/Storages/IVertex.h>
+module;
 #include <glm/glm.hpp>
-#include <array>
 
-namespace ZEngine::Rendering::Renderers::Storages
+export module ZEngine.Rendering.Renderers.Storages.GraphicVertex;
+
+import std;
+import ZEngine.Rendering.Buffers.BufferLayout;
+import ZEngine.Rendering.Renderers.Storages.IVertex;
+
+
+export namespace ZEngine::Rendering::Renderers::Storages
 {
 
     class GraphicVertex : public IVertex

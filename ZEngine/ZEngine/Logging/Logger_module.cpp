@@ -1,16 +1,18 @@
-#pragma once
-#include <ZEngine/Logging/LoggerConfiguration.h>
+module;
 #include <spdlog/sinks/base_sink.h>
 #include <spdlog/spdlog.h>
-#include <map>
-#include <mutex>
 
-namespace ZEngine::Logging
+export module ZEngine.Logging.Logger;
+
+import std;
+import ZEngine.Logging.LoggerConfiguration;
+
+export namespace ZEngine::Logging
 {
     struct LogMessage
     {
         float       Color[4] = {0.0f};
-        std::string Message  = "";
+        std::string Message{};
     };
 
     struct Logger
@@ -20,8 +22,8 @@ namespace ZEngine::Logging
         static void     Initialize(void* arena, const LoggerConfiguration&);
         static void     Flush();
         static void     Dispose();
-        static uint32_t AddEventHandler(LogEventHandler handler);
-        static void     RemoveEventHandler(uint32_t cookie);
+        static std::uint32_t AddEventHandler(LogEventHandler handler);
+        static void     RemoveEventHandler(std::uint32_t cookie);
 
         static void     Info(std::string msg);
         static void     Trace(std::string msg);

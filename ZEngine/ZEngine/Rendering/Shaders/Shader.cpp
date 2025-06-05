@@ -1,13 +1,15 @@
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Helpers/MemoryOperations.h>
-#include <ZEngine/Logging/LoggerDefinition.h>
-#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
-#include <ZEngine/Rendering/Shaders/Shader.h>
-#include <ZEngine/Rendering/Shaders/ShaderReader.h>
-#include <ZEngine/Rendering/Specifications/ShaderSpecification.h>
+module;
 #include <spirv_cross.hpp>
 #include <vulkan/vulkan.h>
-#include <vector>
+
+module ZEngine.Rendering.Shaders.Shader;
+
+import ZEngine.Hardwares.VulkanDevice;
+import ZEngine.Helpers.MemoryOperations;
+import ZEngine.Logging.LoggerDefinition;
+import ZEngine.Rendering.Renderers.GraphicRenderer;
+import ZEngine.Rendering.Shaders.ShaderReader;
+import ZEngine.Rendering.Specifications.ShaderSpecification;
 
 using namespace ZEngine::Rendering::Specifications;
 using namespace ZEngine::Helpers;
@@ -80,7 +82,7 @@ namespace ZEngine::Rendering::Shaders
             std::vector<uint32_t>    vertex_shader_binary_code     = Rendering::Shaders::ShaderReader::ReadAsBinary(m_specification.VertexFilename);
             VkShaderModuleCreateInfo vertex_shader_create_info     = {};
             vertex_shader_create_info.sType                        = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-            vertex_shader_create_info.codeSize                     = vertex_shader_binary_code.size() * sizeof(uint32_t);
+            vertex_shader_create_info.codeSize                     = vertex_shader_binary_code.size() * sizeof(std::uint32_t);
             vertex_shader_create_info.pCode                        = vertex_shader_binary_code.data();
             ZENGINE_VALIDATE_ASSERT(vkCreateShaderModule(m_device->LogicalDevice, &vertex_shader_create_info, nullptr, &shader_module) == VK_SUCCESS, "Failed to create ShaderModule")
             shader_create_info_collection.sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
@@ -94,8 +96,8 @@ namespace ZEngine::Rendering::Shaders
             auto vertex_resources                = spirv_compiler->get_shader_resources();
             for (const auto& UB_resource : vertex_resources.uniform_buffers)
             {
-                uint32_t set     = spirv_compiler->get_decoration(UB_resource.id, spv::DecorationDescriptorSet);
-                uint32_t binding = spirv_compiler->get_decoration(UB_resource.id, spv::DecorationBinding);
+                std::uint32_t set     = spirv_compiler->get_decoration(UB_resource.id, spv::DecorationDescriptorSet);
+                std::uint32_t binding = spirv_compiler->get_decoration(UB_resource.id, spv::DecorationBinding);
 
                 if (LayoutBindingSpecificationMap[set].capacity() <= 0)
                 {
@@ -107,8 +109,8 @@ namespace ZEngine::Rendering::Shaders
 
             for (const auto& SB_resource : vertex_resources.storage_buffers)
             {
-                uint32_t set     = spirv_compiler->get_decoration(SB_resource.id, spv::DecorationDescriptorSet);
-                uint32_t binding = spirv_compiler->get_decoration(SB_resource.id, spv::DecorationBinding);
+                std::uint32_t set     = spirv_compiler->get_decoration(SB_resource.id, spv::DecorationDescriptorSet);
+                std::uint32_t binding = spirv_compiler->get_decoration(SB_resource.id, spv::DecorationBinding);
 
                 if (LayoutBindingSpecificationMap[set].capacity() <= 0)
                 {
@@ -121,14 +123,14 @@ namespace ZEngine::Rendering::Shaders
             for (const auto& pushConstant_resource : vertex_resources.push_constant_buffers)
             {
                 const spirv_cross::SPIRType& type          = spirv_compiler->get_type(pushConstant_resource.base_type_id);
-                uint32_t                     struct_offset = !PushConstantSpecifications.empty() ? PushConstantSpecifications.back().Offset : 0;
+                std::uint32_t                     struct_offset = !PushConstantSpecifications.empty() ? PushConstantSpecifications.back().Offset : 0;
 
                 if (type.basetype == spirv_cross::SPIRType::Struct)
                 {
-                    uint32_t struct_total_size = 0;
-                    for (uint32_t i = 0; i < type.member_types.size(); ++i)
+                    std::uint32_t struct_total_size = 0;
+                    for (std::uint32_t i = 0; i < type.member_types.size(); ++i)
                     {
-                        uint32_t memberSize  = spirv_compiler->get_declared_struct_member_size(type, i);
+                        std::uint32_t memberSize  = spirv_compiler->get_declared_struct_member_size(type, i);
                         struct_total_size   += memberSize;
                     }
                     PushConstantSpecifications.push(PushConstantSpecification{.Name = pushConstant_resource.name, .Size = struct_total_size, .Offset = struct_offset, .Flags = ShaderStageFlags::VERTEX});
@@ -149,7 +151,7 @@ namespace ZEngine::Rendering::Shaders
             std::vector<uint32_t>    fragment_shader_binary_code   = Rendering::Shaders::ShaderReader::ReadAsBinary(m_specification.FragmentFilename);
             VkShaderModuleCreateInfo fragment_shader_create_info   = {};
             fragment_shader_create_info.sType                      = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-            fragment_shader_create_info.codeSize                   = fragment_shader_binary_code.size() * sizeof(uint32_t);
+            fragment_shader_create_info.codeSize                   = fragment_shader_binary_code.size() * sizeof(std::uint32_t);
             fragment_shader_create_info.pCode                      = fragment_shader_binary_code.data();
             ZENGINE_VALIDATE_ASSERT(vkCreateShaderModule(m_device->LogicalDevice, &fragment_shader_create_info, nullptr, &shader_module) == VK_SUCCESS, "Failed to create ShaderModule")
             shader_create_info_collection.sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
@@ -163,8 +165,8 @@ namespace ZEngine::Rendering::Shaders
             auto fragment_resources              = spirv_compiler->get_shader_resources();
             for (const auto& UB_resource : fragment_resources.uniform_buffers)
             {
-                uint32_t set     = spirv_compiler->get_decoration(UB_resource.id, spv::DecorationDescriptorSet);
-                uint32_t binding = spirv_compiler->get_decoration(UB_resource.id, spv::DecorationBinding);
+                std::uint32_t set     = spirv_compiler->get_decoration(UB_resource.id, spv::DecorationDescriptorSet);
+                std::uint32_t binding = spirv_compiler->get_decoration(UB_resource.id, spv::DecorationBinding);
 
                 if (LayoutBindingSpecificationMap[set].capacity() <= 0)
                 {
@@ -176,8 +178,8 @@ namespace ZEngine::Rendering::Shaders
 
             for (const auto& SB_resource : fragment_resources.storage_buffers)
             {
-                uint32_t set     = spirv_compiler->get_decoration(SB_resource.id, spv::DecorationDescriptorSet);
-                uint32_t binding = spirv_compiler->get_decoration(SB_resource.id, spv::DecorationBinding);
+                std::uint32_t set     = spirv_compiler->get_decoration(SB_resource.id, spv::DecorationDescriptorSet);
+                std::uint32_t binding = spirv_compiler->get_decoration(SB_resource.id, spv::DecorationBinding);
 
                 if (LayoutBindingSpecificationMap[set].capacity() <= 0)
                 {
@@ -190,14 +192,14 @@ namespace ZEngine::Rendering::Shaders
             for (const auto& pushConstant_resource : fragment_resources.push_constant_buffers)
             {
                 const spirv_cross::SPIRType& type          = spirv_compiler->get_type(pushConstant_resource.base_type_id);
-                uint32_t                     struct_offset = !PushConstantSpecifications.empty() ? PushConstantSpecifications.back().Offset : 0;
+                std::uint32_t                     struct_offset = !PushConstantSpecifications.empty() ? PushConstantSpecifications.back().Offset : 0;
 
                 if (type.basetype == spirv_cross::SPIRType::Struct)
                 {
-                    uint32_t struct_total_size = 0;
-                    for (uint32_t i = 0; i < type.member_types.size(); ++i)
+                    std::uint32_t struct_total_size = 0;
+                    for (std::uint32_t i = 0; i < type.member_types.size(); ++i)
                     {
-                        uint32_t memberSize  = spirv_compiler->get_declared_struct_member_size(type, i);
+                        std::uint32_t memberSize  = spirv_compiler->get_declared_struct_member_size(type, i);
                         struct_total_size   += memberSize;
                     }
                     PushConstantSpecifications.push(PushConstantSpecification{.Name = pushConstant_resource.name, .Size = struct_total_size, .Offset = struct_offset, .Flags = ShaderStageFlags::FRAGMENT});
@@ -210,10 +212,10 @@ namespace ZEngine::Rendering::Shaders
 
             for (const auto& SI_resource : fragment_resources.sampled_images)
             {
-                uint32_t    set     = spirv_compiler->get_decoration(SI_resource.id, spv::DecorationDescriptorSet);
-                uint32_t    binding = spirv_compiler->get_decoration(SI_resource.id, spv::DecorationBinding);
+                std::uint32_t    set     = spirv_compiler->get_decoration(SI_resource.id, spv::DecorationDescriptorSet);
+                std::uint32_t    binding = spirv_compiler->get_decoration(SI_resource.id, spv::DecorationBinding);
 
-                uint32_t    count   = 1;
+                std::uint32_t    count   = 1;
                 const auto& type    = spirv_compiler->get_type(SI_resource.type_id);
                 if (!type.array.empty())
                 {
@@ -282,10 +284,10 @@ namespace ZEngine::Rendering::Shaders
         auto layout_binding_spec_view = LayoutBindingSpecificationMap.view();
         for (const auto& layout_binding_set : layout_binding_spec_view)
         {
-            uint32_t                            binding_set               = layout_binding_set.first;
+            std::uint32_t                            binding_set               = layout_binding_set.first;
             Array<VkDescriptorSetLayoutBinding> layout_binding_collection = {};
             layout_binding_collection.init(&LocalArena, 10);
-            for (uint32_t i = 0; i < layout_binding_set.second.size(); ++i)
+            for (std::uint32_t i = 0; i < layout_binding_set.second.size(); ++i)
             {
                 layout_binding_collection.push(VkDescriptorSetLayoutBinding{.binding = layout_binding_set.second[i].Binding, .descriptorType = DescriptorTypeMap[static_cast<uint32_t>(layout_binding_set.second[i].DescriptorType)], .descriptorCount = layout_binding_set.second[i].Count, .stageFlags = ShaderStageFlagsMap[static_cast<uint32_t>(layout_binding_set.second[i].Flags)], .pImmutableSamplers = nullptr});
             }
@@ -294,7 +296,7 @@ namespace ZEngine::Rendering::Shaders
              */
             Array<VkDescriptorBindingFlags> binding_flags_collection = {};
             binding_flags_collection.init(&LocalArena, layout_binding_collection.size(), layout_binding_collection.size());
-            for (uint32_t i = 0; i < layout_binding_collection.size(); ++i)
+            for (std::uint32_t i = 0; i < layout_binding_collection.size(); ++i)
             {
                 if ((layout_binding_collection[i].descriptorType == VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER) || (layout_binding_collection[i].descriptorType == VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE))
                 {
@@ -373,7 +375,7 @@ namespace ZEngine::Rendering::Shaders
 
             Array<VkDescriptorSetLayout> layout_set = {};
             layout_set.init(&LocalArena, m_device->SwapchainImageCount, m_device->SwapchainImageCount);
-            for (uint32_t i = 0; i < m_device->SwapchainImageCount; ++i)
+            for (std::uint32_t i = 0; i < m_device->SwapchainImageCount; ++i)
             {
                 layout_set[i] = layout.second;
             }

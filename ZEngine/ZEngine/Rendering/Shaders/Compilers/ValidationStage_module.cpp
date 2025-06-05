@@ -1,9 +1,14 @@
-#pragma once
-#include <ZEngine/Rendering/Shaders/Compilers/ICompilerStage.h>
+module;
 #include <spirv-tools/libspirv.hpp>
 #include <spirv-tools/optimizer.hpp>
 
-namespace ZEngine::Rendering::Shaders::Compilers
+export module ZEngine.Rendering.Shaders.Compilers.ValidationStage;
+
+import std;
+import ZEngine.Rendering.Shaders.Compilers.ICompilerStage;
+import ZEngine.Rendering.Shaders.ShaderInformation;
+
+export namespace ZEngine::Rendering::Shaders::Compilers
 {
 
     class ValidationStage : public ICompilerStage

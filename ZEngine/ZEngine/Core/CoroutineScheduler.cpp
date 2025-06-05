@@ -1,6 +1,7 @@
-#include <ZEngine/Core/CoroutineScheduler.h>
-#include <ZEngine/Helpers/ThreadPool.h>
-#include <thread>
+module ZEngine.Core.CoroutineScheduler;
+
+import std;
+import ZEngine.Helpers.ThreadPool;
 
 using namespace ZEngine::Helpers;
 

@@ -1,8 +1,9 @@
-#pragma once
-#include <ZEngine/Core/CoreEvent.h>
-#include <fmt/format.h>
+export module ZEngine.Event.EngineClosedEvent;
 
-namespace ZEngine::Event
+import std;
+import ZEngine.Core.CoreEvent;
+
+export namespace ZEngine::Event
 {
     class EngineClosedEvent : public Core::CoreEvent
     {
@@ -20,21 +21,18 @@ namespace ZEngine::Event
 
         Core::EventType GetType() const override
         {
-            return GetStaticType();
+            return Core::EventType::EngineClosed;
         }
 
         int GetCategory() const override
         {
-            return GetStaticCategory();
+            return Core::EventCategory::Engine;
         }
 
         std::string ToString() const override
         {
-            return fmt::format("{}: {}", m_name, m_reason);
+            return std::format("{}: {}", m_name, m_reason);
         }
-
-        EVENT_CATEGORY(Engine)
-        EVENT_TYPE(EngineClosed)
 
     private:
         std::string m_reason{};

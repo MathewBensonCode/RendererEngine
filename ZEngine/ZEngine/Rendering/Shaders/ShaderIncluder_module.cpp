@@ -1,12 +1,14 @@
-#include <ZEngine/Rendering/Shaders/ShaderReader.h>
-#include <ZEngine/ZEngineDef.h>
+module;
 #include <glslang/Public/ShaderLang.h>
-#include <filesystem>
-#include <fstream>
-#include <sstream>
-#include <unordered_map>
 
-namespace ZEngine::Rendering::Shaders
+export module ZEngine.Rendering.Shaders.ShaderIncluder;
+
+import std;
+import ZEngine.Rendering.Shaders.ShaderReader;
+import ZEngine.ZEngineDef;
+import ZEngine.Logging.Logger;
+
+export namespace ZEngine::Rendering::Shaders
 {
 
     class ShaderIncluder : public glslang::TShader::Includer
@@ -45,7 +47,7 @@ namespace ZEngine::Rendering::Shaders
             std::ifstream fileStream(filePath, std::ios::in | std::ios::binary);
             if (!fileStream)
             {
-                ZENGINE_CORE_ERROR("Failed to open shader file: {}", filePath.string());
+                ZEngine::Logging::Logger::Error(std::format("Failed to open shader file: {}", filePath.string()));
             }
             return std::string((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
         }

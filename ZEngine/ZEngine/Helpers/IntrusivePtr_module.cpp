@@ -1,8 +1,8 @@
-#pragma once
-#include <atomic>
-#include <memory>
+export module ZEngine.Helpers.IntrusivePtr;
 
-namespace ZEngine::Helpers
+import std;
+
+export namespace ZEngine::Helpers
 {
     class RefCounted
     {
@@ -463,7 +463,7 @@ namespace ZEngine::Helpers
     }
 } // namespace ZEngine::Helpers
 
-namespace std
+export namespace std
 {
 
     template <typename T>

@@ -1,12 +1,16 @@
-#pragma once
-#include <vulkan/vulkan.h>
-#include <map>
+module;
 
-namespace ZEngine::Rendering::Specifications
+#include <vulkan/vulkan.h>
+
+export module ZEngine.Rendering.Specifications.FormatSpecification;
+
+import std;
+
+export namespace ZEngine::Rendering::Specifications
 {
 #define VALUE_FROM_SPEC_MAP(x) static_cast<uint32_t>(x)
 
-    enum class ImageFormat : uint32_t
+    enum class ImageFormat : std::uint32_t
     {
         UNDEFINED = 0,
         R8G8B8A8_UNORM, // color
@@ -27,33 +31,33 @@ namespace ZEngine::Rendering::Specifications
     /*
      * BytePerChannelMap follows ImageFormat enum alignment value
      */
-    static uint32_t BytePerChannelMap[] = {0u, 4u, 4u, (4u * (sizeof(float) / 2)), (4u * sizeof(float))};
+    std::uint32_t BytePerChannelMap[] = {0u, 4u, 4u, (4u * (sizeof(float) / 2)), (4u * sizeof(float))};
 
-    static VkFormat ImageFormatMap[]    = {VK_FORMAT_UNDEFINED, VK_FORMAT_R8G8B8A8_UNORM, VK_FORMAT_R8G8B8A8_SRGB, VK_FORMAT_R16G16B16A16_SFLOAT, VK_FORMAT_R32G32B32A32_SFLOAT, VK_FORMAT_R32G32_SFLOAT, VK_FORMAT_R32G32B32_SFLOAT, VK_FORMAT_D16_UNORM, VK_FORMAT_D16_UNORM_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT, VK_FORMAT_D32_SFLOAT_S8_UINT};
+    VkFormat ImageFormatMap[]    = {VK_FORMAT_UNDEFINED, VK_FORMAT_R8G8B8A8_UNORM, VK_FORMAT_R8G8B8A8_SRGB, VK_FORMAT_R16G16B16A16_SFLOAT, VK_FORMAT_R32G32B32A32_SFLOAT, VK_FORMAT_R32G32_SFLOAT, VK_FORMAT_R32G32B32_SFLOAT, VK_FORMAT_D16_UNORM, VK_FORMAT_D16_UNORM_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT, VK_FORMAT_D32_SFLOAT_S8_UINT};
 
-    enum class LoadOperation : uint32_t
+    enum class LoadOperation : std::uint32_t
     {
         LOAD = 0,
         CLEAR,
         DONT_CARE
     };
 
-    static VkAttachmentLoadOp AttachmentLoadOperationMap[] = {VK_ATTACHMENT_LOAD_OP_LOAD, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_LOAD_OP_DONT_CARE};
+    VkAttachmentLoadOp AttachmentLoadOperationMap[] = {VK_ATTACHMENT_LOAD_OP_LOAD, VK_ATTACHMENT_LOAD_OP_CLEAR, VK_ATTACHMENT_LOAD_OP_DONT_CARE};
 
-    enum class StoreOperation : uint32_t
+    enum class StoreOperation : std::uint32_t
     {
         STORE = 0,
         DONT_CARE,
         NONE,
     };
 
-    static VkAttachmentStoreOp AttachmentStoreOperationMap[] = {
+    VkAttachmentStoreOp AttachmentStoreOperationMap[] = {
         VK_ATTACHMENT_STORE_OP_STORE,
         VK_ATTACHMENT_STORE_OP_DONT_CARE,
         VK_ATTACHMENT_STORE_OP_NONE,
     };
 
-    enum class ImageLayout : uint32_t
+    enum class ImageLayout : std::uint32_t
     {
         UNDEFINED = 0,
         GENERAL,
@@ -75,7 +79,7 @@ namespace ZEngine::Rendering::Specifications
         PRESENT_SRC
     };
 
-    static VkImageLayout ImageLayoutMap[] = {
+    VkImageLayout ImageLayoutMap[] = {
         VK_IMAGE_LAYOUT_UNDEFINED,
         VK_IMAGE_LAYOUT_GENERAL,
         VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL,
@@ -96,13 +100,13 @@ namespace ZEngine::Rendering::Specifications
         VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
     };
 
-    enum class PipelineBindPoint : uint32_t
+    enum class PipelineBindPoint : std::uint32_t
     {
         GRAPHIC,
         COMPUTE
     };
 
-    enum class ImageViewTypeEnum : uint32_t
+    enum class ImageViewTypeEnum : std::uint32_t
     {
         TYPE_1D = 0,
         TYPE_2D,
@@ -110,7 +114,7 @@ namespace ZEngine::Rendering::Specifications
         TYPE_CUBE
     };
 
-    static VkImageViewType ImageViewTypeMap[] = {
+    VkImageViewType ImageViewTypeMap[] = {
         VK_IMAGE_VIEW_TYPE_1D,
         VK_IMAGE_VIEW_TYPE_2D,
         VK_IMAGE_VIEW_TYPE_3D,
@@ -130,5 +134,5 @@ namespace ZEngine::Rendering::Specifications
         CUBE_COMPATIBLE_BIT
     };
 
-    static VkImageCreateFlagBits ImageCreateFlagMap[]{VkImageCreateFlagBits(0), VK_IMAGE_CREATE_SPARSE_BINDING_BIT, VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT, VK_IMAGE_CREATE_SPARSE_ALIASED_BIT, VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT, VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT};
+    VkImageCreateFlagBits ImageCreateFlagMap[]{VkImageCreateFlagBits(0), VK_IMAGE_CREATE_SPARSE_BINDING_BIT, VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT, VK_IMAGE_CREATE_SPARSE_ALIASED_BIT, VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT, VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT};
 } // namespace ZEngine::Rendering::Specifications

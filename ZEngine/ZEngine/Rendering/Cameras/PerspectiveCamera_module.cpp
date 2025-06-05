@@ -1,7 +1,13 @@
-﻿#pragma once
-#include <ZEngine/Rendering/Cameras/Camera.h>
+﻿module;
+#include <glm/glm.hpp>
 
-namespace ZEngine::Rendering::Cameras
+export module ZEngine.Rendering.Cameras.PerspectiveCamera;
+
+import std;
+
+import ZEngine.Rendering.Cameras.Camera;
+
+export namespace ZEngine::Rendering::Cameras
 {
 
     class PerspectiveCamera : public Camera

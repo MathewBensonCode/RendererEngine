@@ -1,8 +1,9 @@
-#pragma once
+export module ZEngine.Core.IEventable;
 
-#include <ZEngine/Core/CoreEvent.h>
+import std;
+import ZEngine.Core.CoreEvent;
 
-namespace ZEngine::Core
+export namespace ZEngine::Core
 {
 
     struct IEventable

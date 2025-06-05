@@ -1,6 +1,11 @@
-#pragma once
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <future>
+module;
+
+export module ZEngine.Rendering.Textures.Texture2D;
+
+import std;
+
+import ZEngine.Hardwares.VulkanDevice;
+
 
 namespace ZEngine::Rendering::Textures
 {
@@ -25,8 +30,8 @@ namespace ZEngine::Rendering::Textures
     //    virtual ~Texture2D();
 
     //    static Helpers::Ref<Texture2D>              Create(const Specifications::TextureSpecification& spec);
-    //    static Helpers::Ref<Texture2D>              Create(uint32_t width = 1, uint32_t height = 1);
-    //    static Helpers::Ref<Texture2D>              Create(uint32_t width, uint32_t height, float r, float g, float b,
+    //    static Helpers::Ref<Texture2D>              Create(std::uint32_t width = 1, std::uint32_t height = 1);
+    //    static Helpers::Ref<Texture2D>              Create(std::uint32_t width, std::uint32_t height, float r, float g, float b,
     //    float a); static Helpers::Ref<Texture2D>              Read(std::string_view filename); static
     //    Helpers::Ref<Texture2D>              ReadCubemap(std::string_view filename); static
     //    std::future<Helpers::Ref<Texture2D>> ReadAsync(std::string_view filename);

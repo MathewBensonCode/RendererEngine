@@ -1,5 +1,5 @@
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Rendering/Primitives/Fence.h>
+import ZEngine.Hardwares.VulkanDevice;
+import ZEngine.Rendering.Primitives.Fence;
 
 namespace ZEngine::Rendering::Primitives
 {

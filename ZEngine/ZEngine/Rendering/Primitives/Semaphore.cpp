@@ -1,5 +1,6 @@
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Rendering/Primitives/Semaphore.h>
+module ZEngine.Rendering.Primitives.Semaphore;
+
+import ZEngine.Hardwares.VulkanDevice;
 
 namespace ZEngine::Rendering::Primitives
 {

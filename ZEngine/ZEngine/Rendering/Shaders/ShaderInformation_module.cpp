@@ -1,10 +1,13 @@
-#pragma once
-#include <ZEngine/Rendering/Shaders/ShaderEnums.h>
-#include <vulkan/vulkan.h>
-#include <string>
-#include <vector>
+module;
 
-namespace ZEngine::Rendering::Shaders
+#include <vulkan/vulkan.h>
+
+export module ZEngine.Rendering.Shaders.ShaderInformation;
+
+import std;
+import ZEngine.Rendering.Shaders.ShaderEnums;
+
+export namespace ZEngine::Rendering::Shaders
 {
 
     struct ShaderInformation

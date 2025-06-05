@@ -1,4 +1,6 @@
-#include <ZEngine/Core/IPipeline.h>
+module ZEngine.Core.IPipeline;
+
+import ZEngine.Helpers.IntrusivePtr;
 
 using namespace ZEngine::Helpers;
 

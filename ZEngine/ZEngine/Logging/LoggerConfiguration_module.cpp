@@ -1,8 +1,8 @@
-#pragma once
-#include <chrono>
-#include <string>
+export module ZEngine.Logging.LoggerConfiguration;
 
-namespace ZEngine::Logging
+import std;
+
+export namespace ZEngine::Logging
 {
     struct LoggerConfiguration
     {

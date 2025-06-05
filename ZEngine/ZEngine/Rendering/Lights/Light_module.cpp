@@ -1,10 +1,11 @@
-#pragma once
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <ZEngine/Helpers/MemoryOperations.h>
-#include <ZEngine/Rendering/GPUTypes.h>
-#include <span>
+export module ZEngine.Rendering.Lights.Light;
 
-namespace ZEngine::Rendering::Lights
+import std;
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.Helpers.MemoryOperations;
+import ZEngine.Rendering.GPUTypes;
+
+export namespace ZEngine::Rendering::Lights
 {
 
     enum class LightType : int
@@ -45,8 +46,8 @@ namespace ZEngine::Rendering::Lights
 
     struct LightBuffer
     {
-        uint32_t Count;
-        uint32_t Padding[3];
+        std::uint32_t Count;
+        std::uint32_t Padding[3];
     };
 
     /*
@@ -144,11 +145,11 @@ namespace ZEngine::Rendering::Lights
     };
 
     template <typename T>
-    std::vector<uint8_t> CreateLightBuffer(std::span<const T> data)
+    std::vector<std::uint8_t> CreateLightBuffer(std::span<const T> data)
     {
         auto                 count       = data.size();
-        size_t               buffer_size = sizeof(LightBuffer) + (sizeof(T) * count);
-        std::vector<uint8_t> buffer(buffer_size);
+        std::size_t               buffer_size = sizeof(LightBuffer) + (sizeof(T) * count);
+        std::vector<std::uint8_t> buffer(buffer_size);
 
         auto                 light_buffer = reinterpret_cast<LightBuffer*>(buffer.data());
         light_buffer->Count               = count;

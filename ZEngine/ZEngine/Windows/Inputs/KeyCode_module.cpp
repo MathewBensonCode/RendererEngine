@@ -1,10 +1,10 @@
-#pragma once
-#include <cstdint>
+export module ZEngine.Windows.Inputs.KeyCode;
 
-namespace ZEngine::Windows::Inputs
+import std;
+
+export namespace ZEngine::Windows::Inputs
 {
-    typedef enum class GlfwKeyCode : int32_t
-    {
+    enum class GlfwKeyCode : std::int32_t{
         KEY_UNKNOWN         = -1,
         KEY_SPACE           = 32,
         KEY_APOSTROPHE      = 39,

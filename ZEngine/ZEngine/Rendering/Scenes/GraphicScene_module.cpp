@@ -1,29 +1,17 @@
-﻿#pragma once
-#include <ZEngine/Hardwares/VulkanDevice.h>
-#include <ZEngine/Rendering/Lights/Light.h>
-#include <ZEngine/Rendering/Meshes/Mesh.h>
-#include <ZEngine/Rendering/Textures/Texture.h>
-#include <ZEngine/ZEngineDef.h>
+﻿module;
 #include <entt/entt.hpp>
 #include <uuid.h>
-#include <future>
-#include <mutex>
-#include <set>
-#include <vector>
 
-namespace ZEngine::Serializers
-{
-    class GraphicScene3DSerializer;
-}
+export module ZEngine.Rendering.Scenes.GraphicScene;
 
-namespace ZEngine::Rendering::Renderers
-{
-    struct AsyncResourceLoader;
-    struct GraphicRenderer;
-    class RenderGraph;
-} // namespace ZEngine::Rendering::Renderers
+import std;
+import ZEngine.Hardwares.VulkanDevice;
+import ZEngine.Rendering.Lights.Light;
+import ZEngine.Rendering.Meshes.Mesh;
+import ZEngine.Rendering.Textures.Texture;
+import ZEngine.ZEngineDef;
 
-namespace ZEngine::Rendering::Scenes
+export namespace ZEngine::Rendering::Scenes
 {
     /*
      * This internal defragmented storage represents SceneNode struct with a DoD (Data-Oriented Design) approach
@@ -45,19 +33,19 @@ namespace ZEngine::Rendering::Scenes
 
     struct DrawDataType
     {
-        uint32_t TransformIndex = std::numeric_limits<uint32_t>::max();
-        uint32_t MaterialIndex  = std::numeric_limits<uint32_t>::max();
-        uint32_t VertexOffset   = std::numeric_limits<uint32_t>::max();
-        uint32_t IndexOffset    = std::numeric_limits<uint32_t>::max();
-        uint32_t VertexCount    = std::numeric_limits<uint32_t>::max();
-        uint32_t IndexCount     = std::numeric_limits<uint32_t>::max();
+        std::uint32_t TransformIndex = std::numeric_limits<std::uint32_t>::max();
+        std::uint32_t MaterialIndex  = std::numeric_limits<std::uint32_t>::max();
+        std::uint32_t VertexOffset   = std::numeric_limits<std::uint32_t>::max();
+        std::uint32_t IndexOffset    = std::numeric_limits<std::uint32_t>::max();
+        std::uint32_t VertexCount    = std::numeric_limits<std::uint32_t>::max();
+        std::uint32_t IndexCount     = std::numeric_limits<std::uint32_t>::max();
     };
 
     struct SceneRawData : public Helpers::RefCounted
     {
-        uint32_t                                   SVertexDataSize              = 0;
-        uint32_t                                   SIndexDataSize               = 0;
-        uint32_t                                   SMeshCountOffset             = 0;
+        std::uint32_t                                   SVertexDataSize              = 0;
+        std::uint32_t                                   SIndexDataSize               = 0;
+        std::uint32_t                                   SMeshCountOffset             = 0;
         std::vector<SceneNodeHierarchy>            NodeHierarchies              = {};
         std::vector<glm::mat4>                     LocalTransforms              = {};
         std::vector<glm::mat4>                     GlobalTransforms             = {};
@@ -70,9 +58,9 @@ namespace ZEngine::Rendering::Scenes
         std::vector<DrawDataType>                      DrawData                     = {};
         std::vector<std::string>                   Names                        = {};
         std::vector<std::string>                   MaterialNames                = {};
-        std::unordered_map<uint32_t, uint32_t>     NodeMeshes                   = {};
-        std::unordered_map<uint32_t, uint32_t>     NodeNames                    = {};
-        std::unordered_map<uint32_t, uint32_t>     NodeMaterials                = {};
+        std::unordered_map<std::uint32_t, std::uint32_t>     NodeMeshes                   = {};
+        std::unordered_map<std::uint32_t, std::uint32_t>     NodeNames                    = {};
+        std::unordered_map<std::uint32_t, std::uint32_t>     NodeMaterials                = {};
         std::unordered_map<uint32_t, entt::entity> NodeEntities                 = {};
         std::vector<Meshes::MeshVNext>             Meshes                       = {};
         std::vector<Meshes::MeshMaterial>          Materials                    = {};
@@ -207,7 +195,7 @@ namespace ZEngine::Rendering::Scenes
          * Scene Graph operations
          */
         bool                           HasSceneNodes();
-        uint32_t                       GetSceneNodeCount() = delete;
+        std::uint32_t                       GetSceneNodeCount() = delete;
         std::vector<int>               GetRootSceneNodes();
         Helpers::Ref<SceneRawData>     GetRawData();
         void                           ComputeAllTransforms();

@@ -1,4 +1,4 @@
-#include <ZEngine/Windows/CoreWindow.h>
+module ZEngine.Windows.CoreWindow;
 
 using namespace ZEngine::Windows::Layers;
 using namespace ZEngine::Helpers;

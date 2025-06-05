@@ -1,4 +1,7 @@
-#include <ZEngine/Rendering/Materials/BasicMaterial.h>
+module ZEngine.Rendering.Materials.BasicMaterial;
+
+import ZEngine.Rendering.Textures.Texture;
+import ZEngine.Helpers.IntrusivePtr;
 
 using namespace ZEngine::Helpers;
 

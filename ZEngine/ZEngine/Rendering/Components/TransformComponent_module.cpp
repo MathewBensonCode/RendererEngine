@@ -1,7 +1,14 @@
-#pragma once
-#include <ZEngine/Maths/Math.h>
+module;
 
-namespace ZEngine::Rendering::Components
+#include <glm/glm.hpp>
+
+export module ZEngine.Rendering.Components.TransformComponent;
+
+import std;
+
+import ZEngine.Maths.Math;
+
+export namespace ZEngine::Rendering::Components
 {
     struct TransformComponent
     {

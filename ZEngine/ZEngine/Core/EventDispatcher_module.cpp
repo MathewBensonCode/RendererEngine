@@ -1,9 +1,10 @@
-#pragma once
-#include <ZEngine/Core/CoreEvent.h>
-#include <ZEngine/ZEngineDef.h>
-#include <functional>
+export module ZEngine.Core.EventDispatcher;
 
-namespace ZEngine::Core
+import std;
+import ZEngine.Core.CoreEvent;
+import ZEngine.ZEngineDef;
+
+export namespace ZEngine::Core
 {
     class EventDispatcher
     {

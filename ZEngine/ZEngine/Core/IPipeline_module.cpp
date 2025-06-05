@@ -1,8 +1,10 @@
-#pragma once
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <string>
+export module ZEngine.Core.IPipeline;
 
-namespace ZEngine::Core
+import std;
+import ZEngine.Helpers.IntrusivePtr;
+
+
+export namespace ZEngine::Core
 {
 
     struct IPipelineContext;

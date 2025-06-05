@@ -1,8 +1,13 @@
-#pragma once
-#include <ZEngine/Rendering/Specifications/FormatSpecification.h>
+module;
+
 #include <vulkan/vulkan.h>
 
-namespace ZEngine::Rendering::Specifications
+export module ZEngine.Rendering.Specifications.ImageMemoryBarrierSpecification;
+
+import std;
+import ZEngine.Rendering.Specifications.FormatSpecification;
+
+export namespace ZEngine::Rendering::Specifications
 {
     struct ImageMemoryBarrierSpecification
     {
@@ -14,8 +19,8 @@ namespace ZEngine::Rendering::Specifications
         VkImageAspectFlagBits   ImageAspectMask;
         VkPipelineStageFlagBits SourceStageMask;
         VkPipelineStageFlagBits DestinationStageMask;
-        uint32_t                LayerCount             = 1;
-        uint32_t                SourceQueueFamily      = VK_QUEUE_FAMILY_IGNORED;
-        uint32_t                DestinationQueueFamily = VK_QUEUE_FAMILY_IGNORED;
+        std::uint32_t                LayerCount             = 1;
+        std::uint32_t                SourceQueueFamily      = VK_QUEUE_FAMILY_IGNORED;
+        std::uint32_t                DestinationQueueFamily = VK_QUEUE_FAMILY_IGNORED;
     };
 } // namespace ZEngine::Rendering::Specifications

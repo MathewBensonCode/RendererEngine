@@ -1,5 +1,5 @@
-#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
-#include <ZEngine/Rendering/Renderers/RenderGraph.h>
+import ZEngine.Rendering.Renderers.GraphicRenderer;
+import ZEngine.Rendering.Renderers.RenderGraph;
 
 using namespace ZEngine::Core::Containers;
 
@@ -149,7 +149,7 @@ namespace ZEngine::Rendering::Renderers
         auto node_view = m_node.view();
         for (auto pass : node_view)
         {
-            for (uint32_t i = 0; i < pass.second.Creation.Inputs.size(); ++i)
+            for (std::uint32_t i = 0; i < pass.second.Creation.Inputs.size(); ++i)
             {
                 if (m_resource_map.count(pass.second.Creation.Inputs[i].Name))
                 {
@@ -171,7 +171,7 @@ namespace ZEngine::Rendering::Renderers
         auto                           scratch       = ZGetScratch(Renderer->Device->Arena);
 
         Array<const char*>             sorted_nodes  = {};
-        HashMap<const char*, uint32_t> visited_nodes = {};
+        HashMap<const char*, std::uint32_t> visited_nodes = {};
         Array<const char*>             stack         = {};
 
         sorted_nodes.init(scratch.Arena, 6);
@@ -278,7 +278,7 @@ namespace ZEngine::Rendering::Renderers
         }
     }
 
-    void RenderGraph::Execute(uint32_t frame_index, Hardwares::CommandBuffer* const command_buffer, Rendering::Scenes::SceneRawData* const scene)
+    void RenderGraph::Execute(std::uint32_t frame_index, Hardwares::CommandBuffer* const command_buffer, Rendering::Scenes::SceneRawData* const scene)
     {
         ZENGINE_VALIDATE_ASSERT(command_buffer, "Command Buffer can't be null")
 
@@ -378,7 +378,7 @@ namespace ZEngine::Rendering::Renderers
         }
     }
 
-    void RenderGraph::Resize(uint32_t width, uint32_t height)
+    void RenderGraph::Resize(std::uint32_t width, std::uint32_t height)
     {
         for (auto& node_name : m_sorted_nodes)
         {

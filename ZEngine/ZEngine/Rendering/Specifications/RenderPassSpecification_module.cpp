@@ -1,11 +1,15 @@
-#pragma once
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Containers/HashMap.h>
-#include <ZEngine/Rendering/Specifications/GraphicRendererPipelineSpecification.h>
-#include <ZEngine/Rendering/Specifications/TextureSpecification.h>
-#include <ZEngine/Rendering/Textures/Texture.h>
+module;
 
-namespace ZEngine::Rendering::Specifications
+export module ZEngine.Rendering.Specifications.RenderPassSpecification;
+
+import std;
+import ZEngine.Core.Containers.Array;
+import ZEngine.Core.Containers.HashMap;
+import ZEngine.Rendering.Specifications.GraphicRendererPipelineSpecification;
+import ZEngine.Rendering.Specifications.TextureSpecification;
+import ZEngine.Rendering.Textures.Texture;
+
+export namespace ZEngine::Rendering::Specifications
 {
     struct RenderPassSpecification
     {

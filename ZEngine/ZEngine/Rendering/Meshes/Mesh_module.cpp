@@ -1,10 +1,15 @@
-#pragma once
-#include <ZEngine/Rendering/GPUTypes.h>
-#include <ZEngine/ZEngineDef.h>
+module;
+
+export module ZEngine.Rendering.Meshes.Mesh;
+
+import std;
+
+import ZEngine.Rendering.GPUTypes;
+import ZEngine.ZEngineDef;
 
 #define INVALID_MAP_HANDLE 0xFFFFFFFFu
 
-namespace ZEngine::Rendering::Meshes
+export namespace ZEngine::Rendering::Meshes
 {
 
     enum class MeshType
@@ -17,15 +22,15 @@ namespace ZEngine::Rendering::Meshes
 
     struct MeshVNext
     {
-        uint32_t VertexCount          = 0;
-        uint32_t IndexCount           = 0;
-        uint32_t VertexOffset         = 0;
-        uint32_t IndexOffset          = 0;
-        uint32_t StreamOffset         = 0;
-        uint32_t IndexStreamOffset    = 0;
-        uint32_t VertexUnitStreamSize = 0;
-        uint32_t IndexUnitStreamSize  = 0;
-        uint32_t TotalByteSize        = 0;
+        std::uint32_t VertexCount          = 0;
+        std::uint32_t IndexCount           = 0;
+        std::uint32_t VertexOffset         = 0;
+        std::uint32_t IndexOffset          = 0;
+        std::uint32_t StreamOffset         = 0;
+        std::uint32_t IndexStreamOffset    = 0;
+        std::uint32_t VertexUnitStreamSize = 0;
+        std::uint32_t IndexUnitStreamSize  = 0;
+        std::uint32_t TotalByteSize        = 0;
     };
 
     struct MeshMaterial
@@ -36,12 +41,12 @@ namespace ZEngine::Rendering::Meshes
         gpuvec4  SpecularColor  = 1.0f;
         gpuvec4  RoughnessColor = 1.0f;
         gpuvec4  Factors        = 1.0f; // {x : transparency, y : Metallic, z : AlphaTest, w : _padding}
-        uint64_t EmissiveMap    = INVALID_MAP_HANDLE;
-        uint64_t AlbedoMap      = INVALID_MAP_HANDLE;
-        uint64_t SpecularMap    = INVALID_MAP_HANDLE;
-        uint64_t NormalMap      = INVALID_MAP_HANDLE;
-        uint64_t OpacityMap     = INVALID_MAP_HANDLE;
-        uint64_t _padding       = INVALID_MAP_HANDLE;
+    std::uint64_t EmissiveMap    = INVALID_MAP_HANDLE;
+    std::uint64_t AlbedoMap      = INVALID_MAP_HANDLE;
+    std::uint64_t SpecularMap    = INVALID_MAP_HANDLE;
+    std::uint64_t NormalMap      = INVALID_MAP_HANDLE;
+    std::uint64_t OpacityMap     = INVALID_MAP_HANDLE;
+    std::uint64_t _padding       = INVALID_MAP_HANDLE;
     };
 
     struct MaterialFile

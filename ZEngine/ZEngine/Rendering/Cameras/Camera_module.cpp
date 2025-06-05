@@ -1,13 +1,16 @@
-#pragma once
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <ZEngine/Rendering/Cameras/CameraEnum.h>
-
+module;
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace ZEngine::Rendering::Cameras
+export module ZEngine.Rendering.Cameras.Camera;
+
+import std;
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.Rendering.Cameras.CameraEnum;
+
+export namespace ZEngine::Rendering::Cameras
 {
     struct Camera : public Helpers::RefCounted
     {

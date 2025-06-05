@@ -1,6 +1,9 @@
-#pragma once
+export module ZEngine.Core.IInitializable;
 
-namespace ZEngine::Core
+import std;
+
+
+export namespace ZEngine::Core
 {
 
     struct IInitializable

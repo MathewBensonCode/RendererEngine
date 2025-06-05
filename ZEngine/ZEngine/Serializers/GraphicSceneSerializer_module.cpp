@@ -1,8 +1,10 @@
-#pragma once
-#include <ZEngine/Core/ISerializer.h>
-#include <ZEngine/Rendering/Scenes/GraphicScene.h>
-#include <ZEngine/ZEngineDef.h>
-#include <filesystem>
+export module ZEngine.Serializers.GraphicSceneSerializer;
+
+import std;
+import ZEngine.Core.ISerializer;
+import ZEngine.Rendering.Scenes.GraphicScene;
+import ZEngine.ZEngineDef;
+
 
 namespace ZEngine::Serializers
 {

@@ -1,12 +1,15 @@
-#pragma once
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <ZEngine/Maths/Math.h>
-#include <ZEngine/Rendering/Geometries/GeometryEnum.h>
-#include <ZEngine/Rendering/Renderers/Storages/GraphicVertex.h>
-#include <algorithm>
-#include <vector>
+module;
+#include <glm/glm.hpp>
 
-namespace ZEngine::Rendering::Geometries
+export module ZEngine.Rendering.Geometries.IGeometry;
+
+import std;
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.Maths.Math;
+import ZEngine.Rendering.Geometries.GeometryEnum;
+import ZEngine.Rendering.Renderers.Storages.GraphicVertex;
+
+export namespace ZEngine::Rendering::Geometries
 {
 
     /*Need to be deprecated*/

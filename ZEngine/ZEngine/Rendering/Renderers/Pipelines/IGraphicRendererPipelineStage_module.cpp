@@ -1,8 +1,10 @@
-#pragma once
-#include <ZEngine/Core/IPipeline.h>
-#include <ZEngine/Rendering/Renderers/Pipelines/GraphicRendererPipelineInformation.h>
+export module ZEngine.Rendering.Renderers.Pipelines.IGraphicRendererPipelineStage;
 
-namespace ZEngine::Rendering::Renderers::Pipelines
+import std;
+import ZEngine.Core.IPipeline;
+import ZEngine.Rendering.Renderers.Pipelines.GraphicRendererPipelineInformation;
+
+export namespace ZEngine::Rendering::Renderers::Pipelines
 {
     struct IGraphicRendererPipelineStage : public Core::IPipelineStage
     {

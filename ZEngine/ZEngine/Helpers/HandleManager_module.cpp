@@ -1,13 +1,14 @@
-#pragma once
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Helpers/MemoryOperations.h>
-#include <ZEngine/ZEngineDef.h>
-#include <shared_mutex>
+export module ZEngine.Helpers.HandleManager;
+
+import std;
+import ZEngine.Core.Containers.Array;
+import ZEngine.Core.Memory.Allocator;
+import ZEngine.Helpers.MemoryOperations;
+import ZEngine.ZEngineDef;
 
 #define INVALID_HANDLE_INDEX -1
 
-namespace ZEngine::Helpers
+export namespace ZEngine::Helpers
 {
     template <typename T>
     struct Handle;
@@ -22,7 +23,7 @@ namespace ZEngine::Helpers
 
         bool               Valid() const
         {
-            return Index != UINT32_MAX;
+            return Index != std::numeric_limits<unsigned long long>::max();
         }
 
         operator bool() const
@@ -34,16 +35,16 @@ namespace ZEngine::Helpers
     template <typename T>
     class HandleManager
     {
-        uint32_t                         m_count           = 0;
-        uint32_t                         m_head            = 0;
-        uint32_t                         m_free_slot_index = 0;
+        std::uint32_t                         m_count           = 0;
+        std::uint32_t                         m_head            = 0;
+        std::uint32_t                         m_free_slot_index = 0;
         Core::Containers::Array<T>       m_memory          = {};
-        Core::Containers::Array<uint8_t> m_free_slot       = {};
+        Core::Containers::Array<std::uint8_t> m_free_slot       = {};
 
         mutable std::shared_mutex        m_mutex;
 
     public:
-        void Initialize(Core::Memory::ArenaAllocator* arena, uint32_t count = 0)
+        void Initialize(Core::Memory::ArenaAllocator* arena, std::uint32_t count = 0)
         {
             m_memory.init(arena, count, count);
             m_free_slot.init(arena, count, count);
@@ -117,11 +118,11 @@ namespace ZEngine::Helpers
             return handle;
         }
 
-        Handle<T> ToHandle(uint32_t index)
+        Handle<T> ToHandle(unsigned long long index)
         {
             std::shared_lock<std::shared_mutex> lock(m_mutex);
             Handle<T>                           handle{};
-            ZENGINE_VALIDATE_ASSERT(index != UINT32_MAX && index < m_count, "Handle Index is invalid")
+            ZENGINE_VALIDATE_ASSERT(index != std::numeric_limits<unsigned long long>::max() && index < m_count, "Handle Index is invalid");
 
             if (!(index >= m_head))
             {
@@ -134,7 +135,7 @@ namespace ZEngine::Helpers
         void Update(Handle<T>& handle, T& data)
         {
             std::unique_lock<std::shared_mutex> lock(m_mutex);
-            ZENGINE_VALIDATE_ASSERT((handle) && handle.Index < m_count, "Handle Index is invalid")
+            ZENGINE_VALIDATE_ASSERT((handle) && handle.Index < m_count, "Handle Index is invalid");
 
             T* ptr = &m_memory[handle.Index];
             *ptr   = data;
@@ -143,7 +144,7 @@ namespace ZEngine::Helpers
         void Update(Handle<T>& handle, T&& data)
         {
             std::unique_lock<std::shared_mutex> lock(m_mutex);
-            ZENGINE_VALIDATE_ASSERT((handle) && handle.Index < m_count, "Handle Index is invalid")
+            ZENGINE_VALIDATE_ASSERT((handle) && handle.Index < m_count, "Handle Index is invalid");
 
             T* ptr = &m_memory[handle.Index];
             *ptr   = std::move(data);
@@ -171,18 +172,23 @@ namespace ZEngine::Helpers
             handle                           = Handle<T>{};
         }
 
-        size_t Size() const
+        std::size_t Size() const
         {
             std::shared_lock<std::shared_mutex> lock(m_mutex);
             return m_count;
         }
 
-        uint32_t Head() const
+        std::uint32_t Head() const
         {
             std::shared_lock<std::shared_mutex> lock(m_mutex);
             return m_head;
         }
 
-        void Dispose() {}
+        void Dispose() {
+            for (std::size_t i = 0; i < m_count; ++i)
+            {
+                m_memory[i].Dispose();
+            }
+        }
     };
 } // namespace ZEngine::Helpers

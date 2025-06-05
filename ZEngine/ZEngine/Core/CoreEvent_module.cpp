@@ -1,22 +1,12 @@
-#pragma once
-#include <ZEngine/ZEngineDef.h>
-#include <string>
+export module ZEngine.Core.CoreEvent;
 
-#define EVENT_TYPE(value)                           \
-    static ZEngine::Core::EventType GetStaticType() \
-    {                                               \
-        return ZEngine::Core::EventType::value;     \
-    }
+import std;
+import ZEngine.ZEngineDef;
 
-#define EVENT_CATEGORY(value)                                             \
-    static uint8_t GetStaticCategory()                                    \
-    {                                                                     \
-        return static_cast<uint8_t>(ZEngine::Core::EventCategory::value); \
-    }
 
-namespace ZEngine::Core
+export namespace ZEngine::Core
 {
-    enum EventCategory : uint8_t
+    enum EventCategory : std::uint8_t
     {
         None                   = 0,
         Engine                 = BIT(0),
@@ -26,7 +16,7 @@ namespace ZEngine::Core
         UserInterfaceComponent = BIT(4)
     };
 
-    enum class EventType : uint8_t
+    enum class EventType : std::uint8_t
     {
         None = 0,
 
@@ -94,4 +84,5 @@ namespace ZEngine::Core
         bool        m_handled{false};
         std::string m_name{};
     };
+
 } // namespace ZEngine::Core

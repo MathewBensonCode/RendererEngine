@@ -1,11 +1,11 @@
-#pragma once
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Windows/CoreWindow.h>
-#include <ZEngine/Windows/Inputs/KeyCode.h>
-#include <map>
-#include <type_traits>
+export module ZEngine.Windows.Inputs.IDevice;
 
-namespace ZEngine::Windows::Inputs
+import std;
+import ZEngine.Core.Memory.Allocator;
+import ZEngine.Windows.CoreWindow;
+import ZEngine.Windows.Inputs.KeyCode;
+
+export namespace ZEngine::Windows::Inputs
 {
 
     struct IDevice

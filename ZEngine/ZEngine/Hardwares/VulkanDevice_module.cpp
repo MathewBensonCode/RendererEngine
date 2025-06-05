@@ -1,29 +1,27 @@
-#pragma once
+module;
 #include <vk_mem_alloc.h>
 #include <vulkan/vulkan.h>
-// clang-format off
-#include <ZEngine/Hardwares/VulkanLayer.h>
-#include <ZEngine/Helpers/HandleManager.h>
-#include <ZEngine/Helpers/MemoryOperations.h>
-#include <ZEngine/Helpers/ThreadSafeQueue.h>
-#include <ZEngine/Rendering/Primitives/Fence.h>
-#include <ZEngine/Rendering/Primitives/Semaphore.h>
-#include <ZEngine/Rendering/Pools/CommandPool.h>
-#include <ZEngine/Rendering/Primitives/ImageMemoryBarrier.h>
-#include <ZEngine/Rendering/ResourceTypes.h>
-#include <ZEngine/Rendering/Specifications/ShaderSpecification.h>
-#include <ZEngine/Rendering/Textures/Texture.h>
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Containers/HashMap.h>
-#include <ZEngine/Core/Containers/Strings.h>
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <set>
-// clang-format on
 
-namespace ZEngine::Windows
-{
-    class CoreWindow;
-}
+export module ZEngine.Hardwares.VulkanDevice;
+
+import std;
+import ZEngine.Hardwares.VulkanLayer;
+import ZEngine.Helpers.HandleManager;
+import ZEngine.Helpers.MemoryOperations;
+import ZEngine.Helpers.ThreadSafeQueue;
+import ZEngine.Rendering.Primitives.Fence;
+import ZEngine.Rendering.Primitives.Semaphore;
+import ZEngine.Rendering.Pools.CommandPool;
+import ZEngine.Rendering.Primitives.ImageMemoryBarrier;
+import ZEngine.Rendering.ResourceTypes;
+import ZEngine.Rendering.Specifications.ShaderSpecification;
+import ZEngine.Rendering.Textures.Texture;
+import ZEngine.Core.Containers.Array;
+import ZEngine.Core.Containers.HashMap;
+import ZEngine.Core.Containers.Strings;
+import ZEngine.Core.Memory.Allocator;
+import ZEngine.Windows.CoreWindow;
+
 
 namespace ZEngine::Rendering::Renderers::RenderPasses
 {
@@ -36,7 +34,7 @@ namespace ZEngine::Rendering::Shaders
     struct Shader;
 }
 
-namespace ZEngine::Hardwares
+export namespace ZEngine::Hardwares
 {
     struct WriteDescriptorSetRequestKey;
     struct WriteDescriptorSetRequest;
@@ -118,20 +116,20 @@ namespace ZEngine::Hardwares
     {
         Core::Containers::Array<T> set = {};
 
-        T&                         operator[](uint32_t index)
+        T&                         operator[](std::uint32_t index)
         {
             ZENGINE_VALIDATE_ASSERT(index < set.size(), "Index out of range")
             return set[index];
         }
 
-        T& At(uint32_t index)
+        T& At(std::uint32_t index)
         {
             ZENGINE_VALIDATE_ASSERT(index < set.size(), "Index out of range")
             return set[index];
         }
 
         template <typename K>
-        void SetData(uint32_t index, std::span<const K> data)
+        void SetData(std::uint32_t index, std::span<const K> data)
         {
             ZENGINE_VALIDATE_ASSERT(index < set.size(), "Index out of range")
 
@@ -208,7 +206,7 @@ namespace ZEngine::Hardwares
     public:
         explicit StorageBuffer(Hardwares::VulkanDevice* device) : IGraphicBuffer(device) {}
 
-        void SetData(const void* data, uint32_t offset, size_t byte_size);
+        void SetData(const void* data, std::uint32_t offset, size_t byte_size);
 
         template <typename T>
         inline void SetData(std::span<const T> content)
@@ -330,7 +328,7 @@ namespace ZEngine::Hardwares
             SetData(content.data(), content.size_bytes());
         }
 
-        uint32_t GetCommandCount() const
+        std::uint32_t GetCommandCount() const
         {
             return m_command_count;
         }
@@ -354,7 +352,7 @@ namespace ZEngine::Hardwares
         void CleanUpMemory();
 
     private:
-        uint32_t   m_command_count{0};
+        std::uint32_t   m_command_count{0};
         BufferView m_indirect_buffer;
     };
 
@@ -363,7 +361,7 @@ namespace ZEngine::Hardwares
 
     template <>
     template <>
-    inline void IndirectBufferSet::SetData<VkDrawIndirectCommand>(uint32_t index, std::span<const VkDrawIndirectCommand> data)
+    inline void IndirectBufferSet::SetData<VkDrawIndirectCommand>(std::uint32_t index, std::span<const VkDrawIndirectCommand> data)
     {
         ZENGINE_VALIDATE_ASSERT(index < set.size(), "Index out of range")
         set[index]->SetData(data);
@@ -525,8 +523,8 @@ namespace ZEngine::Hardwares
         VkDescriptorImageInfo& GetDescriptorImageInfo();
 
     private:
-        uint32_t              m_width{1};
-        uint32_t              m_height{1};
+        std::uint32_t              m_width{1};
+        std::uint32_t              m_height{1};
         BufferImage           m_buffer_image;
         VkDescriptorImageInfo m_image_info;
         VulkanDevice*         m_device{nullptr};
@@ -534,7 +532,7 @@ namespace ZEngine::Hardwares
 
     struct DirtyResource
     {
-        uint32_t                      FrameIndex = UINT32_MAX;
+        std::uint32_t                      FrameIndex = UINT32_MAX;
         void*                         Handle     = nullptr;
         void*                         Data1      = nullptr;
         Rendering::DeviceResourceType Type;
@@ -542,7 +540,7 @@ namespace ZEngine::Hardwares
 
     struct QueueView
     {
-        uint32_t FamilyIndex{0xFFFFFFFF};
+        std::uint32_t FamilyIndex{0xFFFFFFFF};
         VkQueue  Handle{VK_NULL_HANDLE};
     };
 
@@ -583,21 +581,21 @@ namespace ZEngine::Hardwares
         Rendering::Primitives::Semaphore* GetSignalSemaphore() const;
         Rendering::Primitives::Fence*     GetSignalFence();
         void                              ClearColor(float r, float g, float b, float a);
-        void                              ClearDepth(float depth_color, uint32_t stencil);
+        void                              ClearDepth(float depth_color, std::uint32_t stencil);
         void                              BeginRenderPass(Rendering::Renderers::RenderPasses::RenderPass* const, VkFramebuffer framebuffer);
         void                              EndRenderPass();
-        void                              BindDescriptorSets(uint32_t frame_index = 0);
+        void                              BindDescriptorSets(std::uint32_t frame_index = 0);
         void                              BindDescriptorSet(const VkDescriptorSet& descriptor);
         void                              DrawIndirect(const Hardwares::IndirectBuffer& buffer);
-        void                              DrawIndexedIndirect(const Hardwares::IndirectBuffer& buffer, uint32_t count);
-        void                              DrawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, int32_t vertexOffset, uint32_t firstInstance);
-        void                              Draw(uint32_t vertex_count, uint32_t instance_count, uint32_t first_index, uint32_t first_instance);
+        void                              DrawIndexedIndirect(const Hardwares::IndirectBuffer& buffer, std::uint32_t count);
+        void                              DrawIndexed(std::uint32_t indexCount, std::uint32_t instanceCount, std::uint32_t firstIndex, int32_t vertexOffset, std::uint32_t firstInstance);
+        void                              Draw(std::uint32_t vertex_count, std::uint32_t instance_count, std::uint32_t first_index, std::uint32_t first_instance);
         void                              TransitionImageLayout(const Rendering::Primitives::ImageMemoryBarrier& image_barrier);
-        void                              CopyBufferToImage(const Hardwares::BufferView& source, Hardwares::BufferImage& destination, uint32_t width, uint32_t height, uint32_t layer_count, VkImageLayout new_layout);
+        void                              CopyBufferToImage(const Hardwares::BufferView& source, Hardwares::BufferImage& destination, std::uint32_t width, std::uint32_t height, std::uint32_t layer_count, VkImageLayout new_layout);
         void                              BindVertexBuffer(Hardwares::VertexBuffer& buffer);
         void                              BindIndexBuffer(const Hardwares::IndexBuffer& buffer, VkIndexType type);
         void                              SetScissor(const VkRect2D& scissor);
-        void                              PushConstants(VkShaderStageFlags stage_flags, uint32_t offset, uint32_t size, const void* data);
+        void                              PushConstants(VkShaderStageFlags stage_flags, std::uint32_t offset, std::uint32_t size, const void* data);
 
     private:
         std::atomic_uint8_t m_command_buffer_state{CommanBufferState::Idle};
@@ -639,7 +637,7 @@ namespace ZEngine::Hardwares
 
     struct WriteDescriptorSetRequestKey
     {
-        uint32_t        Binding = 0;
+        std::uint32_t        Binding = 0;
         VkDescriptorSet DstSet  = VK_NULL_HANDLE;
 
         bool            operator<(const WriteDescriptorSetRequestKey& other) const
@@ -654,11 +652,11 @@ namespace ZEngine::Hardwares
     {
         bool             Updated = false;
         int              Handle;
-        uint32_t         FrameIndex;
+        std::uint32_t         FrameIndex;
         VkDescriptorSet  DstSet;
-        uint32_t         Binding;
-        uint32_t         DstArrayElement;
-        uint32_t         DescriptorCount;
+        std::uint32_t         Binding;
+        std::uint32_t         DstArrayElement;
+        std::uint32_t         DescriptorCount;
         VkDescriptorType DescriptorType;
     };
 
@@ -670,16 +668,16 @@ namespace ZEngine::Hardwares
         bool                                                                                HasSeperateTransfertQueueFamily    = false;
         const char*                                                                         ApplicationName                    = "Tetragrama";
         const char*                                                                         EngineName                         = "ZEngine";
-        uint32_t                                                                            SwapchainImageCount                = 3;
-        uint32_t                                                                            SwapchainImageIndex                = std::numeric_limits<uint8_t>::max();
-        uint32_t                                                                            CurrentFrameIndex                  = std::numeric_limits<uint8_t>::max();
-        uint32_t                                                                            PreviousFrameIndex                 = std::numeric_limits<uint8_t>::max();
-        uint32_t                                                                            SwapchainImageWidth                = std::numeric_limits<uint32_t>::max();
-        uint32_t                                                                            SwapchainImageHeight               = std::numeric_limits<uint32_t>::max();
-        uint32_t                                                                            GraphicFamilyIndex                 = std::numeric_limits<uint32_t>::max();
-        uint32_t                                                                            TransferFamilyIndex                = std::numeric_limits<uint32_t>::max();
-        uint32_t                                                                            EnqueuedCommandbufferIndex         = 0;
-        uint32_t                                                                            WriteDescriptorSetIndex            = 0;
+        std::uint32_t                                                                            SwapchainImageCount                = 3;
+        std::uint32_t                                                                            SwapchainImageIndex                = std::numeric_limits<uint8_t>::max();
+        std::uint32_t                                                                            CurrentFrameIndex                  = std::numeric_limits<uint8_t>::max();
+        std::uint32_t                                                                            PreviousFrameIndex                 = std::numeric_limits<uint8_t>::max();
+        std::uint32_t                                                                            SwapchainImageWidth                = std::numeric_limits<std::uint32_t>::max();
+        std::uint32_t                                                                            SwapchainImageHeight               = std::numeric_limits<std::uint32_t>::max();
+        std::uint32_t                                                                            GraphicFamilyIndex                 = std::numeric_limits<std::uint32_t>::max();
+        std::uint32_t                                                                            TransferFamilyIndex                = std::numeric_limits<std::uint32_t>::max();
+        std::uint32_t                                                                            EnqueuedCommandbufferIndex         = 0;
+        std::uint32_t                                                                            WriteDescriptorSetIndex            = 0;
         VkInstance                                                                          Instance                           = VK_NULL_HANDLE;
         VkSurfaceKHR                                                                        Surface                            = VK_NULL_HANDLE;
         VkSurfaceFormatKHR                                                                  SurfaceFormat                      = {};
@@ -736,12 +734,12 @@ namespace ZEngine::Hardwares
         void                                                                                MapAndCopyToMemory(BufferView& buffer, size_t data_size, const void* data);
         BufferView                                                                          CreateBuffer(VkDeviceSize byte_size, VkBufferUsageFlags buffer_usage, VmaAllocationCreateFlags vma_create_flags = 0);
         void                                                                                CopyBuffer(const BufferView& source, const BufferView& destination, VkDeviceSize byte_size);
-        BufferImage                                                                         CreateImage(uint32_t width, uint32_t height, VkImageType image_type, VkImageViewType image_view_type, VkFormat image_format, VkImageTiling image_tiling, VkImageLayout image_initial_layout, VkImageUsageFlags image_usage, VkSharingMode image_sharing_mode, VkSampleCountFlagBits image_sample_count, VkMemoryPropertyFlags requested_properties, VkImageAspectFlagBits image_aspect_flag, uint32_t layer_count = 1U, VkImageCreateFlags image_create_flag_bit = 0);
+        BufferImage                                                                         CreateImage(std::uint32_t width, std::uint32_t height, VkImageType image_type, VkImageViewType image_view_type, VkFormat image_format, VkImageTiling image_tiling, VkImageLayout image_initial_layout, VkImageUsageFlags image_usage, VkSharingMode image_sharing_mode, VkSampleCountFlagBits image_sample_count, VkMemoryPropertyFlags requested_properties, VkImageAspectFlagBits image_aspect_flag, std::uint32_t layer_count = 1U, VkImageCreateFlags image_create_flag_bit = 0);
         VkSampler                                                                           CreateImageSampler();
         VkFormat                                                                            FindSupportedFormat(Core::Containers::ArrayView<VkFormat> format_collection, VkImageTiling image_tiling, VkFormatFeatureFlags feature_flags);
         VkFormat                                                                            FindDepthFormat();
-        VkImageView                                                                         CreateImageView(VkImage image, VkFormat image_format, VkImageViewType image_view_type, VkImageAspectFlagBits image_aspect_flag, uint32_t layer_count = 1U);
-        VkFramebuffer                                                                       CreateFramebuffer(Core::Containers::ArrayView<VkImageView> attachments, const VkRenderPass& render_pass, uint32_t width, uint32_t height, uint32_t layer_number = 1);
+        VkImageView                                                                         CreateImageView(VkImage image, VkFormat image_format, VkImageViewType image_view_type, VkImageAspectFlagBits image_aspect_flag, std::uint32_t layer_count = 1U);
+        VkFramebuffer                                                                       CreateFramebuffer(Core::Containers::ArrayView<VkImageView> attachments, const VkRenderPass& render_pass, std::uint32_t width, std::uint32_t height, std::uint32_t layer_number = 1);
         VertexBufferSetHandle                                                               CreateVertexBufferSet();
         StorageBufferSetHandle                                                              CreateStorageBufferSet();
         IndirectBufferSetHandle                                                             CreateIndirectBufferSet();
@@ -775,12 +773,12 @@ namespace ZEngine::Hardwares
     };
 } // namespace ZEngine::Hardwares
 
-namespace ZEngine::Helpers
+export namespace ZEngine::Helpers
 {
     template <>
     inline void HandleManager<Hardwares::VertexBufferSet>::Dispose()
     {
-        for (size_t i = 0; i < m_count; ++i)
+        for (std::size_t i = 0; i < m_count; ++i)
         {
             m_memory[i].Dispose();
         }
@@ -789,7 +787,7 @@ namespace ZEngine::Helpers
     template <>
     inline void HandleManager<Hardwares::StorageBufferSet>::Dispose()
     {
-        for (size_t i = 0; i < m_count; ++i)
+        for (std::size_t i = 0; i < m_count; ++i)
         {
             m_memory[i].Dispose();
         }
@@ -798,7 +796,7 @@ namespace ZEngine::Helpers
     template <>
     inline void HandleManager<Hardwares::IndirectBufferSet>::Dispose()
     {
-        for (size_t i = 0; i < m_count; ++i)
+        for (std::size_t i = 0; i < m_count; ++i)
         {
             m_memory[i].Dispose();
         }
@@ -807,7 +805,7 @@ namespace ZEngine::Helpers
     template <>
     inline void HandleManager<Hardwares::IndexBufferSet>::Dispose()
     {
-        for (size_t i = 0; i < m_count; ++i)
+        for (std::size_t i = 0; i < m_count; ++i)
         {
             m_memory[i].Dispose();
         }
@@ -816,7 +814,7 @@ namespace ZEngine::Helpers
     template <>
     inline void HandleManager<Hardwares::UniformBufferSet>::Dispose()
     {
-        for (size_t i = 0; i < m_count; ++i)
+        for (std::size_t i = 0; i < m_count; ++i)
         {
             m_memory[i].Dispose();
         }

@@ -1,4 +1,4 @@
-﻿#include <ZEngine/Core/Maths/Matrix.h>
+﻿import ZEngine.Core.Maths.Matrix;
 #include <gtest/gtest.h>
 
 using namespace ZEngine::Core::Maths;

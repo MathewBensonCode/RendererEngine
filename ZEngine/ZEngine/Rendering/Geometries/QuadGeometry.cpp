@@ -1,4 +1,7 @@
-#include <ZEngine/Rendering/Geometries/QuadGeometry.h>
+module ZEngine.Rendering.Geometries.QuadGeometry;
+
+import ZEngine.Rendering.Geometries.IGeometry;
+import ZEngine.Rendering.Renderers.Storages.GraphicVertex;
 
 namespace ZEngine::Rendering::Geometries
 {

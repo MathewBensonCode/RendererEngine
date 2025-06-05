@@ -1,5 +1,11 @@
-#include <ZEngine/Rendering/Renderers/Storages/GraphicVertex.h>
+module;
 #include <vulkan/vulkan.h>
+#include <glm/glm.hpp>
+
+module ZEngine.Rendering.Renderers.Storages.GraphicVertex;
+
+import ZEngine.Maths.Math;
+import ZEngine.Rendering.Buffers.BufferLayout;
 
 namespace ZEngine::Rendering::Renderers::Storages
 {

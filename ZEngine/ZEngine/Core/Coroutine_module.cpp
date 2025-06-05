@@ -1,5 +1,4 @@
-#pragma once
-#include <future>
+module;
 
 #if defined(__cpp_impl_coroutine) && __cpp_impl_coroutine >= 201902L
 #include <coroutine>
@@ -11,10 +10,13 @@
 #error Compiler support for coroutines missing!
 #endif
 
-#include <ZEngine/Core/CoroutineScheduler.h>
+export module ZEngine.Core.Coroutine;
+
+import std;
+import ZEngine.Core.CoroutineScheduler;
 
 #if defined(__cpp_impl_coroutine) || !defined(_MSC_VER)
-namespace ZENGINE_COROUTINE_NAMESPACE
+export namespace ZENGINE_COROUTINE_NAMESPACE
 {
     template <typename T, typename... Args>
     struct coroutine_traits<future<T>, Args...>
