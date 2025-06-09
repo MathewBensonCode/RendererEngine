@@ -12,13 +12,15 @@ FetchContent_Declare(
   imgui
   GIT_REPOSITORY https://github.com/ocornut/imgui.git
   GIT_SHALLOW TRUE
-  GIT_TAG v1.89.9-docking)
+  GIT_TAG v1.89.9-docking
+  )
 
 FetchContent_Declare(
-  ImGuizmo
+  imguizmo
   GIT_REPOSITORY https://github.com/CedricGuillemet/ImGuizmo.git
   GIT_SHALLOW TRUE
-  GIT_TAG 1.83)
+  GIT_TAG 1.83
+  )
 
 FetchContent_Declare(
   stbimage
@@ -105,7 +107,9 @@ Fetchcontent_Declare(
     GTest
     GIT_REPOSITORY https://github.com/google/googletest.git
     GIT_SHALLOW TRUE
-    FIND_PACKAGE_ARGS )
+    GIT_TAG main
+    FIND_PACKAGE_ARGS
+)
 
 Fetchcontent_Declare(
   nlohmann_json

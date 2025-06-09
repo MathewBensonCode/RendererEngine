@@ -108,10 +108,10 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
     Write-Host "Building $systemName $architecture $configuration"
 
     [string]$BuildDirectoryNameExtension = If ($isMultipleConfig) { "MultiConfig" } Else { $configuration }
-    [string]$BuildDirectoryName = "../"+"builds/renderengine/Result." + $systemName + "." + $architecture + "." + $BuildDirectoryNameExtension
+    [string]$BuildDirectoryName = "../"+"builds/renderengine"
     [string]$buildDirectoryPath = [IO.Path]::Combine($RepoRoot, $BuildDirectoryName)
     [string]$cMakeCacheVariableOverride = ""
-    [string]$cMakeGenerator = ""
+    [string]$cMakeGenerator = "Ninja"
 
     # Create build directory
     if (-Not (Test-Path $buildDirectoryPath)) {
@@ -119,36 +119,9 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
     }
 
     # Define CMake Generator argument
-    switch ($systemName) {
-        "Windows" {
-            switch ($VsVersion) {
-                2022 {
-                    $cMakeGenerator = "-G `"Visual Studio 17 2022`" -A $architecture"
-                }
-                Default {
-                    throw 'This version of Visual Studio is not supported'
-                }
-            }
-            $cMakeCacheVariableOverride += ' -DCMAKE_CONFIGURATION_TYPES=Debug;Release '
-        }
-        "Linux" {
-            $cMakeGenerator = "-G `"Ninja`""
+    
 
-            # Set Linux build compiler
-            $env:CC = 'gcc'
-            $env:CXX = 'g++'
-        }
-        "Darwin" {
-            $cMakeGenerator = "-G `"Xcode`""
-            $cMakeCacheVariableOverride += ' ' + $submoduleCMakeOptions.FRAMEWORK -join ' '
-        }
-        Default {
-            throw 'This system is not supported'
-        }
-    }
-
-
-    $cMakeArguments = " -S $repositoryRootPath -B $buildDirectoryPath $cMakeGenerator $cMakeCacheVariableOverride -DCMAKE_BUILD_TYPE=$configuration"
+    $cMakeArguments = " -S $repositoryRootPath -B $buildDirectoryPath -G $cMakeGenerator $cMakeCacheVariableOverride -DCMAKE_BUILD_TYPE=$configuration"
 
     # CMake Generation process
     Write-Host $cMakeArguments
@@ -207,15 +180,15 @@ if(-Not $LauncherOnly) {
     }
 
 
-    # Run Shader Compilation
-    #foreach ($config in $Configurations) {
-    #    $shaderCompileScript = Join-Path $PSScriptRoot -ChildPath "ShaderCompile.ps1"
-    #    & pwsh -File $shaderCompileScript -Configuration:$config -ForceRebuild:$true
-    #}
+#    Run Shader Compilation
+    foreach ($config in $Configurations) {
+        $shaderCompileScript = Join-Path $PSScriptRoot -ChildPath "ShaderCompile.ps1"
+        & pwsh -File $shaderCompileScript -Configuration:$config -ForceRebuild:$true
+    }
 
-    #if ($LASTEXITCODE -ne 0) {
-    #    Write-Error "Stopped build process..." -ErrorAction Stop
-    #}
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Stopped build process..." -ErrorAction Stop
+    }
 }
 
 # Run Engine Build

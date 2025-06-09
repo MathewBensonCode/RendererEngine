@@ -2,8 +2,8 @@
 #include <Tetragrama/Editor.h>
 #include <Tetragrama/Helpers/SearchPatternAlgorithm.h>
 #include <ZEngine/Helpers/MemoryOperations.h>
-#include <fstream>
 #include <imgui.h>
+#include <fstream>
 
 using namespace ZEngine::Helpers;
 

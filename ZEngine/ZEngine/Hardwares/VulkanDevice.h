@@ -63,7 +63,7 @@ namespace ZEngine::Hardwares
         VkBuffer      Handle     = VK_NULL_HANDLE;
         VmaAllocation Allocation = nullptr;
 
-                      operator bool() const
+        operator bool() const
         {
             return (Handle != VK_NULL_HANDLE);
         }
@@ -77,7 +77,7 @@ namespace ZEngine::Hardwares
         VkSampler     Sampler{VK_NULL_HANDLE};
         VmaAllocation Allocation{nullptr};
 
-                      operator bool() const
+        operator bool() const
         {
             return (Handle != VK_NULL_HANDLE);
         }

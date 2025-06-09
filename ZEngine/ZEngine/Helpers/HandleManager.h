@@ -20,7 +20,7 @@ namespace ZEngine::Helpers
     {
         unsigned long long Index = std::numeric_limits<unsigned long long>::max();
 
-        bool     Valid() const
+        bool               Valid() const
         {
             return Index != UINT32_MAX;
         }
