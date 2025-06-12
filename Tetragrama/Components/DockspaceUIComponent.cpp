@@ -1,4 +1,3 @@
-#include <ImGuizmo.h>
 #include <Tetragrama/Components/DockspaceUIComponent.h>
 #include <Tetragrama/Editor.h>
 #include <Tetragrama/Helpers/UIComponentDrawerHelper.h>
@@ -8,6 +7,8 @@
 #include <Tetragrama/Messengers/Messenger.h>
 #include <ZEngine/Logging/LoggerDefinition.h>
 #include <fmt/format.h>
+#include <imgui.h>
+#include <ImGuizmo.h>
 
 namespace fs = std::filesystem;
 
