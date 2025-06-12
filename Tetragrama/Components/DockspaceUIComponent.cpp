@@ -254,7 +254,7 @@ namespace Tetragrama::Components
 
             ImGui::PushFont(ImGui::GetIO().Fonts->Fonts[0]);
             ImGui::SetCursorPos(ImVec2(10, wind_size.y - 30));
-            ImGui::TextColored(s_scene_serializer_log_color, s_scene_serializer_log);
+            ImGui::TextColored(s_scene_serializer_log_color, "%s", s_scene_serializer_log);
             ImGui::PopFont();
 
             ImGui::EndPopup();

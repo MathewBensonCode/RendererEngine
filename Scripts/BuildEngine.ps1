@@ -108,7 +108,7 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
     Write-Host "Building $systemName $architecture $configuration"
 
     [string]$BuildDirectoryNameExtension = If ($isMultipleConfig) { "MultiConfig" } Else { $configuration }
-    [string]$BuildDirectoryName = "../"+"builds/renderengine"
+    [string]$BuildDirectoryName = "Result." + $systemName + "." + $architecture + "." + $BuildDirectoryNameExtension
     [string]$buildDirectoryPath = [IO.Path]::Combine($RepoRoot, $BuildDirectoryName)
     [string]$cMakeCacheVariableOverride = ""
     [string]$cMakeGenerator = "Ninja"
@@ -119,7 +119,20 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
     }
 
     # Define CMake Generator argument
-    
+    switch ($systemName) {
+        "Windows" {
+            switch ($VsVersion) {
+                2022 {
+                    $cMakeGenerator = "-G `"Visual Studio 17 2022`" -A $architecture"
+                }
+                Default {
+                    throw 'This version of Visual Studio is not supported'
+                }
+            }
+            $cMakeCacheVariableOverride += ' -DCMAKE_CONFIGURATION_TYPES=Debug;Release '
+        }
+        "Linux" {
+            $cMakeGenerator = "-G Ninja"
 
     $cMakeArguments = " -S $repositoryRootPath -B $buildDirectoryPath -G $cMakeGenerator $cMakeCacheVariableOverride -DCMAKE_BUILD_TYPE=$configuration"
 

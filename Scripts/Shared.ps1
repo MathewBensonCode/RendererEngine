@@ -185,8 +185,6 @@ function Find-GlslangValidator () {
 
 function Find-ClangFormat () {
     $repoConfiguration = Get-RepositoryConfiguration
-#    $LLVMMinimumVersion = $repoConfiguration.Requirements.LLVM.Version
-#    $LLVMMaximumVersion = $repoConfiguration.Requirements.LLVM.MaximumVersion
 
     $candidates = @(
         'clang-format'
@@ -213,6 +211,9 @@ function Find-ClangFormat () {
 }
 
 function Setup-ShaderCCompilerTool () {
+    if($IsLinux) {
+        return
+    }
     $repoConfiguration = Get-RepositoryConfiguration
     $repositoryToolPath = $repoConfiguration.Paths.Tools
 
