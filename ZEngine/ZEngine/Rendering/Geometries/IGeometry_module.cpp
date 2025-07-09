@@ -1,13 +1,13 @@
 module;
 #include <glm/glm.hpp>
 
-export module ZEngine.Rendering.Geometries.IGeometry;
+export module ZEngine.Rendering:Geometries.IGeometry;
 
 import std;
 import ZEngine.Helpers.IntrusivePtr;
 import ZEngine.Maths.Math;
-import ZEngine.Rendering.Geometries.GeometryEnum;
-import ZEngine.Rendering.Renderers.Storages.GraphicVertex;
+import :Geometries.GeometryEnum;
+import :Renderers.Storages.GraphicVertex;
 
 export namespace ZEngine::Rendering::Geometries
 {

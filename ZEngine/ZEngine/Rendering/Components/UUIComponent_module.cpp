@@ -1,7 +1,7 @@
 module;
 #include <uuid.h>
 
-export module ZEngine.Rendering.Components.UUIComponent;
+export module ZEngine.Rendering:Components.UUIComponent;
 
 import std;
 

@@ -1,4 +1,4 @@
-export module ZEngine.Windows.WindowProperty;
+export module ZEngine.Windows:WindowProperty;
 
 import std;
 import ZEngine.Core.Containers.Strings;

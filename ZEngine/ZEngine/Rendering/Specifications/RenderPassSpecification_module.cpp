@@ -1,13 +1,13 @@
 module;
 
-export module ZEngine.Rendering.Specifications.RenderPassSpecification;
+export module ZEngine.Rendering:Specifications.RenderPassSpecification;
 
 import std;
+import :Specifications.GraphicRendererPipelineSpecification;
+import :Specifications.TextureSpecification;
+import :Textures.Texture;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.HashMap;
-import ZEngine.Rendering.Specifications.GraphicRendererPipelineSpecification;
-import ZEngine.Rendering.Specifications.TextureSpecification;
-import ZEngine.Rendering.Textures.Texture;
 
 export namespace ZEngine::Rendering::Specifications
 {

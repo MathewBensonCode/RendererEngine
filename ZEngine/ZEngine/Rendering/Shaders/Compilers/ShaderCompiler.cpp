@@ -1,12 +1,14 @@
-module ZEngine.Rendering.Shaders.Compilers.ShaderCompiler;
+module ZEngine.Rendering;
 
+import std;
+import :Shaders.Compilers.ShaderCompiler;
+import :Shaders.Compilers.CompilationStage;
+import :Shaders.ShaderReader;
+import :Shaders.ShaderIncluder;
+import :Shaders.Compilers.ICompilerStage;
 import ZEngine.Core.Coroutine;
-import ZEngine.Logging.Logger;
-import ZEngine.Rendering.Shaders.Compilers.CompilationStage;
-import ZEngine.Rendering.Shaders.ShaderReader;
-import ZEngine.Rendering.Shaders.ShaderIncluder;
+import ZEngine.Logging;
 import ZEngine.Helpers.IntrusivePtr;
-import ZEngine.Rendering.Shaders.Compilers.ICompilerStage;
 
 using namespace ZEngine::Helpers;
 

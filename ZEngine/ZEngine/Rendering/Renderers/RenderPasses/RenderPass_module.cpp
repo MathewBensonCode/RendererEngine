@@ -1,15 +1,21 @@
 module;
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Renderers.RenderPasses.RenderPass;
+export module ZEngine.Rendering:Renderers.RenderPasses.RenderPass;
 
 import std;
+import :Buffers.Framebuffer;
+import :Renderers.Pipelines.RendererPipeline;
+import :Specifications.RenderPassSpecification;
+import :Textures.Texture;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Helpers.IntrusivePtr;
-import ZEngine.Rendering.Buffers.Framebuffer;
-import ZEngine.Rendering.Renderers.Pipelines.RendererPipeline;
-import ZEngine.Rendering.Specifications.RenderPassSpecification;
-import ZEngine.Rendering.Textures.Texture;
+
+namespace ZEngine::Rendering::Devices{
+    struct VulkanDevice;
+    struct UniformBufferSetHandle;
+    struct StorageBufferSetHandle;
+}                       
 
 
 export namespace ZEngine::Rendering::Renderers::RenderPasses
@@ -37,16 +43,16 @@ export namespace ZEngine::Rendering::Renderers::RenderPasses
         Renderers::RenderPasses::Attachment*    Attachment       = {nullptr};
         Pipelines::GraphicPipeline*             Pipeline         = {nullptr};
 
-        void                                    Initialize(Hardwares::VulkanDevice* device, const Specifications::RenderPassSpecification& specification);
+        void                                    Initialize(Devices::VulkanDevice* device, const Specifications::RenderPassSpecification& specification);
         void                                    Dispose();
         void                                    Bake();
         bool                                    Verify();
-        void                                    SetInput(std::string_view key_name, const Hardwares::UniformBufferSetHandle& buffer);
-        void                                    SetInput(std::string_view key_name, const Hardwares::StorageBufferSetHandle& buffer);
+        void                                    SetInput(std::string_view key_name, const Devices::UniformBufferSetHandle& buffer);
+        void                                    SetInput(std::string_view key_name, const Devices::StorageBufferSetHandle& buffer);
         void                                    SetInput(std::string_view key_name, const Textures::TextureHandle& texture);
         void                                    SetBindlessInput(std::string_view key_name);
         void                                    UpdateInputBinding();
-        ZRawPtr(Renderers::RenderPasses::Attachment) GetAttachment() const;
+        Renderers::RenderPasses::Attachment* GetAttachment() const;
         void     UpdateRenderTargets();
         std::uint32_t GetRenderAreaWidth() const;
         std::uint32_t GetRenderAreaHeight() const;
@@ -56,7 +62,7 @@ export namespace ZEngine::Rendering::Renderers::RenderPasses
 
     private:
         bool                     m_perform_update{false};
-        Hardwares::VulkanDevice* m_device;
+        Devices::VulkanDevice* m_device;
     };
 
     struct RenderPassBuilder

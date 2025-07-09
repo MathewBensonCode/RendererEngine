@@ -1,10 +1,6 @@
-module;
-
-export module ZEngine.Rendering.Components.GeometryComponent;
+export module ZEngine.Rendering:Components.GeometryComponent;
 
 import std;
-
-import ZEngine.Rendering.Meshes.Mesh;
 
 export namespace ZEngine::Rendering::Components
 {

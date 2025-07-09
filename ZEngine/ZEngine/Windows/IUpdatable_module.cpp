@@ -1,16 +1,15 @@
-export module ZEngine.Core.IUpdatable;
+export module ZEngine.Windows:IUpdatable;
 
 import std;
 import ZEngine.Core.TimeStep;
 
-export namespace ZEngine::Core
+namespace ZEngine::Windows
 {
-
-    struct IUpdatable
+    export struct IUpdatable
     {
         IUpdatable()                     = default;
         virtual ~IUpdatable()            = default;
 
-        virtual void Update(TimeStep dt) = 0;
+        virtual void Update(Core::TimeStep dt) = 0;
     };
 } // namespace ZEngine::Core

@@ -4,11 +4,11 @@ module;
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-export module ZEngine.Rendering.Cameras.Camera;
+export module ZEngine.Rendering:Cameras.Camera;
 
 import std;
+import :Cameras.CameraEnum;
 import ZEngine.Helpers.IntrusivePtr;
-import ZEngine.Rendering.Cameras.CameraEnum;
 
 export namespace ZEngine::Rendering::Cameras
 {

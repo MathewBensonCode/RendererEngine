@@ -6,14 +6,15 @@ module;
 #define VMA_VULKAN_VERSION 1003000 // Vulkan 1.3
 #include <vulkan/vulkan.h>
 
-module ZEngine.Hardwares.VulkanDevice;
+module ZEngine.Rendering;
 
+import :Devices.VulkanDevice;
+import :Pools.CommandPool;
+import :Renderers.RenderPasses.Attachment;
 import ZEngine.ZEngineDef;
 import ZEngine.Helpers.MemoryOperations;
 import ZEngine.Helpers.ThreadPool;
-import ZEngine.Logging.Logger;
-import ZEngine.Rendering.Pools.CommandPool;
-import ZEngine.Rendering.Renderers.RenderPasses.Attachment;
+import ZEngine.Logging;
 
 using namespace std::chrono_literals;
 using namespace ZEngine::Rendering::Primitives;
@@ -23,7 +24,7 @@ using namespace ZEngine::Rendering::Buffers;
 using namespace ZEngine::Rendering::Specifications;
 using namespace ZEngine::Core::Containers;
 
-namespace ZEngine::Hardwares
+namespace ZEngine::Rendering::Devices
 {
     void VulkanDevice::Initialize(ZEngine::Core::Memory::ArenaAllocator* arena, Windows::CoreWindow* const window)
     {
@@ -532,7 +533,7 @@ namespace ZEngine::Hardwares
 
         if (!fence->Wait())
         {
-            ZENGINE_CORE_WARN("Failed to wait for Command buffer's Fence, due to timeout")
+            ZEngine::Logging::Logger::Warn(std::format("Failed to wait for Command buffer's Fence, due to timeout"));
             return false;
         }
 
@@ -603,22 +604,22 @@ namespace ZEngine::Hardwares
     {
         if ((messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT) == VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT)
         {
-            ZENGINE_CORE_ERROR("{}", pCallbackData->pMessage)
+            ZEngine::Logging::Logger::Error(std::format("{}", pCallbackData->pMessage));
         }
 
         if ((messageSeverity & VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT) == VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT)
         {
-            ZENGINE_CORE_WARN("{}", pCallbackData->pMessage)
+            ZEngine::Logging::Logger::Warn(std::format("{}", pCallbackData->pMessage));
         }
 
         if ((messageSeverity & VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT) == VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT)
         {
-            ZENGINE_CORE_WARN("{}", pCallbackData->pMessage)
+            ZEngine::Logging::Logger::Warn(std::format("{}", pCallbackData->pMessage));
         }
 
         if ((messageSeverity & VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT) == VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT)
         {
-            ZENGINE_CORE_WARN("{}", pCallbackData->pMessage)
+            ZEngine::Logging::Logger::Warn(std::format("{}", pCallbackData->pMessage));
         }
 
         return VK_FALSE;
@@ -1221,7 +1222,7 @@ namespace ZEngine::Hardwares
     {
         using namespace std::chrono_literals;
 
-        ZENGINE_CORE_INFO("[*] Dirty Resource Collector started...")
+        ZEngine::Logging::Logger::Info(std::format("[*] Dirty Resource Collector started..."));
 
         while (RunningDirtyCollector)
         {
@@ -1354,7 +1355,7 @@ namespace ZEngine::Hardwares
             IdleFrameCount = 0;
         }
 
-        ZENGINE_CORE_INFO("[*] Dirty Resource Collector stopped...")
+        ZEngine::Logging::Logger::Info(std::format("[*] Dirty Resource Collector stopped..."));
     }
 
     Helpers::Handle<Rendering::Shaders::Shader> VulkanDevice::CompileShader(Rendering::Specifications::ShaderSpecificationType& spec)
@@ -1394,7 +1395,7 @@ namespace ZEngine::Hardwares
     /*
      * CommandBufferManager impl
      */
-    CommandBuffer::CommandBuffer(Hardwares::VulkanDevice* device, VkCommandPool command_pool, Rendering::QueueType type, bool one_time_usage) : Device(device), QueueType(type), m_command_pool(command_pool)
+    CommandBuffer::CommandBuffer(Devices::VulkanDevice* device, VkCommandPool command_pool, Rendering::QueueType type, bool one_time_usage) : Device(device), QueueType(type), m_command_pool(command_pool)
     {
         Device->Arena->CreateSubArena(ZKilo(120), &LocalArena);
         Create();
@@ -2144,7 +2145,7 @@ namespace ZEngine::Hardwares
         }
     }
 
-    Image2DBuffer::Image2DBuffer(Hardwares::VulkanDevice* device, const Specifications::Image2DBufferSpecification& spec) : m_device(device), m_width(spec.Width), m_height(spec.Height)
+    Image2DBuffer::Image2DBuffer(Devices::VulkanDevice* device, const Specifications::Image2DBufferSpecification& spec) : m_device(device), m_width(spec.Width), m_height(spec.Height)
     {
         ZENGINE_VALIDATE_ASSERT(m_width > 0, "Image width must be greater then zero")
         ZENGINE_VALIDATE_ASSERT(m_height > 0, "Image height must be greater then zero")

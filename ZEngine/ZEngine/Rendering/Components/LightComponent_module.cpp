@@ -1,10 +1,7 @@
-module;
-
-export module ZEngine.Rendering.Components.LightComponent;
+export module ZEngine.Rendering:Components.LightComponent;
 
 import std;
-
-import ZEngine.Rendering.Lights.Light;
+import :Lights.Light;
 import ZEngine.Helpers.IntrusivePtr;
 
 export namespace ZEngine::Rendering::Components

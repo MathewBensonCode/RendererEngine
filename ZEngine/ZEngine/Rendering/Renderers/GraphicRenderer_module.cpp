@@ -1,18 +1,23 @@
 module;
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Renderers.GraphicRenderer;
+export module ZEngine.Rendering:Renderers.GraphicRenderer;
 
 import std;
-import ZEngine.Rendering.Cameras.Camera;
-import ZEngine.Hardwares.VulkanDevice;
+import :Cameras.Camera;
+import :Primitives.Fence;
+import :Primitives.Semaphore;
+import :Renderers.RenderPasses.RenderPass;
+import :Textures.Texture;
+import :Devices.VulkanDevice;
 import ZEngine.Helpers.ThreadSafeQueue;
-import ZEngine.Rendering.Primitives.Fence;
-import ZEngine.Rendering.Primitives.Semaphore;
-import ZEngine.Rendering.Renderers.RenderPasses.RenderPass;
-import ZEngine.Rendering.Renderers.RenderGraph;
-import ZEngine.Rendering.Textures.Texture;
-import ZEngine.Rendering.Renderers.ImGUIRenderer;
+import ZEngine.Helpers.IntrusivePtr;
+
+
+namespace ZEngine::Rendering::Renderers{
+    struct RenderGraph;
+    struct ImGuiRenderer;
+}
 
 export namespace ZEngine::Rendering::Renderers
 {
@@ -49,22 +54,22 @@ export namespace ZEngine::Rendering::Renderers
 
         const char*                       FrameDepthRenderTargetName   = "g_frame_depth_render_target";
         const char*                       FrameColorRenderTargetName   = "g_frame_color_render_target";
-        Hardwares::UniformBufferSetHandle SceneCameraBufferHandle      = {};
+        Devices::UniformBufferSetHandle   SceneCameraBufferHandle      = {};
         Textures::TextureHandle           FrameColorRenderTarget       = {};
         Textures::TextureHandle           FrameDepthRenderTarget       = {};
-        Hardwares::VulkanDevice*          Device                       = nullptr;
-        ZRawPtr(Renderers::ImGUIRenderer) ImguiRenderer                = nullptr;
-        ZRawPtr(Renderers::RenderGraph) RenderGraph                    = nullptr;
-        ZRawPtr(Renderers::AsyncResourceLoader) AsyncLoader            = nullptr;
+        Devices::VulkanDevice*          Device                       = nullptr;
+        Renderers::ImGUIRenderer* ImguiRenderer                = nullptr;
+        Renderers::RenderGraph* RenderGraph                    = nullptr;
+        Renderers::AsyncResourceLoader* AsyncLoader            = nullptr;
         Helpers::ThreadSafeQueue<ResizeRequest> EnqueuedResizeRequests = {};
 
-        void                                    Initialize(Hardwares::VulkanDevice* device);
+        void                                    Initialize(Devices::VulkanDevice* device);
         void                                    Deinitialize();
         void                                    Update();
-        void                                    DrawScene(Hardwares::CommandBuffer* const command_buffer, Cameras::Camera* const camera, Scenes::SceneRawData* const scene);
+        void                                    DrawScene(Devices::CommandBuffer* const command_buffer, Cameras::Camera* const camera, Scenes::SceneRawData* const scene);
         Textures::TextureHandle                 GetFrameOutput();
 
-        ZRawPtr(RenderPasses::RenderPass) CreateRenderPass(const Specifications::RenderPassSpecification& spec);
+        RenderPasses::RenderPass* CreateRenderPass(const Specifications::RenderPassSpecification& spec*);
         Textures::TextureHandle CreateTexture(const Specifications::TextureSpecification& spec);
         Textures::TextureHandle CreateTexture(std::uint32_t width, std::uint32_t height);
         Textures::TextureHandle CreateTexture(std::uint32_t width, std::uint32_t height, float r, float g, float b, float a);
@@ -87,7 +92,7 @@ export namespace ZEngine::Rendering::Renderers
         std::mutex                                     m_mutex;
         std::condition_variable                        m_cond;
         std::vector<uint8_t>                           m_temp_buffer{};
-        Hardwares::CommandBufferManager                m_buffer_manager{};
+        Devices::CommandBufferManager                m_buffer_manager{};
         Helpers::ThreadSafeQueue<UpdateTextureRequest> m_update_texture_request;
         Helpers::ThreadSafeQueue<TextureFileRequest>   m_file_requests;
         Helpers::ThreadSafeQueue<TextureUploadRequest> m_upload_requests;

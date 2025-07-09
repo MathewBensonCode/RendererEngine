@@ -1,15 +1,15 @@
-export module ZEngine.Rendering.Renderers.RenderGraph;
+export module ZEngine.Rendering:Renderers.RenderGraph;
 
 import std;
-import ZEngine.Rendering.Buffers.Framebuffer;
+import :Buffers.Framebuffer;
+import :Renderers.RenderPasses.RenderPass;
+import :Scenes.GraphicScene;
+import :Specifications.TextureSpecification;
+import :Textures.Texture;
+import :Devices.VulkanDevice;
+import ZEngine.ZEngineDef;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.HashMap;
-import ZEngine.Hardwares.VulkanDevice;
-import ZEngine.Rendering.Renderers.RenderPasses.RenderPass;
-import ZEngine.Rendering.Scenes.GraphicScene;
-import ZEngine.Rendering.Specifications.TextureSpecification;
-import ZEngine.Rendering.Textures.Texture;
-import ZEngine.ZEngineDef;
 
 export namespace ZEngine::Rendering::Renderers
 {
@@ -39,11 +39,11 @@ export namespace ZEngine::Rendering::Renderers
         union
         {
             Textures::TextureHandle            TextureHandle;
-            Hardwares::UniformBufferSetHandle  UniformBufferSetHandle;
-            Hardwares::StorageBufferSetHandle  StorageBufferSetHandle;
-            Hardwares::IndirectBufferSetHandle IndirectBufferSetHandle;
-            Hardwares::VertexBufferSetHandle   VertexBufferSetHandle;
-            Hardwares::IndexBufferSetHandle    IndexBufferSetHandle;
+            Devices::UniformBufferSetHandle  UniformBufferSetHandle;
+            Devices::StorageBufferSetHandle  StorageBufferSetHandle;
+            Devices::IndirectBufferSetHandle IndirectBufferSetHandle;
+            Devices::VertexBufferSetHandle   VertexBufferSetHandle;
+            Devices::IndexBufferSetHandle    IndexBufferSetHandle;
         };
     };
 
@@ -73,8 +73,8 @@ export namespace ZEngine::Rendering::Renderers
     {
         virtual void Setup(std::string_view name, RenderGraph* const graph)                                                                                                                                                                                   = 0;
         virtual void Compile(RenderPasses::RenderPass** const pass, RenderGraph* const graph, Rendering::Scenes::SceneRawData* const scene)                                                                                                                   = 0;
-        virtual void Execute(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Hardwares::CommandBuffer* const command_buffer, RenderGraph* const graph)                                              = 0;
-        virtual void Render(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Buffers::FramebufferVNext* const framebuffer, Hardwares::CommandBuffer* const command_buffer, RenderGraph* const graph) = 0;
+        virtual void Execute(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Devices::CommandBuffer* const command_buffer, RenderGraph* const graph)                                              = 0;
+        virtual void Render(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Buffers::FramebufferVNext* const framebuffer, Devices::CommandBuffer* const command_buffer, RenderGraph* const graph) = 0;
     };
 
     struct RenderGraphNode
@@ -102,17 +102,17 @@ export namespace ZEngine::Rendering::Renderers
 
         void                               Setup();
         void                               Compile(Rendering::Scenes::SceneRawData* const scene_data);
-        void                               Execute(std::uint32_t frame_index, Hardwares::CommandBuffer* const command_buffer, Rendering::Scenes::SceneRawData* const scene_data);
+        void                               Execute(std::uint32_t frame_index, Devices::CommandBuffer* const command_buffer, Rendering::Scenes::SceneRawData* const scene_data);
         void                               Resize(std::uint32_t width, std::uint32_t height);
         void                               Dispose();
         RenderGraphResource&               GetResource(const char*);
         Textures::TextureHandle            GetRenderTarget(const char*);
         Textures::TextureHandle            GetTexture(const char*);
-        Hardwares::StorageBufferSetHandle  GetStorageBufferSet(const char*);
-        Hardwares::VertexBufferSetHandle   GetVertexBufferSet(const char*);
-        Hardwares::IndexBufferSetHandle    GetIndexBufferSet(const char*);
-        Hardwares::UniformBufferSetHandle  GetBufferUniformSet(const char*);
-        Hardwares::IndirectBufferSetHandle GetIndirectBufferSet(const char*);
+        Devices::StorageBufferSetHandle  GetStorageBufferSet(const char*);
+        Devices::VertexBufferSetHandle   GetVertexBufferSet(const char*);
+        Devices::IndexBufferSetHandle    GetIndexBufferSet(const char*);
+        Devices::UniformBufferSetHandle  GetBufferUniformSet(const char*);
+        Devices::IndirectBufferSetHandle GetIndirectBufferSet(const char*);
         RenderGraphNode&                   GetNode(const char*);
         void                               AddCallbackPass(const char* pass_name, IRenderGraphCallbackPass* const pass_callback, bool enabled = true);
 
@@ -130,8 +130,8 @@ export namespace ZEngine::Rendering::Renderers
         RenderGraphResource& CreateTexture(const char* name, const Specifications::TextureSpecification& spec);
         RenderGraphResource& CreateTexture(const char* name, const char* filename);
         RenderGraphResource& CreateRenderTarget(const char* name, const Specifications::TextureSpecification& spec);
-        RenderGraphResource& AttachBuffer(const char* name, const Hardwares::StorageBufferSetHandle& buffer);
-        RenderGraphResource& AttachBuffer(const char* name, const Hardwares::UniformBufferSetHandle& buffer);
+        RenderGraphResource& AttachBuffer(const char* name, const Devices::StorageBufferSetHandle& buffer);
+        RenderGraphResource& AttachBuffer(const char* name, const Devices::UniformBufferSetHandle& buffer);
         RenderGraphResource& AttachTexture(const char* name, const Textures::TextureHandle& texture);
         RenderGraphResource& AttachRenderTarget(const char* name, const Textures::TextureHandle& texture);
         void                 CreateRenderPassNode(const RenderGraphRenderPassCreation&);

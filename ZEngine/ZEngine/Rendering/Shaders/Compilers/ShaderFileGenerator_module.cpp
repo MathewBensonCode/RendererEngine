@@ -1,9 +1,8 @@
-export module ZEngine.Rendering.Shaders.Compilers.ShaderFileGenerator;
+export module ZEngine.Rendering:Shaders.Compilers.ShaderFileGenerator;
 
 import std;
-import ZEngine.Rendering.Shaders.Compilers.ICompilerStage;
-import ZEngine.Rendering.Shaders.ShaderEnums;
-import ZEngine.Rendering.Shaders.ShaderInformation;
+import :Shaders.Compilers.ICompilerStage;
+import :Shaders.ShaderInformation;
 
 export namespace ZEngine::Rendering::Shaders::Compilers
 {

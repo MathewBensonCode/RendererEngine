@@ -1,3 +1,6 @@
+module;
+#define INVALID_HANDLE_INDEX -1
+
 export module ZEngine.Helpers.HandleManager;
 
 import std;
@@ -6,15 +9,8 @@ import ZEngine.Core.Memory.Allocator;
 import ZEngine.Helpers.MemoryOperations;
 import ZEngine.ZEngineDef;
 
-#define INVALID_HANDLE_INDEX -1
-
 export namespace ZEngine::Helpers
 {
-    template <typename T>
-    struct Handle;
-
-    template <typename T>
-    class HandleManager;
 
     template <typename T>
     struct Handle
@@ -191,4 +187,5 @@ export namespace ZEngine::Helpers
             }
         }
     };
+    
 } // namespace ZEngine::Helpers

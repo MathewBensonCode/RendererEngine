@@ -1,8 +1,8 @@
-export module ZEngine.Rendering.Renderers.ImGUIRenderer;
+export module ZEngine.Rendering:Renderers.ImGUIRenderer;
 
 import std;
-import ZEngine.Rendering.Renderers.RenderGraph;
-import ZEngine.Rendering.Renderers.RenderPasses.RenderPass;
+import :Renderers.RenderGraph;
+import :Renderers.RenderPasses.RenderPass;
 
 export namespace ZEngine::Rendering::Renderers
 {

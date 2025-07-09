@@ -1,12 +1,12 @@
-export module ZEngine.Rendering.Meshes.MeshLight;
+export module ZEngine.Rendering:Meshes.MeshLight;
 
 import std;
-import ZEngine.Maths.Math;
-import ZEngine.Rendering.Lights.Light;
-import ZEngine.Rendering.Meshes.Mesh;
+import :Lights.Light;
+import :Meshes.Mesh;
+import :Geometries.IGeometry;
+import :Materials.ShaderMaterial;
 import ZEngine.Helpers.IntrusivePtr;
-import ZEngine.Rendering.Geometries.IGeometry;
-import ZEngine.Rendering.Materials.ShaderMaterial;
+import ZEngine.Maths.Math;
 
 export namespace ZEngine::Rendering::Mesh
 {
@@ -24,10 +24,10 @@ export namespace ZEngine::Rendering::Mesh
 
         virtual ~MeshLight() = default;
 
-        void                SetLight(const Lights::BasicLight&);
-        Lights::BasicLight& GetLight();
+        void                SetLight(const Lights::LightVNext&);
+        Lights::LightVNext& GetLight();
 
     private:
-        Lights::BasicLight m_basic_light;
+        Lights::LightVNext m_basic_light;
     };
 } // namespace ZEngine::Rendering::Mesh

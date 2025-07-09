@@ -1,10 +1,10 @@
-export module ZEngine.Windows.Inputs.IInputEventCallback;
+export module ZEngine.Windows:Inputs.IInputEventCallback;
 
 import std;
-import ZEngine.Windows.Events.KeyEvent;
-import ZEngine.Windows.Events.MouseEvent;
-import ZEngine.Windows.Events.TextInputEvent;
-import ZEngine.Windows.Events.WindowEvent;
+import :Events.KeyEvent;
+import :Events.MouseEvent;
+import :Events.TextInputEvent;
+import :Events.WindowEvent;
 
 export namespace ZEngine::Windows::Inputs
 {

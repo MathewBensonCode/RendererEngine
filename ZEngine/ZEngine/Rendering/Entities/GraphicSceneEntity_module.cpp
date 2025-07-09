@@ -1,10 +1,10 @@
 module;
 #include <entt/entt.hpp>
 
-export module ZEngine.Rendering.Entities.GraphicSceneEntity;
+export module ZEngine.Rendering:Entities.GraphicSceneEntity;
 
 import std;
-import ZEngine.Logging.Logger;
+import ZEngine.Logging;
 import ZEngine.ZEngineDef;
 
 export namespace ZEngine::Rendering::Scenes

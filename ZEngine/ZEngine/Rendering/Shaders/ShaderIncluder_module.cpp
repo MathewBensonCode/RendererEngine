@@ -1,12 +1,12 @@
 module;
 #include <glslang/Public/ShaderLang.h>
 
-export module ZEngine.Rendering.Shaders.ShaderIncluder;
+export module ZEngine.Rendering:Shaders.ShaderIncluder;
 
 import std;
-import ZEngine.Rendering.Shaders.ShaderReader;
+import :Shaders.ShaderReader;
 import ZEngine.ZEngineDef;
-import ZEngine.Logging.Logger;
+import ZEngine.Logging;
 
 export namespace ZEngine::Rendering::Shaders
 {

@@ -1,4 +1,4 @@
-export module ZEngine.Rendering.Buffers.BufferLayout;
+export module ZEngine.Rendering:Buffers.BufferLayout;
 
 import std;
 

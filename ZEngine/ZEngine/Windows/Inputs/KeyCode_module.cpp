@@ -1,4 +1,4 @@
-export module ZEngine.Windows.Inputs.KeyCode;
+export module ZEngine.Windows:Inputs.KeyCode;
 
 import std;
 

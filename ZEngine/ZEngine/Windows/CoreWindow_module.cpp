@@ -1,24 +1,24 @@
-export module ZEngine.Windows.CoreWindow;
+export module ZEngine.Windows:CoreWindow;
 
 import std;
+import :WindowConfiguration;
+import :WindowProperty;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.Strings;
 import ZEngine.Core.CoreEvent;
 import ZEngine.Core.EventDispatcher;
-import ZEngine.Core.IEventable;
 import ZEngine.Core.IInitializable;
-import ZEngine.Core.IRenderable;
-import ZEngine.Core.IUpdatable;
+import ZEngine.Rendering;
 import ZEngine.Core.Memory.Allocator;
 import ZEngine.Core.TimeStep;
 import ZEngine.Helpers.IntrusivePtr;
-import ZEngine.Windows.Inputs.IInputEventCallback;
-import ZEngine.Windows.WindowConfiguration;
-import ZEngine.Windows.WindowProperty;
 
 namespace ZEngine::Windows
 {
-   export class CoreWindow : public Inputs::IKeyboardEventCallback, public Inputs::IMouseEventCallback, public Inputs::ITextInputEventCallback, public Inputs::IWindowEventCallback, public Core::IUpdatable, public Core::IRenderable, public Core::IEventable
+  struct IEventable;
+  struct IUpdatable;
+
+   export class CoreWindow : public IKeyboardEventCallback, public Inputs::IMouseEventCallback, public Inputs::ITextInputEventCallback, public Inputs::IWindowEventCallback, public IUpdatable, public ZEngine::Rendering::IRenderable, public IEventable
 
     {
 
@@ -63,4 +63,29 @@ namespace ZEngine::Windows
     };
 
     CoreWindow* Create(Core::Memory::ArenaAllocator* arena, const WindowConfiguration& cfg);
+
+    CoreWindow::CoreWindow(const WindowConfiguration& cfg) : m_configuration(cfg) {}
+
+    CoreWindow::~CoreWindow() {}
+
+    void CoreWindow::ForwardEventToLayers(Core::CoreEvent& event)
+    {
+        for (auto layer : m_configuration.OverlayLayerCollection)
+        {
+            if (event.IsHandled())
+            {
+                break;
+            }
+            layer->OnEvent(event);
+        }
+
+        for (auto layer : m_configuration.RenderingLayerCollection)
+        {
+            if (event.IsHandled())
+            {
+                break;
+            }
+            layer->OnEvent(event);
+        }
+    }
 } // namespace ZEngine::Windows

@@ -1,8 +1,9 @@
-module ZEngine.Rendering.Shaders.Compilers.ShaderFileGenerator;
+module ZEngine.Rendering;
 
 import std;
+import :Shaders.Compilers.ShaderFileGenerator;
 import ZEngine.Core.Coroutine;
-import ZEngine.Logging.Logger;
+import ZEngine.Logging;
 
 namespace ZEngine::Rendering::Shaders::Compilers
 {

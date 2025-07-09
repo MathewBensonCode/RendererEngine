@@ -1,7 +1,9 @@
-module ZEngine.Rendering.Textures.Texture;
+module ZEngine.Rendering;
 
-import ZEngine.Rendering.Specifications.FormatSpecification;
-import ZEngine.Hardwares.VulkanDevice;
+import :Textures.Texture;
+import :Textures.Texture2D;
+import :Specifications.FormatSpecification;
+import :Devices.VulkanDevice;
 
 namespace ZEngine::Rendering::Textures
 {

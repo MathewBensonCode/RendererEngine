@@ -1,8 +1,8 @@
-export module ZEngine.Rendering.Renderers.Pipelines.IGraphicRendererPipelineStage;
+export module ZEngine.Rendering:Renderers.Pipelines.IGraphicRendererPipelineStage;
 
 import std;
+import :Renderers.Pipelines.GraphicRendererPipelineInformation;
 import ZEngine.Core.IPipeline;
-import ZEngine.Rendering.Renderers.Pipelines.GraphicRendererPipelineInformation;
 
 export namespace ZEngine::Rendering::Renderers::Pipelines
 {

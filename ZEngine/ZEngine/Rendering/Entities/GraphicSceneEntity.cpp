@@ -1,9 +1,10 @@
 module;
 #include <entt/entt.hpp>
 
-module ZEngine.Rendering.Entities.GraphicSceneEntity;
+module ZEngine.Rendering;
 
 import std;
+import :Entities.GraphicSceneEntity;
 
 namespace ZEngine::Rendering::Entities
 {

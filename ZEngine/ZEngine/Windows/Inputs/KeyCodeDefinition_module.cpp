@@ -1,8 +1,8 @@
-export module ZEngine.Windows.Inputs.KeyCodeDefinition;
+export module ZEngine.Windows:Inputs.KeyCodeDefinition;
 
-import ZEngine.Windows.Inputs.KeyCode;
+import :Inputs.KeyCode;
 
-using namespace ZEngine::Windows::Inputs;
+namespace ZEngine::Windows::Inputs{
 
 export auto ZENGINE_KEY_UNKNOWN = GlfwKeyCode::KEY_UNKNOWN;
 export auto ZENGINE_KEY_SPACE = GlfwKeyCode::KEY_SPACE;
@@ -133,3 +133,4 @@ export auto ZENGINE_MOUSE_BUTTON_5 = GlfwKeyCode::MOUSE_BUTTON_5;
 export auto ZENGINE_MOUSE_BUTTON_6 = GlfwKeyCode::MOUSE_BUTTON_6;
 export auto ZENGINE_MOUSE_BUTTON_7 = GlfwKeyCode::MOUSE_BUTTON_7;
 export auto ZENGINE_MOUSE_BUTTON_8 = GlfwKeyCode::MOUSE_BUTTON_8;
+}

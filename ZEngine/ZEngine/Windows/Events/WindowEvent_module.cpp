@@ -1,4 +1,4 @@
-export module ZEngine.Windows.Events.WindowEvent;
+export module ZEngine.Windows:Events.WindowEvent;
 
 import std;
 import ZEngine.Core.CoreEvent;

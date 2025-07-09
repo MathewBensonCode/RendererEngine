@@ -2,12 +2,13 @@ module;
 #include <spirv-tools/libspirv.hpp>
 #include <spirv-tools/optimizer.hpp>
 
-module ZEngine.Rendering.Shaders.Compilers.ValidationStage;
+module ZEngine.Rendering;
 
 import std;
+import :Shaders.Compilers.ValidationStage;
+import :Shaders.Compilers.ShaderFileGenerator;
 import ZEngine.Core.Coroutine;
-import ZEngine.Logging.Logger;
-import ZEngine.Rendering.Shaders.Compilers.ShaderFileGenerator;
+import ZEngine.Logging;
 import ZEngine.Helpers.IntrusivePtr;
 
 using namespace ZEngine::Helpers;

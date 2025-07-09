@@ -1,17 +1,19 @@
-module;
+export module ZEngine.Rendering:Geometries.SquareGeometry;
 
-export module ZEngine.Rendering.Geometries.SquareGeometry;
+import :Geometries.IGeometry;
 
-import std;
+namespace ZEngine::Rendering::Renderers::Storages{
+    struct GraphicVertex;
+}
 
-import ZEngine.Rendering.Geometries.IGeometry;
-
-export namespace ZEngine::Rendering::Geometries
+namespace ZEngine::Rendering::Geometries
 {
 
-    struct SquareGeometry : public IGeometry
+    export struct SquareGeometry : public IGeometry
     {
         SquareGeometry();
         ~SquareGeometry() = default;
     };
+
+    SquareGeometry::SquareGeometry() : IGeometry({Renderers::Storages::GraphicVertex({-0.5f, -0.5f, 1.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f}), Renderers::Storages::GraphicVertex({0.5f, -0.5f, 1.0f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}), Renderers::Storages::GraphicVertex({0.0f, 0.5f, 1.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f}), Renderers::Storages::GraphicVertex({0.5f, -0.5f, 1.0f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f})}) {}
 } // namespace ZEngine::Rendering::Geometries

@@ -1,8 +1,7 @@
 module;
-
 #include <glm/glm.hpp>
 
-export module ZEngine.Rendering.GPUTypes;
+export module ZEngine.Rendering:GPUTypes;
 
 import std;
 

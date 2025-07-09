@@ -2,10 +2,10 @@ module;
 #include <spdlog/sinks/base_sink.h>
 #include <spdlog/spdlog.h>
 
-export module ZEngine.Logging.Logger;
+export module ZEngine.Logging:Logger;
 
 import std;
-import ZEngine.Logging.LoggerConfiguration;
+import :LoggerConfiguration;
 
 export namespace ZEngine::Logging
 {

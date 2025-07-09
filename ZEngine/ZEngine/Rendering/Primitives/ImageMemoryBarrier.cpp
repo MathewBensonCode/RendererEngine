@@ -1,10 +1,12 @@
 module;
 #include <vulkan/vulkan.hpp>
 
-module ZEngine.Rendering.Primitives.ImageMemoryBarrier;
+module ZEngine.Rendering;
 
-import ZEngine.Rendering.Specifications.ImageMemoryBarrierSpecification;
-import ZEngine.Rendering.Specifications.FormatSpecification;
+import std;
+import :Primitives.ImageMemoryBarrier;
+import :Specifications.ImageMemoryBarrierSpecification;
+import :Specifications.FormatSpecification;
 
 using namespace ZEngine::Rendering::Specifications;
 

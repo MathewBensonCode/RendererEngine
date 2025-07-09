@@ -1,9 +1,9 @@
-export module ZEngine.Rendering.Materials.IMaterial;
+export module ZEngine.Rendering:Materials.IMaterial;
 
 import std;
+import :Shaders.ShaderEnums;
+import :Textures.Texture;
 import ZEngine.Helpers.IntrusivePtr;
-import ZEngine.Rendering.Shaders.ShaderEnums;
-import ZEngine.Rendering.Textures.Texture;
 import ZEngine.ZEngineDef;
 
 export namespace ZEngine::Rendering::Materials

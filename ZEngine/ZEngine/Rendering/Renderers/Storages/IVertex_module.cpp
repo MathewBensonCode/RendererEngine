@@ -3,7 +3,7 @@ module;
 #include <glm/glm.hpp>
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Renderers.Storages.IVertex;
+export module ZEngine.Rendering:Renderers.Storages.IVertex;
 
 import std;
 

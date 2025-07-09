@@ -2,11 +2,11 @@ module;
 #include <spirv-tools/libspirv.hpp>
 #include <spirv-tools/optimizer.hpp>
 
-export module ZEngine.Rendering.Shaders.Compilers.ValidationStage;
+export module ZEngine.Rendering:Shaders.Compilers.ValidationStage;
 
 import std;
-import ZEngine.Rendering.Shaders.Compilers.ICompilerStage;
-import ZEngine.Rendering.Shaders.ShaderInformation;
+import :Shaders.Compilers.ICompilerStage;
+import :Shaders.ShaderInformation;
 
 export namespace ZEngine::Rendering::Shaders::Compilers
 {

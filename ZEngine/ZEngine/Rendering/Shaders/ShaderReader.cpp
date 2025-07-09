@@ -1,7 +1,9 @@
-module ZEngine.Rendering.Shaders.ShaderReader;
+module ZEngine.Rendering;
 
+import std;
+import :Shaders.ShaderReader;
 import ZEngine.Core.Coroutine;
-import ZEngine.Logging.Logger;
+import ZEngine.Logging;
 import ZEngine.ZEngineDef;
 
 namespace ZEngine::Rendering::Shaders

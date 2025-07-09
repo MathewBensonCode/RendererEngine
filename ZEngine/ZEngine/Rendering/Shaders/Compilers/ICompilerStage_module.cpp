@@ -1,8 +1,8 @@
-export module ZEngine.Rendering.Shaders.Compilers.ICompilerStage;
+export module ZEngine.Rendering:Shaders.Compilers.ICompilerStage;
 
 import std;
+import :Shaders.ShaderInformation;
 import ZEngine.Core.IPipeline;
-import ZEngine.Rendering.Shaders.ShaderInformation;
 
 export namespace ZEngine::Rendering::Shaders::Compilers
 {

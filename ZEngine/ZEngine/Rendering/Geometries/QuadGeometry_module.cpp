@@ -1,16 +1,18 @@
-module;
+export module ZEngine.Rendering:Geometries.QuadGeometry;
 
-export module ZEngine.Rendering.Geometries.QuadGeometry;
+import :Geometries.IGeometry;
 
-import std;
-import ZEngine.Rendering.Geometries.IGeometry;
+namespace ZEngine::Rendering::Renderers::Storages{
+    struct GraphicVertex;
+}
 
-export namespace ZEngine::Rendering::Geometries
+namespace ZEngine::Rendering::Geometries
 {
-
-    struct QuadGeometry : public IGeometry
+    export struct QuadGeometry : public IGeometry
     {
         QuadGeometry();
         ~QuadGeometry() = default;
     };
+
+    QuadGeometry::QuadGeometry() : IGeometry({Renderers::Storages::GraphicVertex({-0.75f, -0.5f, 1.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f}), Renderers::Storages::GraphicVertex({0.75f, -0.5f, 1.0f}, {0.0f, 0.0f, 0.0f}, {1.0f, 0.0f}), Renderers::Storages::GraphicVertex({0.75f, 0.5f, 1.0f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f}), Renderers::Storages::GraphicVertex({-0.75f, 0.5f, 1.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f})}) {}
 } // namespace ZEngine::Rendering::Geometries

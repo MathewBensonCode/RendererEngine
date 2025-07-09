@@ -1,14 +1,15 @@
-module;
-
-module ZEngine.Rendering.Renderers.RenderPasses.RenderPass;
+module ZEngine.Rendering;
 
 import std;
-import fmt;
-import ZEngine.Hardwares.VulkanDevice;
+import :Renderers.RenderPasses.RenderPass;
 
 using namespace ZEngine::Rendering::Buffers;
 using namespace ZEngine::Rendering::Specifications;
 using namespace ZEngine::Helpers;
+
+namespace ZEngine::Rendering::Devices{
+    struct VulkanDevice;
+}
 
 namespace ZEngine::Rendering::Renderers::RenderPasses
 {
@@ -17,7 +18,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         Dispose();
     }
 
-    void RenderPass::Initialize(Hardwares::VulkanDevice* device, const Specifications::RenderPassSpecification& specification)
+    void RenderPass::Initialize(Devices::VulkanDevice* device, const Specifications::RenderPassSpecification& specification)
     {
         m_device      = device;
         Specification = specification;
@@ -127,16 +128,16 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
             }
             auto        start        = missing_names.begin();
             auto        end          = missing_names.end();
-            std::string unset_inputs = std::accumulate(std::next(start), end, *start, [](std::string_view a, std::string_view b) { return fmt::format("{}, {}", a, b); });
+            std::string unset_inputs = std::accumulate(std::next(start), end, *start, [](std::string_view a, std::string_view b) { return std::format("{}, {}", a, b); });
 
-            ZENGINE_CORE_WARN("Shader '{}': {} unset input(s): {}", Specification.PipelineSpecification.DebugName, missing_names.size(), unset_inputs);
+            ZEngine::Logging::Logger::Warn(std::format("Shader '{}': {} unset input(s): {}", Specification.PipelineSpecification.DebugName, missing_names.size(), unset_inputs));
 
             return false;
         }
         return true;
     }
 
-    void RenderPass::SetInput(std::string_view key_name, const Hardwares::UniformBufferSetHandle& handle)
+    void RenderPass::SetInput(std::string_view key_name, const Devices::UniformBufferSetHandle& handle)
     {
         auto validity_output = ValidateInput(key_name);
         if (!validity_output.first)
@@ -167,7 +168,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         Inputs.insert(key_name.data());
     }
 
-    void RenderPass::SetInput(std::string_view key_name, const Hardwares::StorageBufferSetHandle& handle)
+    void RenderPass::SetInput(std::string_view key_name, const Devices::StorageBufferSetHandle& handle)
     {
         auto validity_output = ValidateInput(key_name);
         if (!validity_output.first)
@@ -242,7 +243,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         for (unsigned i = 0; i < frame_count; ++i)
         {
             auto                                    set  = descriptor_set_map[binding_spec.Set][i];
-            Hardwares::WriteDescriptorSetRequestKey key  = {.Binding = binding_spec.Binding, .DstSet = set};
+            Devices::WriteDescriptorSetRequestKey key  = {.Binding = binding_spec.Binding, .DstSet = set};
             auto&                                   reqs = m_device->WriteBindlessDescriptorSetRequests;
             reqs.insert(key);
         }
@@ -341,7 +342,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         auto        binding_spec = shader->GetLayoutBindingSpecification(key.data());
         if ((binding_spec.Set == 0xFFFFFFFF) && (binding_spec.Binding == 0xFFFFFFFF))
         {
-            ZENGINE_CORE_ERROR("Shader input not found : {}", key.data())
+            ZEngine::Logging::Logger::Error(std::format("Shader input not found : {}", key.data()));
             valid = false;
         }
         return {valid, binding_spec};

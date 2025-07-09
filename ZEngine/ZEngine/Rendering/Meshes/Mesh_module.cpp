@@ -1,13 +1,11 @@
 module;
+#define INVALID_MAP_HANDLE 0xFFFFFFFFu
 
-export module ZEngine.Rendering.Meshes.Mesh;
+export module ZEngine.Rendering:Meshes.Mesh;
 
 import std;
-
-import ZEngine.Rendering.GPUTypes;
+import :GPUTypes;
 import ZEngine.ZEngineDef;
-
-#define INVALID_MAP_HANDLE 0xFFFFFFFFu
 
 export namespace ZEngine::Rendering::Meshes
 {
@@ -20,6 +18,7 @@ export namespace ZEngine::Rendering::Meshes
         SQUARE = 3
     };
 
+
     struct MeshVNext
     {
         std::uint32_t VertexCount          = 0;
@@ -31,6 +30,10 @@ export namespace ZEngine::Rendering::Meshes
         std::uint32_t VertexUnitStreamSize = 0;
         std::uint32_t IndexUnitStreamSize  = 0;
         std::uint32_t TotalByteSize        = 0;
+    };
+
+    struct Mesh : public MeshVNext{
+            bool m_is_MeshLight_mesh_object;
     };
 
     struct MeshMaterial

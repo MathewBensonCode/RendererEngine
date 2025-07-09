@@ -3,14 +3,15 @@ module;
 #include <glslang/Public/ShaderLang.h>
 #include <glslang/SPIRV/GlslangToSpv.h>
 
-module ZEngine.Rendering.Shaders.Compilers.CompilationStage;
+module ZEngine.Rendering;
 
 import std;
+import :Shaders.Compilers.ValidationStage;
+import :Shaders.Compilers.CompilationStage;
+import :Shaders.ShaderIncluder;
 import ZEngine.Core.Coroutine;
-import ZEngine.Logging.Logger;
+import ZEngine.Logging;
 import ZEngine.Helpers.IntrusivePtr;
-import ZEngine.Rendering.Shaders.Compilers.ValidationStage;
-import ZEngine.Rendering.Shaders.ShaderIncluder;
 
 using namespace ZEngine::Helpers;
 

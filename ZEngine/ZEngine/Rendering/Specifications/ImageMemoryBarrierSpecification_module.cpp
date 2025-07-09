@@ -2,10 +2,10 @@ module;
 
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Specifications.ImageMemoryBarrierSpecification;
+export module ZEngine.Rendering:Specifications.ImageMemoryBarrierSpecification;
 
 import std;
-import ZEngine.Rendering.Specifications.FormatSpecification;
+import :Specifications.FormatSpecification;
 
 export namespace ZEngine::Rendering::Specifications
 {

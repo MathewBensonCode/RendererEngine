@@ -1,8 +1,7 @@
 import ZEngine.Core.Coroutine;
-import ZEngine.Hardwares.VulkanDevice;
+import ZEngine.Rendering;
 import ZEngine.Helpers.MathHelper;
 import ZEngine.Helpers.MeshHelper;
-import ZEngine.Rendering.Renderers.Storages.IVertex;
 import ZEngine.ZEngineDef;
 
 using namespace ZEngine::Rendering::Renderers;

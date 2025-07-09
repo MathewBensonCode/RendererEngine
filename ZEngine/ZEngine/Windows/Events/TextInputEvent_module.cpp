@@ -1,4 +1,4 @@
-export module ZEngine.Windows.Events.TextInputEvent;
+export module ZEngine.Windows:Events.TextInputEvent;
 
 import std;
 import ZEngine.Core.CoreEvent;

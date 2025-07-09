@@ -1,11 +1,8 @@
 export module ZEngine.Helpers.ThreadPool;
 
 import std;
-
 import ZEngine.Helpers.IntrusivePtr;
 import ZEngine.Helpers.ThreadSafeQueue;
-
-
 
 export namespace ZEngine::Helpers
 {

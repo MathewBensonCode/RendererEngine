@@ -1,22 +1,22 @@
 module ZEngine.Engine;
 
 import std;
-import ZEngine.Hardwares.VulkanDevice;
-import ZEngine.Logging.Logger;
-import ZEngine.Rendering.Renderers.GraphicRenderer;
+import ZEngine.Rendering;
+import ZEngine.Logging;
+import ZEngine.Windows;
 
 namespace ZEngine
 {
     static bool              s_request_terminate                     = false;
     static std::shared_mutex g_mutex                                 = {};
-    static ZRawPtr(Windows::CoreWindow) g_current_window             = nullptr;
-    static ZRawPtr(Rendering::Renderers::GraphicRenderer) g_renderer = nullptr;
-    static ZRawPtr(Hardwares::VulkanDevice) g_device                 = nullptr;
+    static Windows::CoreWindow* g_current_window             = nullptr;
+    static Rendering::Renderers::GraphicRenderer* g_renderer = nullptr;
+    static Devices::VulkanDevice* g_device                 = nullptr;
 
-    void Engine::Initialize(ZEngine::Core::Memory::ArenaAllocator* arena, ZRawPtr(ZEngine::Windows::CoreWindow) const window)
+    void Engine::Initialize(ZEngine::Core::Memory::ArenaAllocator* arena, ZEngine::Windows::CoreWindow) const window*
     {
         g_current_window = window;
-        g_device         = ZPushStructCtor(arena, Hardwares::VulkanDevice);
+        g_device         = ZPushStructCtor(arena, Devices::VulkanDevice);
         g_renderer       = ZPushStructCtor(arena, Rendering::Renderers::GraphicRenderer);
 
         g_device->Initialize(arena, window);

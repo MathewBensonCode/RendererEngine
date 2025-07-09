@@ -1,15 +1,34 @@
 ﻿module;
 #include <entt/entt.hpp>
 #include <uuid.h>
+#include <glm/fwd.hpp>
 
-export module ZEngine.Rendering.Scenes.GraphicScene;
+export module ZEngine.Rendering:Scenes.GraphicScene;
 
 import std;
-import ZEngine.Hardwares.VulkanDevice;
-import ZEngine.Rendering.Lights.Light;
-import ZEngine.Rendering.Meshes.Mesh;
-import ZEngine.Rendering.Textures.Texture;
+import :Lights.Light;
+import :Meshes.Mesh;
+import :Textures.Texture;
 import ZEngine.ZEngineDef;
+import ZEngine.Helpers.IntrusivePtr;
+import ZEngine.Logging;
+
+namespace ZEngine::Rendering::Devices{
+    struct VulkanDevice;
+    struct StorageBufferSet;
+    struct IndirectBufferSet;
+    using StorageBufferSetHandle = Helpers::Handle<StorageBufferSet>;
+    using IndirectBufferSetHandle = Helpers::Handle<IndirectBufferSet>;
+}
+
+namespace ZEngine::Rendering::Renderers{
+    struct RenderGraph;
+    struct AsyncResourceLoader;
+}
+
+namespace ZEngine::Rendering::Serializers{
+    struct GraphicScene3DSerializer;
+}
 
 export namespace ZEngine::Rendering::Scenes
 {
@@ -76,12 +95,12 @@ export namespace ZEngine::Rendering::Scenes
         /*
          * Buffers
          */
-        Hardwares::StorageBufferSetHandle          TransformBufferHandle        = {};
-        Hardwares::StorageBufferSetHandle          VertexBufferHandle           = {};
-        Hardwares::StorageBufferSetHandle          IndexBufferHandle            = {};
-        Hardwares::StorageBufferSetHandle          MaterialBufferHandle         = {};
-        Hardwares::StorageBufferSetHandle          IndirectDataDrawBufferHandle = {};
-        Hardwares::IndirectBufferSetHandle         IndirectBufferHandle         = {};
+        Devices::StorageBufferSetHandle          TransformBufferHandle        = {};
+        Devices::StorageBufferSetHandle          VertexBufferHandle           = {};
+        Devices::StorageBufferSetHandle          IndexBufferHandle            = {};
+        Devices::StorageBufferSetHandle          MaterialBufferHandle         = {};
+        Devices::StorageBufferSetHandle          IndirectDataDrawBufferHandle = {};
+        Devices::IndirectBufferSetHandle         IndirectBufferHandle         = {};
 
         int                                        AddNode(int parent, int depth);
         bool                                       SetNodeName(int node_id, std::string_view name);
@@ -130,7 +149,7 @@ export namespace ZEngine::Rendering::Scenes
         {
             if (HasComponent<TComponent>())
             {
-                ZENGINE_CORE_WARN("This component has already been added to this entity")
+                ZEngine::Logging::Logger::Warn(std::format("This component has already been added to this entity"));
                 return GetComponent<TComponent>();
             }
 
@@ -163,7 +182,7 @@ export namespace ZEngine::Rendering::Scenes
         bool                           IsDrawDataDirty = false;
         Helpers::Ref<SceneRawData>     SceneData       = nullptr;
 
-        void                           InitOrResetDrawBuffer(Hardwares::VulkanDevice* device, Renderers::RenderGraph* render_graph, Renderers::AsyncResourceLoader* async_loader);
+        void                           InitOrResetDrawBuffer(Devices::VulkanDevice* device, Renderers::RenderGraph* render_graph, Renderers::AsyncResourceLoader* async_loader);
 
         void                           SetRootNodeName(std::string_view);
         void                           Merge(std::span<SceneRawData> scenes);
@@ -221,6 +240,6 @@ export namespace ZEngine::Rendering::Scenes
 
     private:
         std::recursive_mutex m_mutex = {};
-        friend class ZEngine::Serializers::GraphicScene3DSerializer;
+        friend class ZEngine::Rendering::Serializers::GraphicScene3DSerializer;
     };
 } // namespace ZEngine::Rendering::Scenes

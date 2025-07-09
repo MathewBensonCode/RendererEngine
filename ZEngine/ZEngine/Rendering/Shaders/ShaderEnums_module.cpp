@@ -1,6 +1,4 @@
-export module ZEngine.Rendering.Shaders.ShaderEnums;
-
-import std;
+export module ZEngine.Rendering:Shaders.ShaderEnums;
 
 export namespace ZEngine::Rendering::Shaders
 {

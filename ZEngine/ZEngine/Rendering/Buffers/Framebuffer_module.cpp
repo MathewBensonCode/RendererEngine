@@ -1,18 +1,21 @@
 module;
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Buffers.Framebuffer;
+export module ZEngine.Rendering:Buffers.Framebuffer;
 
 import std;
-import ZEngine.Rendering.Specifications.FrameBufferSpecification;
-import ZEngine.Hardwares.VulkanDevice;
+import :Specifications.FrameBufferSpecification;
+
+namespace ZEngine::Rendering::Devices{
+    struct VulkanDevice;
+}
 
 export namespace ZEngine::Rendering::Buffers
 {
     struct FramebufferVNext
     {
-        FramebufferVNext(Hardwares::VulkanDevice* device, const Specifications::FrameBufferSpecificationVNext&);
-        FramebufferVNext(Hardwares::VulkanDevice* device, Specifications::FrameBufferSpecificationVNext&&);
+        FramebufferVNext(Devices::VulkanDevice* device, const Specifications::FrameBufferSpecificationVNext&);
+        FramebufferVNext(Devices::VulkanDevice* device, Specifications::FrameBufferSpecificationVNext&&);
         ~FramebufferVNext();
 
         VkFramebuffer                                        Handle{VK_NULL_HANDLE};
@@ -27,6 +30,6 @@ export namespace ZEngine::Rendering::Buffers
 
     private:
         Specifications::FrameBufferSpecificationVNext m_specification{};
-        Hardwares::VulkanDevice*                      m_device{nullptr};
+        Devices::VulkanDevice*                      m_device{nullptr};
     };
 } // namespace ZEngine::Rendering::Buffers

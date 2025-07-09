@@ -1,12 +1,11 @@
 export module ZEngine.EngineConfiguration;
 
 import std;
-import ZEngine.Logging.LoggerConfiguration;
-import ZEngine.Windows.WindowConfiguration;
+import ZEngine.Logging;
+import ZEngine.Windows;
 
 export namespace ZEngine
 {
-
     struct EngineConfiguration
     {
         Logging::LoggerConfiguration LoggerConfiguration;

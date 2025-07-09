@@ -1,8 +1,7 @@
 // module;
 //
-export module ZEngine.Rendering.Meshes.MeshBuilder;
+export module ZEngine.Rendering:Meshes.MeshBuilder;
 
-import std;
 //
 // #include <ZEngine/Rendering/Meshes/Mesh.h>
 // #include <ZEngine/Rendering/Lights/Light.h>

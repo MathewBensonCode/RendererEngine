@@ -1,4 +1,4 @@
-export module ZEngine.Rendering.ResourceTypes;
+export module ZEngine.Rendering:ResourceTypes;
 
 export namespace ZEngine::Rendering
 {

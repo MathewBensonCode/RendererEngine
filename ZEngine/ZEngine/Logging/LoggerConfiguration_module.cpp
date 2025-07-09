@@ -1,10 +1,10 @@
-export module ZEngine.Logging.LoggerConfiguration;
+export module ZEngine.Logging:LoggerConfiguration;
 
 import std;
 
-export namespace ZEngine::Logging
+namespace ZEngine::Logging
 {
-    struct LoggerConfiguration
+    export struct LoggerConfiguration
     {
         std::string               EngineLoggerName = "ENGINE";
         std::string               OutputDirectory  = "Logs";

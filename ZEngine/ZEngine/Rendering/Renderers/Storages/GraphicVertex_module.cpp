@@ -1,11 +1,11 @@
 module;
 #include <glm/glm.hpp>
 
-export module ZEngine.Rendering.Renderers.Storages.GraphicVertex;
+export module ZEngine.Rendering:Renderers.Storages.GraphicVertex;
 
 import std;
-import ZEngine.Rendering.Buffers.BufferLayout;
-import ZEngine.Rendering.Renderers.Storages.IVertex;
+import :Buffers.BufferLayout;
+import :Renderers.Storages.IVertex;
 
 
 export namespace ZEngine::Rendering::Renderers::Storages

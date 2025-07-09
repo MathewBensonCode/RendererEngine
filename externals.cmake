@@ -2,13 +2,6 @@
 include(FetchContent)
 
 FetchContent_Declare(
-  fmt
-  GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-  GIT_SHALLOW TRUE
-  OVERRIDE_FIND_PACKAGE 
-  )
-
-FetchContent_Declare(
   imgui
   GIT_REPOSITORY https://github.com/ocornut/imgui.git
   GIT_SHALLOW TRUE
@@ -137,7 +130,6 @@ Fetchcontent_Declare(
 	
 
 FetchContent_MakeAvailable(
-  fmt
   imgui
   ImGuizmo
   stbimage

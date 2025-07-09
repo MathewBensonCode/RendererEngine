@@ -1,11 +1,9 @@
 module;
-
 #include <glm/glm.hpp>
 
-export module ZEngine.Rendering.Components.TransformComponent;
+export module ZEngine.Rendering:Components.TransformComponent;
 
 import std;
-
 import ZEngine.Maths.Math;
 
 export namespace ZEngine::Rendering::Components

@@ -1,15 +1,14 @@
 module;
 #include <yaml-cpp/yaml.h>
 
-export module ZEngine.Serializers.GraphicScene3DSerializer;
+export module ZEngine.Rendering:Serializers.GraphicScene3DSerializer;
 
 import std;
 import ZEngine.Maths.Math;
-import ZEngine.Rendering.Entities.GraphicSceneEntity;
-import ZEngine.Serializers.GraphicSceneSerializer;
+import :Serializers.GraphicSceneSerializer;
 import ZEngine.ZEngineDef;
 
-export namespace ZEngine::Serializers
+export namespace ZEngine::Rendering::Serializers
 {
 
     YAML::Emitter& operator<<(YAML::Emitter& emitter, const ZEngine::Maths::Vector4& v)

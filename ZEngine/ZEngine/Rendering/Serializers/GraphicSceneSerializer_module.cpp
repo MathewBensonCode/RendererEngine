@@ -1,12 +1,12 @@
-export module ZEngine.Serializers.GraphicSceneSerializer;
+export module ZEngine.Rendering:Serializers.GraphicSceneSerializer;
 
 import std;
 import ZEngine.Core.ISerializer;
-import ZEngine.Rendering.Scenes.GraphicScene;
 import ZEngine.ZEngineDef;
+import :Scenes.GraphicScene;
 
 
-namespace ZEngine::Serializers
+namespace ZEngine::Rendering::Serializers
 {
     struct GraphicSceneSerializer : public Core::ISerializer
     {

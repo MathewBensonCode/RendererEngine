@@ -1,21 +1,22 @@
-module ZEngine.Rendering.Renderers.Pipelines.RendererPipeline;
+module ZEngine.Rendering;
 
 import std;
-import ZEngine.Hardwares.VulkanDevice;
+import :Renderers.Pipelines.RendererPipeline;
+import :Devices.VulkanDevice;
 
 using namespace ZEngine::Helpers;
 using namespace ZEngine::Core::Containers;
 
 namespace ZEngine::Rendering::Renderers::Pipelines
 {
-    void GraphicPipeline::Initialize(Hardwares::VulkanDevice* device, Specifications::GraphicRendererPipelineSpecification&& spec)
+    void GraphicPipeline::Initialize(Devices::VulkanDevice* device, Specifications::GraphicRendererPipelineSpecification&& spec)
     {
         Device             = device;
         Specification      = std::move(spec);
         auto shader_handle = Device->CompileShader(Specification.ShaderSpecification);
         if (!shader_handle)
         {
-            ZENGINE_CORE_ERROR("")
+            ZEngine::Logging::Logger::Error(std::format(""));
             return;
         }
 

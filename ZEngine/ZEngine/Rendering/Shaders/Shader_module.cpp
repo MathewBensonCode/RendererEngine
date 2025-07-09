@@ -1,12 +1,19 @@
-export module ZEngine.Rendering.Shaders.Shader;
+module;
+#include <vulkan/vulkan.h>
+
+export module ZEngine.Rendering:Shaders.Shader;
 
 import std;
+import :Specifications.ShaderSpecification;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.HashMap;
 import ZEngine.Core.Memory.Allocator;
-import ZEngine.Hardwares.VulkanDevice;
-import ZEngine.Rendering.Specifications.ShaderSpecification;
 import ZEngine.ZEngineDef;
+
+
+namespace ZEngine::Rendering::Devices{
+    struct VulkanDevice;
+}
 
 export namespace ZEngine::Rendering::Shaders
 {
@@ -15,7 +22,7 @@ export namespace ZEngine::Rendering::Shaders
         Shader();
         ~Shader();
 
-        void                                                                                                     Initialize(Hardwares::VulkanDevice* device, const Specifications::ShaderSpecificationType& spec);
+        void                                                                                                     Initialize(Devices::VulkanDevice* device, const Specifications::ShaderSpecificationType& spec);
         void                                                                                                     Dispose();
         Specifications::LayoutBindingSpecification                                                               GetLayoutBindingSpecification(const char* name);
 
@@ -39,20 +46,8 @@ export namespace ZEngine::Rendering::Shaders
         void CreatePushConstantRange();
 
     private:
-        Hardwares::VulkanDevice* m_device{nullptr};
+        Devices::VulkanDevice* m_device{nullptr};
     };
 
     Shader* CreateShader(const char* filename, bool defer_program_creation = false);
 } // namespace ZEngine::Rendering::Shaders
-
-namespace ZEngine::Helpers
-{
-    template <>
-    inline void HandleManager<Rendering::Shaders::Shader>::Dispose()
-    {
-        for (std::size_t i = 0; i < m_count; ++i)
-        {
-            m_memory[i].Dispose();
-        }
-    }
-} // namespace ZEngine::Helpers

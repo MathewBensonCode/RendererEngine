@@ -1,17 +1,42 @@
-module;
-
-export module ZEngine.Rendering.Geometries.CubeGeometry;
+export module ZEngine.Rendering:Geometries.CubeGeometry;
 
 import std;
+import :Geometries.IGeometry;
 
-import ZEngine.Rendering.Geometries.IGeometry;
+namespace ZEngine::Rendering::Renderers::Storages{
+    struct GraphicVertex;
+}
 
-export namespace ZEngine::Rendering::Geometries
+namespace ZEngine::Rendering::Geometries
 {
 
-    struct CubeGeometry : public IGeometry
+    export struct CubeGeometry : public IGeometry
     {
         CubeGeometry();
         ~CubeGeometry() = default;
     };
+
+    CubeGeometry::CubeGeometry()
+        : IGeometry({
+          Renderers::Storages::GraphicVertex({-0.75f, -0.75f, -0.75f}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f}), Renderers::Storages::GraphicVertex({0.75f, -0.75f, -0.75f}, {0.0f, 0.0f, -1.0f}, {1.0f, 0.0f}), Renderers::Storages::GraphicVertex({0.75f, 0.75f, -0.75f}, {0.0f, 0.0f, -1.0f}, {1.0f, 1.0f}),
+          Renderers::Storages::GraphicVertex({0.75f, 0.75f, -0.75f}, {0.0f, 0.0f, -1.0f}, {1.0f, 1.0f}),   Renderers::Storages::GraphicVertex({-0.75f, 0.75f, -0.75f}, {0.0f, 0.0f, -1.0f}, {0.0f, 1.0f}), Renderers::Storages::GraphicVertex({-0.75f, -0.75f, -0.75f}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f}),
+
+          Renderers::Storages::GraphicVertex({-0.75f, -0.75f, 0.75f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}),   Renderers::Storages::GraphicVertex({0.75f, -0.75f, 0.75f}, {0.0f, 0.0f, 1.0f}, {1.0f, 0.0f}),   Renderers::Storages::GraphicVertex({0.75f, 0.75f, 0.75f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}),
+          Renderers::Storages::GraphicVertex({0.75f, 0.75f, 0.75f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}),     Renderers::Storages::GraphicVertex({-0.75f, 0.75f, 0.75f}, {0.0f, 0.0f, 1.0f}, {0.0f, 1.0f}),   Renderers::Storages::GraphicVertex({-0.75f, -0.75f, 0.75f}, {0.0f, 0.0f, 1.0f}, {0.0f, 0.0f}),
+
+          Renderers::Storages::GraphicVertex({-0.75f, 0.75f, 0.75f}, {-1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}),   Renderers::Storages::GraphicVertex({-0.75f, 0.75f, -0.75f}, {-1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}), Renderers::Storages::GraphicVertex({-0.75f, -0.75f, -0.75f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}),
+          Renderers::Storages::GraphicVertex({-0.75f, -0.75f, -0.75f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}), Renderers::Storages::GraphicVertex({-0.75f, -0.75f, 0.75f}, {-1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}), Renderers::Storages::GraphicVertex({-0.75f, 0.75f, 0.75f}, {-1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}),
+
+          Renderers::Storages::GraphicVertex({0.75f, 0.75f, 0.75f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}),     Renderers::Storages::GraphicVertex({0.75f, 0.75f, -0.75f}, {1.0f, 0.0f, 0.0f}, {1.0f, 1.0f}),   Renderers::Storages::GraphicVertex({0.75f, -0.75f, -0.75f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}),
+          Renderers::Storages::GraphicVertex({0.75f, -0.75f, -0.75f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f}),   Renderers::Storages::GraphicVertex({0.75f, -0.75f, 0.75f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}),   Renderers::Storages::GraphicVertex({0.75f, 0.75f, 0.75f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f}),
+
+          Renderers::Storages::GraphicVertex({-0.75f, -0.75f, -0.75f}, {0.0f, -1.0f, 0.0f}, {0.0f, 1.0f}), Renderers::Storages::GraphicVertex({0.75f, -0.75f, -0.75f}, {0.0f, -1.0f, 0.0f}, {1.0f, 1.0f}), Renderers::Storages::GraphicVertex({0.75f, -0.75f, 0.75f}, {0.0f, -1.0f, 0.0f}, {1.0f, 0.0f}),
+          Renderers::Storages::GraphicVertex({0.75f, -0.75f, 0.75f}, {0.0f, -1.0f, 0.0f}, {1.0f, 0.0f}),   Renderers::Storages::GraphicVertex({-0.75f, -0.75f, 0.75f}, {0.0f, -1.0f, 0.0f}, {0.0f, 0.0f}), Renderers::Storages::GraphicVertex({-0.75f, -0.75f, -0.75f}, {0.0f, -1.0f, 0.0f}, {0.0f, 1.0f}),
+
+          Renderers::Storages::GraphicVertex({-0.75f, 0.75f, -0.75f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}),   Renderers::Storages::GraphicVertex({0.75f, 0.75f, -0.75f}, {0.0f, 1.0f, 0.0f}, {1.0f, 1.0f}),   Renderers::Storages::GraphicVertex({0.75f, 0.75f, 0.75f}, {0.0f, 1.0f, 0.0f}, {1.0f, 0.0f}),
+          Renderers::Storages::GraphicVertex({0.75f, 0.75f, 0.75f}, {0.0f, 1.0f, 0.0f}, {1.0f, 0.0f}),     Renderers::Storages::GraphicVertex({-0.75f, 0.75f, 0.75f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f}),   Renderers::Storages::GraphicVertex({-0.75f, 0.75f, -0.75f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}),
+          })
+    {
+        m_geometry_type = GeometryType::CUBE;
+    }
 } // namespace ZEngine::Rendering::Geometries

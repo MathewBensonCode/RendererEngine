@@ -4,12 +4,12 @@ import std;
 import ZEngine.EngineConfiguration;
 import ZEngine.Event.EngineClosedEvent;
 import ZEngine.Helpers.IntrusivePtr;
-import ZEngine.Windows.CoreWindow;
+import ZEngine.Windows;
 import ZEngine.Core.Memory.Allocator;
 
-export namespace ZEngine
+namespace ZEngine
 {
-    struct Engine
+    export struct Engine
     {
         static void                 Initialize(ZEngine::Core::Memory::ArenaAllocator* arena, ZEngine::Windows::CoreWindow* const);
         static void                 Run();

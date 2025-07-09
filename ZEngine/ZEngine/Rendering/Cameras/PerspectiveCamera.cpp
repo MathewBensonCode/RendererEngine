@@ -1,10 +1,11 @@
 module;
 #include <glm/gtx/quaternion.hpp>
-#include <algorithm>
 
-module ZEngine.Rendering.Cameras.PerspectiveCamera;
+module ZEngine.Rendering;
 
-import ZEngine.Rendering.Cameras.CameraEnum;
+import std;
+import :Cameras.PerspectiveCamera;
+import :Cameras.CameraEnum;
 
 namespace ZEngine::Rendering::Cameras
 {

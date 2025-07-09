@@ -1,15 +1,17 @@
 module;
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Renderers.Pipelines.RendererPipeline;
+export module ZEngine.Rendering:Renderers.Pipelines.RendererPipeline;
 
 import std;
-
-import ZEngine.Hardwares.VulkanDevice;
-import ZEngine.Rendering.Shaders.Shader;
-import ZEngine.Rendering.Specifications.GraphicRendererPipelineSpecification;
-
+import :Shaders.Shader;
+import :Specifications.GraphicRendererPipelineSpecification;
 import ZEngine.ZEngineDef;
+
+
+namespace ZEngine::Rendering::Devices{
+    struct VulkanDevice;
+}
 
 export namespace ZEngine::Rendering::Renderers::Pipelines
 {
@@ -21,11 +23,11 @@ export namespace ZEngine::Rendering::Renderers::Pipelines
 
         Specifications::GraphicRendererPipelineSpecification Specification = {};
         Shaders::Shader*                                     Shader        = nullptr;
-        Hardwares::VulkanDevice*                             Device        = nullptr;
+        Devices::VulkanDevice*                             Device        = nullptr;
         VkPipeline                                           Handle        = VK_NULL_HANDLE;
         VkPipelineLayout                                     Layout        = VK_NULL_HANDLE;
 
-        void                                                 Initialize(Hardwares::VulkanDevice* device, Specifications::GraphicRendererPipelineSpecification&& spec);
+        void                                                 Initialize(Devices::VulkanDevice* device, Specifications::GraphicRendererPipelineSpecification&& spec);
         void                                                 Bake();
         void                                                 Dispose();
     };

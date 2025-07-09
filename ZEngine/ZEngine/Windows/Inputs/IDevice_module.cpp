@@ -1,10 +1,10 @@
-export module ZEngine.Windows.Inputs.IDevice;
+export module ZEngine.Windows:Inputs.IDevice;
 
 import std;
+import :Inputs.KeyCode;
 import ZEngine.Core.Memory.Allocator;
-import ZEngine.Windows.CoreWindow;
-import ZEngine.Windows.Inputs.KeyCode;
 import ZEngine.ZEngineDef;
+import :CoreWindow;
 
 export namespace ZEngine::Windows::Inputs
 {
@@ -38,7 +38,7 @@ export namespace ZEngine::Windows::Inputs
             return reinterpret_cast<T*>(pair.first->second);
         }
 
-        virtual bool        IsKeyPressed(ZEngine::Windows::Inputs::GlfwKeyCode key, Windows::CoreWindow* const window) const  = 0;
+        virtual bool        IsKeyPressed(ZEngine::Windows::Inputs::GlfwKeyCode key, ZEngine::Windows::CoreWindow* const window) const  = 0;
 
         virtual bool        IsKeyReleased(ZEngine::Windows::Inputs::GlfwKeyCode key, Windows::CoreWindow* const window) const = 0;
 
@@ -47,4 +47,7 @@ export namespace ZEngine::Windows::Inputs
             return m_name;
         }
     };
+
+    std::map<const char*, IDevice*> IDevice::Devices = {};
+    Core::Memory::ArenaAllocator*           IDevice::Arena   = nullptr;
 } // namespace ZEngine::Windows::Inputs

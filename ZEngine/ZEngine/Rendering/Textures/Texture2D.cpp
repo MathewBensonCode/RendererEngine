@@ -1,8 +1,4 @@
-import ZEngine.Core.Coroutine;
-import ZEngine.Rendering.Buffers.Bitmap;
-import ZEngine.Rendering.Primitives.ImageMemoryBarrier;
-import ZEngine.Rendering.Textures.Texture2D;
-
+module;
 // #define STB_IMAGE_IMPLEMENTATION
 // #ifdef __GNUC__
 // #define STBI_NO_SIMD
@@ -14,8 +10,14 @@ import ZEngine.Rendering.Textures.Texture2D;
 // #include <stb/stb_image_resize.h>
 // #include <stb/stb_image_write.h>
 
+module ZEngine.Rendering;
+
+import :Buffers.Bitmap;
+import :Primitives.ImageMemoryBarrier;
+import :Textures.Texture2D;
+import ZEngine.Core.Coroutine;
+
 using namespace ZEngine::Helpers;
-using namespace ZEngine::Hardwares;
 
 namespace ZEngine::Rendering::Textures
 {
@@ -46,7 +48,7 @@ namespace ZEngine::Rendering::Textures
 
     //    if (!image_data)
     //    {
-    //        ZENGINE_CORE_ERROR("Failed to load texture file : {0}", filename.data())
+    //        ZEngine::Logging::Logger::Error(std::format("Failed to load texture file : {0}", filename.data()));
     //        return Create(1, 1, 0, 0, 0, 0);
     //    }
     //    /*

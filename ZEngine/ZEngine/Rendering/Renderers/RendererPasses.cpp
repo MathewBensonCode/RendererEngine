@@ -1,7 +1,8 @@
-module ZEngine.Rendering.Renderers.RendererPasses;
+module ZEngine.Rendering;
 
 import std;
-import ZEngine.Rendering.Renderers.GraphicRenderer;
+import :Renderers.RendererPasses;
+import :Renderers.GraphicRenderer;
 
 using namespace ZEngine::Helpers;
 using namespace ZEngine::Rendering::Specifications;

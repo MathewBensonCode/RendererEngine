@@ -48,7 +48,7 @@ target_include_directories(
 
 target_link_libraries(
   zEngineLib
-  PUBLIC fmt::fmt
+  PUBLIC 
          glm::glm
          imguizmo
          spdlog::spdlog
@@ -77,6 +77,7 @@ target_sources(
     CXX_MODULES
     FILES
     ZEngine/Event/EngineClosedEvent_module.cpp
+    ZEngine/Windows/Windows_module.cpp
     ZEngine/Windows/WindowConfiguration_module.cpp
     ZEngine/Windows/CoreWindow_module.cpp
     ZEngine/Windows/WindowProperty_module.cpp
@@ -89,6 +90,8 @@ target_sources(
     ZEngine/Windows/Inputs/KeyCode_module.cpp
     ZEngine/Windows/Inputs/IInputEventCallback_module.cpp
     ZEngine/Windows/Inputs/IDevice_module.cpp
+    ZEngine/Windows/IUpdatable_module.cpp
+    ZEngine/Windows/IEventable_module.cpp
     ZEngine/ZEngineDef_module.cpp
     ZEngine/Helpers/MathHelper_module.cpp
     ZEngine/Helpers/ContainerExtension_module.cpp
@@ -99,15 +102,11 @@ target_sources(
     ZEngine/Helpers/IntrusivePtr_module.cpp
     ZEngine/Helpers/MemoryOperations_module.cpp
     ZEngine/Engine_module.cpp
-    #ZEngine/Logging/LoggerDefinition_module.cpp
     ZEngine/Logging/LoggerConfiguration_module.cpp
     ZEngine/Logging/Logger_module.cpp
-    ZEngine/Serializers/GraphicScene3DSerializer_module.cpp
-    ZEngine/Serializers/GraphicSceneSerializer_module.cpp
-    ZEngine/Core/IEventable_module.cpp
+    ZEngine/Logging/Logging_module.cpp
     ZEngine/Core/CoroutineScheduler_module.cpp
     ZEngine/Core/ISerializer_module.cpp
-    ZEngine/Core/IUpdatable_module.cpp
     ZEngine/Core/IGraphicObject_module.cpp
     ZEngine/Core/CoreEvent_module.cpp
     ZEngine/Core/TimeStep_module.cpp
@@ -115,7 +114,6 @@ target_sources(
     ZEngine/Core/Memory/Allocator_module.cpp
     ZEngine/Core/Memory/MemoryManager_module.cpp
     ZEngine/Core/Utility_module.cpp
-    ZEngine/Core/IRenderable_module.cpp
     ZEngine/Core/Coroutine_module.cpp
     ZEngine/Core/Containers/InitializerList_module.cpp
     ZEngine/Core/Containers/Strings_module.cpp
@@ -125,16 +123,18 @@ target_sources(
     ZEngine/Core/Maths/Matrix_module.cpp
     ZEngine/Core/Maths/Vec_module.cpp
     ZEngine/Core/IPipeline_module.cpp
-    ZEngine/Hardwares/VulkanLayer_module.cpp
-    ZEngine/Hardwares/VulkanDevice_module.cpp
     ZEngine/EngineConfiguration_module.cpp
     ZEngine/Maths/Math_module.cpp
+    ZEngine/Rendering/IRenderable_module.cpp
+    ZEngine/Rendering/Rendering_module.cpp
+    ZEngine/Rendering/Devices/VulkanLayer_module.cpp
+    ZEngine/Rendering/Devices/VulkanDevice_module.cpp
     ZEngine/Rendering/Primitives/Semaphore_module.cpp
     ZEngine/Rendering/Primitives/Fence_module.cpp
     ZEngine/Rendering/Primitives/ImageMemoryBarrier_module.cpp
     ZEngine/Rendering/ResourceTypes_module.cpp
     ZEngine/Rendering/Scenes/GraphicScene_module.cpp
-    ZEngine/Rendering/Meshes/MeshLight_module.cpp
+    #ZEngine/Rendering/Meshes/MeshLight_module.cpp
     #ZEngine/Rendering/Meshes/MeshBuilder_module.cpp
     ZEngine/Rendering/Meshes/Mesh_module.cpp
     ZEngine/Rendering/Shaders/ShaderReader_module.cpp
@@ -198,20 +198,19 @@ target_sources(
     ZEngine/Rendering/Components/TransformComponent_module.cpp
     ZEngine/Rendering/Components/MaterialComponent_module.cpp
     ZEngine/Rendering/Components/LightComponent_module.cpp
+    ZEngine/Rendering/Serializers/GraphicScene3DSerializer_module.cpp
+    ZEngine/Rendering/Serializers/GraphicSceneSerializer_module.cpp
 
   PRIVATE ZEngine/Engine.cpp
-          ZEngine/Windows/Inputs/IDevice.cpp
-          ZEngine/Windows/CoreWindow.cpp
           ZEngine/Helpers/ThreadPool.cpp
           ZEngine/Helpers/Helper.cpp
           ZEngine/Logging/Logger.cpp
-          ZEngine/Serializers/GraphicScene3DSerializer.cpp
           ZEngine/Core/IPipelineStage.cpp
           ZEngine/Core/CoroutineScheduler.cpp
           ZEngine/Core/Memory/Allocator.cpp
           ZEngine/Core/IPipelineContext.cpp
-          ZEngine/Hardwares/VulkanLayer.cpp
-          ZEngine/Hardwares/VulkanDevice.cpp
+          ZEngine/Rendering/Devices/VulkanLayer.cpp
+          ZEngine/Rendering/Devices/VulkanDevice.cpp
           ZEngine/Maths/Math.cpp
           ZEngine/Rendering/Primitives/Semaphore.cpp
           ZEngine/Rendering/Primitives/Fence.cpp
@@ -224,9 +223,6 @@ target_sources(
           ZEngine/Rendering/Shaders/Compilers/ShaderCompiler.cpp
           ZEngine/Rendering/Shaders/Shader.cpp
           ZEngine/Rendering/Shaders/ShaderReader.cpp
-          ZEngine/Rendering/Geometries/CubeGeometry.cpp
-          ZEngine/Rendering/Geometries/QuadGeometry.cpp
-          ZEngine/Rendering/Geometries/SquareGeometry.cpp
           ZEngine/Rendering/Entities/GraphicSceneEntity.cpp
           ZEngine/Rendering/Renderers/RenderGraph.cpp
           ZEngine/Rendering/Renderers/GraphicRenderer.cpp
@@ -241,9 +237,8 @@ target_sources(
           ZEngine/Rendering/Buffers/FrameBuffer.cpp
           #      ZEngine/Rendering/Textures/Texture2D.cpp
           ZEngine/Rendering/Textures/Texture.cpp
-          ZEngine/Rendering/Materials/StandardMaterial.cpp
-          ZEngine/Rendering/Materials/ShaderMaterial.cpp
-          ZEngine/Rendering/Materials/BasicMaterial.cpp)
+          ZEngine/Rendering/Serializers/GraphicScene3DSerializer.cpp
+      )
 
 if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
   target_compile_definitions(zEngineLib PUBLIC ENABLE_VULKAN_VALIDATION_LAYER)

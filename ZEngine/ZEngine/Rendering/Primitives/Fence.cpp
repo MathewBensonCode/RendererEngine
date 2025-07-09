@@ -1,9 +1,11 @@
-import ZEngine.Hardwares.VulkanDevice;
-import ZEngine.Rendering.Primitives.Fence;
+module ZEngine.Rendering;
+
+import :Primitives.Fence;
+import :Devices.VulkanDevice;
 
 namespace ZEngine::Rendering::Primitives
 {
-    Fence::Fence(Hardwares::VulkanDevice* const device, bool as_signaled)
+    Fence::Fence(Devices::VulkanDevice* const device, bool as_signaled)
     {
         Device                                    = device;
         VkFenceCreateInfo frame_fence_create_info = {};

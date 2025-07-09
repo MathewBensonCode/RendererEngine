@@ -1,7 +1,8 @@
-export module ZEngine.Rendering.Components.MaterialComponent;
+export module ZEngine.Rendering:Components.MaterialComponent;
 
 import std;
-import ZEngine.Rendering.Materials.ShaderMaterial;
+import :Materials.ShaderMaterial;
+import ZEngine.Helpers.IntrusivePtr;
 
 export namespace ZEngine::Rendering::Components
 {

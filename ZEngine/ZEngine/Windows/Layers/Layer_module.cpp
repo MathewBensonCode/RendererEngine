@@ -1,16 +1,16 @@
-export module ZEngine.Windows.Layers.Layer;
+export module ZEngine.Windows:Layers;
 
 import std;
-import ZEngine.Core.IEventable;
-import ZEngine.Core.IRenderable;
-import ZEngine.Core.IUpdatable;
+import :IUpdatable;
+import :IEventable;
 import ZEngine.Core.Memory.Allocator;
-import ZEngine.Windows.CoreWindow;
+import ZEngine.Rendering;
 
-export namespace ZEngine::Windows::Layers
+namespace ZEngine::Windows
 {
+    struct CoreWindow;
 
-    struct Layer : public Core::IUpdatable, public Core::IEventable, public Core::IRenderable
+    export struct Layer : public IUpdatable, public IEventable, public Rendering::IRenderable
     {
         Layer(const char* name = "default_layer")
         {
@@ -22,10 +22,10 @@ export namespace ZEngine::Windows::Layers
         virtual void                           Initialize(Core::Memory::ArenaAllocator* arena) = 0;
         virtual void                           Deinitialize() {};
 
-        ZEngine::Core::Memory::ArenaAllocator  LocalArena    = {};
-        ZEngine::Core::Memory::ArenaAllocator* Arena         = nullptr;
+        Core::Memory::ArenaAllocator  LocalArena    = {};
+        Core::Memory::ArenaAllocator* Arena         = nullptr;
         const char*                            Name          = nullptr;
         void*                                  ParentContext = nullptr;
-        ZRawPtr(ZEngine::Windows::CoreWindow) ParentWindow   = nullptr;
+        CoreWindow* ParentWindow   = nullptr;
     };
 } // namespace ZEngine::Windows::Layers

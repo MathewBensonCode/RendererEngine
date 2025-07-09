@@ -1,11 +1,10 @@
 ﻿module;
 #include <glm/glm.hpp>
 
-export module ZEngine.Rendering.Cameras.PerspectiveCamera;
+export module ZEngine.Rendering:Cameras.PerspectiveCamera;
 
 import std;
-
-import ZEngine.Rendering.Cameras.Camera;
+import :Cameras.Camera;
 
 export namespace ZEngine::Rendering::Cameras
 {

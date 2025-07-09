@@ -1,13 +1,12 @@
 module;
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Primitives.Fence;
+export module ZEngine.Rendering:Primitives.Fence;
 
 import std;
 import ZEngine.Helpers.IntrusivePtr;
 
-namespace ZEngine::Hardwares
-{
+namespace ZEngine::Rendering::Devices{
     struct VulkanDevice;
 }
 
@@ -22,10 +21,10 @@ export namespace ZEngine::Rendering::Primitives
 
     struct Fence
     {
-        Fence(Hardwares::VulkanDevice* const device, bool as_signaled = false);
+        Fence(Devices::VulkanDevice* const device, bool as_signaled = false);
         ~Fence();
 
-        Hardwares::VulkanDevice* Device = nullptr;
+        Devices::VulkanDevice* Device = nullptr;
         bool                     IsSignaled();
 
         bool                     Wait(uint64_t timeout = 1000000000);

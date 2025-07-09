@@ -2,10 +2,9 @@ module;
 
 #include <glm/glm.hpp>
 
-export module ZEngine.Rendering.Renderers.Contracts.RendererDataContract;
+export module ZEngine.Rendering:Renderers.Contracts.RendererDataContract;
 
 import std;
-
 
 export namespace ZEngine::Rendering::Renderers::Contracts
 {

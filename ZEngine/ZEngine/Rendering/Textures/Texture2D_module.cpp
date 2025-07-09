@@ -2,13 +2,9 @@ module;
 
 export module ZEngine.Rendering.Textures.Texture2D;
 
-import std;
 
-import ZEngine.Hardwares.VulkanDevice;
-
-
-namespace ZEngine::Rendering::Textures
-{
+//namespace ZEngine::Rendering::Textures
+//{
 
     // class Texture2D : public Helpers::RefCounted /*: public Texture*/
     //{
@@ -48,4 +44,4 @@ namespace ZEngine::Rendering::Textures
     // private:
     //     Helpers::Ref<Hardwares::Image2DBuffer> m_image_2d_buffer;
     // };
-} // namespace ZEngine::Rendering::Textures
+//} // namespace ZEngine::Rendering::Textures

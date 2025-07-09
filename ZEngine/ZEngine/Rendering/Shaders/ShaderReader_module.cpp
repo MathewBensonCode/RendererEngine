@@ -1,11 +1,11 @@
 module;
 #include <glslang/Public/ShaderLang.h>
 
-export module ZEngine.Rendering.Shaders.ShaderReader;
+export module ZEngine.Rendering:Shaders.ShaderReader;
 
 import std;
-import ZEngine.Rendering.Shaders.ShaderInformation;
-import ZEngine.Rendering.Shaders.ShaderEnums;
+import :Shaders.ShaderInformation;
+import :Shaders.ShaderEnums;
 
 export namespace ZEngine::Rendering::Shaders
 {

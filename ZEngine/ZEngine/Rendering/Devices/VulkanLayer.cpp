@@ -2,16 +2,17 @@ module;
 #include <vulkan/vulkan.h>
 #include <cstdlib>
 
-module ZEngine.Hardwares.VulkanLayer;
+module ZEngine.Rendering;
 
 import std;
 import ZEngine.Helpers.MemoryOperations;
-import ZEngine.Logging.Logger;
+import ZEngine.Logging;
 import ZEngine.Core.Memory.Allocator;
+import :Devices.VulkanLayer;
 
 using namespace ZEngine::Core::Containers;
 
-namespace ZEngine::Hardwares
+namespace ZEngine::Rendering::Devices
 {
     void VulkanLayer::QueryInstanceLayerProperties(Core::Memory::ArenaAllocator* arena)
     {

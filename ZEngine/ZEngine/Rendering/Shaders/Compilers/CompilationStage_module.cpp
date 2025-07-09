@@ -3,13 +3,11 @@ module;
 #include <glslang/Public/ShaderLang.h>
 #include <glslang/SPIRV/GlslangToSpv.h>
 
-export module ZEngine.Rendering.Shaders.Compilers.CompilationStage;
+export module ZEngine.Rendering:Shaders.Compilers.CompilationStage;
 
 import std;
-import ZEngine.Rendering.Shaders.Compilers.ICompilerStage;
-import ZEngine.Rendering.Shaders.ShaderInformation;
-import ZEngine.Rendering.Shaders.ShaderEnums;
-import ZEngine.Rendering.Shaders.ShaderIncluder;
+import :Shaders.Compilers.ICompilerStage;
+import :Shaders.ShaderInformation;
 
 export namespace ZEngine::Rendering::Shaders::Compilers
 {

@@ -5,12 +5,13 @@ module;
 #include <spdlog/details/thread_pool.h>
 #include <spdlog/sinks/rotating_file_sink.h>
 
-module ZEngine.Logging.Logger;
+module ZEngine.Logging;
 
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.HashMap;
 import ZEngine.Core.Memory.Allocator;
 import ZEngine.ZEngineDef;
+import :Logger;
 
 using namespace ZEngine::Core::Memory;
 

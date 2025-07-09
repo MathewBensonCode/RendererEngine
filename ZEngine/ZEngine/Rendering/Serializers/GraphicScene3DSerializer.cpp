@@ -1,19 +1,19 @@
-module ZEngine.Serializers.GraphicScene3DSerializer;
+module ZEngine.Rendering;
 
 import std;
+import :Components.CameraComponent;
+import :Components.GeometryComponent;
+import :Components.LightComponent;
+import :Components.MaterialComponent;
+import :Components.NameComponent;
+import :Components.TransformComponent;
+import :Components.UUIComponent;
+import :Geometries.CubeGeometry;
+import :Materials.BasicMaterial;
+import :Materials.StandardMaterial;
+import :Textures.Texture;
 import ZEngine.Core.Coroutine;
 import ZEngine.Helpers.MeshHelper;
-import ZEngine.Rendering.Components.CameraComponent;
-import ZEngine.Rendering.Components.GeometryComponent;
-import ZEngine.Rendering.Components.LightComponent;
-import ZEngine.Rendering.Components.MaterialComponent;
-import ZEngine.Rendering.Components.NameComponent;
-import ZEngine.Rendering.Components.TransformComponent;
-import ZEngine.Rendering.Components.UUIComponent;
-import ZEngine.Rendering.Geometries.CubeGeometry;
-import ZEngine.Rendering.Materials.BasicMaterial;
-import ZEngine.Rendering.Materials.StandardMaterial;
-import ZEngine.Rendering.Textures.Texture;
 
 
 
@@ -154,7 +154,7 @@ namespace ZEngine::Serializers
             SerializeInformation deserialization_info{};
             // try
             //{
-            //     ZENGINE_CORE_INFO("Deserializing Scene file: {0}", filename)
+            //     ZEngine::Logging::Logger::Info(std::format("Deserializing Scene file: {0}", filename));
 
             //    auto entities = scene_data["Entities"];
             //    if (entities)

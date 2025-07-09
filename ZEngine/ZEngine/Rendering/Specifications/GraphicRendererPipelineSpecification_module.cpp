@@ -1,14 +1,13 @@
 module;
 
-export module ZEngine.Rendering.Specifications.GraphicRendererPipelineSpecification;
+export module ZEngine.Rendering:Specifications.GraphicRendererPipelineSpecification;
 
 import std;
-
 import ZEngine.Core.Containers.Array;
-import ZEngine.Rendering.Buffers.Framebuffer;
-import ZEngine.Rendering.Renderers.RenderPasses.Attachment;
-import ZEngine.Rendering.Specifications.ShaderSpecification;
-import ZEngine.Rendering.Specifications.FormatSpecification;
+import :Buffers.Framebuffer;
+import :Renderers.RenderPasses.Attachment;
+import :Specifications.ShaderSpecification;
+import :Specifications.FormatSpecification;
 
 namespace ZEngine::Rendering::Specifications
 {

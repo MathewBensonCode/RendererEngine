@@ -1,10 +1,11 @@
-module ZEngine.Rendering.Primitives.Semaphore;
+module ZEngine.Rendering;
 
-import ZEngine.Hardwares.VulkanDevice;
+import :Primitives.Semaphore;
+import :Devices.VulkanDevice;
 
 namespace ZEngine::Rendering::Primitives
 {
-    Semaphore::Semaphore(Hardwares::VulkanDevice* const device)
+    Semaphore::Semaphore(Devices::VulkanDevice* const device)
     {
         Device                                      = device;
         VkSemaphoreCreateInfo semaphore_create_info = {};

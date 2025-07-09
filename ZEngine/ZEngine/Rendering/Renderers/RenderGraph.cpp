@@ -1,5 +1,7 @@
-import ZEngine.Rendering.Renderers.GraphicRenderer;
-import ZEngine.Rendering.Renderers.RenderGraph;
+module ZEngine.Rendering;
+
+import :Renderers.GraphicRenderer;
+import :Renderers.RenderGraph;
 
 using namespace ZEngine::Core::Containers;
 
@@ -495,7 +497,7 @@ namespace ZEngine::Rendering::Renderers
         }
         if (m_resource_map[name].Type != RenderGraphResourceType::ATTACHMENT)
         {
-            ZENGINE_CORE_WARN("{} isn't a valid Attachement Resource", name)
+            ZEngine::Logging::Logger::Warn(std::format("{} isn't a valid Attachement Resource", name));
         }
 
         auto handle = m_resource_map[name].ResourceInfo.TextureHandle;
@@ -516,7 +518,7 @@ namespace ZEngine::Rendering::Renderers
         }
         if (m_resource_map[name].Type != RenderGraphResourceType::TEXTURE)
         {
-            ZENGINE_CORE_WARN("{} isn't a valid Texture Resource", name)
+            ZEngine::Logging::Logger::Warn(std::format("{} isn't a valid Texture Resource", name));
         }
 
         auto handle = m_resource_map[name].ResourceInfo.TextureHandle;
@@ -540,7 +542,7 @@ namespace ZEngine::Rendering::Renderers
     {
         if (!m_resource_map.contains(name))
         {
-            m_resource_map[name].Name = name;
+            myargs...m_resource_map[name].Name = name;
         }
         return m_resource_map[name].ResourceInfo.VertexBufferSetHandle;
     }

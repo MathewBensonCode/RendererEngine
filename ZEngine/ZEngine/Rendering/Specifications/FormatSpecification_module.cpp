@@ -1,14 +1,14 @@
 module;
 
 #include <vulkan/vulkan.h>
+#define VALUE_FROM_SPEC_MAP(x) static_cast<uint32_t>(x)
 
-export module ZEngine.Rendering.Specifications.FormatSpecification;
+export module ZEngine.Rendering:Specifications.FormatSpecification;
 
 import std;
 
 export namespace ZEngine::Rendering::Specifications
 {
-#define VALUE_FROM_SPEC_MAP(x) static_cast<uint32_t>(x)
 
     enum class ImageFormat : std::uint32_t
     {

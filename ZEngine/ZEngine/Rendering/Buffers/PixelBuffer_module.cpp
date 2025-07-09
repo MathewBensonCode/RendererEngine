@@ -1,12 +1,11 @@
 module;
 #include <GL/glew.h>
 
-export module ZEngine.Rendering.Buffers.PixelBuffer;
+export module ZEngine.Rendering:Buffers.PixelBuffer;
 
 import std;
-
+import :Buffers.BufferLayout;
 import ZEngine.Core.IGraphicObject;
-import ZEngine.Rendering.Buffers.BufferLayout;
 import ZEngine.ZEngineDef;
 
 export namespace ZEngine::Rendering::Buffers

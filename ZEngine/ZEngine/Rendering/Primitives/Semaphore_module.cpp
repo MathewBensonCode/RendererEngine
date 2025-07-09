@@ -1,12 +1,12 @@
 module;
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Primitives.Semaphore;
+export module ZEngine.Rendering:Primitives.Semaphore;
 
 import std;
 import ZEngine.Helpers.IntrusivePtr;
 
-namespace ZEngine::Hardwares{
+namespace ZEngine::Rendering::Devices{
     struct VulkanDevice;
 }
 
@@ -21,10 +21,10 @@ export namespace ZEngine::Rendering::Primitives
 
     struct Semaphore
     {
-        Semaphore(Hardwares::VulkanDevice* const device);
+        Semaphore(Devices::VulkanDevice* const device);
         ~Semaphore();
 
-        Hardwares::VulkanDevice* Device = nullptr;
+        Devices::VulkanDevice* Device = nullptr;
         void                     Wait(const uint64_t value, const uint64_t timeout = UINT64_MAX);
         void                     Signal(const uint64_t value);
         VkSemaphore              GetHandle() const;

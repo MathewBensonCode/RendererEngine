@@ -1,13 +1,14 @@
-export module ZEngine.Rendering.Materials.ShaderMaterial;
+export module ZEngine.Rendering:Materials.ShaderMaterial;
 
-import ZEngine.Rendering.Materials.IMaterial;
-import ZEngine.Rendering.Shaders.Shader;
+import std;
+import :Materials.IMaterial;
+import :Shaders.Shader;
 import ZEngine.Helpers.IntrusivePtr;
 
-export namespace ZEngine::Rendering::Materials
+namespace ZEngine::Rendering::Materials
 {
 
-    class ShaderMaterial : public IMaterial
+    export class ShaderMaterial : public IMaterial
     {
     public:
         explicit ShaderMaterial(Shaders::ShaderBuiltInType type);
@@ -16,4 +17,16 @@ export namespace ZEngine::Rendering::Materials
 
         virtual void Apply(const Helpers::Ref<Shaders::Shader>&);
     };
+
+    ShaderMaterial::ShaderMaterial(Shaders::ShaderBuiltInType type) : IMaterial()
+    {
+        m_shader_built_in_type = type;
+    }
+
+    void ShaderMaterial::Apply(const Helpers::Ref<Shaders::Shader>& shader)
+    {
+       // assert(shader != nullptr);
+
+        // shader->Bind();
+    }
 } // namespace ZEngine::Rendering::Materials

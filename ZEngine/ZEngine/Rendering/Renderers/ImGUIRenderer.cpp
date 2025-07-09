@@ -2,11 +2,12 @@ module;
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_vulkan.h>
 
-module ZEngine.Rendering.Renderers.ImGUIRenderer;
+module ZEngine.Rendering;
 
-import ZEngine.Rendering.Renderers.GraphicRenderer;
-import ZEngine.Hardwares.VulkanDevice;
-import ZEngine.Windows.CoreWindow;
+import :Renderers.ImGUIRenderer;
+import :Renderers.GraphicRenderer;
+import :Devices.VulkanDevice;
+import ZEngine.Windows;
 
 using namespace ZEngine::Hardwares;
 using namespace ZEngine::Rendering;

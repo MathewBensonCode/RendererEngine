@@ -1,14 +1,13 @@
 module;
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Renderers.RenderPasses.Attachment;
+export module ZEngine.Rendering:Renderers.RenderPasses.Attachment;
 
 import std;
+import :Specifications.AttachmentSpecification;
 import ZEngine.Helpers.IntrusivePtr;
-import ZEngine.Rendering.Specifications.AttachmentSpecification;
 
-namespace ZEngine::Hardwares
-{
+namespace ZEngine::Rendering::Devices{
     struct VulkanDevice;
 }
 
@@ -16,7 +15,7 @@ export namespace ZEngine::Rendering::Renderers::RenderPasses
 {
     struct Attachment
     {
-        Attachment(Hardwares::VulkanDevice* device, const Specifications::AttachmentSpecification& spec);
+        Attachment(Devices::VulkanDevice* device, const Specifications::AttachmentSpecification& spec);
         ~Attachment();
         void                                           Dispose();
 
@@ -31,6 +30,6 @@ export namespace ZEngine::Rendering::Renderers::RenderPasses
         std::uint32_t                                m_depth_attachment_count{0};
         Specifications::AttachmentSpecification m_specification;
         VkRenderPass                            m_handle{VK_NULL_HANDLE};
-        Hardwares::VulkanDevice*                m_device{nullptr};
+        Devices::VulkanDevice*                m_device{nullptr};
     };
 } // namespace ZEngine::Rendering::Renderers::RenderPasses

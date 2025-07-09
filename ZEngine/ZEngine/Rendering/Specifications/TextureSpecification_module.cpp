@@ -1,10 +1,10 @@
 module;
 #include <vulkan/vulkan.hpp>
 
-export module ZEngine.Rendering.Specifications.TextureSpecification;
+export module ZEngine.Rendering:Specifications.TextureSpecification;
 
 import std;
-import ZEngine.Rendering.Specifications.FormatSpecification;
+import :Specifications.FormatSpecification;
 import ZEngine.ZEngineDef;
 
 export namespace ZEngine::Rendering::Specifications

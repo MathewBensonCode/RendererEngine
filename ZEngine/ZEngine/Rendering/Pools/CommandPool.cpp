@@ -1,11 +1,13 @@
-import ZEngine.Hardwares.VulkanDevice;
-import ZEngine.Rendering.Pools.CommandPool;
+module ZEngine.Rendering;
+
+import :Devices.VulkanDevice;
+import :Pools.CommandPool;
 import ZEngine.ZEngineDef;
 
 using namespace ZEngine::Helpers;
 namespace ZEngine::Rendering::Pools
 {
-    CommandPool::CommandPool(Hardwares::VulkanDevice* device, Rendering::QueueType type)
+    CommandPool::CommandPool(Devices::VulkanDevice* device, Rendering::QueueType type)
     {
         Device                                           = device;
 

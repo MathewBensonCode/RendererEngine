@@ -2,14 +2,14 @@
 #define NODE_PARENT_ID  -1
 #define INVALID_NODE_ID -1
 
-module ZEngine.Rendering.Scenes.GraphicScene;
+module ZEngine.Rendering;
 
 import std;
+import :Renderers.GraphicRenderer;
+import :Components.CameraComponent;
+import :Components.LightComponent;
+import :Components.UUIComponent;
 import ZEngine.Core.Coroutine;
-import ZEngine.Rendering.Renderers.GraphicRenderer;
-import ZEngine.Rendering.Components.CameraComponent;
-import ZEngine.Rendering.Components.LightComponent;
-import ZEngine.Rendering.Components.UUIComponent;
 
 using namespace ZEngine::Rendering::Components;
 using namespace ZEngine::Helpers;
@@ -509,7 +509,7 @@ namespace ZEngine::Rendering::Scenes
 
         if (node == -1)
         {
-            ZENGINE_CORE_ERROR("An entity with name {0} deosn't exist", entity_name.data())
+            ZEngine::Logging::Logger::Error(std::format("An entity with name {0} deosn't exist", entity_name.data()));
         }
         co_return SceneEntity{node, SceneData.Weak()};
     }
@@ -520,7 +520,7 @@ namespace ZEngine::Rendering::Scenes
         // std::unique_lock lock(m_mutex);
         // if (!SceneData->EntityRegistry->valid(entity))
         //{
-        //     ZENGINE_CORE_ERROR("This entity is no longer valid")
+        //     ZEngine::Logging::Logger::Error(std::format("This entity is no longer valid"));
         //     co_return false;
         // }
         // SceneData->EntityRegistry->destroy(entity);

@@ -1,10 +1,6 @@
-module;
-
-export module ZEngine.Rendering.Components.NameComponent;
+export module ZEngine.Rendering:Components.NameComponent;
 
 import std;
-
-
 
 export namespace ZEngine::Rendering::Components
 {

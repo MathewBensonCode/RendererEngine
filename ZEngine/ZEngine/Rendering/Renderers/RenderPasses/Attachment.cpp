@@ -1,16 +1,19 @@
+module ZEngine.Rendering;
+
+import std;
+import :Renderers.RenderPasses.Attachment;
+import :Devices.VulkanDevice;
 import ZEngine.Core.Containers.Array;
-import ZEngine.Hardwares.VulkanDevice;
 import ZEngine.Rendering.Renderers.RenderPasses.Attachment;
 import ZEngine.ZEngineDef;
 
-using namespace ZEngine::Hardwares;
 using namespace ZEngine::Rendering::Specifications;
 using namespace ZEngine::Helpers;
 using namespace ZEngine::Core::Containers;
 
 namespace ZEngine::Rendering::Renderers::RenderPasses
 {
-    Attachment::Attachment(Hardwares::VulkanDevice* device, const Specifications::AttachmentSpecification& spec) : m_device(device), m_specification(spec)
+    Attachment::Attachment(Devices::VulkanDevice* device, const Specifications::AttachmentSpecification& spec) : m_device(device), m_specification(spec)
     {
         ZENGINE_VALIDATE_ASSERT(!spec.ColorsMap.empty(), "Color attachments can't be empty")
 

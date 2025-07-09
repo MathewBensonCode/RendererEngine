@@ -1,9 +1,6 @@
-module;
-
-export module ZEngine.Rendering.Geometries.GeometryEnum;
+export module ZEngine.Rendering:Geometries.GeometryEnum;
 
 import std;
-
 
 export namespace ZEngine::Rendering::Geometries
 {

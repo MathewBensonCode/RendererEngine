@@ -1,10 +1,10 @@
 module;
 
-export module ZEngine.Rendering.Specifications.FrameBufferSpecification;
+export module ZEngine.Rendering:Specifications.FrameBufferSpecification;
 
 import std;
 import ZEngine.Core.Containers.Array;
-import ZEngine.Rendering.Renderers.RenderPasses.Attachment;
+import :Renderers.RenderPasses.Attachment;
 
 export namespace ZEngine::Rendering::Specifications
 {

@@ -6,7 +6,7 @@ module;
 export module ZEngine.Helpers.MeshHelper;
 
 import std;
-import ZEngine.Rendering.Meshes.Mesh;
+import ZEngine.Rendering;
 
 export namespace ZEngine::Helpers
 {

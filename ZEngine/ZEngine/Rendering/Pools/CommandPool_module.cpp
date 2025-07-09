@@ -1,15 +1,14 @@
 module;
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Pools.CommandPool;
+export module ZEngine.Rendering:Pools.CommandPool;
 
 import std;
-import ZEngine.Rendering.ResourceTypes;
+import :ResourceTypes;
 import ZEngine.Helpers.IntrusivePtr;
 import ZEngine.ZEngineDef;
 
-namespace ZEngine::Hardwares
-{
+namespace ZEngine::Rendering::Devices{
     struct VulkanDevice;
 }
 
@@ -17,9 +16,9 @@ export namespace ZEngine::Rendering::Pools
 {
     struct CommandPool : public Helpers::RefCounted
     {
-        Hardwares::VulkanDevice* Device = nullptr;
+        Devices::VulkanDevice* Device = nullptr;
 
-        CommandPool(Hardwares::VulkanDevice* device, Rendering::QueueType type);
+        CommandPool(Devices::VulkanDevice* device, Rendering::QueueType type);
         ~CommandPool();
 
         VkCommandPool        Handle{VK_NULL_HANDLE};

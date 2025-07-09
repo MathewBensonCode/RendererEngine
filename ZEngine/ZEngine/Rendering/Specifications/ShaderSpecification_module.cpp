@@ -1,8 +1,7 @@
 module;
-
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Specifications.ShaderSpecification;
+export module ZEngine.Rendering:Specifications.ShaderSpecification;
 
 import std;
 

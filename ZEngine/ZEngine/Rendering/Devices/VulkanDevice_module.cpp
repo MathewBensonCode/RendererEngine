@@ -2,39 +2,32 @@ module;
 #include <vk_mem_alloc.h>
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Hardwares.VulkanDevice;
+export module ZEngine.Rendering:Devices.VulkanDevice;
 
 import std;
-import ZEngine.Hardwares.VulkanLayer;
+import :Devices.VulkanLayer;
+import :Primitives.Fence;
+import :Primitives.Semaphore;
+import :Pools.CommandPool;
+import :Primitives.ImageMemoryBarrier;
+import :ResourceTypes;
+import :Specifications.ShaderSpecification;
+import :Textures.Texture;
 import ZEngine.Helpers.HandleManager;
 import ZEngine.Helpers.MemoryOperations;
 import ZEngine.Helpers.ThreadSafeQueue;
-import ZEngine.Rendering.Primitives.Fence;
-import ZEngine.Rendering.Primitives.Semaphore;
-import ZEngine.Rendering.Pools.CommandPool;
-import ZEngine.Rendering.Primitives.ImageMemoryBarrier;
-import ZEngine.Rendering.ResourceTypes;
-import ZEngine.Rendering.Specifications.ShaderSpecification;
-import ZEngine.Rendering.Textures.Texture;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.HashMap;
 import ZEngine.Core.Containers.Strings;
 import ZEngine.Core.Memory.Allocator;
-import ZEngine.Windows.CoreWindow;
+import ZEngine.Windows;
 
-
-namespace ZEngine::Rendering::Renderers::RenderPasses
-{
+namespace ZEngine::Rendering::Renderers::RenderPasses{
     struct RenderPass;
     struct Attachment;
-} // namespace ZEngine::Rendering::Renderers::RenderPasses
-
-namespace ZEngine::Rendering::Shaders
-{
-    struct Shader;
 }
 
-export namespace ZEngine::Hardwares
+export namespace ZEngine::Rendering::Devices
 {
     struct WriteDescriptorSetRequestKey;
     struct WriteDescriptorSetRequest;
@@ -87,14 +80,14 @@ export namespace ZEngine::Hardwares
             m_last_byte_size = m_byte_size;
         }
 
-        IGraphicBuffer(Hardwares::VulkanDevice* device) : m_device(device)
+        IGraphicBuffer(Devices::VulkanDevice* device) : m_device(device)
         {
             m_last_byte_size = m_byte_size;
         }
 
         virtual ~IGraphicBuffer() = default;
 
-        virtual inline size_t GetByteSize() const
+        virtual size_t GetByteSize() const
         {
             return m_byte_size;
         }
@@ -108,7 +101,7 @@ export namespace ZEngine::Hardwares
 
         size_t                   m_byte_size{0};
         size_t                   m_last_byte_size{0};
-        Hardwares::VulkanDevice* m_device{nullptr};
+        Devices::VulkanDevice* m_device{nullptr};
     };
 
     template <typename T /*, typename = std::enable_if_t<std::is_base_of_v<IGraphicBuffer, T>> */>
@@ -118,20 +111,20 @@ export namespace ZEngine::Hardwares
 
         T&                         operator[](std::uint32_t index)
         {
-            ZENGINE_VALIDATE_ASSERT(index < set.size(), "Index out of range")
+            ZENGINE_VALIDATE_ASSERT(index < set.size(), "Index out of range");
             return set[index];
         }
 
         T& At(std::uint32_t index)
         {
-            ZENGINE_VALIDATE_ASSERT(index < set.size(), "Index out of range")
+            ZENGINE_VALIDATE_ASSERT(index < set.size(), "Index out of range");
             return set[index];
         }
 
         template <typename K>
         void SetData(std::uint32_t index, std::span<const K> data)
         {
-            ZENGINE_VALIDATE_ASSERT(index < set.size(), "Index out of range")
+            ZENGINE_VALIDATE_ASSERT(index < set.size(), "Index out of range");
 
             // if (std::is_same_v<T, IndexBuffer> || std::is_same_v<T, VertexBuffer> || std::is_same_v<T,
             // StorageBuffer>)
@@ -147,12 +140,12 @@ export namespace ZEngine::Hardwares
     class VertexBuffer : public IGraphicBuffer
     {
     public:
-        explicit VertexBuffer(Hardwares::VulkanDevice* device) : IGraphicBuffer(device) {}
+        explicit VertexBuffer(Devices::VulkanDevice* device) : IGraphicBuffer(device) {}
 
         void SetData(const void* data, size_t byte_size);
 
         template <typename T>
-        inline void SetData(std::span<const T> content)
+        void SetData(std::span<const T> content)
         {
             SetData(content.data(), content.size_bytes());
         }
@@ -190,7 +183,7 @@ export namespace ZEngine::Hardwares
     using VertexBufferSetHandle = Helpers::Handle<VertexBufferSet>;
 
     template <>
-    inline void VertexBufferSet::Dispose()
+    void VertexBufferSet::Dispose()
     {
         for (auto buffer : set)
         {
@@ -204,12 +197,12 @@ export namespace ZEngine::Hardwares
     class StorageBuffer : public IGraphicBuffer
     {
     public:
-        explicit StorageBuffer(Hardwares::VulkanDevice* device) : IGraphicBuffer(device) {}
+        explicit StorageBuffer(Devices::VulkanDevice* device) : IGraphicBuffer(device) {}
 
         void SetData(const void* data, std::uint32_t offset, size_t byte_size);
 
         template <typename T>
-        inline void SetData(std::span<const T> content)
+        void SetData(std::span<const T> content)
         {
             SetData(content.data(), 0, content.size_bytes());
         }
@@ -247,7 +240,7 @@ export namespace ZEngine::Hardwares
     using StorageBufferSetHandle = Helpers::Handle<StorageBufferSet>;
 
     template <>
-    inline void StorageBufferSet::Dispose()
+    void StorageBufferSet::Dispose()
     {
         for (auto buffer : set)
         {
@@ -261,12 +254,12 @@ export namespace ZEngine::Hardwares
     class IndexBuffer : public IGraphicBuffer
     {
     public:
-        IndexBuffer(Hardwares::VulkanDevice* device) : IGraphicBuffer(device) {}
+        IndexBuffer(Devices::VulkanDevice* device) : IGraphicBuffer(device) {}
 
         void SetData(const void* data, size_t byte_size);
 
         template <typename T>
-        inline void SetData(std::span<const T> content)
+        void SetData(std::span<const T> content)
         {
             SetData(content.data(), content.size_bytes());
         }
@@ -304,7 +297,7 @@ export namespace ZEngine::Hardwares
     using IndexBufferSetHandle = Helpers::Handle<IndexBufferSet>;
 
     template <>
-    inline void IndexBufferSet::Dispose()
+    void IndexBufferSet::Dispose()
     {
         for (auto buffer : set)
         {
@@ -318,12 +311,12 @@ export namespace ZEngine::Hardwares
     class IndirectBuffer : public IGraphicBuffer
     {
     public:
-        explicit IndirectBuffer(Hardwares::VulkanDevice* device) : IGraphicBuffer(device) {}
+        explicit IndirectBuffer(Devices::VulkanDevice* device) : IGraphicBuffer(device) {}
 
         void SetData(const VkDrawIndirectCommand* data, size_t byte_size);
 
         template <typename T>
-        inline void SetData(std::span<const T> content)
+        void SetData(std::span<const T> content)
         {
             SetData(content.data(), content.size_bytes());
         }
@@ -361,14 +354,14 @@ export namespace ZEngine::Hardwares
 
     template <>
     template <>
-    inline void IndirectBufferSet::SetData<VkDrawIndirectCommand>(std::uint32_t index, std::span<const VkDrawIndirectCommand> data)
+    void IndirectBufferSet::SetData<VkDrawIndirectCommand>(std::uint32_t index, std::span<const VkDrawIndirectCommand> data)
     {
-        ZENGINE_VALIDATE_ASSERT(index < set.size(), "Index out of range")
+        ZENGINE_VALIDATE_ASSERT(index < set.size(), "Index out of range");
         set[index]->SetData(data);
     }
 
     template <>
-    inline void IndirectBufferSet::Dispose()
+    void IndirectBufferSet::Dispose()
     {
         for (auto buffer : set)
         {
@@ -383,7 +376,7 @@ export namespace ZEngine::Hardwares
     {
     public:
         explicit UniformBuffer() : IGraphicBuffer(nullptr) {}
-        explicit UniformBuffer(Hardwares::VulkanDevice* device) : IGraphicBuffer(device) {}
+        explicit UniformBuffer(Devices::VulkanDevice* device) : IGraphicBuffer(device) {}
 
         explicit UniformBuffer(const UniformBuffer& rhs) = delete;
 
@@ -458,7 +451,7 @@ export namespace ZEngine::Hardwares
         void SetData(const void* data, size_t byte_size);
 
         template <typename T>
-        inline void SetData(Core::Containers::ArrayView<T> content)
+        void SetData(Core::Containers::ArrayView<T> content)
         {
             size_t byte_size = sizeof(T) * content.size();
             this->SetData(content.data(), byte_size);
@@ -498,7 +491,7 @@ export namespace ZEngine::Hardwares
     using UniformBufferSetHandle = Helpers::Handle<UniformBufferSet>;
 
     template <>
-    inline void UniformBufferSet::Dispose()
+    void UniformBufferSet::Dispose()
     {
         for (auto buffer : set)
         {
@@ -558,11 +551,11 @@ export namespace ZEngine::Hardwares
 
     struct CommandBuffer
     {
-        CommandBuffer(Hardwares::VulkanDevice* device, VkCommandPool command_pool, Rendering::QueueType type, bool one_time);
+        CommandBuffer(Devices::VulkanDevice* device, VkCommandPool command_pool, Rendering::QueueType type, bool one_time);
         ~CommandBuffer();
 
         Rendering::QueueType              QueueType;
-        Hardwares::VulkanDevice*          Device     = nullptr;
+        Devices::VulkanDevice*          Device     = nullptr;
         Core::Memory::ArenaAllocator      LocalArena = {};
 
         void                              Create();
@@ -586,14 +579,14 @@ export namespace ZEngine::Hardwares
         void                              EndRenderPass();
         void                              BindDescriptorSets(std::uint32_t frame_index = 0);
         void                              BindDescriptorSet(const VkDescriptorSet& descriptor);
-        void                              DrawIndirect(const Hardwares::IndirectBuffer& buffer);
-        void                              DrawIndexedIndirect(const Hardwares::IndirectBuffer& buffer, std::uint32_t count);
+        void                              DrawIndirect(const Devices::IndirectBuffer& buffer);
+        void                              DrawIndexedIndirect(const Devices::IndirectBuffer& buffer, std::uint32_t count);
         void                              DrawIndexed(std::uint32_t indexCount, std::uint32_t instanceCount, std::uint32_t firstIndex, int32_t vertexOffset, std::uint32_t firstInstance);
         void                              Draw(std::uint32_t vertex_count, std::uint32_t instance_count, std::uint32_t first_index, std::uint32_t first_instance);
         void                              TransitionImageLayout(const Rendering::Primitives::ImageMemoryBarrier& image_barrier);
-        void                              CopyBufferToImage(const Hardwares::BufferView& source, Hardwares::BufferImage& destination, std::uint32_t width, std::uint32_t height, std::uint32_t layer_count, VkImageLayout new_layout);
-        void                              BindVertexBuffer(Hardwares::VertexBuffer& buffer);
-        void                              BindIndexBuffer(const Hardwares::IndexBuffer& buffer, VkIndexType type);
+        void                              CopyBufferToImage(const Devices::BufferView& source, Devices::BufferImage& destination, std::uint32_t width, std::uint32_t height, std::uint32_t layer_count, VkImageLayout new_layout);
+        void                              BindVertexBuffer(Devices::VertexBuffer& buffer);
+        void                              BindIndexBuffer(const Devices::IndexBuffer& buffer, VkIndexType type);
         void                              SetScissor(const VkRect2D& scissor);
         void                              PushConstants(VkShaderStageFlags stage_flags, std::uint32_t offset, std::uint32_t size, const void* data);
 
@@ -602,9 +595,9 @@ export namespace ZEngine::Hardwares
         VkCommandBuffer     m_command_buffer{VK_NULL_HANDLE};
         VkCommandPool       m_command_pool{VK_NULL_HANDLE};
         VkClearValue        m_clear_value[2] = {0};
-        ZRawPtr(Rendering::Primitives::Fence) m_signal_fence;
-        ZRawPtr(Rendering::Primitives::Semaphore) m_signal_semaphore;
-        ZRawPtr(Rendering::Renderers::RenderPasses::RenderPass) m_active_render_pass;
+        Rendering::Primitives::Fence* m_signal_fence;
+        Rendering::Primitives::Semaphore* m_signal_semaphore;
+        Rendering::Renderers::RenderPasses::RenderPass* m_active_render_pass;
     };
 
     struct CommandBufferManager
@@ -620,10 +613,10 @@ export namespace ZEngine::Hardwares
 
         VulkanDevice*                                                   Device                  = nullptr;
         const int                                                       MaxBufferPerPool        = 4;
-        Core::Containers::Array<ZRawPtr(Rendering::Pools::CommandPool)> CommandPools            = {};
-        Core::Containers::Array<ZRawPtr(Rendering::Pools::CommandPool)> TransferCommandPools    = {};
-        Core::Containers::Array<ZRawPtr(CommandBuffer)>                 CommandBuffers          = {};
-        Core::Containers::Array<ZRawPtr(CommandBuffer)>                 TransferCommandBuffers  = {};
+        Core::Containers::Array<Rendering::Pools::CommandPool*> CommandPools            = {};
+        Core::Containers::Array<Rendering::Pools::CommandPool*> TransferCommandPools    = {};
+        Core::Containers::Array<CommandBuffer*>                 CommandBuffers          = {};
+        Core::Containers::Array<CommandBuffer*>                 TransferCommandBuffers  = {};
         int                                                             TotalCommandBufferCount = 0;
 
     private:
@@ -631,8 +624,8 @@ export namespace ZEngine::Hardwares
         std::condition_variable m_cond;
         std::atomic_bool        m_executing_instant_command{false};
         std::mutex              m_instant_command_mutex;
-        ZRawPtr(Rendering::Primitives::Semaphore) m_instant_semaphore;
-        ZRawPtr(Rendering::Primitives::Fence) m_instant_fence;
+        Rendering::Primitives::Semaphore* m_instant_semaphore;
+        Rendering::Primitives::Fence* m_instant_fence;
     };
 
     struct WriteDescriptorSetRequestKey
@@ -771,52 +764,4 @@ export namespace ZEngine::Hardwares
         void                                                     __cleanupBufferImageDirtyResource();
         static VKAPI_ATTR VkBool32 VKAPI_CALL                    __debugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData);
     };
-} // namespace ZEngine::Hardwares
-
-export namespace ZEngine::Helpers
-{
-    template <>
-    inline void HandleManager<Hardwares::VertexBufferSet>::Dispose()
-    {
-        for (std::size_t i = 0; i < m_count; ++i)
-        {
-            m_memory[i].Dispose();
-        }
-    }
-
-    template <>
-    inline void HandleManager<Hardwares::StorageBufferSet>::Dispose()
-    {
-        for (std::size_t i = 0; i < m_count; ++i)
-        {
-            m_memory[i].Dispose();
-        }
-    }
-
-    template <>
-    inline void HandleManager<Hardwares::IndirectBufferSet>::Dispose()
-    {
-        for (std::size_t i = 0; i < m_count; ++i)
-        {
-            m_memory[i].Dispose();
-        }
-    }
-
-    template <>
-    inline void HandleManager<Hardwares::IndexBufferSet>::Dispose()
-    {
-        for (std::size_t i = 0; i < m_count; ++i)
-        {
-            m_memory[i].Dispose();
-        }
-    }
-
-    template <>
-    inline void HandleManager<Hardwares::UniformBufferSet>::Dispose()
-    {
-        for (std::size_t i = 0; i < m_count; ++i)
-        {
-            m_memory[i].Dispose();
-        }
-    }
-} // namespace ZEngine::Helpers
+} // namespace ZEngine::Devices

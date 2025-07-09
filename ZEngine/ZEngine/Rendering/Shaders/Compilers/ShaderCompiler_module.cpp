@@ -1,11 +1,11 @@
-export module ZEngine.Rendering.Shaders.Compilers.ShaderCompiler;
+export module ZEngine.Rendering:Shaders.Compilers.ShaderCompiler;
 
 import std;
+import :Shaders.ShaderReader;
+import :Shaders.ShaderInformation;
+import :Shaders.ShaderEnums;
 import ZEngine.Core.IPipeline;
 import ZEngine.Helpers.IntrusivePtr;
-import ZEngine.Rendering.Shaders.ShaderReader;
-import ZEngine.Rendering.Shaders.ShaderInformation;
-import ZEngine.Rendering.Shaders.ShaderEnums;
 
 export namespace ZEngine::Rendering::Shaders::Compilers
 {

@@ -2,14 +2,14 @@ module;
 #include <spirv_cross.hpp>
 #include <vulkan/vulkan.h>
 
-module ZEngine.Rendering.Shaders.Shader;
+module ZEngine.Rendering;
 
-import ZEngine.Hardwares.VulkanDevice;
+import :Devices.VulkanDevice;
+import :Renderers.GraphicRenderer;
+import :Shaders.ShaderReader;
+import :Specifications.ShaderSpecification;
 import ZEngine.Helpers.MemoryOperations;
-import ZEngine.Logging.LoggerDefinition;
-import ZEngine.Rendering.Renderers.GraphicRenderer;
-import ZEngine.Rendering.Shaders.ShaderReader;
-import ZEngine.Rendering.Specifications.ShaderSpecification;
+import ZEngine.Logging;
 
 using namespace ZEngine::Rendering::Specifications;
 using namespace ZEngine::Helpers;

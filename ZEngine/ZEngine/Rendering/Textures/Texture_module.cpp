@@ -1,15 +1,14 @@
 module;
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Textures.Texture;
+export module ZEngine.Rendering:Textures.Texture;
 
 import std;
+import :Specifications.TextureSpecification;
 import ZEngine.Helpers.HandleManager;
 import ZEngine.Helpers.IntrusivePtr;
-import ZEngine.Rendering.Specifications.TextureSpecification;
 
-namespace ZEngine::Hardwares
-{
+namespace ZEngine::Rendering::Devices{
     struct Image2DBuffer;
 }
 
@@ -20,7 +19,7 @@ export namespace ZEngine::Rendering::Textures
         Texture() = default;
         ~Texture();
 
-        void                                 Initialize(const Specifications::TextureSpecification& spec, Hardwares::Image2DBuffer* const buffer);
+        void                                 Initialize(const Specifications::TextureSpecification& spec, Devices::Image2DBuffer* const buffer);
 
         bool                                 IsDepthTexture = false;
         std::uint32_t                             Width          = 1;
@@ -28,7 +27,7 @@ export namespace ZEngine::Rendering::Textures
         std::uint32_t                             BytePerPixel   = 0;
         VkDeviceSize                         BufferSize     = 0;
         Specifications::TextureSpecification Specification  = {};
-        Hardwares::Image2DBuffer*            ImageBuffer    = nullptr;
+        Devices::Image2DBuffer*            ImageBuffer    = nullptr;
 
         void                                 Dispose();
     };

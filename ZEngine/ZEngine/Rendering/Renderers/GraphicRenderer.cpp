@@ -10,16 +10,16 @@ module;
 #include <deprecated/stb_image_resize.h>
 #include <stb_image_write.h>
 
-module ZEngine.Rendering.Renderers.GraphicRenderer;
+module ZEngine.Rendering;
 
+import :Renderers.GraphicRenderer;
+import :Renderers.ImGUIRenderer;
+import :Renderers.RendererPasses;
+import :Buffers.Bitmap;
+import :Renderers.Contracts.RendererDataContract;
+import :Specifications.FormatSpecification;
 import ZEngine.Helpers.ThreadPool;
-import ZEngine.Rendering.Renderers.ImGUIRenderer;
-import ZEngine.Rendering.Renderers.RendererPasses;
-import ZEngine.Rendering.Buffers.Bitmap;
-import ZEngine.Rendering.Renderers.Contracts.RendererDataContract;
-import ZEngine.Rendering.Specifications.FormatSpecification;
 
-using namespace ZEngine::Hardwares;
 using namespace ZEngine::Rendering::Specifications;
 using namespace ZEngine::Rendering::Renderers::Contracts;
 using namespace ZEngine::Helpers;
@@ -30,7 +30,7 @@ export namespace ZEngine::Rendering::Renderers
     GraphicRenderer::GraphicRenderer() {}
     GraphicRenderer::~GraphicRenderer() {}
 
-    void GraphicRenderer::Initialize(Hardwares::VulkanDevice* device)
+    void GraphicRenderer::Initialize(Devices::VulkanDevice* device)
     {
         Device                       = device;
         RenderGraph                  = ZPushStructCtorArgs(Device->Arena, Renderers::RenderGraph);
@@ -100,7 +100,7 @@ export namespace ZEngine::Rendering::Renderers
 
     void GraphicRenderer::Update() {}
 
-    void GraphicRenderer::DrawScene(Hardwares::CommandBuffer* const command_buffer, Cameras::Camera* const camera, Scenes::SceneRawData* const scene)
+    void GraphicRenderer::DrawScene(Devices::CommandBuffer* const command_buffer, Cameras::Camera* const camera, Scenes::SceneRawData* const scene)
     {
         std::uint32_t frame_index     = Device->CurrentFrameIndex;
         auto     scene_camera    = Device->UniformBufferSetManager.Access(SceneCameraBufferHandle);
@@ -153,7 +153,7 @@ export namespace ZEngine::Rendering::Renderers
 
         buffer_spec.ImageUsage                                            = VkImageUsageFlagBits(image_usage_attachment | transfert_bit | sampled_bit | storage_bit);
 
-        resource->ImageBuffer                                             = ZPushStructCtorArgs(Device->Arena, Hardwares::Image2DBuffer, Device, buffer_spec);
+        resource->ImageBuffer                                             = ZPushStructCtorArgs(Device->Arena, Devices::Image2DBuffer, Device, buffer_spec);
 
         auto  command_buffer                                              = Device->GetInstantCommandBuffer(QueueType::GRAPHIC_QUEUE);
 
@@ -258,7 +258,7 @@ export namespace ZEngine::Rendering::Renderers
         stbi_uc* image_data = stbi_load(filename.data(), &width, &height, &channel, STBI_rgb_alpha);
         if (!image_data)
         {
-            ZENGINE_CORE_ERROR("Failed to load texture file synchronously: {}", filename.data());
+            ZEngine::Logging::Logger::Error(std::format("Failed to load texture file synchronously: {}", filename.data()););
             return Textures::TextureHandle{};
         }
 
@@ -446,7 +446,7 @@ export namespace ZEngine::Rendering::Renderers
                     const float* image_data = stbi_loadf(file_request.Filename.data(), &width, &height, &channel, 4);
                     if (!image_data)
                     {
-                        ZENGINE_CORE_ERROR("Failed to load texture file : {0}", file_request.Filename.data())
+                        ZEngine::Logging::Logger::Error(std::format("Failed to load texture file : {0}", file_request.Filename.data()));
                         continue;
                     }
 
@@ -509,7 +509,7 @@ export namespace ZEngine::Rendering::Renderers
                     stbi_uc* image_data = stbi_load(file_request.Filename.data(), &width, &height, &channel, STBI_rgb_alpha);
                     if (!image_data)
                     {
-                        ZENGINE_CORE_ERROR("Failed to load texture file : {0}", file_request.Filename.data())
+                        ZEngine::Logging::Logger::Error(std::format("Failed to load texture file : {0}", file_request.Filename.data()));
                         continue;
                     }
 

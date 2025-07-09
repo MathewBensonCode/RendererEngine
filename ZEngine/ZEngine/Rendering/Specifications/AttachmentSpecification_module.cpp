@@ -1,12 +1,12 @@
 module;
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Specifications.AttachmentSpecification;
+export module ZEngine.Rendering:Specifications.AttachmentSpecification;
 
 import std;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.HashMap;
-import ZEngine.Rendering.Specifications.FormatSpecification;
+import :Specifications.FormatSpecification;
 
 export namespace ZEngine::Rendering::Specifications
 {

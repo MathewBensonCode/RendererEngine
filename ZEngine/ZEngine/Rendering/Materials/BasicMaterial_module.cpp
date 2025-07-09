@@ -1,13 +1,13 @@
-export module ZEngine.Rendering.Materials.BasicMaterial;
+export module ZEngine.Rendering:Materials.BasicMaterial;
 
 import std;
-import ZEngine.Rendering.Materials.ShaderMaterial;
-import ZEngine.Rendering.Textures.Texture;
+import :Materials.ShaderMaterial;
+import :Textures.Texture;
 
-export namespace ZEngine::Rendering::Materials
+namespace ZEngine::Rendering::Materials
 {
 
-    class BasicMaterial : public ShaderMaterial
+    export class BasicMaterial : public ShaderMaterial
     {
     public:
         explicit BasicMaterial();
@@ -21,4 +21,27 @@ export namespace ZEngine::Rendering::Materials
     private:
         Textures::Texture* m_texture;
     };
+
+
+    BasicMaterial::BasicMaterial() : ShaderMaterial(Shaders::ShaderBuiltInType::BASIC)
+    {
+        m_material_name = typeid(*this).name();
+        // m_texture.reset(Textures::CreateTexture(1, 1));
+    }
+
+    void BasicMaterial::SetTexture(const Textures::Texture* texture)
+    {
+        // m_texture = texture;
+    }
+
+    Textures::Texture* BasicMaterial::GetTexture() const
+    {
+        return m_texture;
+    }
+
+    void BasicMaterial::Apply(const Helpers::Ref<Shaders::Shader>& shader)
+    {
+        // ShaderMaterial::Apply(shader);
+        // m_texture->Bind();
+    }
 } // namespace ZEngine::Rendering::Materials

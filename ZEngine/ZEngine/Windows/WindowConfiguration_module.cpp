@@ -1,17 +1,13 @@
-export module ZEngine.Windows.WindowConfiguration;
+export module ZEngine.Windows:WindowConfiguration;
 
 import std;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.Strings;
 import ZEngine.Helpers.IntrusivePtr;
 
-namespace ZEngine::Windows::Layers
-{
-    class Layer;
-}
-
 export namespace ZEngine::Windows
 {
+    struct Layer;
     struct WindowConfiguration
     {
         std::uint32_t                                        Width       = 1500;
@@ -19,8 +15,8 @@ export namespace ZEngine::Windows
         bool                                            EnableVsync = true;
         Core::Containers::String                        Title;
 
-        Core::Containers::Array<Layers::Layer*> RenderingLayerCollection;
-        Core::Containers::Array<Layers::Layer*> OverlayLayerCollection;
+        Core::Containers::Array<Layer*> RenderingLayerCollection;
+        Core::Containers::Array<Layer*> OverlayLayerCollection;
     };
 
 } // namespace ZEngine::Windows

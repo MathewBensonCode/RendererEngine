@@ -1,9 +1,9 @@
-export module ZEngine.Rendering.Lights.Light;
+export module ZEngine.Rendering:Lights.Light;
 
 import std;
+import :GPUTypes;
 import ZEngine.Helpers.IntrusivePtr;
 import ZEngine.Helpers.MemoryOperations;
-import ZEngine.Rendering.GPUTypes;
 
 export namespace ZEngine::Rendering::Lights
 {

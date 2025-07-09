@@ -1,6 +1,4 @@
-module;
-
-export module ZEngine.Rendering.Components.ValidComponent;
+export module ZEngine.Rendering:Components.ValidComponent;
 
 import std;
 

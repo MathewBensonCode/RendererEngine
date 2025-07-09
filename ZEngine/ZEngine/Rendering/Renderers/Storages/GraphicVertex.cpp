@@ -2,8 +2,9 @@ module;
 #include <vulkan/vulkan.h>
 #include <glm/glm.hpp>
 
-module ZEngine.Rendering.Renderers.Storages.GraphicVertex;
+module ZEngine.Rendering;
 
+import :Renderers.Storages.GraphicVertex;
 import ZEngine.Maths.Math;
 import ZEngine.Rendering.Buffers.BufferLayout;
 

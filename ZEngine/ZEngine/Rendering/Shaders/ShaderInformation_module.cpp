@@ -1,11 +1,10 @@
 module;
-
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering.Shaders.ShaderInformation;
+export module ZEngine.Rendering:Shaders.ShaderInformation;
 
 import std;
-import ZEngine.Rendering.Shaders.ShaderEnums;
+import :Shaders.ShaderEnums;
 
 export namespace ZEngine::Rendering::Shaders
 {

@@ -1,8 +1,8 @@
-export module ZEngine.Windows.Events.MouseEvent;
+export module ZEngine.Windows:Events.MouseEvent;
 
 import std;
+import :Inputs.KeyCode;
 import ZEngine.Core.CoreEvent;
-import ZEngine.Windows.Inputs.KeyCode;
 import ZEngine.ZEngineDef;
 
 export namespace ZEngine::Windows::Events

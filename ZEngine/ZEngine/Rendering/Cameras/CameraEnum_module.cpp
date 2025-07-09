@@ -1,7 +1,4 @@
-export module ZEngine.Rendering.Cameras.CameraEnum;
-
-import std;
-
+export module ZEngine.Rendering:Cameras.CameraEnum;
 
 export namespace ZEngine::Rendering::Cameras
 {
