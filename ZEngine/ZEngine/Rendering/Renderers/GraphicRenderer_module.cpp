@@ -5,18 +5,32 @@ export module ZEngine.Rendering:Renderers.GraphicRenderer;
 
 import std;
 import :Cameras.Camera;
-import :Primitives.Fence;
-import :Primitives.Semaphore;
-import :Renderers.RenderPasses.RenderPass;
 import :Textures.Texture;
-import :Devices.VulkanDevice;
+import :Devices.VulkanBufferHandles;
+import :Devices.CommandBufferManager;
 import ZEngine.Helpers.ThreadSafeQueue;
 import ZEngine.Helpers.IntrusivePtr;
 
+namespace ZEngine::Rendering::Devices{
+    struct VulkanDevice;
+    struct CommandBuffer;
+}
 
 namespace ZEngine::Rendering::Renderers{
     struct RenderGraph;
-    struct ImGuiRenderer;
+    struct ImGUIRenderer;
+}
+
+namespace ZEngine::Rendering::Renderers::RenderPasses{
+        struct RenderPass;
+}
+
+namespace ZEngine::Rendering::Scenes{
+    struct SceneRawData;
+}
+
+namespace ZEngine::Rendering::Specifications{
+    struct RenderPassSpecification;
 }
 
 export namespace ZEngine::Rendering::Renderers
@@ -41,7 +55,7 @@ export namespace ZEngine::Rendering::Renderers
 
     struct TextureUploadRequest
     {
-        size_t                               BufferSize;
+        std::size_t                               BufferSize;
         Textures::TextureHandle              Handle;
         Specifications::TextureSpecification TextureSpec;
     };
@@ -57,7 +71,7 @@ export namespace ZEngine::Rendering::Renderers
         Devices::UniformBufferSetHandle   SceneCameraBufferHandle      = {};
         Textures::TextureHandle           FrameColorRenderTarget       = {};
         Textures::TextureHandle           FrameDepthRenderTarget       = {};
-        Devices::VulkanDevice*          Device                       = nullptr;
+        Devices::VulkanDevice*            Device                       = nullptr;
         Renderers::ImGUIRenderer* ImguiRenderer                = nullptr;
         Renderers::RenderGraph* RenderGraph                    = nullptr;
         Renderers::AsyncResourceLoader* AsyncLoader            = nullptr;
@@ -69,7 +83,7 @@ export namespace ZEngine::Rendering::Renderers
         void                                    DrawScene(Devices::CommandBuffer* const command_buffer, Cameras::Camera* const camera, Scenes::SceneRawData* const scene);
         Textures::TextureHandle                 GetFrameOutput();
 
-        RenderPasses::RenderPass* CreateRenderPass(const Specifications::RenderPassSpecification& spec*);
+        RenderPasses::RenderPass* CreateRenderPass(const Specifications::RenderPassSpecification& spec);
         Textures::TextureHandle CreateTexture(const Specifications::TextureSpecification& spec);
         Textures::TextureHandle CreateTexture(std::uint32_t width, std::uint32_t height);
         Textures::TextureHandle CreateTexture(std::uint32_t width, std::uint32_t height, float r, float g, float b, float a);
@@ -91,8 +105,8 @@ export namespace ZEngine::Rendering::Renderers
         std::atomic_bool                               m_cancellation_token{false};
         std::mutex                                     m_mutex;
         std::condition_variable                        m_cond;
-        std::vector<uint8_t>                           m_temp_buffer{};
-        Devices::CommandBufferManager                m_buffer_manager{};
+        std::vector<std::uint8_t>                      m_temp_buffer{};
+        Devices::CommandBufferManager                  m_buffer_manager{};
         Helpers::ThreadSafeQueue<UpdateTextureRequest> m_update_texture_request;
         Helpers::ThreadSafeQueue<TextureFileRequest>   m_file_requests;
         Helpers::ThreadSafeQueue<TextureUploadRequest> m_upload_requests;

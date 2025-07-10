@@ -15,8 +15,6 @@ import :Textures.Texture;
 import ZEngine.Core.Coroutine;
 import ZEngine.Helpers.MeshHelper;
 
-
-
 using namespace ZEngine::Rendering::Materials;
 using namespace ZEngine::Rendering::Components;
 using namespace ZEngine::Rendering::Scenes;

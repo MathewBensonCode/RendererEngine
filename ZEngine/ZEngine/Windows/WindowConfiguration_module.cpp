@@ -1,13 +1,13 @@
 export module ZEngine.Windows:WindowConfiguration;
 
 import std;
+import :Layers;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.Strings;
 import ZEngine.Helpers.IntrusivePtr;
 
 export namespace ZEngine::Windows
 {
-    struct Layer;
     struct WindowConfiguration
     {
         std::uint32_t                                        Width       = 1500;

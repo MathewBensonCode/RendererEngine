@@ -12,13 +12,13 @@ import ZEngine.Rendering;
 import ZEngine.Core.Memory.Allocator;
 import ZEngine.Core.TimeStep;
 import ZEngine.Helpers.IntrusivePtr;
+import :Inputs.IInputEventCallback;
+import :IUpdatable;
+import :IEventable;
 
 namespace ZEngine::Windows
 {
-  struct IEventable;
-  struct IUpdatable;
-
-   export class CoreWindow : public IKeyboardEventCallback, public Inputs::IMouseEventCallback, public Inputs::ITextInputEventCallback, public Inputs::IWindowEventCallback, public IUpdatable, public ZEngine::Rendering::IRenderable, public IEventable
+   export class CoreWindow : public Inputs::IKeyboardEventCallback, public Inputs::IMouseEventCallback, public Inputs::ITextInputEventCallback, public Inputs::IWindowEventCallback, public IUpdatable, public ZEngine::Rendering::IRenderable, public IEventable
 
     {
 

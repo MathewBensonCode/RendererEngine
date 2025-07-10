@@ -4,9 +4,9 @@ module;
 
 module ZEngine.Rendering;
 
+import :Buffers.BufferLayout;
 import :Renderers.Storages.GraphicVertex;
 import ZEngine.Maths.Math;
-import ZEngine.Rendering.Buffers.BufferLayout;
 
 namespace ZEngine::Rendering::Renderers::Storages
 {

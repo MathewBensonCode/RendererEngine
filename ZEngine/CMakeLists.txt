@@ -76,6 +76,7 @@ target_sources(
     TYPE
     CXX_MODULES
     FILES
+    ZEngine/Engine_module.cpp
     ZEngine/Event/EngineClosedEvent_module.cpp
     ZEngine/Windows/Windows_module.cpp
     ZEngine/Windows/WindowConfiguration_module.cpp
@@ -97,11 +98,9 @@ target_sources(
     ZEngine/Helpers/ContainerExtension_module.cpp
     ZEngine/Helpers/ThreadSafeQueue_module.cpp
     ZEngine/Helpers/ThreadPool_module.cpp
-    ZEngine/Helpers/MeshHelper_module.cpp
     ZEngine/Helpers/HandleManager_module.cpp
     ZEngine/Helpers/IntrusivePtr_module.cpp
     ZEngine/Helpers/MemoryOperations_module.cpp
-    ZEngine/Engine_module.cpp
     ZEngine/Logging/LoggerConfiguration_module.cpp
     ZEngine/Logging/Logger_module.cpp
     ZEngine/Logging/Logging_module.cpp
@@ -129,6 +128,8 @@ target_sources(
     ZEngine/Rendering/Rendering_module.cpp
     ZEngine/Rendering/Devices/VulkanLayer_module.cpp
     ZEngine/Rendering/Devices/VulkanDevice_module.cpp
+    ZEngine/Rendering/Devices/VulkanBufferHandles_module.cpp
+    ZEngine/Rendering/Devices/CommandBufferManager_module.cpp
     ZEngine/Rendering/Primitives/Semaphore_module.cpp
     ZEngine/Rendering/Primitives/Fence_module.cpp
     ZEngine/Rendering/Primitives/ImageMemoryBarrier_module.cpp
@@ -137,6 +138,7 @@ target_sources(
     #ZEngine/Rendering/Meshes/MeshLight_module.cpp
     #ZEngine/Rendering/Meshes/MeshBuilder_module.cpp
     ZEngine/Rendering/Meshes/Mesh_module.cpp
+    ZEngine/Rendering/Meshes/MeshHelper_module.cpp
     ZEngine/Rendering/Shaders/ShaderReader_module.cpp
     ZEngine/Rendering/Shaders/Compilers/ICompilerStage_module.cpp
     ZEngine/Rendering/Shaders/Compilers/ShaderCompiler_module.cpp

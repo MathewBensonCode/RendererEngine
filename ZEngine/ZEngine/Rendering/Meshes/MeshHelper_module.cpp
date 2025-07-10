@@ -3,12 +3,12 @@ module;
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 
-export module ZEngine.Helpers.MeshHelper;
+export module ZEngine.Rendering:Meshes.MeshHelper;
 
 import std;
-import ZEngine.Rendering;
+import :Meshes.Mesh;
 
-export namespace ZEngine::Helpers
+export namespace ZEngine::Rendering::Meshes
 {
     Rendering::Meshes::MeshVNext CreateBuiltInMesh(Rendering::Meshes::MeshType mesh_type)
     {

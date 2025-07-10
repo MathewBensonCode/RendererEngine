@@ -33,7 +33,7 @@ export namespace ZEngine::Rendering::Buffers
         {
             glReadBuffer(buffer_source);
             glBindBuffer(GL_PIXEL_PACK_BUFFER, m_pixel_buffer_id);
-            glReadPixels(x, y, width, height, format, type, NULL);
+            glReadPixels(x, y, width, height, format, type, 0);
             glBindBuffer(GL_PIXEL_PACK_BUFFER, m_pixel_buffer_id);
             T* buffer_ptr = (T*) glMapBuffer(GL_PIXEL_PACK_BUFFER, GL_READ_ONLY);
             if (buffer_ptr)

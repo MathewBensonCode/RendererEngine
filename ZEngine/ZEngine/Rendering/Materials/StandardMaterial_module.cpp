@@ -7,6 +7,7 @@ import std;
 import ZEngine.Maths.Math;
 import :Lights.Light;
 import :Materials.ShaderMaterial;
+import ZEngine.Helpers.IntrusivePtr;
 
 export namespace ZEngine::Rendering::Materials
 {
@@ -110,7 +111,7 @@ export namespace ZEngine::Rendering::Materials
         return m_diffuse_map;
     }
 
-    void StandardMaterial::Apply(const Ref<Shaders::Shader>& shader)
+    void StandardMaterial::Apply(const Helpers::Ref<Shaders::Shader>& shader)
     {
         // ShaderMaterial::Apply(shader);
 

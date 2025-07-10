@@ -6,8 +6,6 @@ export module ZEngine.Rendering:Devices.VulkanDevice;
 
 import std;
 import :Devices.VulkanLayer;
-import :Primitives.Fence;
-import :Primitives.Semaphore;
 import :Pools.CommandPool;
 import :Primitives.ImageMemoryBarrier;
 import :ResourceTypes;
@@ -21,6 +19,11 @@ import ZEngine.Core.Containers.HashMap;
 import ZEngine.Core.Containers.Strings;
 import ZEngine.Core.Memory.Allocator;
 import ZEngine.Windows;
+
+namespace ZEngine::Rendering::Primitives{
+    struct Fence;
+    struct Semaphore;
+}
 
 namespace ZEngine::Rendering::Renderers::RenderPasses{
     struct RenderPass;
@@ -180,7 +183,6 @@ export namespace ZEngine::Rendering::Devices
     };
 
     using VertexBufferSet       = IBufferSet<VertexBuffer*>;
-    using VertexBufferSetHandle = Helpers::Handle<VertexBufferSet>;
 
     template <>
     void VertexBufferSet::Dispose()
@@ -237,7 +239,6 @@ export namespace ZEngine::Rendering::Devices
     };
 
     using StorageBufferSet       = IBufferSet<StorageBuffer*>;
-    using StorageBufferSetHandle = Helpers::Handle<StorageBufferSet>;
 
     template <>
     void StorageBufferSet::Dispose()
@@ -294,7 +295,6 @@ export namespace ZEngine::Rendering::Devices
     };
 
     using IndexBufferSet       = IBufferSet<IndexBuffer*>;
-    using IndexBufferSetHandle = Helpers::Handle<IndexBufferSet>;
 
     template <>
     void IndexBufferSet::Dispose()
@@ -350,7 +350,6 @@ export namespace ZEngine::Rendering::Devices
     };
 
     using IndirectBufferSet       = IBufferSet<IndirectBuffer*>;
-    using IndirectBufferSetHandle = Helpers::Handle<IndirectBufferSet>;
 
     template <>
     template <>
@@ -488,7 +487,6 @@ export namespace ZEngine::Rendering::Devices
     };
 
     using UniformBufferSet       = IBufferSet<UniformBuffer*>;
-    using UniformBufferSetHandle = Helpers::Handle<UniformBufferSet>;
 
     template <>
     void UniformBufferSet::Dispose()
@@ -733,11 +731,6 @@ export namespace ZEngine::Rendering::Devices
         VkFormat                                                                            FindDepthFormat();
         VkImageView                                                                         CreateImageView(VkImage image, VkFormat image_format, VkImageViewType image_view_type, VkImageAspectFlagBits image_aspect_flag, std::uint32_t layer_count = 1U);
         VkFramebuffer                                                                       CreateFramebuffer(Core::Containers::ArrayView<VkImageView> attachments, const VkRenderPass& render_pass, std::uint32_t width, std::uint32_t height, std::uint32_t layer_number = 1);
-        VertexBufferSetHandle                                                               CreateVertexBufferSet();
-        StorageBufferSetHandle                                                              CreateStorageBufferSet();
-        IndirectBufferSetHandle                                                             CreateIndirectBufferSet();
-        IndexBufferSetHandle                                                                CreateIndexBufferSet();
-        UniformBufferSetHandle                                                              CreateUniformBufferSet();
         void                                                                                CreateSwapchain();
         void                                                                                ResizeSwapchain();
         void                                                                                DisposeSwapchain();

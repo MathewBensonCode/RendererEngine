@@ -6,7 +6,6 @@ module ZEngine.Rendering;
 
 import std;
 import :Renderers.GraphicRenderer;
-import :Components.CameraComponent;
 import :Components.LightComponent;
 import :Components.UUIComponent;
 import ZEngine.Core.Coroutine;

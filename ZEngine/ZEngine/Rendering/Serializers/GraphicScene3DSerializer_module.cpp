@@ -4,6 +4,7 @@ module;
 export module ZEngine.Rendering:Serializers.GraphicScene3DSerializer;
 
 import std;
+import :Entities.GraphicSceneEntity;
 import ZEngine.Maths.Math;
 import :Serializers.GraphicSceneSerializer;
 import ZEngine.ZEngineDef;

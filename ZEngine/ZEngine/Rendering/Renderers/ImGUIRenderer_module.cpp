@@ -1,8 +1,12 @@
 export module ZEngine.Rendering:Renderers.ImGUIRenderer;
 
 import std;
-import :Renderers.RenderGraph;
 import :Renderers.RenderPasses.RenderPass;
+import :Devices.VulkanBufferHandles;
+
+namespace ZEngine::Rendering::Devices{
+    struct CommandBuffer;
+}
 
 export namespace ZEngine::Rendering::Renderers
 {
@@ -14,6 +18,8 @@ export namespace ZEngine::Rendering::Renderers
     };
 
     struct GraphicRenderer;
+    struct RenderGraph;
+
     struct ImGUIRenderer
     {
         void Initialize(GraphicRenderer* renderer);
@@ -22,12 +28,12 @@ export namespace ZEngine::Rendering::Renderers
         void StyleDarkTheme();
 
         void NewFrame();
-        void DrawFrame(std::uint32_t frame_index, Hardwares::CommandBuffer* const command_buffer);
+        void DrawFrame(std::uint32_t frame_index, Devices::CommandBuffer* const command_buffer);
 
     private:
         GraphicRenderer*                 m_renderer;
-        Hardwares::VertexBufferSetHandle m_vertex_buffer_handle;
-        Hardwares::IndexBufferSetHandle  m_index_buffer_handle;
+        Devices::VertexBufferSetHandle m_vertex_buffer_handle;
+        Devices::IndexBufferSetHandle  m_index_buffer_handle;
         RenderPasses::RenderPass*        m_ui_pass;
     };
 

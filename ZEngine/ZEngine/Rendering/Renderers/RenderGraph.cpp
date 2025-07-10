@@ -9,7 +9,7 @@ using namespace ZEngine::Helpers;
 
 namespace ZEngine::Rendering::Renderers
 {
-    RenderGraphResource& RenderGraphBuilder::AttachBuffer(const char* name, const Hardwares::StorageBufferSetHandle& buffer)
+    RenderGraphResource& RenderGraphBuilder::AttachBuffer(const char* name, const Devices::StorageBufferSetHandle& buffer)
     {
         m_graph.m_resource_map[name].Name                                = name;
         m_graph.m_resource_map[name].Type                                = RenderGraphResourceType::BUFFER_SET;
@@ -18,7 +18,7 @@ namespace ZEngine::Rendering::Renderers
         return m_graph.m_resource_map[name];
     }
 
-    RenderGraphResource& RenderGraphBuilder::AttachBuffer(const char* name, const Hardwares::UniformBufferSetHandle& buffer)
+    RenderGraphResource& RenderGraphBuilder::AttachBuffer(const char* name, const Devices::UniformBufferSetHandle& buffer)
     {
         m_graph.m_resource_map[name].Name                                = name;
         m_graph.m_resource_map[name].Type                                = RenderGraphResourceType::BUFFER_SET;
@@ -280,7 +280,7 @@ namespace ZEngine::Rendering::Renderers
         }
     }
 
-    void RenderGraph::Execute(std::uint32_t frame_index, Hardwares::CommandBuffer* const command_buffer, Rendering::Scenes::SceneRawData* const scene)
+    void RenderGraph::Execute(std::uint32_t frame_index, Devices::CommandBuffer* const command_buffer, Rendering::Scenes::SceneRawData* const scene)
     {
         ZENGINE_VALIDATE_ASSERT(command_buffer, "Command Buffer can't be null")
 
@@ -529,7 +529,7 @@ namespace ZEngine::Rendering::Renderers
         return output;
     }
 
-    Hardwares::StorageBufferSetHandle RenderGraph::GetStorageBufferSet(const char* name)
+    Devices::StorageBufferSetHandle RenderGraph::GetStorageBufferSet(const char* name)
     {
         if (!m_resource_map.contains(name))
         {
@@ -538,7 +538,7 @@ namespace ZEngine::Rendering::Renderers
         return m_resource_map[name].ResourceInfo.StorageBufferSetHandle;
     }
 
-    Hardwares::VertexBufferSetHandle RenderGraph::GetVertexBufferSet(const char* name)
+    Devices::VertexBufferSetHandle RenderGraph::GetVertexBufferSet(const char* name)
     {
         if (!m_resource_map.contains(name))
         {
@@ -547,7 +547,7 @@ namespace ZEngine::Rendering::Renderers
         return m_resource_map[name].ResourceInfo.VertexBufferSetHandle;
     }
 
-    Hardwares::IndexBufferSetHandle RenderGraph::GetIndexBufferSet(const char* name)
+    Devices::IndexBufferSetHandle RenderGraph::GetIndexBufferSet(const char* name)
     {
         if (!m_resource_map.contains(name))
         {
@@ -556,7 +556,7 @@ namespace ZEngine::Rendering::Renderers
         return m_resource_map[name].ResourceInfo.IndexBufferSetHandle;
     }
 
-    Hardwares::UniformBufferSetHandle RenderGraph::GetBufferUniformSet(const char* name)
+    Devices::UniformBufferSetHandle RenderGraph::GetBufferUniformSet(const char* name)
     {
         if (!m_resource_map.contains(name))
         {
@@ -565,7 +565,7 @@ namespace ZEngine::Rendering::Renderers
         return m_resource_map[name].ResourceInfo.UniformBufferSetHandle;
     }
 
-    Hardwares::IndirectBufferSetHandle RenderGraph::GetIndirectBufferSet(const char* name)
+    Devices::IndirectBufferSetHandle RenderGraph::GetIndirectBufferSet(const char* name)
     {
         if (!m_resource_map.contains(name))
         {

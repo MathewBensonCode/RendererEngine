@@ -1,16 +1,17 @@
+#include <assimp/Importer.hpp>      // C++ importer interface
+#include <assimp/scene.h>           // Output data structure
+#include <assimp/postprocess.h>     // Post processing flags
+
+import std;
 import ZEngine.Core.Coroutine;
 import ZEngine.Rendering;
 import ZEngine.Helpers.MathHelper;
-import ZEngine.Helpers.MeshHelper;
-import ZEngine.ZEngineDef;
 
 using namespace ZEngine::Rendering::Renderers;
 
 namespace ZEngine::Helpers
 {
-
-
-    std::vector<Rendering::Meshes::MeshVNext> ConvertAssimpMeshToZEngineMeshModel(const aiScene* assimp_scene, const std::vector<uint32_t>& assimp_mesh_ids)
+    std::vector<Rendering::Meshes::MeshVNext> ConvertAssimpMeshToZEngineMeshModel(const aiScene* assimp_scene, const std::vector<std::uint32_t>& assimp_mesh_ids)
     {
         std::vector<Rendering::Meshes::MeshVNext> meshes = {};
 

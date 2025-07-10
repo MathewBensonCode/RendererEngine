@@ -9,11 +9,14 @@ module;
 export module ZEngine.Rendering:Renderers.RendererPasses;
 
 import std;
-import :Renderers.RenderGraph;
-import :Renderers.RenderPasses.RenderPass;
 import :Scenes.GraphicScene;
+import :Renderers.RenderGraph;
 import ZEngine.ZEngineDef;
 import ZEngine.Core.Containers.Array;
+
+namespace ZEngine::Rendering::Renderers::RenderPasses{
+        struct RenderPass;
+    }
 
 export namespace ZEngine::Rendering::Renderers
 {
@@ -49,7 +52,7 @@ export namespace ZEngine::Rendering::Renderers
         Devices::VertexBufferSetHandle  m_vb_handle   = {};
         Devices::IndexBufferSetHandle   m_ib_handle   = {};
         Textures::TextureHandle           m_env_map     = {};
-        Core::Containers::Array<uint16_t> m_index_data  = {};
+        Core::Containers::Array<std::uint16_t> m_index_data  = {};
         Core::Containers::Array<float>    m_vertex_data = {};
     };
 
@@ -61,7 +64,7 @@ export namespace ZEngine::Rendering::Renderers
         virtual void Render(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Buffers::FramebufferVNext* const framebuffer, Devices::CommandBuffer* const command_buffer, RenderGraph* const graph) override;
 
     private:
-        Core::Containers::Array<uint16_t> m_index_data  = {};
+        Core::Containers::Array<std::uint16_t> m_index_data  = {};
         Core::Containers::Array<float>    m_vertex_data = {};
         Devices::VertexBufferSetHandle  m_vb_handle   = {};
         Devices::IndexBufferSetHandle   m_ib_handle   = {};

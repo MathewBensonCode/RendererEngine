@@ -2,17 +2,31 @@ export module ZEngine.Rendering:Renderers.RenderGraph;
 
 import std;
 import :Buffers.Framebuffer;
-import :Renderers.RenderPasses.RenderPass;
 import :Scenes.GraphicScene;
 import :Specifications.TextureSpecification;
 import :Textures.Texture;
-import :Devices.VulkanDevice;
+import :Devices.VulkanBufferHandles;
 import ZEngine.ZEngineDef;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.HashMap;
 
-export namespace ZEngine::Rendering::Renderers
+
+namespace ZEngine::Rendering::Devices{
+    struct CommandBuffer;
+}
+
+namespace ZEngine::Rendering::Renderers::RenderPasses{
+        struct RenderPass;
+}
+
+namespace ZEngine::Rendering::Renderers
 {
+    struct GraphicRenderer;
+    struct RenderGraphBuilder;
+    struct RenderPassBuilder;
+}
+
+export ZEngine::Rendering::Renderers{
     enum RenderGraphResourceType
     {
         UNDEFINED = -1,
@@ -82,9 +96,9 @@ export namespace ZEngine::Rendering::Renderers
         bool                                 Enabled   = true;
         RenderGraphRenderPassCreation        Creation  = {};
         Core::Containers::Array<const char*> EdgeNodes = {};
-        ZRawPtr(RenderPasses::RenderPass) Handle       = nullptr;
-        ZRawPtr(Buffers::FramebufferVNext) Framebuffer = nullptr;
-        ZRawPtr(IRenderGraphCallbackPass) CallbackPass = nullptr;
+        RenderPasses::RenderPass* Handle       = nullptr;
+        Buffers::FramebufferVNext* Framebuffer = nullptr;
+        IRenderGraphCallbackPass* CallbackPass = nullptr;
     };
 
     class RenderGraph
@@ -96,7 +110,7 @@ export namespace ZEngine::Rendering::Renderers
         bool                               MarkAsDirty       = false;
         GraphicRenderer*                   Renderer          = nullptr;
         RenderGraphBuilder*                Builder           = nullptr;
-        RenderPasses::RenderPassBuilder*   RenderPassBuilder = nullptr;
+        RenderPassBuilder*                 RenderPassBuilder = nullptr;
 
         void                               Initialize(Core::Memory::ArenaAllocator* arena, GraphicRenderer* renderer);
 
@@ -142,4 +156,5 @@ export namespace ZEngine::Rendering::Renderers
     private:
         RenderGraph& m_graph;
     };
+
 } // namespace ZEngine::Rendering::Renderers

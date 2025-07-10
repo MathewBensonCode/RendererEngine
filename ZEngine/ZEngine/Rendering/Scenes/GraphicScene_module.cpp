@@ -1,7 +1,7 @@
 ﻿module;
 #include <entt/entt.hpp>
 #include <uuid.h>
-#include <glm/fwd.hpp>
+#include <glm/glm.hpp>
 
 export module ZEngine.Rendering:Scenes.GraphicScene;
 

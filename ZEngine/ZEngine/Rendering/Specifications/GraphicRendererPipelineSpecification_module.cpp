@@ -1,4 +1,5 @@
 module;
+#include <vulkan/vulkan.h>
 
 export module ZEngine.Rendering:Specifications.GraphicRendererPipelineSpecification;
 

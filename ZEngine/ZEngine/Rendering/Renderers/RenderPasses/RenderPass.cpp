@@ -2,14 +2,12 @@ module ZEngine.Rendering;
 
 import std;
 import :Renderers.RenderPasses.RenderPass;
+import :Devices.VulkanDevice;
 
 using namespace ZEngine::Rendering::Buffers;
 using namespace ZEngine::Rendering::Specifications;
 using namespace ZEngine::Helpers;
 
-namespace ZEngine::Rendering::Devices{
-    struct VulkanDevice;
-}
 
 namespace ZEngine::Rendering::Renderers::RenderPasses
 {
