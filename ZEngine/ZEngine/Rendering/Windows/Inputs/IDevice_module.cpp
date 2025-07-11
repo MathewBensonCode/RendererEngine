@@ -1,12 +1,12 @@
-export module ZEngine.Windows:Inputs.IDevice;
+export module ZEngine.Rendering:Windows.Inputs.IDevice;
 
 import std;
-import :Inputs.KeyCode;
+import :Windows.CoreWindow;
+import :Windows.Inputs.KeyCode;
 import ZEngine.Core.Memory.Allocator;
 import ZEngine.ZEngineDef;
-import :CoreWindow;
 
-export namespace ZEngine::Windows::Inputs
+export namespace ZEngine::Rendering::Windows::Inputs
 {
 
     struct IDevice
@@ -38,9 +38,9 @@ export namespace ZEngine::Windows::Inputs
             return reinterpret_cast<T*>(pair.first->second);
         }
 
-        virtual bool        IsKeyPressed(ZEngine::Windows::Inputs::GlfwKeyCode key, ZEngine::Windows::CoreWindow* const window) const  = 0;
+        virtual bool        IsKeyPressed(Windows::Inputs::GlfwKeyCode key, Windows::CoreWindow* const window) const  = 0;
 
-        virtual bool        IsKeyReleased(ZEngine::Windows::Inputs::GlfwKeyCode key, Windows::CoreWindow* const window) const = 0;
+        virtual bool        IsKeyReleased(Windows::Inputs::GlfwKeyCode key, Windows::CoreWindow* const window) const = 0;
 
         virtual const char* GetName() const
         {

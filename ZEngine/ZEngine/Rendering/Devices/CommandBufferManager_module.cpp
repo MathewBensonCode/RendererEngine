@@ -28,7 +28,7 @@ namespace ZEngine::Rendering::Devices{
     class UniformBuffer;
     struct VulkanDevice;
 
-    struct CommandBufferManager
+    export struct CommandBufferManager
     {
         void                                                            Initialize(VulkanDevice* device, std::uint8_t swapchain_image_count = 3, int thread_count = 1);
         void                                                            Deinitialize();

@@ -1,11 +1,11 @@
-export module ZEngine.Windows:Events.MouseEvent;
+export module ZEngine.Rendering:Windows.Events.MouseEvent;
 
 import std;
-import :Inputs.KeyCode;
+import :Windows.Inputs.KeyCode;
 import ZEngine.Core.CoreEvent;
 import ZEngine.ZEngineDef;
 
-export namespace ZEngine::Windows::Events
+export namespace ZEngine::Rendering::Windows::Events
 {
 
     class MouseEvent : public Core::CoreEvent

@@ -1,22 +1,21 @@
-export module ZEngine.Windows:CoreWindow;
+export module ZEngine.Rendering:Windows.CoreWindow;
 
 import std;
-import :WindowConfiguration;
-import :WindowProperty;
+import :Windows.WindowConfiguration;
+import :Windows.WindowProperty;
+import :Windows.Inputs.IInputEventCallback;
+import :Windows.IUpdatable;
+import :Windows.IEventable;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.Strings;
 import ZEngine.Core.CoreEvent;
 import ZEngine.Core.EventDispatcher;
 import ZEngine.Core.IInitializable;
-import ZEngine.Rendering;
 import ZEngine.Core.Memory.Allocator;
 import ZEngine.Core.TimeStep;
 import ZEngine.Helpers.IntrusivePtr;
-import :Inputs.IInputEventCallback;
-import :IUpdatable;
-import :IEventable;
 
-namespace ZEngine::Windows
+namespace ZEngine::Rendering::Windows
 {
    export class CoreWindow : public Inputs::IKeyboardEventCallback, public Inputs::IMouseEventCallback, public Inputs::ITextInputEventCallback, public Inputs::IWindowEventCallback, public IUpdatable, public ZEngine::Rendering::IRenderable, public IEventable
 

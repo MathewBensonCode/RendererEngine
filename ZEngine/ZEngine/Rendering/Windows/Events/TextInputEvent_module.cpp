@@ -1,9 +1,9 @@
-export module ZEngine.Windows:Events.TextInputEvent;
+export module ZEngine.Rendering:Windows.Events.TextInputEvent;
 
 import std;
 import ZEngine.Core.CoreEvent;
 
-export namespace ZEngine::Windows::Events
+export namespace ZEngine::Rendering::Windows::Events
 {
 
     class TextInputEvent : public Core::CoreEvent

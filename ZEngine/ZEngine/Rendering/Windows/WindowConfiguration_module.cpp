@@ -1,12 +1,12 @@
-export module ZEngine.Windows:WindowConfiguration;
+export module ZEngine.Rendering:Windows.WindowConfiguration;
 
 import std;
-import :Layers;
+import :Windows.Layers;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.Strings;
 import ZEngine.Helpers.IntrusivePtr;
 
-export namespace ZEngine::Windows
+export namespace ZEngine::Rendering::Windows
 {
     struct WindowConfiguration
     {

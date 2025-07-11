@@ -78,21 +78,6 @@ target_sources(
     FILES
     ZEngine/Engine_module.cpp
     ZEngine/Event/EngineClosedEvent_module.cpp
-    ZEngine/Windows/Windows_module.cpp
-    ZEngine/Windows/WindowConfiguration_module.cpp
-    ZEngine/Windows/CoreWindow_module.cpp
-    ZEngine/Windows/WindowProperty_module.cpp
-    ZEngine/Windows/Events/WindowEvent_module.cpp
-    ZEngine/Windows/Events/KeyEvent_module.cpp
-    ZEngine/Windows/Events/MouseEvent_module.cpp
-    ZEngine/Windows/Events/TextInputEvent_module.cpp
-    ZEngine/Windows/Layers/Layer_module.cpp
-    ZEngine/Windows/Inputs/KeyCodeDefinition_module.cpp
-    ZEngine/Windows/Inputs/KeyCode_module.cpp
-    ZEngine/Windows/Inputs/IInputEventCallback_module.cpp
-    ZEngine/Windows/Inputs/IDevice_module.cpp
-    ZEngine/Windows/IUpdatable_module.cpp
-    ZEngine/Windows/IEventable_module.cpp
     ZEngine/ZEngineDef_module.cpp
     ZEngine/Helpers/MathHelper_module.cpp
     ZEngine/Helpers/ContainerExtension_module.cpp
@@ -202,6 +187,20 @@ target_sources(
     ZEngine/Rendering/Components/LightComponent_module.cpp
     ZEngine/Rendering/Serializers/GraphicScene3DSerializer_module.cpp
     ZEngine/Rendering/Serializers/GraphicSceneSerializer_module.cpp
+    ZEngine/Rendering/Windows/WindowConfiguration_module.cpp
+    ZEngine/Rendering/Windows/CoreWindow_module.cpp
+    ZEngine/Rendering/Windows/WindowProperty_module.cpp
+    ZEngine/Rendering/Windows/Events/WindowEvent_module.cpp
+    ZEngine/Rendering/Windows/Events/KeyEvent_module.cpp
+    ZEngine/Rendering/Windows/Events/MouseEvent_module.cpp
+    ZEngine/Rendering/Windows/Events/TextInputEvent_module.cpp
+    ZEngine/Rendering/Windows/Layers/Layer_module.cpp
+    ZEngine/Rendering/Windows/Inputs/KeyCodeDefinition_module.cpp
+    ZEngine/Rendering/Windows/Inputs/KeyCode_module.cpp
+    ZEngine/Rendering/Windows/Inputs/IInputEventCallback_module.cpp
+    ZEngine/Rendering/Windows/Inputs/IDevice_module.cpp
+    ZEngine/Rendering/Windows/IUpdatable_module.cpp
+    ZEngine/Rendering/Windows/IEventable_module.cpp
 
   PRIVATE ZEngine/Engine.cpp
           ZEngine/Helpers/ThreadPool.cpp
@@ -214,9 +213,6 @@ target_sources(
           ZEngine/Rendering/Devices/VulkanLayer.cpp
           ZEngine/Rendering/Devices/VulkanDevice.cpp
           ZEngine/Maths/Math.cpp
-          ZEngine/Rendering/Primitives/Semaphore.cpp
-          ZEngine/Rendering/Primitives/Fence.cpp
-          ZEngine/Rendering/Primitives/ImageMemoryBarrier.cpp
           ZEngine/Rendering/Scenes/GraphicScene.cpp
           #ZEngine/Rendering/Meshes/MeshBuilder.cpp
           ZEngine/Rendering/Shaders/Compilers/CompilationStage.cpp

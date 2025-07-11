@@ -1,9 +1,9 @@
-export module ZEngine.Windows:IEventable;
+export module ZEngine.Rendering:Windows.IEventable;
 
 import std;
 import ZEngine.Core.CoreEvent;
 
-namespace ZEngine::Windows
+namespace ZEngine::Rendering::Windows
 {
     export struct IEventable
     {

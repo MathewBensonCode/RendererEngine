@@ -1,8 +1,8 @@
-export module ZEngine.Windows:Inputs.KeyCode;
+export module ZEngine.Rendering:Windows.Inputs.KeyCode;
 
 import std;
 
-export namespace ZEngine::Windows::Inputs
+export namespace ZEngine::Rendering::Windows::Inputs
 {
     enum class GlfwKeyCode : std::int32_t{
         KEY_UNKNOWN         = -1,

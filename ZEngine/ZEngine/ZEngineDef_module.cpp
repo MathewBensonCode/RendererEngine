@@ -45,18 +45,18 @@ export constexpr auto* ZPush(auto* allocator, auto size, std::source_location lo
 }
 
 export template<typename type>
-constexpr auto ZPushArray(auto* arena, auto count, std::source_location location = std::source_location::current())
+constexpr auto* ZPushArray(auto* arena, auto count, std::source_location location = std::source_location::current())
 {
     return ZPush(arena, (sizeof(type) * count), location);
 }
 
-export constexpr auto ZPushString(auto *arena, auto count)
+export constexpr auto* ZPushString(auto *arena, auto count)
 {
     return ZPushArray<char>(arena, count);
 }
 
 export template<typename type>
-constexpr auto ZPushStruct(auto arena)
+constexpr auto* ZPushStruct(auto* arena)
 {
     return ZPushArray<type>(arena, 2);
 }
@@ -68,7 +68,8 @@ constexpr auto ZPushStructCtor(auto *arena)
 }
 
 //export constexpr auto ZPushStructCtorArgs(arena, type, ...extra_args) (return new (ZPushStruct(arena, type)) type(__VA_ARGS__))
-export void ZENGINE_VALIDATE_ASSERT(auto condition, auto message)
+
+export void ZENGINE_VALIDATE_ASSERT(bool condition, auto message)
     {
         if (!(condition))
         {

@@ -1,10 +1,10 @@
-export module ZEngine.Windows:WindowProperty;
+export module ZEngine.Rendering:Windows.WindowProperty;
 
 import std;
 import ZEngine.Core.Containers.Strings;
 import ZEngine.Core.CoreEvent;
 
-export namespace ZEngine::Windows
+export namespace ZEngine::Rendering::Windows
 {
     struct WindowProperty
     {

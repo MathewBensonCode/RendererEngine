@@ -1,7 +1,9 @@
 module ZEngine.Rendering;
 
-import :Renderers.GraphicRenderer;
 import :Renderers.RenderGraph;
+import :Renderers.GraphicRenderer;
+import :Devices.VulkanBufferHandles;
+import :Devices.VulkanDevice;
 
 using namespace ZEngine::Core::Containers;
 

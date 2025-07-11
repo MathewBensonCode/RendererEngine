@@ -1,6 +1,6 @@
 export module ZEngine.Rendering:Devices.VulkanBufferHandles;
 
-import ZEngine.Helpers.HandleManager;
+export import ZEngine.Helpers.HandleManager;
 
 namespace ZEngine::Rendering::Devices{
 

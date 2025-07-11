@@ -1,9 +1,9 @@
-export module ZEngine.Windows:IUpdatable;
+export module ZEngine.Rendering:Windows.IUpdatable;
 
 import std;
 import ZEngine.Core.TimeStep;
 
-namespace ZEngine::Windows
+namespace ZEngine::Rendering::Windows
 {
     export struct IUpdatable
     {

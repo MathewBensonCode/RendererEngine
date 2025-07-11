@@ -1,9 +1,9 @@
-export module ZEngine.Windows:Events.WindowEvent;
+export module ZEngine.Rendering:Windows.Events.WindowEvent;
 
 import std;
 import ZEngine.Core.CoreEvent;
 
-export namespace ZEngine::Windows::Events
+export namespace ZEngine::Rendering::Windows::Events
 {
     class WindowRestoredEvent : public Core::CoreEvent
     {

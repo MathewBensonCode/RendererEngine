@@ -6,11 +6,12 @@ export module ZEngine.Rendering:Devices.VulkanDevice;
 
 import std;
 import :Devices.VulkanLayer;
-import :Pools.CommandPool;
+import :Devices.CommandBufferManager;
 import :Primitives.ImageMemoryBarrier;
 import :ResourceTypes;
 import :Specifications.ShaderSpecification;
 import :Textures.Texture;
+import :Shaders.Shader;
 import ZEngine.Helpers.HandleManager;
 import ZEngine.Helpers.MemoryOperations;
 import ZEngine.Helpers.ThreadSafeQueue;
@@ -18,7 +19,10 @@ import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.HashMap;
 import ZEngine.Core.Containers.Strings;
 import ZEngine.Core.Memory.Allocator;
-import ZEngine.Windows;
+
+namespace ZEngine::Rendering::Windows{
+    struct CoreWindow;
+}
 
 namespace ZEngine::Rendering::Primitives{
     struct Fence;
@@ -34,7 +38,6 @@ export namespace ZEngine::Rendering::Devices
 {
     struct WriteDescriptorSetRequestKey;
     struct WriteDescriptorSetRequest;
-    struct CommandBufferManager;
     /*
      * Vertex | Index | Uniform | Storage Buffers
      */
@@ -52,7 +55,7 @@ export namespace ZEngine::Rendering::Devices
 
     struct BufferView
     {
-        uint8_t       FrameIndex = std::numeric_limits<uint8_t>::max();
+        std::uint8_t       FrameIndex = std::numeric_limits<std::uint8_t>::max();
         VkBuffer      Handle     = VK_NULL_HANDLE;
         VmaAllocation Allocation = nullptr;
 
@@ -64,7 +67,7 @@ export namespace ZEngine::Rendering::Devices
 
     struct BufferImage
     {
-        uint8_t       FrameIndex{std::numeric_limits<uint8_t>::max()};
+        std::uint8_t       FrameIndex{std::numeric_limits<std::uint8_t>::max()};
         VkImage       Handle{VK_NULL_HANDLE};
         VkImageView   ViewHandle{VK_NULL_HANDLE};
         VkSampler     Sampler{VK_NULL_HANDLE};
@@ -90,7 +93,7 @@ export namespace ZEngine::Rendering::Devices
 
         virtual ~IGraphicBuffer() = default;
 
-        virtual size_t GetByteSize() const
+        virtual std::size_t GetByteSize() const
         {
             return m_byte_size;
         }
@@ -102,8 +105,8 @@ export namespace ZEngine::Rendering::Devices
 
         virtual void*            GetNativeBufferHandle() const = 0;
 
-        size_t                   m_byte_size{0};
-        size_t                   m_last_byte_size{0};
+        std::size_t                   m_byte_size{0};
+        std::size_t                   m_last_byte_size{0};
         Devices::VulkanDevice* m_device{nullptr};
     };
 
@@ -145,7 +148,7 @@ export namespace ZEngine::Rendering::Devices
     public:
         explicit VertexBuffer(Devices::VulkanDevice* device) : IGraphicBuffer(device) {}
 
-        void SetData(const void* data, size_t byte_size);
+        void SetData(const void* data, std::size_t byte_size);
 
         template <typename T>
         void SetData(std::span<const T> content)
@@ -201,7 +204,7 @@ export namespace ZEngine::Rendering::Devices
     public:
         explicit StorageBuffer(Devices::VulkanDevice* device) : IGraphicBuffer(device) {}
 
-        void SetData(const void* data, std::uint32_t offset, size_t byte_size);
+        void SetData(const void* data, std::uint32_t offset, std::size_t byte_size);
 
         template <typename T>
         void SetData(std::span<const T> content)
@@ -257,7 +260,7 @@ export namespace ZEngine::Rendering::Devices
     public:
         IndexBuffer(Devices::VulkanDevice* device) : IGraphicBuffer(device) {}
 
-        void SetData(const void* data, size_t byte_size);
+        void SetData(const void* data, std::size_t byte_size);
 
         template <typename T>
         void SetData(std::span<const T> content)
@@ -313,7 +316,7 @@ export namespace ZEngine::Rendering::Devices
     public:
         explicit IndirectBuffer(Devices::VulkanDevice* device) : IGraphicBuffer(device) {}
 
-        void SetData(const VkDrawIndirectCommand* data, size_t byte_size);
+        void SetData(const VkDrawIndirectCommand* data, std::size_t byte_size);
 
         template <typename T>
         void SetData(std::span<const T> content)
@@ -447,12 +450,12 @@ export namespace ZEngine::Rendering::Devices
             return *this;
         }
 
-        void SetData(const void* data, size_t byte_size);
+        void SetData(const void* data, std::size_t byte_size);
 
         template <typename T>
         void SetData(Core::Containers::ArrayView<T> content)
         {
-            size_t byte_size = sizeof(T) * content.size();
+            std::size_t byte_size = sizeof(T) * content.size();
             this->SetData(content.data(), byte_size);
         }
 
@@ -598,33 +601,6 @@ export namespace ZEngine::Rendering::Devices
         Rendering::Renderers::RenderPasses::RenderPass* m_active_render_pass;
     };
 
-    struct CommandBufferManager
-    {
-        void                                                            Initialize(VulkanDevice* device, uint8_t swapchain_image_count = 3, int thread_count = 1);
-        void                                                            Deinitialize();
-        CommandBuffer*                                                  GetCommandBuffer(uint8_t frame_index, bool begin = true);
-        CommandBuffer*                                                  GetInstantCommandBuffer(Rendering::QueueType type, uint8_t frame_index, bool begin = true);
-        void                                                            EndInstantCommandBuffer(CommandBuffer* const buffer, VulkanDevice* const device, int wait_flag = 0);
-        Rendering::Pools::CommandPool*                                  GetCommandPool(Rendering::QueueType type, uint8_t frame_index);
-        int                                                             GetPoolFromIndex(Rendering::QueueType type, uint8_t index);
-        void                                                            ResetPool(int frame_index);
-
-        VulkanDevice*                                                   Device                  = nullptr;
-        const int                                                       MaxBufferPerPool        = 4;
-        Core::Containers::Array<Rendering::Pools::CommandPool*> CommandPools            = {};
-        Core::Containers::Array<Rendering::Pools::CommandPool*> TransferCommandPools    = {};
-        Core::Containers::Array<CommandBuffer*>                 CommandBuffers          = {};
-        Core::Containers::Array<CommandBuffer*>                 TransferCommandBuffers  = {};
-        int                                                             TotalCommandBufferCount = 0;
-
-    private:
-        int                     m_total_pool_count{0};
-        std::condition_variable m_cond;
-        std::atomic_bool        m_executing_instant_command{false};
-        std::mutex              m_instant_command_mutex;
-        Rendering::Primitives::Semaphore* m_instant_semaphore;
-        Rendering::Primitives::Fence* m_instant_fence;
-    };
 
     struct WriteDescriptorSetRequestKey
     {
@@ -722,7 +698,7 @@ export namespace ZEngine::Rendering::Devices
         QueueView                                                                           GetQueue(Rendering::QueueType type);
         void                                                                                QueueWait(Rendering::QueueType type);
         void                                                                                QueueWaitAll();
-        void                                                                                MapAndCopyToMemory(BufferView& buffer, size_t data_size, const void* data);
+        void                                                                                MapAndCopyToMemory(BufferView& buffer, std::size_t data_size, const void* data);
         BufferView                                                                          CreateBuffer(VkDeviceSize byte_size, VkBufferUsageFlags buffer_usage, VmaAllocationCreateFlags vma_create_flags = 0);
         void                                                                                CopyBuffer(const BufferView& source, const BufferView& destination, VkDeviceSize byte_size);
         BufferImage                                                                         CreateImage(std::uint32_t width, std::uint32_t height, VkImageType image_type, VkImageViewType image_view_type, VkFormat image_format, VkImageTiling image_tiling, VkImageLayout image_initial_layout, VkImageUsageFlags image_usage, VkSharingMode image_sharing_mode, VkSampleCountFlagBits image_sample_count, VkMemoryPropertyFlags requested_properties, VkImageAspectFlagBits image_aspect_flag, std::uint32_t layer_count = 1U, VkImageCreateFlags image_create_flag_bit = 0);

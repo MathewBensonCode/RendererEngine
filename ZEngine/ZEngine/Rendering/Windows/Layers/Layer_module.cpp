@@ -1,16 +1,16 @@
-export module ZEngine.Windows:Layers;
+export module ZEngine.Rendering:Windows.Layers;
 
 import std;
-import :IUpdatable;
-import :IEventable;
+import :Windows.IUpdatable;
+import :Windows.IEventable;
+import :IRenderable;
 import ZEngine.Core.Memory.Allocator;
-import ZEngine.Rendering;
 
-namespace ZEngine::Windows
+namespace ZEngine::Rendering::Windows
 {
     struct CoreWindow;
 
-    export struct Layer : public IUpdatable, public IEventable, public Rendering::IRenderable
+    export struct Layer : public IUpdatable, public IEventable, public IRenderable
     {
         Layer(const char* name = "default_layer")
         {

@@ -20,7 +20,6 @@ using namespace std::chrono_literals;
 using namespace ZEngine::Rendering::Primitives;
 using namespace ZEngine::Helpers;
 using namespace ZEngine::Rendering;
-using namespace ZEngine::Rendering::Buffers;
 using namespace ZEngine::Rendering::Specifications;
 using namespace ZEngine::Core::Containers;
 

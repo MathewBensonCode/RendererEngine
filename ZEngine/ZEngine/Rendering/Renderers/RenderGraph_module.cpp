@@ -26,7 +26,7 @@ namespace ZEngine::Rendering::Renderers
     struct RenderPassBuilder;
 }
 
-export ZEngine::Rendering::Renderers{
+export namespace ZEngine::Rendering::Renderers{
     enum RenderGraphResourceType
     {
         UNDEFINED = -1,

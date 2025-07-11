@@ -1,8 +1,8 @@
-export module ZEngine.Windows:Inputs.KeyCodeDefinition;
+export module ZEngine.Rendering:Windows.Inputs.KeyCodeDefinition;
 
-import :Inputs.KeyCode;
+import :Windows.Inputs.KeyCode;
 
-namespace ZEngine::Windows::Inputs{
+namespace ZEngine::Rendering::Windows::Inputs{
 
 export auto ZENGINE_KEY_UNKNOWN = GlfwKeyCode::KEY_UNKNOWN;
 export auto ZENGINE_KEY_SPACE = GlfwKeyCode::KEY_SPACE;

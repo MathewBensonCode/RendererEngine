@@ -3,21 +3,22 @@ module ZEngine.Engine;
 import std;
 import ZEngine.Rendering;
 import ZEngine.Logging;
-import ZEngine.Windows;
+import ZEngine.Core.Memory.Allocator;
+import ZEngine.ZEngineDef;
 
 namespace ZEngine
 {
     static bool              s_request_terminate                     = false;
     static std::shared_mutex g_mutex                                 = {};
-    static Windows::CoreWindow* g_current_window             = nullptr;
+    static Rendering::Windows::CoreWindow* g_current_window             = nullptr;
     static Rendering::Renderers::GraphicRenderer* g_renderer = nullptr;
-    static Devices::VulkanDevice* g_device                 = nullptr;
+    static Rendering::Devices::VulkanDevice* g_device                 = nullptr;
 
-    void Engine::Initialize(ZEngine::Core::Memory::ArenaAllocator* arena, ZEngine::Windows::CoreWindow) const window*
+    void Engine::Initialize(ZEngine::Core::Memory::ArenaAllocator* arena, ZEngine::Rendering::Windows::CoreWindow* window) 
     {
         g_current_window = window;
-        g_device         = ZPushStructCtor(arena, Devices::VulkanDevice);
-        g_renderer       = ZPushStructCtor(arena, Rendering::Renderers::GraphicRenderer);
+        g_device         = ZPushStructCtor<Rendering::Devices::VulkanDevice>(arena);
+        g_renderer       = ZPushStructCtor<Rendering::Renderers::GraphicRenderer>(arena);
 
         g_device->Initialize(arena, window);
         g_renderer->Initialize(g_device);
@@ -104,7 +105,7 @@ namespace ZEngine
         }
     }
 
-    Windows::CoreWindow* Engine::GetWindow()
+    Rendering::Windows::CoreWindow* Engine::GetWindow()
     {
         std::shared_lock l(g_mutex);
         return g_current_window;
