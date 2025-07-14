@@ -18,7 +18,6 @@ namespace ZEngine::Rendering::Devices{
     struct WriteDescriptorSetRequestKey;
     struct WriteDescriptorSetRequest;
     struct CommandBuffer;
-    struct CommandBufferManager;
     struct BufferView;
     struct BufferImage;
     struct IGraphicBuffer;
@@ -33,10 +32,10 @@ namespace ZEngine::Rendering::Devices{
         void                                                            Initialize(VulkanDevice* device, std::uint8_t swapchain_image_count = 3, int thread_count = 1);
         void                                                            Deinitialize();
         CommandBuffer*                                                  GetCommandBuffer(std::uint8_t frame_index, bool begin = true);
-        CommandBuffer*                                                  GetInstantCommandBuffer(Rendering::QueueType type, uint8_t frame_index, bool begin = true);
+        CommandBuffer*                                                  GetInstantCommandBuffer(Rendering::QueueType type, std::uint8_t frame_index, bool begin = true);
         void                                                            EndInstantCommandBuffer(CommandBuffer* const buffer, VulkanDevice* const device, int wait_flag = 0);
-        Rendering::Pools::CommandPool*                                  GetCommandPool(Rendering::QueueType type, uint8_t frame_index);
-        int                                                             GetPoolFromIndex(Rendering::QueueType type, uint8_t index);
+        Rendering::Pools::CommandPool*                                  GetCommandPool(Rendering::QueueType type, std::uint8_t frame_index);
+        int                                                             GetPoolFromIndex(Rendering::QueueType type, std::uint8_t index);
         void                                                            ResetPool(int frame_index);
 
         VulkanDevice*                                                   Device                  = nullptr;

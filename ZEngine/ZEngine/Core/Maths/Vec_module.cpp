@@ -6,16 +6,16 @@ import ZEngine.ZEngineDef;
 
 export namespace ZEngine::Core::Maths
 {
-    template <typename T, size_t N, typename = std::enable_if_t<std::is_arithmetic_v<T> && (N >= 1)>>
+    template <typename T, std::size_t N, typename = std::enable_if_t<std::is_arithmetic_v<T> && (N >= 1)>>
     struct Vec
     {
-        T& operator[](size_t index)
+        T& operator[](std::size_t index)
         {
             ZENGINE_VALIDATE_ASSERT(index < N, "Index out of range");
             return (&x)[index];
         }
 
-        const T& operator[](size_t index) const
+        const T& operator[](std::size_t index) const
         {
             ZENGINE_VALIDATE_ASSERT(index < N, "Index out of range");
             return (&x)[index];
@@ -31,7 +31,7 @@ export namespace ZEngine::Core::Maths
 
         static bool IsEqual(const Vec& a, const Vec& b)
         {
-            for (size_t i = 0; i < N; ++i)
+            for (std::size_t i = 0; i < N; ++i)
             {
                 if (!IsEqual(a[i], b[i]))
                 {
@@ -141,13 +141,13 @@ export namespace ZEngine::Core::Maths
             z = z_;
         }
 
-        T& operator[](size_t index)
+        T& operator[](std::size_t index)
         {
             ZENGINE_VALIDATE_ASSERT(index < 3, "Index out of range");
             return (&x)[index];
         }
 
-        const T& operator[](size_t index) const
+        const T& operator[](std::size_t index) const
         {
             ZENGINE_VALIDATE_ASSERT(index < 3, "Index out of range");
             return (&x)[index];
@@ -242,13 +242,13 @@ export namespace ZEngine::Core::Maths
             w = w_;
         }
 
-        T& operator[](size_t index)
+        T& operator[](std::size_t index)
         {
             ZENGINE_VALIDATE_ASSERT(index < 4, "Index out of range");
             return (&x)[index];
         }
 
-        const T& operator[](size_t index) const
+        const T& operator[](std::size_t index) const
         {
             ZENGINE_VALIDATE_ASSERT(index < 4, "Index out of range");
             return (&x)[index];
@@ -342,11 +342,11 @@ export namespace ZEngine::Core::Maths
         return (a.x * b.y) - (a.y * b.x);
     }
 
-    template <typename T, size_t N>
+    template <typename T, std::size_t N>
     inline T dot(const Vec<T, N>& a, const Vec<T, N>& b)
     {
         T result = T();
-        for (size_t i = 0; i < N; ++i)
+        for (std::size_t i = 0; i < N; ++i)
         {
             result += a[i] * b[i];
         }
