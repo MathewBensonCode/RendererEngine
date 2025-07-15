@@ -6,6 +6,7 @@ import :Windows.WindowProperty;
 import :Windows.Inputs.IInputEventCallback;
 import :Windows.IUpdatable;
 import :Windows.IEventable;
+import :IRenderable;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.Strings;
 import ZEngine.Core.CoreEvent;
@@ -17,6 +18,8 @@ import ZEngine.Helpers.IntrusivePtr;
 
 namespace ZEngine::Rendering::Windows
 {
+    struct Layer;
+
    export class CoreWindow : public Inputs::IKeyboardEventCallback, public Inputs::IMouseEventCallback, public Inputs::ITextInputEventCallback, public Inputs::IWindowEventCallback, public IUpdatable, public ZEngine::Rendering::IRenderable, public IEventable
 
     {
@@ -59,6 +62,25 @@ namespace ZEngine::Rendering::Windows
         Core::TimeStep      m_delta_time;
         WindowProperty      m_property;
         WindowConfiguration m_configuration;
+    };
+
+    struct Layer : public IUpdatable, public IEventable, public IRenderable
+    {
+        Layer(const char* name = "default_layer")
+        {
+            Name = name;
+        }
+
+        virtual ~Layer()                                                                       = default;
+
+        virtual void                           Initialize(Core::Memory::ArenaAllocator* arena) = 0;
+        virtual void                           Deinitialize() {};
+
+        Core::Memory::ArenaAllocator  LocalArena    = {};
+        Core::Memory::ArenaAllocator* Arena         = nullptr;
+        const char*                            Name          = nullptr;
+        void*                                  ParentContext = nullptr;
+        CoreWindow* ParentWindow   = nullptr;
     };
 
     CoreWindow* Create(Core::Memory::ArenaAllocator* arena, const WindowConfiguration& cfg);

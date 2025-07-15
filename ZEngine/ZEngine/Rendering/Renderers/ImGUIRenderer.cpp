@@ -111,7 +111,7 @@ namespace ZEngine::Rendering::Renderers
         auto                        shader                 = m_ui_pass->Pipeline->Shader;
         auto&                       descriptor_set_map     = shader->DescriptorSetMap;
 
-        auto                        scratch                = ZGetScratch(renderer->Device->Arena);
+        auto                        scratch                = ZEngine::Core::Memory::BeginTempArena(renderer->Device->Arena);
         Array<VkWriteDescriptorSet> write_descriptor_sets  = {};
         write_descriptor_sets.init(scratch.Arena, frame_count);
 
@@ -123,7 +123,7 @@ namespace ZEngine::Rendering::Renderers
 
         vkUpdateDescriptorSets(renderer->Device->LogicalDevice, write_descriptor_sets.size(), write_descriptor_sets.data(), 0, nullptr);
 
-        ZReleaseScratch(scratch);
+        ZEngine::Core::Memory::EndTempArena(scratch);
     }
 
     void ImGUIRenderer::Deinitialize()
@@ -207,7 +207,7 @@ namespace ZEngine::Rendering::Renderers
             return;
         }
 
-        auto              scratch     = ZGetScratch(m_renderer->Device->Arena);
+        auto              scratch     = ZEngine::Core::Memory::BeginTempArena(m_renderer->Device->Arena);
 
         Array<ImDrawVert> vertex_data = {};
         Array<ImDrawIdx>  index_data  = {};
@@ -239,7 +239,7 @@ namespace ZEngine::Rendering::Renderers
         vertex_buffer->SetData<ImDrawVert>(frame_index, vertex_data);
         index_buffer->SetData<ImDrawIdx>(frame_index, index_data);
 
-        ZReleaseScratch(scratch);
+        ZEngine::Core::Memory::EndTempArena(scratch);
 
         auto device              = m_renderer->Device;
         auto current_framebuffer = device->SwapchainFramebuffers[device->CurrentFrameIndex];

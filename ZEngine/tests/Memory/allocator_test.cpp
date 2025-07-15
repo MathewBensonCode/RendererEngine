@@ -109,12 +109,12 @@ struct Foo
 };
 void ComPareFoo(ArenaAllocator* arena, const Foo& f)
 {
-    auto  scratch       = ZGetScratch(arena);
+    auto  scratch       = ZEngine::Core::Memory::BeginTempArena(arena);
     char* internal_name = ZPushString(arena, 12);
     Helpers::secure_memmove(internal_name, 12, "Foo::Name", 10);
 
     auto cmp = strncmp(internal_name, f.name, 10);
-    ZReleaseScratch(scratch);
+    ZEngine::Core::Memory::EndTempArena(scratch);
 }
 
 TEST(AllocatorTest, ArenaMemoryTemp)

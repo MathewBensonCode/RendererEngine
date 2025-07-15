@@ -7,12 +7,9 @@ import std;
 import :ResourceTypes;
 import ZEngine.Helpers.IntrusivePtr;
 import ZEngine.ZEngineDef;
+import :Devices.VulkanDevice;
 
-namespace ZEngine::Rendering::Devices{
-    struct VulkanDevice;
-}
-
-export namespace ZEngine::Rendering::Pools
+namespace ZEngine::Rendering::Pools
 {
     struct CommandPool : public Helpers::RefCounted
     {

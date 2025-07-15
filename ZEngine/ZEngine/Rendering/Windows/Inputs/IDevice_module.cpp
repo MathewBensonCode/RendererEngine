@@ -6,10 +6,10 @@ import :Windows.Inputs.KeyCode;
 import ZEngine.Core.Memory.Allocator;
 import ZEngine.ZEngineDef;
 
-export namespace ZEngine::Rendering::Windows::Inputs
+namespace ZEngine::Rendering::Windows::Inputs
 {
 
-    struct IDevice
+    export struct IDevice
     {
         IDevice(const char* name = "abstract_device") : m_name(name) {}
         virtual ~IDevice() = default;

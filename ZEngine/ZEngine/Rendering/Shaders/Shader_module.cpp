@@ -11,11 +11,7 @@ import ZEngine.Core.Memory.Allocator;
 import ZEngine.ZEngineDef;
 
 
-namespace ZEngine::Rendering::Devices{
-    struct VulkanDevice;
-}
-
-export namespace ZEngine::Rendering::Shaders
+namespace ZEngine::Rendering::Shaders
 {
     struct Shader
     {

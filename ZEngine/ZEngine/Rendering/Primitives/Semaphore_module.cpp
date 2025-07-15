@@ -7,7 +7,7 @@ import std;
 import :Devices.VulkanDevice;
 import ZEngine.Helpers.IntrusivePtr;
 
-export namespace ZEngine::Rendering::Primitives
+namespace ZEngine::Rendering::Primitives
 {
     enum class SemaphoreState
     {
@@ -42,7 +42,7 @@ namespace ZEngine::Rendering::Primitives
         Device                                      = device;
         VkSemaphoreCreateInfo semaphore_create_info = {};
         semaphore_create_info.sType                 = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
-        ZENGINE_VALIDATE_ASSERT(vkCreateSemaphore(Device->LogicalDevice, &semaphore_create_info, nullptr, &m_handle) == VK_SUCCESS, "Failed to create Semaphore")
+        ZENGINE_VALIDATE_ASSERT(vkCreateSemaphore(Device->LogicalDevice, &semaphore_create_info, nullptr, &m_handle) == VK_SUCCESS, "Failed to create Semaphore");
     }
 
     Semaphore::~Semaphore()

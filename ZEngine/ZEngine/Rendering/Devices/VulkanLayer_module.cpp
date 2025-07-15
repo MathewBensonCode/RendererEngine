@@ -6,7 +6,7 @@ export module ZEngine.Rendering:Devices.VulkanLayer;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Memory.Allocator;
 
-export namespace ZEngine::Rendering::Devices
+namespace ZEngine::Rendering::Devices
 {
     struct LayerProperty
     {

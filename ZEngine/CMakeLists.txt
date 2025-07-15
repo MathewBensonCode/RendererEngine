@@ -113,8 +113,6 @@ target_sources(
     ZEngine/Rendering/Rendering_module.cpp
     ZEngine/Rendering/Devices/VulkanLayer_module.cpp
     ZEngine/Rendering/Devices/VulkanDevice_module.cpp
-    ZEngine/Rendering/Devices/VulkanBufferHandles_module.cpp
-    ZEngine/Rendering/Devices/CommandBufferManager_module.cpp
     ZEngine/Rendering/Primitives/Semaphore_module.cpp
     ZEngine/Rendering/Primitives/Fence_module.cpp
     ZEngine/Rendering/Primitives/ImageMemoryBarrier_module.cpp
@@ -194,7 +192,6 @@ target_sources(
     ZEngine/Rendering/Windows/Events/KeyEvent_module.cpp
     ZEngine/Rendering/Windows/Events/MouseEvent_module.cpp
     ZEngine/Rendering/Windows/Events/TextInputEvent_module.cpp
-    ZEngine/Rendering/Windows/Layers/Layer_module.cpp
     ZEngine/Rendering/Windows/Inputs/KeyCodeDefinition_module.cpp
     ZEngine/Rendering/Windows/Inputs/KeyCode_module.cpp
     ZEngine/Rendering/Windows/Inputs/IInputEventCallback_module.cpp

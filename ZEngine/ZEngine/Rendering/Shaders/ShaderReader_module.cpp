@@ -7,7 +7,7 @@ import std;
 import :Shaders.ShaderInformation;
 import :Shaders.ShaderEnums;
 
-export namespace ZEngine::Rendering::Shaders
+namespace ZEngine::Rendering::Shaders
 {
 
     class ShaderReader

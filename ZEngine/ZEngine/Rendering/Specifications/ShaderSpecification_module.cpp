@@ -5,7 +5,7 @@ export module ZEngine.Rendering:Specifications.ShaderSpecification;
 
 import std;
 
-export namespace ZEngine::Rendering::Specifications
+namespace ZEngine::Rendering::Specifications
 {
     enum class DescriptorTypeEnum : std::uint32_t
     {

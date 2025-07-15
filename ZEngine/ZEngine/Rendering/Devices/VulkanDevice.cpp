@@ -55,7 +55,7 @@ namespace ZEngine::Rendering::Devices
 
         VkInstanceCreateInfo instance_create_info = {.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO, .pNext = VK_NULL_HANDLE, .flags = 0, .pApplicationInfo = &app_info};
 
-        auto                 scratch              = ZGetScratch(Arena);
+        auto                 scratch              = ZEngine::Core::Memory::BeginTempArena(Arena);
 
         Array<const char*>   enabled_layer_name_collection;
         Array<LayerProperty> selected_layer_property_collection;
@@ -364,7 +364,7 @@ namespace ZEngine::Rendering::Devices
             }
         }
 
-        ZReleaseScratch(scratch);
+        ZEngine::Core::Memory::EndTempArena(scratch);
 
         /*
          * Creating VMA Allocators
@@ -461,7 +461,7 @@ namespace ZEngine::Rendering::Devices
             }
             const auto& image_info = texture->ImageBuffer->GetDescriptorImageInfo();
 
-            auto        scratch    = ZGetScratch(Arena);
+            auto        scratch    = ZEngine::Core::Memory::BeginTempArena(Arena);
             {
                 Array<VkWriteDescriptorSet> write_descriptor_sets = {};
                 write_descriptor_sets.init(scratch.Arena, WriteBindlessDescriptorSetRequests.size());
@@ -473,7 +473,7 @@ namespace ZEngine::Rendering::Devices
 
                 vkUpdateDescriptorSets(LogicalDevice, write_descriptor_sets.size(), write_descriptor_sets.data(), 0, nullptr);
             }
-            ZReleaseScratch(scratch);
+            ZEngine::Core::Memory::EndTempArena(scratch);
         }
 
         Textures::TextureHandle tex_to_dispose = {};
@@ -1008,7 +1008,7 @@ namespace ZEngine::Rendering::Devices
             SwapchainFramebuffers.init(Arena, SwapchainImageCount, SwapchainImageCount);
         }
 
-        auto            scratch             = ZGetScratch(Arena);
+        auto            scratch             = ZEngine::Core::Memory::BeginTempArena(Arena);
 
         Array<uint32_t> family_indice       = {};
         std::uint32_t        family_indice_count = HasSeperateTransfertQueueFamily ? 2 : 1;
@@ -1062,7 +1062,7 @@ namespace ZEngine::Rendering::Devices
             SwapchainFramebuffers[i] = CreateFramebuffer(ArrayView{fb_images_views}, SwapchainAttachment->GetHandle(), SwapchainImageWidth, SwapchainImageHeight);
         }
 
-        ZReleaseScratch(scratch);
+        ZEngine::Core::Memory::EndTempArena(scratch);
     }
 
     void VulkanDevice::ResizeSwapchain()
@@ -1132,7 +1132,7 @@ namespace ZEngine::Rendering::Devices
         Primitives::Semaphore* render_complete_semaphore = SwapchainRenderCompleteSemaphores[CurrentFrameIndex];
         Primitives::Fence*     signal_fence              = SwapchainSignalFences[CurrentFrameIndex];
 
-        auto                   scratch                   = ZGetScratch(Arena);
+        auto                   scratch                   = ZEngine::Core::Memory::BeginTempArena(Arena);
 
         Array<VkCommandBuffer> buffer;
         buffer.init(scratch.Arena, EnqueuedCommandbufferIndex);
@@ -1154,7 +1154,7 @@ namespace ZEngine::Rendering::Devices
         auto                 submit              = vkQueueSubmit(queue, 1, &(submit_info), signal_fence->GetHandle());
         ZENGINE_VALIDATE_ASSERT(submit == VK_SUCCESS, "Failed to submit queue")
 
-        ZReleaseScratch(scratch);
+        ZEngine::Core::Memory::EndTempArena(scratch);
 
         for (int i = 0; i < EnqueuedCommandbufferIndex; ++i)
         {
@@ -1525,7 +1525,7 @@ namespace ZEngine::Rendering::Devices
         const std::uint32_t      width            = render_pass->GetRenderAreaWidth();
         const std::uint32_t      height           = render_pass->GetRenderAreaHeight();
 
-        auto                scratch          = ZGetScratch(&LocalArena);
+        auto                scratch          = ZEngine::Core::Memory::BeginTempArena(&LocalArena);
 
         Array<VkClearValue> clear_values     = {};
         clear_values.init(scratch.Arena, 5);
@@ -1590,7 +1590,7 @@ namespace ZEngine::Rendering::Devices
 
         m_active_render_pass = render_pass;
 
-        ZReleaseScratch(scratch);
+        ZEngine::Core::Memory::EndTempArena(scratch);
     }
 
     void CommandBuffer::EndRenderPass()
@@ -1614,7 +1614,7 @@ namespace ZEngine::Rendering::Devices
             auto                   shader             = pipeline->Shader;
             auto&                  descriptor_set_map = shader->DescriptorSetMap;
 
-            auto                   scratch            = ZGetScratch(&LocalArena);
+            auto                   scratch            = ZEngine::Core::Memory::BeginTempArena(&LocalArena);
             Array<VkDescriptorSet> frame_sets         = {};
             frame_sets.init(scratch.Arena, 5);
 
@@ -1625,7 +1625,7 @@ namespace ZEngine::Rendering::Devices
             }
 
             vkCmdBindDescriptorSets(m_command_buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline_layout, 0, frame_sets.size(), frame_sets.data(), 0, nullptr);
-            ZReleaseScratch(scratch);
+            ZEngine::Core::Memory::EndTempArena(scratch);
         }
     }
 

@@ -1,10 +1,13 @@
+module;
+#include <vulkan/vulkan.h>
+
 module ZEngine.Rendering;
 
 import std;
 import :Renderers.RenderPasses.Attachment;
 import :Devices.VulkanDevice;
 import ZEngine.Core.Containers.Array;
-import ZEngine.Rendering.Renderers.RenderPasses.Attachment;
+import :Renderers.RenderPasses.Attachment;
 import ZEngine.ZEngineDef;
 
 using namespace ZEngine::Rendering::Specifications;
@@ -15,9 +18,9 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
 {
     Attachment::Attachment(Devices::VulkanDevice* device, const Specifications::AttachmentSpecification& spec) : m_device(device), m_specification(spec)
     {
-        ZENGINE_VALIDATE_ASSERT(!spec.ColorsMap.empty(), "Color attachments can't be empty")
+        ZENGINE_VALIDATE_ASSERT(!spec.ColorsMap.empty(), "Color attachments can't be empty");
 
-        auto                           scratch                               = ZGetScratch(device->Arena);
+        auto                           scratch                               = ZEngine::Core::Memory::BeginTempArena(device->Arena);
 
         VkSubpassDescription           subpass_description                   = {};
         VkAttachmentReference          depth_attachment_reference            = {.attachment = VK_ATTACHMENT_UNUSED, .layout = VK_IMAGE_LAYOUT_UNDEFINED};
@@ -102,7 +105,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
 
         ZENGINE_VALIDATE_ASSERT(vkCreateRenderPass(m_device->LogicalDevice, &render_pass_create_info, nullptr, &m_handle) == VK_SUCCESS, "Failed to create render pass")
 
-        ZReleaseScratch(scratch);
+        ZEngine::Core::Memory::EndTempArena(scratch);
     }
 
     Attachment::~Attachment()

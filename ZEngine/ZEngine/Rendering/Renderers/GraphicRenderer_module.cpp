@@ -6,15 +6,10 @@ export module ZEngine.Rendering:Renderers.GraphicRenderer;
 import std;
 import :Cameras.Camera;
 import :Textures.Texture;
-import :Devices.VulkanBufferHandles;
-import :Devices.CommandBufferManager;
+import :Devices.VulkanDevice;
 import ZEngine.Helpers.ThreadSafeQueue;
 import ZEngine.Helpers.IntrusivePtr;
 
-namespace ZEngine::Rendering::Devices{
-    struct VulkanDevice;
-    struct CommandBuffer;
-}
 
 namespace ZEngine::Rendering::Renderers{
     struct RenderGraph;

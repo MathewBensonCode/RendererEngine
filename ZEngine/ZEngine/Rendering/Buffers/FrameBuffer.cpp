@@ -45,7 +45,7 @@ namespace ZEngine::Rendering::Buffers
 
     void FramebufferVNext::Create()
     {
-        auto                                 scratch = ZGetScratch(m_device->Arena);
+        auto                                 scratch = ZEngine::Core::Memory::BeginTempArena(m_device->Arena);
 
         size_t                               count   = m_specification.RenderTargets.size();
         Core::Containers::Array<VkImageView> views   = {};
@@ -59,7 +59,7 @@ namespace ZEngine::Rendering::Buffers
         }
         Handle = m_device->CreateFramebuffer(views, m_specification.Attachment->GetHandle(), m_specification.Width, m_specification.Height, m_specification.Layers);
 
-        ZReleaseScratch(scratch);
+        ZEngine::Core::Memory::EndTempArena(scratch);
     }
 
     void FramebufferVNext::Resize(std::uint32_t width, std::uint32_t height)

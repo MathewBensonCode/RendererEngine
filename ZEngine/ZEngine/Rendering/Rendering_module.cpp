@@ -10,4 +10,3 @@ export import :Devices.VulkanDevice;
 
 export import :Windows.WindowConfiguration;
 export import :Windows.CoreWindow;
-export import :Windows.Layers;

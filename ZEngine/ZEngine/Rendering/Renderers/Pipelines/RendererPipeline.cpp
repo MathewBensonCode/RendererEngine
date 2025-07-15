@@ -26,7 +26,7 @@ namespace ZEngine::Rendering::Renderers::Pipelines
     void GraphicPipeline::Bake()
     {
 
-        auto                             scratch                                = ZGetScratch(Device->Arena);
+        auto                             scratch                                = ZEngine::Core::Memory::BeginTempArena(Device->Arena);
         /*Pipeline fixed states*/
         /*
          * Dynamic State
@@ -183,7 +183,7 @@ namespace ZEngine::Rendering::Renderers::Pipelines
         graphic_pipeline_create_info.pNext                        = nullptr;        // Optional
         ZENGINE_VALIDATE_ASSERT(vkCreateGraphicsPipelines(Device->LogicalDevice, VK_NULL_HANDLE, 1, &graphic_pipeline_create_info, nullptr, &Handle) == VK_SUCCESS, "Failed to create Graphics Pipeline")
 
-        ZReleaseScratch(scratch);
+        ZEngine::Core::Memory::EndTempArena(scratch);
     }
 
     void GraphicPipeline::Dispose()

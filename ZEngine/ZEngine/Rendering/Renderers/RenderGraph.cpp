@@ -172,7 +172,7 @@ namespace ZEngine::Rendering::Renderers
         /*
          * Topological Sorting
          */
-        auto                           scratch       = ZGetScratch(Renderer->Device->Arena);
+        auto                           scratch       = ZEngine::Core::Memory::BeginTempArena(Renderer->Device->Arena);
 
         Array<const char*>             sorted_nodes  = {};
         HashMap<const char*, std::uint32_t> visited_nodes = {};
@@ -227,7 +227,7 @@ namespace ZEngine::Rendering::Renderers
             end = std::prev(end);
         }
 
-        ZReleaseScratch(scratch);
+        ZEngine::Core::Memory::EndTempArena(scratch);
 
         /*
          * Reading sorting graph node in reverse order and Create resource and RenderPass Node

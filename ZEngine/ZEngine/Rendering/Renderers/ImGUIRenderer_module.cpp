@@ -1,14 +1,10 @@
 export module ZEngine.Rendering:Renderers.ImGUIRenderer;
 
 import std;
+import :Devices.VulkanDevice;
 import :Renderers.RenderPasses.RenderPass;
-import :Devices.VulkanBufferHandles;
 
-namespace ZEngine::Rendering::Devices{
-    struct CommandBuffer;
-}
-
-export namespace ZEngine::Rendering::Renderers
+namespace ZEngine::Rendering::Renderers
 {
     struct PushConstantData
     {

@@ -8,7 +8,7 @@ import :Shaders.ShaderReader;
 import ZEngine.ZEngineDef;
 import ZEngine.Logging;
 
-export namespace ZEngine::Rendering::Shaders
+namespace ZEngine::Rendering::Shaders
 {
 
     class ShaderIncluder : public glslang::TShader::Includer

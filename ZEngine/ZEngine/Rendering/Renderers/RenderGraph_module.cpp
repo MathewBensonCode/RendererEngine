@@ -5,28 +5,22 @@ import :Buffers.Framebuffer;
 import :Scenes.GraphicScene;
 import :Specifications.TextureSpecification;
 import :Textures.Texture;
-import :Devices.VulkanBufferHandles;
+import :Devices.VulkanDevice;
 import ZEngine.ZEngineDef;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.HashMap;
+import ZEngine.Core.Memory.Allocator;
 
-
-namespace ZEngine::Rendering::Devices{
-    struct CommandBuffer;
-}
 
 namespace ZEngine::Rendering::Renderers::RenderPasses{
         struct RenderPass;
 }
 
-namespace ZEngine::Rendering::Renderers
-{
+namespace ZEngine::Rendering::Renderers{
     struct GraphicRenderer;
     struct RenderGraphBuilder;
     struct RenderPassBuilder;
-}
 
-export namespace ZEngine::Rendering::Renderers{
     enum RenderGraphResourceType
     {
         UNDEFINED = -1,
