@@ -1,7 +1,7 @@
 module;
 #include <vulkan/vulkan.h>
 
-export module ZEngine.Rendering:Buffers.Framebuffer;
+export module ZEngine.Rendering:Buffers.FrameBuffer;
 
 import std;
 import :Specifications.FrameBufferSpecification;

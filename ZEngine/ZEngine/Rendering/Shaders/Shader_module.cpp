@@ -10,6 +10,9 @@ import ZEngine.Core.Containers.HashMap;
 import ZEngine.Core.Memory.Allocator;
 import ZEngine.ZEngineDef;
 
+namespace ZEngine::Rendering::Devices{
+    struct VulkanDevice;
+}
 
 namespace ZEngine::Rendering::Shaders
 {

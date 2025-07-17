@@ -1,9 +1,12 @@
+module;
+#include <vulkan/vulkan_core.h>
+
 module ZEngine.Rendering;
 
 import :Renderers.RenderGraph;
 import :Renderers.GraphicRenderer;
-import :Devices.VulkanBufferHandles;
 import :Devices.VulkanDevice;
+import ZEngine.ZEngineDef;
 
 using namespace ZEngine::Core::Containers;
 
@@ -117,8 +120,8 @@ namespace ZEngine::Rendering::Renderers
     void RenderGraph::Initialize(Core::Memory::ArenaAllocator* arena, GraphicRenderer* renderer)
     {
         Renderer          = renderer;
-        Builder           = ZPushStructCtorArgs(arena, RenderGraphBuilder, *this);
-        RenderPassBuilder = ZPushStructCtorArgs(arena, RenderPasses::RenderPassBuilder);
+        Builder           = ZPushStructCtorArgs<RenderGraphBuilder>(arena, *this);
+        RenderPassBuilder = ZPushStructCtorArgs<RenderPasses::RenderPassBuilder>(arena);
         RenderPassBuilder->Initialize(arena);
         m_sorted_nodes.init(arena, 7);
         m_node.init(arena, 7);
@@ -140,7 +143,7 @@ namespace ZEngine::Rendering::Renderers
 
         if (MarkAsDirty)
         {
-            ZENGINE_VALIDATE_ASSERT(!m_sorted_nodes.empty(), "Sorted nodes can't be empty")
+            ZENGINE_VALIDATE_ASSERT(!m_sorted_nodes.empty(), "Sorted nodes can't be empty");
 
             for (const char* name : m_sorted_nodes)
             {
@@ -278,13 +281,13 @@ namespace ZEngine::Rendering::Renderers
         {
             auto&                                         node             = m_node[name];
             Specifications::FrameBufferSpecificationVNext framebuffer_spec = {.Width = node.Handle->RenderAreaWidth, .Height = node.Handle->RenderAreaHeight, .RenderTargets = node.Handle->RenderTargets, .Attachment = node.Handle->Attachment};
-            node.Framebuffer                                               = ZPushStructCtorArgs(Renderer->Device->Arena, Buffers::FramebufferVNext, Renderer->Device, framebuffer_spec);
+            node.Framebuffer                                               = ZPushStructCtorArgs<Buffers::FramebufferVNext>(Renderer->Device->Arena, Renderer->Device, framebuffer_spec);
         }
     }
 
     void RenderGraph::Execute(std::uint32_t frame_index, Devices::CommandBuffer* const command_buffer, Rendering::Scenes::SceneRawData* const scene)
     {
-        ZENGINE_VALIDATE_ASSERT(command_buffer, "Command Buffer can't be null")
+        ZENGINE_VALIDATE_ASSERT(command_buffer, "Command Buffer can't be null");
 
         command_buffer->ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         command_buffer->ClearDepth(1.0f, 0);
@@ -336,7 +339,7 @@ namespace ZEngine::Rendering::Renderers
                 }
 
                 auto& resource = m_resource_map[output.Name];
-                ZENGINE_VALIDATE_ASSERT(resource.Type == RenderGraphResourceType::ATTACHMENT, "RenderPass Output should be an Attachment")
+                ZENGINE_VALIDATE_ASSERT(resource.Type == RenderGraphResourceType::ATTACHMENT, "RenderPass Output should be an Attachment");
 
                 auto                                            texture      = Renderer->Device->GlobalTextures.Access(resource.ResourceInfo.TextureHandle);
                 auto&                                           buffer       = texture->ImageBuffer->GetBuffer();
@@ -443,7 +446,7 @@ namespace ZEngine::Rendering::Renderers
             node.Handle->UpdateInputBinding();
 
             Specifications::FrameBufferSpecificationVNext framebuffer_spec = {.Width = node.Handle->RenderAreaWidth, .Height = node.Handle->RenderAreaHeight, .RenderTargets = node.Handle->RenderTargets, .Attachment = node.Handle->Attachment};
-            node.Framebuffer                                               = ZPushStructCtorArgs(Renderer->Device->Arena, Buffers::FramebufferVNext, Renderer->Device, framebuffer_spec);
+            node.Framebuffer                                               = ZPushStructCtorArgs<Buffers::FramebufferVNext>(Renderer->Device->Arena, Renderer->Device, framebuffer_spec);
         }
     }
 
@@ -544,7 +547,7 @@ namespace ZEngine::Rendering::Renderers
     {
         if (!m_resource_map.contains(name))
         {
-            myargs...m_resource_map[name].Name = name;
+            m_resource_map[name].Name = name;
         }
         return m_resource_map[name].ResourceInfo.VertexBufferSetHandle;
     }
@@ -578,7 +581,7 @@ namespace ZEngine::Rendering::Renderers
 
     RenderGraphNode& RenderGraph::GetNode(const char* name)
     {
-        ZENGINE_VALIDATE_ASSERT(m_node.contains(name), "Node Pass should be created first")
+        ZENGINE_VALIDATE_ASSERT(m_node.contains(name), "Node Pass should be created first");
         return m_node[name];
     }
 

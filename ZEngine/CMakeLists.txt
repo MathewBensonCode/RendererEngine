@@ -165,7 +165,7 @@ target_sources(
     ZEngine/Rendering/Cameras/CameraEnum_module.cpp
     ZEngine/Rendering/Pools/CommandPool_module.cpp
     ZEngine/Rendering/GPUTypes_module.cpp
-    ZEngine/Rendering/Buffers/Framebuffer_module.cpp
+    ZEngine/Rendering/Buffers/FrameBuffer_module.cpp
     ZEngine/Rendering/Buffers/Bitmap_module.cpp
     ZEngine/Rendering/Buffers/PixelBuffer_module.cpp
     ZEngine/Rendering/Buffers/BufferLayout_module.cpp
@@ -209,6 +209,7 @@ target_sources(
           ZEngine/Core/IPipelineContext.cpp
           ZEngine/Rendering/Devices/VulkanLayer.cpp
           ZEngine/Rendering/Devices/VulkanDevice.cpp
+          ZEngine/Rendering/Devices/VmaUsage.cpp
           ZEngine/Maths/Math.cpp
           ZEngine/Rendering/Scenes/GraphicScene.cpp
           #ZEngine/Rendering/Meshes/MeshBuilder.cpp

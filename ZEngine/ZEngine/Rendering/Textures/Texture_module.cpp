@@ -12,7 +12,7 @@ namespace ZEngine::Rendering::Devices{
     struct Image2DBuffer;
 }
 
-export namespace ZEngine::Rendering::Textures
+namespace ZEngine::Rendering::Textures
 {
     struct Texture
     {

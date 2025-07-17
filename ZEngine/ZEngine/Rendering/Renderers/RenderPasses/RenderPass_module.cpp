@@ -4,21 +4,15 @@ module;
 export module ZEngine.Rendering:Renderers.RenderPasses.RenderPass;
 
 import std;
-import :Buffers.Framebuffer;
+import :Buffers.FrameBuffer;
 import :Renderers.Pipelines.RendererPipeline;
 import :Specifications.RenderPassSpecification;
 import :Textures.Texture;
+import :Devices.VulkanDevice;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Helpers.IntrusivePtr;
 
-namespace ZEngine::Rendering::Devices{
-    struct VulkanDevice;
-    struct UniformBufferSetHandle;
-    struct StorageBufferSetHandle;
-}                       
-
-
-export namespace ZEngine::Rendering::Renderers::RenderPasses
+namespace ZEngine::Rendering::Renderers::RenderPasses
 {
     enum PassInputType
     {

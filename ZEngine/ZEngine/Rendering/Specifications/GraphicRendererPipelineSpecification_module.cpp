@@ -5,7 +5,7 @@ export module ZEngine.Rendering:Specifications.GraphicRendererPipelineSpecificat
 
 import std;
 import ZEngine.Core.Containers.Array;
-import :Buffers.Framebuffer;
+import :Buffers.FrameBuffer;
 import :Renderers.RenderPasses.Attachment;
 import :Specifications.ShaderSpecification;
 import :Specifications.FormatSpecification;

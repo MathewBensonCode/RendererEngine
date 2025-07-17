@@ -4,7 +4,9 @@ module;
 
 module ZEngine.Rendering;
 
+import std;
 import :Devices.VulkanDevice;
+import :Shaders.Shader;
 import :Renderers.GraphicRenderer;
 import :Shaders.ShaderReader;
 import :Specifications.ShaderSpecification;
@@ -31,7 +33,7 @@ namespace ZEngine::Rendering::Shaders
 
     Shader::~Shader() {}
 
-    void Shader::Initialize(Hardwares::VulkanDevice* device, const Specifications::ShaderSpecificationType& spec)
+    void Shader::Initialize(Devices::VulkanDevice* device, const Specifications::ShaderSpecificationType& spec)
     {
         device->Arena->CreateSubArena(ZMega(5), &LocalArena);
 
@@ -70,7 +72,7 @@ namespace ZEngine::Rendering::Shaders
 
     void Shader::CreateModule()
     {
-        ZRawPtr(spirv_cross::Compiler) spirv_compiler = nullptr;
+        spirv_cross::Compiler* spirv_compiler = nullptr;
 
         /*
          * Vertex Shader processing
@@ -84,7 +86,7 @@ namespace ZEngine::Rendering::Shaders
             vertex_shader_create_info.sType                        = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
             vertex_shader_create_info.codeSize                     = vertex_shader_binary_code.size() * sizeof(std::uint32_t);
             vertex_shader_create_info.pCode                        = vertex_shader_binary_code.data();
-            ZENGINE_VALIDATE_ASSERT(vkCreateShaderModule(m_device->LogicalDevice, &vertex_shader_create_info, nullptr, &shader_module) == VK_SUCCESS, "Failed to create ShaderModule")
+            ZENGINE_VALIDATE_ASSERT(vkCreateShaderModule(m_device->LogicalDevice, &vertex_shader_create_info, nullptr, &shader_module) == VK_SUCCESS, "Failed to create ShaderModule");
             shader_create_info_collection.sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
             shader_create_info_collection.stage  = VK_SHADER_STAGE_VERTEX_BIT;
             shader_create_info_collection.module = shader_module;
@@ -92,7 +94,7 @@ namespace ZEngine::Rendering::Shaders
             /*
              * Source Reflection
              */
-            spirv_compiler                       = ZPushStructCtorArgs(&LocalArena, spirv_cross::Compiler, vertex_shader_binary_code);
+            spirv_compiler                       = ZPushStructCtorArgs<spirv_cross::Compiler>(&LocalArena, vertex_shader_binary_code);
             auto vertex_resources                = spirv_compiler->get_shader_resources();
             for (const auto& UB_resource : vertex_resources.uniform_buffers)
             {
@@ -153,7 +155,7 @@ namespace ZEngine::Rendering::Shaders
             fragment_shader_create_info.sType                      = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
             fragment_shader_create_info.codeSize                   = fragment_shader_binary_code.size() * sizeof(std::uint32_t);
             fragment_shader_create_info.pCode                      = fragment_shader_binary_code.data();
-            ZENGINE_VALIDATE_ASSERT(vkCreateShaderModule(m_device->LogicalDevice, &fragment_shader_create_info, nullptr, &shader_module) == VK_SUCCESS, "Failed to create ShaderModule")
+            ZENGINE_VALIDATE_ASSERT(vkCreateShaderModule(m_device->LogicalDevice, &fragment_shader_create_info, nullptr, &shader_module) == VK_SUCCESS, "Failed to create ShaderModule");
             shader_create_info_collection.sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
             shader_create_info_collection.stage  = VK_SHADER_STAGE_FRAGMENT_BIT;
             shader_create_info_collection.module = shader_module;
@@ -161,7 +163,7 @@ namespace ZEngine::Rendering::Shaders
             /*
              * Source Reflection
              */
-            spirv_compiler                       = ZPushStructCtorArgs(&LocalArena, spirv_cross::Compiler, fragment_shader_binary_code);
+            spirv_compiler                       = ZPushStructCtorArgs<spirv_cross::Compiler>(&LocalArena, fragment_shader_binary_code);
             auto fragment_resources              = spirv_compiler->get_shader_resources();
             for (const auto& UB_resource : fragment_resources.uniform_buffers)
             {
@@ -321,7 +323,7 @@ namespace ZEngine::Rendering::Shaders
             descriptor_set_layout_create_info.pNext                               = &binding_flags_create_info;
 
             VkDescriptorSetLayout descriptor_set_layout                           = VK_NULL_HANDLE;
-            ZENGINE_VALIDATE_ASSERT(vkCreateDescriptorSetLayout(m_device->LogicalDevice, &descriptor_set_layout_create_info, nullptr, &descriptor_set_layout) == VK_SUCCESS, "Failed to create DescriptorSetLayout")
+            ZENGINE_VALIDATE_ASSERT(vkCreateDescriptorSetLayout(m_device->LogicalDevice, &descriptor_set_layout_create_info, nullptr, &descriptor_set_layout) == VK_SUCCESS, "Failed to create DescriptorSetLayout");
 
             DescriptorSetLayoutMap[binding_set] = std::move(descriptor_set_layout);
             /*
@@ -353,7 +355,7 @@ namespace ZEngine::Rendering::Shaders
         /*
          * Create DescriptorPool
          */
-        ZENGINE_VALIDATE_ASSERT(!pool_size_collection.empty(), "The pool size can't be empty")
+        ZENGINE_VALIDATE_ASSERT(!pool_size_collection.empty(), "The pool size can't be empty");
 
         VkDescriptorPoolCreateInfo pool_info = {};
         pool_info.sType                      = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
@@ -362,7 +364,7 @@ namespace ZEngine::Rendering::Shaders
         pool_info.poolSizeCount              = pool_size_collection.size();
         pool_info.pPoolSizes                 = pool_size_collection.data();
 
-        ZENGINE_VALIDATE_ASSERT(vkCreateDescriptorPool(m_device->LogicalDevice, &pool_info, nullptr, &m_descriptor_pool) == VK_SUCCESS, "Failed to create DescriptorPool")
+        ZENGINE_VALIDATE_ASSERT(vkCreateDescriptorPool(m_device->LogicalDevice, &pool_info, nullptr, &m_descriptor_pool) == VK_SUCCESS, "Failed to create DescriptorPool");
 
         /*
          * Create DescriptorSet
@@ -385,7 +387,7 @@ namespace ZEngine::Rendering::Shaders
             descriptor_set_allocate_info.descriptorPool              = m_descriptor_pool;
             descriptor_set_allocate_info.descriptorSetCount          = m_device->SwapchainImageCount;
             descriptor_set_allocate_info.pSetLayouts                 = layout_set.data();
-            ZENGINE_VALIDATE_ASSERT(vkAllocateDescriptorSets(m_device->LogicalDevice, &descriptor_set_allocate_info, DescriptorSetMap[layout.first].data()) == VK_SUCCESS, "Failed to create DescriptorSet")
+            ZENGINE_VALIDATE_ASSERT(vkAllocateDescriptorSets(m_device->LogicalDevice, &descriptor_set_allocate_info, DescriptorSetMap[layout.first].data()) == VK_SUCCESS, "Failed to create DescriptorSet");
         }
     }
 
@@ -396,7 +398,7 @@ namespace ZEngine::Rendering::Shaders
             VkPushConstantRange& range = PushConstants.push_use(VkPushConstantRange{.offset = 0});
             for (const auto& push_constant_spec : PushConstantSpecifications)
             {
-                range.stageFlags |= ShaderStageFlagsMap[VALUE_FROM_SPEC_MAP(push_constant_spec.Flags)];
+                range.stageFlags |= ShaderStageFlagsMap[static_cast<std::uint32_t>(push_constant_spec.Flags)];
                 range.size       += push_constant_spec.Size;
             }
             PushConstantSpecifications.clear();

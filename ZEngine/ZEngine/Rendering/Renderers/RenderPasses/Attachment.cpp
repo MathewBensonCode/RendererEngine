@@ -103,7 +103,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         render_pass_create_info.dependencyCount        = subpass_dependency_collection.size();
         render_pass_create_info.pDependencies          = subpass_dependency_collection.data();
 
-        ZENGINE_VALIDATE_ASSERT(vkCreateRenderPass(m_device->LogicalDevice, &render_pass_create_info, nullptr, &m_handle) == VK_SUCCESS, "Failed to create render pass")
+        ZENGINE_VALIDATE_ASSERT(vkCreateRenderPass(m_device->LogicalDevice, &render_pass_create_info, nullptr, &m_handle) == VK_SUCCESS, "Failed to create render pass");
 
         ZEngine::Core::Memory::EndTempArena(scratch);
     }

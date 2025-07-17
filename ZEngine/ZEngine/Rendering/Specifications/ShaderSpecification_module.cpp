@@ -42,7 +42,7 @@ namespace ZEngine::Rendering::Specifications
         std::uint32_t         Set{0xFFFFFFFF};
         std::uint32_t         Binding{0xFFFFFFFF};
         std::uint32_t         Count{1};
-        std::string      Name;
+        std::string           Name;
         DescriptorTypeEnum   DescriptorType;
         ShaderStageFlags Flags;
     };

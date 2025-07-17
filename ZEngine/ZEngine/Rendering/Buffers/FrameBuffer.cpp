@@ -1,7 +1,11 @@
+module;
+#include <vulkan/vulkan.h>
+
 module ZEngine.Rendering;
 
 import std;
 import :Devices.VulkanDevice;
+import :Buffers.FrameBuffer;
 
 using namespace ZEngine::Helpers;
 using namespace ZEngine::Rendering::Specifications;
@@ -47,7 +51,7 @@ namespace ZEngine::Rendering::Buffers
     {
         auto                                 scratch = ZEngine::Core::Memory::BeginTempArena(m_device->Arena);
 
-        size_t                               count   = m_specification.RenderTargets.size();
+        std::size_t                               count   = m_specification.RenderTargets.size();
         Core::Containers::Array<VkImageView> views   = {};
         views.init(scratch.Arena, count, count);
 

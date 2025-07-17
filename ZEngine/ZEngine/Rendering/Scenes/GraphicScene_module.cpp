@@ -8,18 +8,11 @@ export module ZEngine.Rendering:Scenes.GraphicScene;
 import std;
 import :Lights.Light;
 import :Meshes.Mesh;
+import :Devices.VulkanDevice;
 import :Textures.Texture;
 import ZEngine.ZEngineDef;
 import ZEngine.Helpers.IntrusivePtr;
 import ZEngine.Logging;
-
-namespace ZEngine::Rendering::Devices{
-    struct VulkanDevice;
-    struct StorageBufferSet;
-    struct IndirectBufferSet;
-    using StorageBufferSetHandle = Helpers::Handle<StorageBufferSet>;
-    using IndirectBufferSetHandle = Helpers::Handle<IndirectBufferSet>;
-}
 
 namespace ZEngine::Rendering::Renderers{
     struct RenderGraph;
@@ -30,7 +23,7 @@ namespace ZEngine::Rendering::Serializers{
     struct GraphicScene3DSerializer;
 }
 
-export namespace ZEngine::Rendering::Scenes
+namespace ZEngine::Rendering::Scenes
 {
     /*
      * This internal defragmented storage represents SceneNode struct with a DoD (Data-Oriented Design) approach
@@ -175,7 +168,7 @@ export namespace ZEngine::Rendering::Scenes
         Helpers::WeakRef<Scenes::SceneRawData> m_weak_scene;
     };
 
-    struct GraphicScene : public Helpers::RefCounted
+    export struct GraphicScene : public Helpers::RefCounted
     {
         GraphicScene();
 

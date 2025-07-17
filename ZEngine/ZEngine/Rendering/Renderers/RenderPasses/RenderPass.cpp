@@ -1,3 +1,6 @@
+module;
+#include <vulkan/vulkan.h>
+
 module ZEngine.Rendering;
 
 import std;
@@ -25,7 +28,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         if (Specification.SwapchainAsRenderTarget)
         {
             Specification.PipelineSpecification.Attachment = m_device->SwapchainAttachment; // Todo : Can potential Dispose() issue
-            Pipeline                                       = ZPushStructCtorArgs(m_device->Arena, Pipelines::GraphicPipeline);
+            Pipeline                                       = ZPushStructCtorArgs<Pipelines::GraphicPipeline>(m_device->Arena);
             Pipeline->Initialize(m_device, std::move(Specification.PipelineSpecification));
         }
         else
@@ -79,10 +82,10 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
                 color_map_index++;
             }
 
-            Attachment                                     = ZPushStructCtorArgs(m_device->Arena, RenderPasses::Attachment, m_device, attachment_specification);
+            Attachment                                     = ZPushStructCtorArgs<RenderPasses::Attachment>(m_device->Arena,  m_device, attachment_specification);
 
             Specification.PipelineSpecification.Attachment = Attachment; // Todo : Can potential Dispose() issue
-            Pipeline                                       = ZPushStructCtorArgs(m_device->Arena, Pipelines::GraphicPipeline);
+            Pipeline                                       = ZPushStructCtorArgs<Pipelines::GraphicPipeline>(m_device->Arena);
             Pipeline->Initialize(m_device, std::move(Specification.PipelineSpecification));
 
             UpdateRenderTargets();
@@ -156,7 +159,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
             auto& buf      = ubo_buf->At(i);
             auto& buf_info = buf->GetDescriptorBufferInfo();
 
-            ZENGINE_VALIDATE_ASSERT((buf_info.buffer), "UniformBuffer can't be null")
+            ZENGINE_VALIDATE_ASSERT((buf_info.buffer), "UniformBuffer can't be null");
 
             write_reqs[i] = VkWriteDescriptorSet{.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET, .pNext = nullptr, .dstSet = set, .dstBinding = spec.Binding, .dstArrayElement = 0, .descriptorCount = 1, .descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, .pImageInfo = nullptr, .pBufferInfo = &(buf_info), .pTexelBufferView = nullptr};
         }
@@ -187,7 +190,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
             auto& buf      = sbo_buf->At(i);
             auto& buf_info = buf->GetDescriptorBufferInfo();
 
-            ZENGINE_VALIDATE_ASSERT((buf_info.buffer), "StorageBuffer can't be null")
+            ZENGINE_VALIDATE_ASSERT((buf_info.buffer), "StorageBuffer can't be null");
 
             write_reqs[i] = VkWriteDescriptorSet{.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET, .pNext = nullptr, .dstSet = set, .dstBinding = spec.Binding, .dstArrayElement = 0, .descriptorCount = 1, .descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, .pImageInfo = nullptr, .pBufferInfo = &(buf_info), .pTexelBufferView = nullptr};
         }
@@ -274,7 +277,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
             }
             else
             {
-                ZENGINE_VALIDATE_ASSERT(width == texture->Width, "Render Target Width is invalid for Framebuffer creation")
+                ZENGINE_VALIDATE_ASSERT(width == texture->Width, "Render Target Width is invalid for Framebuffer creation");
             }
 
             if (height == 0)
@@ -283,7 +286,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
             }
             else
             {
-                ZENGINE_VALIDATE_ASSERT(height == texture->Height, "Render Target Height is invalid for Framebuffer creation")
+                ZENGINE_VALIDATE_ASSERT(height == texture->Height, "Render Target Height is invalid for Framebuffer creation");
             }
 
             RenderTargets.push(input.Index);
@@ -299,7 +302,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
             }
             else
             {
-                ZENGINE_VALIDATE_ASSERT(width == texture->Width, "Render Target Width is invalid for Framebuffer creation")
+                ZENGINE_VALIDATE_ASSERT(width == texture->Width, "Render Target Width is invalid for Framebuffer creation");
             }
 
             if (height == 0)
@@ -308,7 +311,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
             }
             else
             {
-                ZENGINE_VALIDATE_ASSERT(height == texture->Height, "Render Target Height is invalid for Framebuffer creation")
+                ZENGINE_VALIDATE_ASSERT(height == texture->Height, "Render Target Height is invalid for Framebuffer creation");
             }
 
             RenderTargets.push(output.Index);
@@ -318,7 +321,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         RenderAreaHeight = height;
     }
 
-    ZRawPtr(Renderers::RenderPasses::Attachment) RenderPass::GetAttachment() const
+    Renderers::RenderPasses::Attachment* RenderPass::GetAttachment() const
     {
         return Specification.SwapchainAsRenderTarget ? m_device->SwapchainAttachment : Attachment;
     }

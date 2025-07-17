@@ -1,16 +1,14 @@
 module;
-/*
- * We define those Macros before inclusion of VulkanDevice.h so we can enable impl from VMA header
- */
-#define VMA_IMPLEMENTATION
-#define VMA_VULKAN_VERSION 1003000 // Vulkan 1.3
 #include <vulkan/vulkan.h>
+#include <vk_mem_alloc.h>
 
 module ZEngine.Rendering;
 
 import :Devices.VulkanDevice;
 import :Pools.CommandPool;
 import :Renderers.RenderPasses.Attachment;
+import :Primitives.Semaphore;
+import :Primitives.Fence;
 import ZEngine.ZEngineDef;
 import ZEngine.Helpers.MemoryOperations;
 import ZEngine.Helpers.ThreadPool;
@@ -133,14 +131,14 @@ namespace ZEngine::Rendering::Devices
 
         if (result == VK_ERROR_INCOMPATIBLE_DRIVER)
         {
-            ZENGINE_CORE_CRITICAL("Failed to create Vulkan Instance. Incompatible driver")
-            ZENGINE_EXIT_FAILURE()
+            ZEngine::Logging::Logger::Critical(std::format("Failed to create Vulkan Instance. Incompatible driver"));
+            ZENGINE_EXIT_FAILURE();
         }
 
         if (result == VK_INCOMPLETE)
         {
-            ZENGINE_CORE_CRITICAL("Failed to create Vulkan Instance. Confugration incomplete!")
-            ZENGINE_EXIT_FAILURE()
+            ZEngine::Logging::Logger::Critical(std::format("Failed to create Vulkan Instance. Confugration incomplete!"));
+            ZENGINE_EXIT_FAILURE();
         }
 
         /*Create Message Callback*/
@@ -159,10 +157,10 @@ namespace ZEngine::Rendering::Devices
             __createDebugMessengerPtr(Instance, &messenger_create_info, nullptr, &m_debug_messenger);
         }
 
-        ZENGINE_VALIDATE_ASSERT(window->CreateSurface(Instance, reinterpret_cast<void**>(&Surface)), "Failed Window Surface from GLFW")
+        ZENGINE_VALIDATE_ASSERT(window->CreateSurface(Instance, reinterpret_cast<void**>(&Surface)), "Failed Window Surface from GLFW");
 
         /*Create Vulkan Device*/
-        ZENGINE_VALIDATE_ASSERT(Instance != VK_NULL_HANDLE, "A Vulkan Instance must be created first!")
+        ZENGINE_VALIDATE_ASSERT(Instance != VK_NULL_HANDLE, "A Vulkan Instance must be created first!");
 
         std::uint32_t gpu_device_count{0};
         vkEnumeratePhysicalDevices(Instance, &gpu_device_count, nullptr);
@@ -228,7 +226,7 @@ namespace ZEngine::Rendering::Devices
                 {
                     VkBool32 present_support = false;
 
-                    ZENGINE_VALIDATE_ASSERT(vkGetPhysicalDeviceSurfaceSupportKHR(PhysicalDevice, index, Surface, &present_support) == VK_SUCCESS, "Failed to get device surface support information")
+                    ZENGINE_VALIDATE_ASSERT(vkGetPhysicalDeviceSurfaceSupportKHR(PhysicalDevice, index, Surface, &present_support) == VK_SUCCESS, "Failed to get device surface support information");
 
                     if (present_support)
                     {
@@ -293,7 +291,7 @@ namespace ZEngine::Rendering::Devices
         device_create_info.pEnabledFeatures                                                        = nullptr;
         device_create_info.pNext                                                                   = &device_features_2;
 
-        ZENGINE_VALIDATE_ASSERT(vkCreateDevice(PhysicalDevice, &device_create_info, nullptr, &LogicalDevice) == VK_SUCCESS, "Failed to create GPU logical device")
+        ZENGINE_VALIDATE_ASSERT(vkCreateDevice(PhysicalDevice, &device_create_info, nullptr, &LogicalDevice) == VK_SUCCESS, "Failed to create GPU logical device");
 
         /*Create Vulkan Graphic Queue*/
         VkQueue graphic_queue = VK_NULL_HANDLE;
@@ -367,13 +365,15 @@ namespace ZEngine::Rendering::Devices
         ZEngine::Core::Memory::EndTempArena(scratch);
 
         /*
-         * Creating VMA Allocators
-         */
-        VmaAllocatorCreateInfo vma_allocator_create_info = {.physicalDevice = PhysicalDevice, .device = LogicalDevice, .instance = Instance, .vulkanApiVersion = VK_API_VERSION_1_3};
-        ZENGINE_VALIDATE_ASSERT(vmaCreateAllocator(&vma_allocator_create_info, &Vma_Allocator) == VK_SUCCESS, "Failed to create VMA Allocator")
+        * Creating VMA Allocators
+        */
 
-        m_buffer_manager.Initialize(this);
-        EnqueuedCommandbuffers.init(Arena, m_buffer_manager.TotalCommandBufferCount, m_buffer_manager.TotalCommandBufferCount);
+        VmaAllocatorCreateInfo vma_allocator_create_info = {.physicalDevice = PhysicalDevice, .device = LogicalDevice, .instance = Instance, .vulkanApiVersion = VK_API_VERSION_1_3};
+
+        ZENGINE_VALIDATE_ASSERT(vmaCreateAllocator(&vma_allocator_create_info, &Vma_Allocator) == VK_SUCCESS, "Failed to create VMA Allocator");
+
+        m_buffer_manager->Initialize(this);
+        EnqueuedCommandbuffers.init(Arena, m_buffer_manager->TotalCommandBufferCount, m_buffer_manager->TotalCommandBufferCount);
 
         /*
          * Creating Swapchain
@@ -387,7 +387,7 @@ namespace ZEngine::Rendering::Devices
         attachment_specification.ColorsMap[0].Initial         = ImageLayout::UNDEFINED;
         attachment_specification.ColorsMap[0].Final           = ImageLayout::PRESENT_SRC;
         attachment_specification.ColorsMap[0].ReferenceLayout = ImageLayout::COLOR_ATTACHMENT_OPTIMAL;
-        SwapchainAttachment                                   = ZPushStructCtorArgs(Arena, Rendering::Renderers::RenderPasses::Attachment, this, attachment_specification);
+        SwapchainAttachment                                   = ZPushStructCtorArgs<Rendering::Renderers::RenderPasses::Attachment>(Arena, this, attachment_specification);
         PreviousFrameIndex                                    = 0;
         CurrentFrameIndex                                     = 0;
 
@@ -397,10 +397,11 @@ namespace ZEngine::Rendering::Devices
 
         for (int i = 0; i < SwapchainImageCount; ++i)
         {
-            SwapchainAcquiredSemaphores[i]       = ZPushStructCtorArgs(Arena, Primitives::Semaphore, this);
-            SwapchainRenderCompleteSemaphores[i] = ZPushStructCtorArgs(Arena, Primitives::Semaphore, this);
-            SwapchainSignalFences[i]             = ZPushStructCtorArgs(Arena, Primitives::Fence, this, true);
+            SwapchainAcquiredSemaphores[i]       = ZPushStructCtorArgs<Primitives::Semaphore>(Arena, this);
+            SwapchainRenderCompleteSemaphores[i] = ZPushStructCtorArgs<Primitives::Semaphore>(Arena, this);
+            SwapchainSignalFences[i]             = ZPushStructCtorArgs<Primitives::Fence>(Arena, this, true);
         }
+
         CreateSwapchain();
 
         ThreadPoolHelper::Submit([this] { DirtyCollector(); });
@@ -435,7 +436,7 @@ namespace ZEngine::Rendering::Devices
         SwapchainFramebuffers.clear();
         SwapchainImageViews.clear();
 
-        m_buffer_manager.Deinitialize();
+        m_buffer_manager->Deinitialize();
 
         __cleanupBufferDirtyResource();
 
@@ -443,7 +444,7 @@ namespace ZEngine::Rendering::Devices
 
         __cleanupDirtyResource();
 
-        ZENGINE_DESTROY_VULKAN_HANDLE(Instance, vkDestroySurfaceKHR, Surface, nullptr)
+        ZENGINE_DESTROY_VULKAN_HANDLE(Instance, vkDestroySurfaceKHR, Surface, nullptr);
     }
 
     void VulkanDevice::Update()
@@ -491,7 +492,7 @@ namespace ZEngine::Rendering::Devices
 
         if (__destroyDebugMessengerPtr)
         {
-            ZENGINE_DESTROY_VULKAN_HANDLE(Instance, __destroyDebugMessengerPtr, m_debug_messenger, nullptr)
+            ZENGINE_DESTROY_VULKAN_HANDLE(Instance, __destroyDebugMessengerPtr, m_debug_messenger, nullptr);
             __destroyDebugMessengerPtr = nullptr;
             __createDebugMessengerPtr  = nullptr;
         }
@@ -504,10 +505,10 @@ namespace ZEngine::Rendering::Devices
 
     bool VulkanDevice::QueueSubmit(const VkPipelineStageFlags wait_stage_flag, CommandBuffer* command_buffer, Rendering::Primitives::Semaphore* const signal_semaphore, Rendering::Primitives::Fence* const fence)
     {
-        ZENGINE_VALIDATE_ASSERT(fence->GetState() != Rendering::Primitives::FenceState::Submitted, "Signal fence is already in a signaled state.")
+        ZENGINE_VALIDATE_ASSERT(fence->GetState() != Rendering::Primitives::FenceState::Submitted, "Signal fence is already in a signaled state.");
 
         // Todo : Think of a way to signal/wait the same  semaphore signal_semaphore
-        ZENGINE_VALIDATE_ASSERT(signal_semaphore->GetState() != Rendering::Primitives::SemaphoreState::Submitted, "Signal semaphore is already in a signaled state.")
+        ZENGINE_VALIDATE_ASSERT(signal_semaphore->GetState() != Rendering::Primitives::SemaphoreState::Submitted, "Signal semaphore is already in a signaled state.");
 
         VkPipelineStageFlags flags[]      = {wait_stage_flag};
         VkSemaphore          semaphores[] = {signal_semaphore->GetHandle()};
@@ -524,7 +525,8 @@ namespace ZEngine::Rendering::Devices
                      .pSignalSemaphores    = 0,
         };
 
-        ZENGINE_VALIDATE_ASSERT(vkQueueSubmit(GetQueue(command_buffer->QueueType).Handle, 1, &submit_info, fence->GetHandle()) == VK_SUCCESS, "Failed to submit queue")
+        ZENGINE_VALIDATE_ASSERT(vkQueueSubmit(GetQueue(command_buffer->QueueType).Handle, 1, &submit_info, fence->GetHandle()) == VK_SUCCESS, "Failed to submit queue");
+
         command_buffer->SetState(CommanBufferState::Pending);
 
         fence->SetState(FenceState::Submitted);
@@ -575,7 +577,7 @@ namespace ZEngine::Rendering::Devices
         {
             type = QueueType::GRAPHIC_QUEUE;
         }
-        ZENGINE_VALIDATE_ASSERT(vkQueueWaitIdle(m_queue_map[type]) == VK_SUCCESS, "Failed to wait on queue")
+        ZENGINE_VALIDATE_ASSERT(vkQueueWaitIdle(m_queue_map[type]) == VK_SUCCESS, "Failed to wait on queue");
     }
 
     QueueView VulkanDevice::GetQueue(Rendering::QueueType type)
@@ -684,6 +686,8 @@ namespace ZEngine::Rendering::Devices
                     vkFreeDescriptorSets(LogicalDevice, reinterpret_cast<VkDescriptorPool>(res_handle.Data1), 1, &ds);
                     break;
                 }
+                case Rendering::DeviceResourceType::RESOURCE_COUNT:
+                    break;
             }
 
             DirtyResources.Remove(handle);
@@ -735,8 +739,8 @@ namespace ZEngine::Rendering::Devices
         void* mapped_memory;
         if (data)
         {
-            ZENGINE_VALIDATE_ASSERT(vmaMapMemory(Vma_Allocator, buffer.Allocation, &mapped_memory) == VK_SUCCESS, "Failed to map memory")
-            ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(mapped_memory, data_size, data, data_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
+            ZENGINE_VALIDATE_ASSERT(vmaMapMemory(Vma_Allocator, buffer.Allocation, &mapped_memory) == VK_SUCCESS, "Failed to map memory");
+            ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(mapped_memory, data_size, data, data_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation");
             vmaUnmapMemory(Vma_Allocator, buffer.Allocation);
         }
     }
@@ -832,7 +836,7 @@ namespace ZEngine::Rendering::Devices
         sampler_create_info.minLod                  = -1000.0f;
         sampler_create_info.maxLod                  = 1000.0f;
 
-        ZENGINE_VALIDATE_ASSERT(vkCreateSampler(LogicalDevice, &sampler_create_info, nullptr, &sampler) == VK_SUCCESS, "Failed to create Texture Sampler")
+        ZENGINE_VALIDATE_ASSERT(vkCreateSampler(LogicalDevice, &sampler_create_info, nullptr, &sampler) == VK_SUCCESS, "Failed to create Texture Sampler");
 
         return sampler;
     }
@@ -863,7 +867,7 @@ namespace ZEngine::Rendering::Devices
             }
         }
 
-        ZENGINE_VALIDATE_ASSERT(supported_format != VK_FORMAT_UNDEFINED, "Failed to find supported Image format")
+        ZENGINE_VALIDATE_ASSERT(supported_format != VK_FORMAT_UNDEFINED, "Failed to find supported Image format");
 
         return supported_format;
     }
@@ -891,7 +895,7 @@ namespace ZEngine::Rendering::Devices
         image_view_create_info.subresourceRange.baseArrayLayer = 0;
         image_view_create_info.subresourceRange.layerCount     = layer_count;
 
-        ZENGINE_VALIDATE_ASSERT(vkCreateImageView(LogicalDevice, &image_view_create_info, nullptr, &image_view) == VK_SUCCESS, "Failed to create image view")
+        ZENGINE_VALIDATE_ASSERT(vkCreateImageView(LogicalDevice, &image_view_create_info, nullptr, &image_view) == VK_SUCCESS, "Failed to create image view");
 
         return image_view;
     }
@@ -908,7 +912,7 @@ namespace ZEngine::Rendering::Devices
         framebuffer_create_info.height                  = height;
         framebuffer_create_info.layers                  = layer_number;
 
-        ZENGINE_VALIDATE_ASSERT(vkCreateFramebuffer(LogicalDevice, &framebuffer_create_info, nullptr, &framebuffer) == VK_SUCCESS, "Failed to create Framebuffer")
+        ZENGINE_VALIDATE_ASSERT(vkCreateFramebuffer(LogicalDevice, &framebuffer_create_info, nullptr, &framebuffer) == VK_SUCCESS, "Failed to create Framebuffer");
 
         return framebuffer;
     }
@@ -921,7 +925,7 @@ namespace ZEngine::Rendering::Devices
 
         for (unsigned i = 0; i < SwapchainImageCount; ++i)
         {
-            buffer_set->set[i] = ZPushStructCtorArgs(Arena, VertexBuffer, this);
+            buffer_set->set[i] = ZPushStructCtorArgs<VertexBuffer>(Arena, this);
         }
 
         return handle;
@@ -935,7 +939,7 @@ namespace ZEngine::Rendering::Devices
 
         for (unsigned i = 0; i < SwapchainImageCount; ++i)
         {
-            buffer->set[i] = ZPushStructCtorArgs(Arena, StorageBuffer, this);
+            buffer->set[i] = ZPushStructCtorArgs<StorageBuffer>(Arena, this);
         }
         return handle;
     }
@@ -948,7 +952,7 @@ namespace ZEngine::Rendering::Devices
 
         for (unsigned i = 0; i < SwapchainImageCount; ++i)
         {
-            buffer->set[i] = ZPushStructCtorArgs(Arena, IndirectBuffer, this);
+            buffer->set[i] = ZPushStructCtorArgs<IndirectBuffer>(Arena, this);
         }
 
         return handle;
@@ -962,7 +966,7 @@ namespace ZEngine::Rendering::Devices
 
         for (unsigned i = 0; i < SwapchainImageCount; ++i)
         {
-            buffer->set[i] = ZPushStructCtorArgs(Arena, IndexBuffer, this);
+            buffer->set[i] = ZPushStructCtorArgs<IndexBuffer>(Arena, this);
         }
 
         return handle;
@@ -976,7 +980,7 @@ namespace ZEngine::Rendering::Devices
 
         for (unsigned i = 0; i < SwapchainImageCount; ++i)
         {
-            buffer->set[i] = ZPushStructCtorArgs(Arena, UniformBuffer, this);
+            buffer->set[i] = ZPushStructCtorArgs<UniformBuffer>(Arena, this);
         }
 
         return handle;
@@ -1022,13 +1026,13 @@ namespace ZEngine::Rendering::Devices
         swapchain_create_info.queueFamilyIndexCount = HasSeperateTransfertQueueFamily ? 2 : 1;
         swapchain_create_info.pQueueFamilyIndices   = family_indice.data();
 
-        ZENGINE_VALIDATE_ASSERT(vkCreateSwapchainKHR(LogicalDevice, &swapchain_create_info, nullptr, &SwapchainHandle) == VK_SUCCESS, "Failed to create Swapchain")
+        ZENGINE_VALIDATE_ASSERT(vkCreateSwapchainKHR(LogicalDevice, &swapchain_create_info, nullptr, &SwapchainHandle) == VK_SUCCESS, "Failed to create Swapchain");
 
-        ZENGINE_VALIDATE_ASSERT(vkGetSwapchainImagesKHR(LogicalDevice, SwapchainHandle, &SwapchainImageCount, nullptr) == VK_SUCCESS, "Failed to get Images count from Swapchain")
+        ZENGINE_VALIDATE_ASSERT(vkGetSwapchainImagesKHR(LogicalDevice, SwapchainHandle, &SwapchainImageCount, nullptr) == VK_SUCCESS, "Failed to get Images count from Swapchain");
 
         Array<VkImage> SwapchainImages = {};
         SwapchainImages.init(scratch.Arena, SwapchainImageCount, SwapchainImageCount);
-        ZENGINE_VALIDATE_ASSERT(vkGetSwapchainImagesKHR(LogicalDevice, SwapchainHandle, &SwapchainImageCount, SwapchainImages.data()) == VK_SUCCESS, "Failed to get VkImages from Swapchain")
+        ZENGINE_VALIDATE_ASSERT(vkGetSwapchainImagesKHR(LogicalDevice, SwapchainHandle, &SwapchainImageCount, SwapchainImages.data()) == VK_SUCCESS, "Failed to get VkImages from Swapchain");
 
         /*Transition Image from Undefined to Present_src*/
         auto command_buffer = GetInstantCommandBuffer(Rendering::QueueType::GRAPHIC_QUEUE);
@@ -1069,8 +1073,8 @@ namespace ZEngine::Rendering::Devices
     {
         DisposeSwapchain();
 
-        ZENGINE_DESTROY_VULKAN_HANDLE(Instance, vkDestroySurfaceKHR, Surface, nullptr)
-        ZENGINE_VALIDATE_ASSERT(CurrentWindow->CreateSurface(Instance, reinterpret_cast<void**>(&Surface)), "Failed Window Surface from GLFW")
+        ZENGINE_DESTROY_VULKAN_HANDLE(Instance, vkDestroySurfaceKHR, Surface, nullptr);
+        ZENGINE_VALIDATE_ASSERT(CurrentWindow->CreateSurface(Instance, reinterpret_cast<void**>(&Surface)), "Failed Window Surface from GLFW");
 
         CreateSwapchain();
     }
@@ -1097,7 +1101,7 @@ namespace ZEngine::Rendering::Devices
         // SwapchainImageViews.clear();
         // SwapchainFramebuffers.clear();
 
-        ZENGINE_DESTROY_VULKAN_HANDLE(LogicalDevice, vkDestroySwapchainKHR, SwapchainHandle, nullptr)
+        ZENGINE_DESTROY_VULKAN_HANDLE(LogicalDevice, vkDestroySwapchainKHR, SwapchainHandle, nullptr);
     }
 
     void VulkanDevice::NewFrame()
@@ -1113,7 +1117,7 @@ namespace ZEngine::Rendering::Devices
 
         signal_fence->Reset();
         Primitives::Semaphore* acquired_semaphore = SwapchainAcquiredSemaphores[CurrentFrameIndex];
-        ZENGINE_VALIDATE_ASSERT(acquired_semaphore->GetState() != Primitives::SemaphoreState::Submitted, "")
+        ZENGINE_VALIDATE_ASSERT(acquired_semaphore->GetState() != Primitives::SemaphoreState::Submitted, "");
 
         VkResult acquire_image_result = vkAcquireNextImageKHR(LogicalDevice, SwapchainHandle, UINT64_MAX, acquired_semaphore->GetHandle(), VK_NULL_HANDLE, &SwapchainImageIndex);
         acquired_semaphore->SetState(Primitives::SemaphoreState::Submitted);
@@ -1123,7 +1127,7 @@ namespace ZEngine::Rendering::Devices
             ResizeSwapchain();
         }
 
-        m_buffer_manager.ResetPool(CurrentFrameIndex);
+        m_buffer_manager->ResetPool(CurrentFrameIndex);
     }
 
     void VulkanDevice::Present()
@@ -1142,8 +1146,8 @@ namespace ZEngine::Rendering::Devices
             buffer.push(EnqueuedCommandbuffers[i]->GetHandle());
         }
 
-        ZENGINE_VALIDATE_ASSERT(render_complete_semaphore->GetState() != Rendering::Primitives::SemaphoreState::Submitted, "Signal semaphore is already in a signaled state.")
-        ZENGINE_VALIDATE_ASSERT(signal_fence->GetState() != Rendering::Primitives::FenceState::Submitted, "Signal fence is already in a signaled state.")
+        ZENGINE_VALIDATE_ASSERT(render_complete_semaphore->GetState() != Rendering::Primitives::SemaphoreState::Submitted, "Signal semaphore is already in a signaled state.");
+        ZENGINE_VALIDATE_ASSERT(signal_fence->GetState() != Rendering::Primitives::FenceState::Submitted, "Signal fence is already in a signaled state.");
 
         VkQueue              queue               = m_queue_map[Rendering::QueueType::GRAPHIC_QUEUE];
         VkSemaphore          wait_semaphores[]   = {acquired_semaphore->GetHandle()};
@@ -1152,7 +1156,7 @@ namespace ZEngine::Rendering::Devices
         VkSubmitInfo         submit_info         = {.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO, .pNext = nullptr, .waitSemaphoreCount = 1, .pWaitSemaphores = wait_semaphores, .pWaitDstStageMask = stage_flags, .commandBufferCount = (std::uint32_t) buffer.size(), .pCommandBuffers = buffer.data(), .signalSemaphoreCount = 1, .pSignalSemaphores = signal_semaphores};
 
         auto                 submit              = vkQueueSubmit(queue, 1, &(submit_info), signal_fence->GetHandle());
-        ZENGINE_VALIDATE_ASSERT(submit == VK_SUCCESS, "Failed to submit queue")
+        ZENGINE_VALIDATE_ASSERT(submit == VK_SUCCESS, "Failed to submit queue");
 
         ZEngine::Core::Memory::EndTempArena(scratch);
 
@@ -1180,7 +1184,7 @@ namespace ZEngine::Rendering::Devices
             return;
         }
 
-        ZENGINE_VALIDATE_ASSERT(present_result == VK_SUCCESS, "Failed to present current frame on Window")
+        ZENGINE_VALIDATE_ASSERT(present_result == VK_SUCCESS, "Failed to present current frame on Window");
 
         IncrementFrameImageCount();
 
@@ -1199,17 +1203,17 @@ namespace ZEngine::Rendering::Devices
 
     CommandBuffer* VulkanDevice::GetCommandBuffer(bool begin)
     {
-        return m_buffer_manager.GetCommandBuffer(CurrentFrameIndex, begin);
+        return m_buffer_manager->GetCommandBuffer(CurrentFrameIndex, begin);
     }
 
     CommandBuffer* VulkanDevice::GetInstantCommandBuffer(Rendering::QueueType type, bool begin)
     {
-        return m_buffer_manager.GetInstantCommandBuffer(type, CurrentFrameIndex, begin);
+        return m_buffer_manager->GetInstantCommandBuffer(type, CurrentFrameIndex, begin);
     }
 
     void VulkanDevice::EnqueueInstantCommandBuffer(CommandBuffer* const buffer, int wait_flag)
     {
-        m_buffer_manager.EndInstantCommandBuffer(buffer, this, wait_flag);
+        m_buffer_manager->EndInstantCommandBuffer(buffer, this, wait_flag);
     }
 
     void VulkanDevice::EnqueueCommandBuffer(CommandBuffer* const buffer)
@@ -1295,6 +1299,9 @@ namespace ZEngine::Rendering::Devices
                                 vkFreeDescriptorSets(LogicalDevice, reinterpret_cast<VkDescriptorPool>(res_handle.Data1), 1, &ds);
                                 break;
                             }
+
+                            default:
+                                break;
                         }
 
                         DirtyResources.Remove(handle);
@@ -1373,8 +1380,8 @@ namespace ZEngine::Rendering::Devices
 
         if (shader)
         {
-            auto vertex_file   = fmt::format("{}{}{}", base_dir, spec.Name, vertex_name_part);
-            auto fragment_file = fmt::format("{}{}{}", base_dir, spec.Name, fragment_name_part);
+            auto vertex_file   = std::format("{}{}{}", base_dir, spec.Name, vertex_name_part);
+            auto fragment_file = std::format("{}{}{}", base_dir, spec.Name, fragment_name_part);
 
             if (std::filesystem::exists(vertex_file))
             {
@@ -1407,7 +1414,7 @@ namespace ZEngine::Rendering::Devices
 
     void CommandBuffer::Create()
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_pool != VK_NULL_HANDLE, "Command Pool cannot be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_pool != VK_NULL_HANDLE, "Command Pool cannot be null");
 
         VkCommandBufferAllocateInfo command_buffer_allocation_info = {};
         command_buffer_allocation_info.sType                       = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -1415,7 +1422,7 @@ namespace ZEngine::Rendering::Devices
         command_buffer_allocation_info.commandBufferCount          = 1;
         command_buffer_allocation_info.commandPool                 = m_command_pool;
 
-        ZENGINE_VALIDATE_ASSERT(vkAllocateCommandBuffers(Device->LogicalDevice, &command_buffer_allocation_info, &m_command_buffer) == VK_SUCCESS, "Failed to allocate command buffer!")
+        ZENGINE_VALIDATE_ASSERT(vkAllocateCommandBuffers(Device->LogicalDevice, &command_buffer_allocation_info, &m_command_buffer) == VK_SUCCESS, "Failed to allocate command buffer!");
         m_command_buffer_state = CommanBufferState::Idle;
     }
 
@@ -1436,20 +1443,20 @@ namespace ZEngine::Rendering::Devices
 
     void CommandBuffer::Begin()
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer_state == CommanBufferState::Idle, "command buffer must be in Idle state")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer_state == CommanBufferState::Idle, "command buffer must be in Idle state");
 
         VkCommandBufferBeginInfo command_buffer_begin_info = {};
         command_buffer_begin_info.sType                    = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
         command_buffer_begin_info.flags                    = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
-        ZENGINE_VALIDATE_ASSERT(vkBeginCommandBuffer(m_command_buffer, &command_buffer_begin_info) == VK_SUCCESS, "Failed to begin the Command Buffer")
+        ZENGINE_VALIDATE_ASSERT(vkBeginCommandBuffer(m_command_buffer, &command_buffer_begin_info) == VK_SUCCESS, "Failed to begin the Command Buffer");
 
         m_command_buffer_state = CommanBufferState::Recording;
     }
 
     void CommandBuffer::End()
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer_state == CommanBufferState::Recording, "command buffer must be in Idle state")
-        ZENGINE_VALIDATE_ASSERT(vkEndCommandBuffer(m_command_buffer) == VK_SUCCESS, "Failed to end recording command buffer!")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer_state == CommanBufferState::Recording, "command buffer must be in Idle state");
+        ZENGINE_VALIDATE_ASSERT(vkEndCommandBuffer(m_command_buffer) == VK_SUCCESS, "Failed to end recording command buffer!");
 
         m_command_buffer_state = CommanBufferState::Executable;
     }
@@ -1519,7 +1526,7 @@ namespace ZEngine::Rendering::Devices
 
     void CommandBuffer::BeginRenderPass(Rendering::Renderers::RenderPasses::RenderPass* const render_pass, VkFramebuffer framebuffer)
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
 
         const auto&         render_pass_spec = render_pass->Specification;
         const std::uint32_t      width            = render_pass->GetRenderAreaWidth();
@@ -1597,7 +1604,7 @@ namespace ZEngine::Rendering::Devices
     {
         if (m_active_render_pass)
         {
-            ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
+            ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
             vkCmdEndRenderPass(m_command_buffer);
             m_active_render_pass = nullptr;
         }
@@ -1605,7 +1612,7 @@ namespace ZEngine::Rendering::Devices
 
     void CommandBuffer::BindDescriptorSets(std::uint32_t frame_index)
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
 
         if (auto render_pass = m_active_render_pass)
         {
@@ -1631,8 +1638,8 @@ namespace ZEngine::Rendering::Devices
 
     void CommandBuffer::BindDescriptorSet(const VkDescriptorSet& descriptor)
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
-        ZENGINE_VALIDATE_ASSERT(descriptor != nullptr, "DescriptorSet can't be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
+        ZENGINE_VALIDATE_ASSERT(descriptor != nullptr, "DescriptorSet can't be null");
         if (auto render_pass = m_active_render_pass)
         {
             auto            pipeline_layout = render_pass->Pipeline->Layout;
@@ -1641,18 +1648,18 @@ namespace ZEngine::Rendering::Devices
         }
     }
 
-    void CommandBuffer::DrawIndirect(const Hardwares::IndirectBuffer& buffer)
+    void CommandBuffer::DrawIndirect(const Devices::IndirectBuffer& buffer)
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
         if (buffer.GetNativeBufferHandle())
         {
             vkCmdDrawIndirect(m_command_buffer, reinterpret_cast<VkBuffer>(buffer.GetNativeBufferHandle()), 0, buffer.GetCommandCount(), sizeof(VkDrawIndirectCommand));
         }
     }
 
-    void CommandBuffer::DrawIndexedIndirect(const Hardwares::IndirectBuffer& buffer, std::uint32_t count)
+    void CommandBuffer::DrawIndexedIndirect(const Devices::IndirectBuffer& buffer, std::uint32_t count)
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
 
         if (buffer.GetNativeBufferHandle())
         {
@@ -1662,30 +1669,30 @@ namespace ZEngine::Rendering::Devices
 
     void CommandBuffer::DrawIndexed(std::uint32_t index_count, std::uint32_t instanceCount, std::uint32_t first_index, int32_t vertex_offset, std::uint32_t first_instance)
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
 
         vkCmdDrawIndexed(m_command_buffer, index_count, instanceCount, first_index, vertex_offset, first_instance);
     }
 
     void CommandBuffer::Draw(std::uint32_t vertex_count, std::uint32_t instance_count, std::uint32_t first_index, std::uint32_t first_instance)
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
 
         vkCmdDraw(m_command_buffer, vertex_count, instance_count, first_index, first_instance);
     }
 
     void CommandBuffer::TransitionImageLayout(const Rendering::Primitives::ImageMemoryBarrier& image_barrier)
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
 
         const auto& barrier_handle = image_barrier.GetHandle();
         const auto& barrier_spec   = image_barrier.GetSpecification();
         vkCmdPipelineBarrier(m_command_buffer, barrier_spec.SourceStageMask, barrier_spec.DestinationStageMask, 0, 0, nullptr, 0, nullptr, 1, &barrier_handle);
     }
 
-    void CommandBuffer::CopyBufferToImage(const Hardwares::BufferView& source, Hardwares::BufferImage& destination, std::uint32_t width, std::uint32_t height, std::uint32_t layer_count, VkImageLayout new_layout)
+    void CommandBuffer::CopyBufferToImage(const Devices::BufferView& source, Devices::BufferImage& destination, std::uint32_t width, std::uint32_t height, std::uint32_t layer_count, VkImageLayout new_layout)
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
 
         VkBufferImageCopy buffer_image_copy               = {};
         buffer_image_copy.bufferOffset                    = 0;
@@ -1701,9 +1708,9 @@ namespace ZEngine::Rendering::Devices
         vkCmdCopyBufferToImage(m_command_buffer, source.Handle, destination.Handle, new_layout, 1, &buffer_image_copy);
     }
 
-    void CommandBuffer::BindVertexBuffer(Hardwares::VertexBuffer& buffer)
+    void CommandBuffer::BindVertexBuffer(Devices::VertexBuffer& buffer)
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
 
         void* handle = buffer.GetNativeBufferHandle();
 
@@ -1715,9 +1722,9 @@ namespace ZEngine::Rendering::Devices
         }
     }
 
-    void CommandBuffer::BindIndexBuffer(const Hardwares::IndexBuffer& buffer, VkIndexType type)
+    void CommandBuffer::BindIndexBuffer(const Devices::IndexBuffer& buffer, VkIndexType type)
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
         if (buffer.GetNativeBufferHandle())
         {
             vkCmdBindIndexBuffer(m_command_buffer, reinterpret_cast<VkBuffer>(buffer.GetNativeBufferHandle()), 0, type);
@@ -1726,13 +1733,13 @@ namespace ZEngine::Rendering::Devices
 
     void CommandBuffer::SetScissor(const VkRect2D& scissor)
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
         vkCmdSetScissor(m_command_buffer, 0, 1, &scissor);
     }
 
     void CommandBuffer::PushConstants(VkShaderStageFlags stage_flags, std::uint32_t offset, std::uint32_t size, const void* data)
     {
-        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null")
+        ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
 
         if (auto render_pass = m_active_render_pass)
         {
@@ -1746,13 +1753,13 @@ namespace ZEngine::Rendering::Devices
         Device                  = device;
         m_total_pool_count      = swapchain_image_count * thread_count;
         TotalCommandBufferCount = m_total_pool_count * MaxBufferPerPool;
-        m_instant_fence         = ZPushStructCtorArgs(Device->Arena, Primitives::Fence, device);
-        m_instant_semaphore     = ZPushStructCtorArgs(Device->Arena, Primitives::Semaphore, device);
+        m_instant_fence         = ZPushStructCtorArgs<Primitives::Fence>(Device->Arena, device);
+        m_instant_semaphore     = ZPushStructCtorArgs<Primitives::Semaphore>(Device->Arena, device);
 
         CommandPools.init(Device->Arena, m_total_pool_count, m_total_pool_count);
         for (int i = 0; i < m_total_pool_count; ++i)
         {
-            CommandPools[i] = ZPushStructCtorArgs(Device->Arena, Rendering::Pools::CommandPool, device, Rendering::QueueType::GRAPHIC_QUEUE);
+            CommandPools[i] = ZPushStructCtorArgs<Rendering::Pools::CommandPool>(Device->Arena, device, Rendering::QueueType::GRAPHIC_QUEUE);
         }
 
         CommandBuffers.init(Device->Arena, TotalCommandBufferCount, TotalCommandBufferCount);
@@ -1760,9 +1767,8 @@ namespace ZEngine::Rendering::Devices
         {
             int   pool_index  = GetPoolFromIndex(Rendering::QueueType::GRAPHIC_QUEUE, i);
             auto& pool        = CommandPools[pool_index];
-            CommandBuffers[i] = ZPushStructCtorArgs(
+            CommandBuffers[i] = ZPushStructCtorArgs<CommandBuffer>(
                 Device->Arena,
-                CommandBuffer,
                 device,
                 pool->Handle,
                 pool->QueueType,
@@ -1774,7 +1780,7 @@ namespace ZEngine::Rendering::Devices
             TransferCommandPools.init(Device->Arena, m_total_pool_count, m_total_pool_count);
             for (int i = 0; i < m_total_pool_count; ++i)
             {
-                TransferCommandPools[i] = ZPushStructCtorArgs(Device->Arena, Rendering::Pools::CommandPool, device, Rendering::QueueType::TRANSFER_QUEUE);
+                TransferCommandPools[i] = ZPushStructCtorArgs<Rendering::Pools::CommandPool>(Device->Arena, device, Rendering::QueueType::TRANSFER_QUEUE);
             }
 
             TransferCommandBuffers.init(Device->Arena, TotalCommandBufferCount, TotalCommandBufferCount);
@@ -1782,7 +1788,7 @@ namespace ZEngine::Rendering::Devices
             {
                 int   pool_index          = GetPoolFromIndex(Rendering::QueueType::TRANSFER_QUEUE, i);
                 auto& pool                = TransferCommandPools[pool_index];
-                TransferCommandBuffers[i] = ZPushStructCtorArgs(Device->Arena, CommandBuffer, device, pool->Handle, pool->QueueType, true);
+                TransferCommandBuffers[i] = ZPushStructCtorArgs<CommandBuffer>(Device->Arena, device, pool->Handle, pool->QueueType, true);
             }
         }
     }
@@ -1887,7 +1893,7 @@ namespace ZEngine::Rendering::Devices
             vmaGetAllocationInfo(m_device->Vma_Allocator, m_vertex_buffer.Allocation, &allocation_info);
             if (data && allocation_info.pMappedData)
             {
-                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
+                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation");
             }
         }
         else
@@ -1899,8 +1905,8 @@ namespace ZEngine::Rendering::Devices
 
             if (data && allocation_info.pMappedData)
             {
-                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
-                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->Vma_Allocator, staging_buffer.Allocation, 0, static_cast<VkDeviceSize>(this->m_byte_size)) == VK_SUCCESS, "Failed to flush allocation")
+                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation");
+                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->Vma_Allocator, staging_buffer.Allocation, 0, static_cast<VkDeviceSize>(this->m_byte_size)) == VK_SUCCESS, "Failed to flush allocation");
                 m_device->CopyBuffer(staging_buffer, m_vertex_buffer, static_cast<VkDeviceSize>(this->m_byte_size));
             }
 
@@ -1946,7 +1952,7 @@ namespace ZEngine::Rendering::Devices
             vmaGetAllocationInfo(m_device->Vma_Allocator, m_storage_buffer.Allocation, &allocation_info);
             if (data && allocation_info.pMappedData)
             {
-                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
+                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation");
             }
         }
         else
@@ -1958,8 +1964,8 @@ namespace ZEngine::Rendering::Devices
 
             if (data && allocation_info.pMappedData)
             {
-                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
-                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->Vma_Allocator, staging_buffer.Allocation, 0, static_cast<VkDeviceSize>(this->m_byte_size)) == VK_SUCCESS, "Failed to flush allocation")
+                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation");
+                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->Vma_Allocator, staging_buffer.Allocation, 0, static_cast<VkDeviceSize>(this->m_byte_size)) == VK_SUCCESS, "Failed to flush allocation");
                 m_device->CopyBuffer(staging_buffer, m_storage_buffer, static_cast<VkDeviceSize>(this->m_byte_size));
             }
 
@@ -2006,7 +2012,7 @@ namespace ZEngine::Rendering::Devices
             vmaGetAllocationInfo(m_device->Vma_Allocator, m_index_buffer.Allocation, &allocation_info);
             if (data && allocation_info.pMappedData)
             {
-                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
+                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation");
             }
         }
         else
@@ -2018,8 +2024,8 @@ namespace ZEngine::Rendering::Devices
 
             if (data && allocation_info.pMappedData)
             {
-                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
-                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->Vma_Allocator, staging_buffer.Allocation, 0, static_cast<VkDeviceSize>(this->m_byte_size)) == VK_SUCCESS, "Failed to flush allocation")
+                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation");
+                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->Vma_Allocator, staging_buffer.Allocation, 0, static_cast<VkDeviceSize>(this->m_byte_size)) == VK_SUCCESS, "Failed to flush allocation");
                 m_device->CopyBuffer(staging_buffer, m_index_buffer, static_cast<VkDeviceSize>(this->m_byte_size));
             }
 
@@ -2066,7 +2072,7 @@ namespace ZEngine::Rendering::Devices
             vmaGetAllocationInfo(m_device->Vma_Allocator, m_indirect_buffer.Allocation, &allocation_info);
             if (data && allocation_info.pMappedData)
             {
-                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
+                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation");
             }
         }
         else
@@ -2078,8 +2084,8 @@ namespace ZEngine::Rendering::Devices
 
             if (data && allocation_info.pMappedData)
             {
-                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
-                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->Vma_Allocator, staging_buffer.Allocation, 0, VK_WHOLE_SIZE) == VK_SUCCESS, "Failed to flush allocation")
+                ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation");
+                ZENGINE_VALIDATE_ASSERT(vmaFlushAllocation(m_device->Vma_Allocator, staging_buffer.Allocation, 0, VK_WHOLE_SIZE) == VK_SUCCESS, "Failed to flush allocation");
                 m_device->CopyBuffer(staging_buffer, m_indirect_buffer, static_cast<VkDeviceSize>(this->m_byte_size));
             }
 
@@ -2124,12 +2130,12 @@ namespace ZEngine::Rendering::Devices
 
         if (allocation_info.pMappedData)
         {
-            ZENGINE_VALIDATE_ASSERT(Helpers::secure_memset(allocation_info.pMappedData, 0, this->m_byte_size, allocation_info.size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory set operation")
+            ZENGINE_VALIDATE_ASSERT(Helpers::secure_memset(allocation_info.pMappedData, 0, this->m_byte_size, allocation_info.size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory set operation");
         }
 
         if (data && allocation_info.pMappedData)
         {
-            ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation")
+            ZENGINE_VALIDATE_ASSERT(Helpers::secure_memcpy(allocation_info.pMappedData, allocation_info.size, data, this->m_byte_size) == Helpers::MEMORY_OP_SUCCESS, "Failed to perform memory copy operation");
         }
     }
 
@@ -2146,8 +2152,8 @@ namespace ZEngine::Rendering::Devices
 
     Image2DBuffer::Image2DBuffer(Devices::VulkanDevice* device, const Specifications::Image2DBufferSpecification& spec) : m_device(device), m_width(spec.Width), m_height(spec.Height)
     {
-        ZENGINE_VALIDATE_ASSERT(m_width > 0, "Image width must be greater then zero")
-        ZENGINE_VALIDATE_ASSERT(m_height > 0, "Image height must be greater then zero")
+        ZENGINE_VALIDATE_ASSERT(m_width > 0, "Image width must be greater then zero");
+        ZENGINE_VALIDATE_ASSERT(m_height > 0, "Image height must be greater then zero");
 
         Specifications::ImageViewTypeEnum   image_view_type   = Specifications::ImageViewTypeEnum::TYPE_2D;
         Specifications::ImageCreateFlagEnum image_create_flag = Specifications::ImageCreateFlagEnum::NONE;
@@ -2158,7 +2164,7 @@ namespace ZEngine::Rendering::Devices
             image_create_flag = Specifications::ImageCreateFlagEnum::CUBE_COMPATIBLE_BIT;
         }
 
-        m_buffer_image = m_device->CreateImage(m_width, m_height, VK_IMAGE_TYPE_2D, Specifications::ImageViewTypeMap[VALUE_FROM_SPEC_MAP(image_view_type)], spec.ImageFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_LAYOUT_UNDEFINED, spec.ImageUsage, VK_SHARING_MODE_EXCLUSIVE, VK_SAMPLE_COUNT_1_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, spec.ImageAspectFlag, spec.LayerCount, Specifications::ImageCreateFlagMap[VALUE_FROM_SPEC_MAP(image_create_flag)]);
+        m_buffer_image = m_device->CreateImage(m_width, m_height, VK_IMAGE_TYPE_2D, Specifications::ImageViewTypeMap[static_cast<std::uint32_t>(image_view_type)], spec.ImageFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_LAYOUT_UNDEFINED, spec.ImageUsage, VK_SHARING_MODE_EXCLUSIVE, VK_SAMPLE_COUNT_1_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, spec.ImageAspectFlag, spec.LayerCount, Specifications::ImageCreateFlagMap[static_cast<std::uint32_t>(image_create_flag)]);
     }
 
     Image2DBuffer::~Image2DBuffer()
@@ -2188,7 +2194,7 @@ namespace ZEngine::Rendering::Devices
 
     void Image2DBuffer::Dispose()
     {
-        if (this && m_buffer_image)
+        if (m_buffer_image)
         {
             m_device->EnqueueBufferImageForDeletion(m_buffer_image);
             m_buffer_image = {};

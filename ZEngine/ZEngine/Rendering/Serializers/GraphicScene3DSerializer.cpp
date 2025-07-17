@@ -1,7 +1,13 @@
+module;
+#include <glm/fwd.hpp>
+#include <yaml-cpp/yaml.h>
+#include <uuid/uuid.h>
+
 module ZEngine.Rendering;
 
 import std;
-import :Components.CameraComponent;
+import :Serializers.GraphicScene3DSerializer;
+import :Entities.GraphicSceneEntity;
 import :Components.GeometryComponent;
 import :Components.LightComponent;
 import :Components.MaterialComponent;
@@ -13,7 +19,7 @@ import :Materials.BasicMaterial;
 import :Materials.StandardMaterial;
 import :Textures.Texture;
 import ZEngine.Core.Coroutine;
-import ZEngine.Helpers.MeshHelper;
+import :Meshes.MeshHelper;
 
 using namespace ZEngine::Rendering::Materials;
 using namespace ZEngine::Rendering::Components;
@@ -23,7 +29,7 @@ using namespace ZEngine::Core;
 
 namespace YAML
 {
-    template <>
+    extern "C++" template <>
     struct convert<glm::vec3>
     {
         static Node encode(const glm::vec3& value)
@@ -49,7 +55,7 @@ namespace YAML
         }
     };
 
-    template <>
+    extern "C++" template <>
     struct convert<glm::vec4>
     {
         static Node encode(const glm::vec4& value)
@@ -78,12 +84,12 @@ namespace YAML
     };
 } // namespace YAML
 
-namespace ZEngine::Serializers
+namespace ZEngine::Rendering::Serializers
 {
     GraphicScene3DSerializer::GraphicScene3DSerializer(const Helpers::Ref<GraphicScene>& scene) : GraphicSceneSerializer()
     {
         m_scene                        = scene;
-        auto directory                 = fmt::format("{0}/{1}", std::filesystem::current_path().string(), "Scenes");
+        auto directory                 = std::format("{0}/{1}", std::filesystem::current_path().string(), "Scenes");
         m_default_scene_directory_path = std::filesystem::path(directory);
     }
 
@@ -130,7 +136,7 @@ namespace ZEngine::Serializers
     SerializeInformation GraphicScene3DSerializer::Deserialize(std::string_view filename)
     {
         std::ifstream file_stream;
-        const auto    full_scene_file_path = fmt::format("{0}/{1}", m_default_scene_directory_path.string(), filename);
+        const auto    full_scene_file_path = std::format("{0}/{1}", m_default_scene_directory_path.string(), filename);
         file_stream.open(full_scene_file_path, std::ifstream::in);
         if (!file_stream.is_open())
         {

@@ -1,15 +1,16 @@
 module;
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_vulkan.h>
+#include <ImGuizmo.h>
 
 module ZEngine.Rendering;
 
 import :Renderers.ImGUIRenderer;
 import :Renderers.GraphicRenderer;
 import :Devices.VulkanDevice;
-import ZEngine.Windows;
+import :Windows.CoreWindow;
 
-using namespace ZEngine::Hardwares;
+using namespace ZEngine::Rendering::Devices;
 using namespace ZEngine::Rendering;
 using namespace ZEngine::Rendering::Textures;
 using namespace ZEngine::Helpers;
@@ -36,8 +37,8 @@ namespace ZEngine::Rendering::Renderers
 
         std::string_view default_layout_ini  = "Settings/DefaultLayout.ini";
         const auto       current_directoy    = std::filesystem::current_path();
-        auto             layout_file_path    = fmt::format("{0}/{1}", current_directoy.string(), default_layout_ini);
-        if (std::filesystem::exists(std::filesystem::path(layout_file_path)))
+        auto             layout_file_path    = std::format("{0}/{1}", current_directoy.string(), default_layout_ini);
+        if (std::filesystem::exists(layout_file_path))
         {
             io.IniFilename = default_layout_ini.data();
         }
@@ -181,7 +182,7 @@ namespace ZEngine::Rendering::Renderers
         ImGuizmo::BeginFrame();
     }
 
-    void ImGUIRenderer::DrawFrame(std::uint32_t frame_index, Hardwares::CommandBuffer* const command_buffer)
+    void ImGUIRenderer::DrawFrame(std::uint32_t frame_index, Devices::CommandBuffer* const command_buffer)
     {
         ImGui::Render();
         ImDrawData* draw_data = ImGui::GetDrawData();

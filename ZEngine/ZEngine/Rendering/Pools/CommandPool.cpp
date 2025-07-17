@@ -1,3 +1,6 @@
+module;
+#include <vulkan/vulkan_core.h>
+
 module ZEngine.Rendering;
 
 import :Devices.VulkanDevice;
@@ -12,18 +15,18 @@ namespace ZEngine::Rendering::Pools
         Device                                           = device;
 
         QueueType                                        = type;
-        Hardwares::QueueView    queue_view               = device->GetQueue(type);
+        Devices::QueueView    queue_view               = device->GetQueue(type);
         VkCommandPoolCreateInfo command_pool_create_info = {};
         command_pool_create_info.sType                   = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
         command_pool_create_info.flags                   = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
         command_pool_create_info.queueFamilyIndex        = queue_view.FamilyIndex;
-        ZENGINE_VALIDATE_ASSERT(vkCreateCommandPool(device->LogicalDevice, &command_pool_create_info, nullptr, &Handle) == VK_SUCCESS, "Failed to create Command Pool")
+        ZENGINE_VALIDATE_ASSERT(vkCreateCommandPool(device->LogicalDevice, &command_pool_create_info, nullptr, &Handle) == VK_SUCCESS, "Failed to create Command Pool");
     }
 
     CommandPool::~CommandPool()
     {
         Device->QueueWait(QueueType);
 
-        ZENGINE_DESTROY_VULKAN_HANDLE(Device->LogicalDevice, vkDestroyCommandPool, Handle, nullptr)
+        ZENGINE_DESTROY_VULKAN_HANDLE(Device->LogicalDevice, vkDestroyCommandPool, Handle, nullptr);
     }
 } // namespace ZEngine::Rendering::Pools

@@ -10,6 +10,10 @@ module;
 #include <deprecated/stb_image_resize.h>
 #include <stb_image_write.h>
 
+#include <glm/fwd.hpp>
+#include <vulkan/vulkan.h>
+#include <vk_mem_alloc.h>
+
 module ZEngine.Rendering;
 
 import :Renderers.GraphicRenderer;
@@ -19,13 +23,14 @@ import :Buffers.Bitmap;
 import :Renderers.Contracts.RendererDataContract;
 import :Specifications.FormatSpecification;
 import ZEngine.Helpers.ThreadPool;
+import ZEngine.ZEngineDef;
 
 using namespace ZEngine::Rendering::Specifications;
 using namespace ZEngine::Rendering::Renderers::Contracts;
 using namespace ZEngine::Helpers;
 using namespace ZEngine::Rendering::Specifications;
 
-export namespace ZEngine::Rendering::Renderers
+namespace ZEngine::Rendering::Renderers
 {
     GraphicRenderer::GraphicRenderer() {}
     GraphicRenderer::~GraphicRenderer() {}
@@ -33,18 +38,18 @@ export namespace ZEngine::Rendering::Renderers
     void GraphicRenderer::Initialize(Devices::VulkanDevice* device)
     {
         Device                       = device;
-        RenderGraph                  = ZPushStructCtorArgs(Device->Arena, Renderers::RenderGraph);
-        AsyncLoader                  = ZPushStructCtor(Device->Arena, AsyncResourceLoader);
-        ImguiRenderer                = ZPushStructCtor(Device->Arena, ImGUIRenderer);
+        RenderGraph                  = ZPushStructCtorArgs<Renderers::RenderGraph>(Device->Arena);
+        AsyncLoader                  = ZPushStructCtor<AsyncResourceLoader>(Device->Arena);
+        ImguiRenderer                = ZPushStructCtor<ImGUIRenderer>(Device->Arena);
         /*
          * Renderer Passes
          */
-        auto initial_pass            = ZPushStructCtor(Device->Arena, InitialPass);
-        auto scene_depth_prepass     = ZPushStructCtor(Device->Arena, DepthPrePass);
-        auto skybox_pass             = ZPushStructCtor(Device->Arena, SkyboxPass);
-        auto grid_pass               = ZPushStructCtor(Device->Arena, GridPass);
-        auto gbuffer_pass            = ZPushStructCtor(Device->Arena, GbufferPass);
-        auto lighting_pass           = ZPushStructCtor(Device->Arena, LightingPass);
+        auto initial_pass            = ZPushStructCtor<InitialPass>(Device->Arena);
+        auto scene_depth_prepass     = ZPushStructCtor<DepthPrePass>(Device->Arena);
+        auto skybox_pass             = ZPushStructCtor<SkyboxPass>(Device->Arena);
+        auto grid_pass               = ZPushStructCtor<GridPass>(Device->Arena);
+        auto gbuffer_pass            = ZPushStructCtor<GbufferPass>(Device->Arena);
+        auto lighting_pass           = ZPushStructCtor<LightingPass>(Device->Arena);
         /*
          * Shared Buffers
          */
@@ -122,9 +127,9 @@ export namespace ZEngine::Rendering::Renderers
         return RenderGraph->GetRenderTarget(FrameColorRenderTargetName);
     }
 
-    ZRawPtr(RenderPasses::RenderPass) GraphicRenderer::CreateRenderPass(const Specifications::RenderPassSpecification& spec)
+    RenderPasses::RenderPass* GraphicRenderer::CreateRenderPass(const Specifications::RenderPassSpecification& spec)
     {
-        auto pass = ZPushStructCtorArgs(Device->Arena, RenderPasses::RenderPass);
+        auto pass = ZPushStructCtorArgs<RenderPasses::RenderPass>(Device->Arena);
         pass->Initialize(Device, spec);
         return pass;
     }
@@ -147,13 +152,13 @@ export namespace ZEngine::Rendering::Renderers
         std::uint32_t                                   image_aspect           = (spec.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ? VK_IMAGE_ASPECT_DEPTH_BIT : VK_IMAGE_ASPECT_COLOR_BIT;
         std::uint32_t                                   image_usage_attachment = (spec.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ? VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT : VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
-        VkFormat                                   image_format           = (spec.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ? Device->FindDepthFormat() : Specifications::ImageFormatMap[VALUE_FROM_SPEC_MAP(spec.Format)];
+        VkFormat                                   image_format           = (spec.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ? Device->FindDepthFormat() : Specifications::ImageFormatMap[static_cast<std::uint32_t>(spec.Format)];
 
         Specifications::Image2DBufferSpecification buffer_spec            = {.Width = spec.Width, .Height = spec.Height, .BufferUsageType = spec.IsCubemap ? Specifications::ImageBufferUsageType::CUBEMAP : Specifications::ImageBufferUsageType::SINGLE_2D_IMAGE, .ImageFormat = image_format, .ImageAspectFlag = VkImageAspectFlagBits(image_aspect), .LayerCount = spec.LayerCount};
 
         buffer_spec.ImageUsage                                            = VkImageUsageFlagBits(image_usage_attachment | transfert_bit | sampled_bit | storage_bit);
 
-        resource->ImageBuffer                                             = ZPushStructCtorArgs(Device->Arena, Devices::Image2DBuffer, Device, buffer_spec);
+        resource->ImageBuffer                                             = ZPushStructCtorArgs<Devices::Image2DBuffer>(Device->Arena, Device, buffer_spec);
 
         auto  command_buffer                                              = Device->GetInstantCommandBuffer(QueueType::GRAPHIC_QUEUE);
 
@@ -178,7 +183,7 @@ export namespace ZEngine::Rendering::Renderers
             if (spec.Data)
             {
                 auto       buffer_size    = spec.Width * spec.Height * spec.BytePerPixel * spec.LayerCount;
-                BufferView staging_buffer = Device->CreateBuffer(buffer_size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT);
+                Devices::BufferView staging_buffer = Device->CreateBuffer(buffer_size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT);
                 Device->MapAndCopyToMemory(staging_buffer, buffer_size, spec.Data);
                 command_buffer->CopyBufferToImage(staging_buffer, resource->ImageBuffer->GetBuffer(), spec.Width, spec.Height, spec.LayerCount, barrier_0.GetHandle().newLayout);
                 Device->EnqueueBufferForDeletion(staging_buffer);
@@ -205,7 +210,7 @@ export namespace ZEngine::Rendering::Renderers
 
     Textures::TextureHandle GraphicRenderer::CreateTexture(std::uint32_t width, std::uint32_t height)
     {
-        std::uint32_t                             BytePerPixel = Specifications::BytePerChannelMap[VALUE_FROM_SPEC_MAP(Specifications::ImageFormat::R8G8B8A8_SRGB)];
+        std::uint32_t                             BytePerPixel = Specifications::BytePerChannelMap[static_cast<std::uint32_t>(Specifications::ImageFormat::R8G8B8A8_SRGB)];
         size_t                               data_size    = width * height * BytePerPixel;
         std::vector<unsigned char>           image_data(data_size, 255);
 
@@ -222,7 +227,7 @@ export namespace ZEngine::Rendering::Renderers
 
     Textures::TextureHandle GraphicRenderer::CreateTexture(std::uint32_t width, std::uint32_t height, float r, float g, float b, float a)
     {
-        std::uint32_t                   BytePerPixel = Specifications::BytePerChannelMap[VALUE_FROM_SPEC_MAP(Specifications::ImageFormat::R8G8B8A8_SRGB)];
+        std::uint32_t                   BytePerPixel = Specifications::BytePerChannelMap[static_cast<std::uint32_t>(Specifications::ImageFormat::R8G8B8A8_SRGB)];
         size_t                     data_size    = width * height * BytePerPixel;
         std::vector<unsigned char> image_data(data_size);
 
@@ -258,7 +263,7 @@ export namespace ZEngine::Rendering::Renderers
         stbi_uc* image_data = stbi_load(filename.data(), &width, &height, &channel, STBI_rgb_alpha);
         if (!image_data)
         {
-            ZEngine::Logging::Logger::Error(std::format("Failed to load texture file synchronously: {}", filename.data()););
+            ZEngine::Logging::Logger::Error(std::format("Failed to load texture file synchronously: {}", filename.data()));
             return Textures::TextureHandle{};
         }
 
@@ -409,7 +414,7 @@ export namespace ZEngine::Rendering::Renderers
                         Primitives::ImageMemoryBarrier barrier_0{barrier_spec_0};
                         command_buffer->TransitionImageLayout(barrier_0);
 
-                        BufferView staging_buffer = Renderer->Device->CreateBuffer(upload_request.BufferSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT);
+                        Devices::BufferView staging_buffer = Renderer->Device->CreateBuffer(upload_request.BufferSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT);
                         Renderer->Device->MapAndCopyToMemory(staging_buffer, upload_request.BufferSize, upload_request.TextureSpec.Data);
                         command_buffer->CopyBufferToImage(staging_buffer, image_buffer, upload_request.TextureSpec.Width, upload_request.TextureSpec.Height, upload_request.TextureSpec.LayerCount, barrier_0.GetHandle().newLayout);
                         Renderer->Device->EnqueueBufferForDeletion(staging_buffer);
@@ -421,7 +426,7 @@ export namespace ZEngine::Rendering::Renderers
                     m_update_texture_request.Emplace(std::move(tr));
 
                     /* Cleanup resource */
-                    ZENGINE_CLEAR_STD_VECTOR(m_temp_buffer)
+                    ZENGINE_CLEAR_STD_VECTOR(m_temp_buffer);
                 }
             }
 
@@ -557,13 +562,13 @@ export namespace ZEngine::Rendering::Renderers
                 }
 
                 spec.Data         = m_temp_buffer.data();
-                spec.BytePerPixel = Specifications::BytePerChannelMap[VALUE_FROM_SPEC_MAP(spec.Format)];
+                spec.BytePerPixel = Specifications::BytePerChannelMap[static_cast<std::uint32_t>(spec.Format)];
 
                 m_upload_requests.Emplace({.BufferSize = (m_temp_buffer.size() * sizeof(uint8_t)), .Handle = file_request.Handle, .TextureSpec = std::move(spec)});
             }
         }
 
-        ZENGINE_CLEAR_STD_VECTOR(m_temp_buffer)
+        ZENGINE_CLEAR_STD_VECTOR(m_temp_buffer);
     }
 
     void AsyncResourceLoader::Shutdown()

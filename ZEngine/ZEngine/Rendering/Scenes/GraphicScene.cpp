@@ -1,10 +1,16 @@
 ﻿module;
+#include <entt/entity/fwd.hpp>
+#include <glm/fwd.hpp>
+#include <uuid.h>
+#include <vulkan/vulkan_core.h>
+
 #define NODE_PARENT_ID  -1
 #define INVALID_NODE_ID -1
 
 module ZEngine.Rendering;
 
 import std;
+import :Scenes.GraphicScene;
 import :Renderers.GraphicRenderer;
 import :Components.LightComponent;
 import :Components.UUIComponent;
@@ -163,7 +169,7 @@ namespace ZEngine::Rendering::Scenes
         };
     }
 
-    void GraphicScene::InitOrResetDrawBuffer(Hardwares::VulkanDevice* device, Renderers::RenderGraph* render_graph, Renderers::AsyncResourceLoader* async_loader)
+    void GraphicScene::InitOrResetDrawBuffer(Devices::VulkanDevice* device, Renderers::RenderGraph* render_graph, Renderers::AsyncResourceLoader* async_loader)
     {
         auto                               draw_count         = SceneData->NodeMeshes.size();
         std::vector<VkDrawIndirectCommand> indirect_commmands = {};
@@ -474,11 +480,11 @@ namespace ZEngine::Rendering::Scenes
         co_return entity;
     }
 
-    std::future<SceneEntity> GraphicScene::CreateEntityAsync(uuids::uuid uuid, std::string_view entity_name)
+    std::future<SceneEntity> GraphicScene::CreateEntityAsync(uuids::uuid uuid_local, std::string_view entity_name)
     {
         std::unique_lock lock(m_mutex);
         auto             entity = co_await CreateEntityAsync(entity_name);
-        entity.AddComponent<UUIComponent>(uuid);
+        entity.AddComponent<UUIComponent>(uuid_local);
         co_return entity;
     }
 
@@ -571,21 +577,21 @@ namespace ZEngine::Rendering::Scenes
     glm::mat4& GraphicScene::GetSceneNodeLocalTransform(int node_identifier)
     {
         std::lock_guard lock(m_mutex);
-        ZENGINE_VALIDATE_ASSERT((node_identifier > INVALID_NODE_ID) && (node_identifier < SceneData->LocalTransforms.size()), "node identifier is invalid")
+        ZENGINE_VALIDATE_ASSERT((node_identifier > INVALID_NODE_ID) && (node_identifier < SceneData->LocalTransforms.size()), "node identifier is invalid");
         return SceneData->LocalTransforms[node_identifier];
     }
 
     glm::mat4& GraphicScene::GetSceneNodeGlobalTransform(int node_identifier)
     {
         std::lock_guard lock(m_mutex);
-        ZENGINE_VALIDATE_ASSERT(node_identifier > INVALID_NODE_ID && node_identifier < SceneData->GlobalTransforms.size(), "node identifier is invalid")
+        ZENGINE_VALIDATE_ASSERT(node_identifier > INVALID_NODE_ID && node_identifier < SceneData->GlobalTransforms.size(), "node identifier is invalid");
         return SceneData->GlobalTransforms[node_identifier];
     }
 
     const SceneNodeHierarchy& GraphicScene::GetSceneNodeHierarchy(int node_identifier)
     {
         std::lock_guard lock(m_mutex);
-        ZENGINE_VALIDATE_ASSERT(node_identifier > INVALID_NODE_ID && node_identifier < SceneData->NodeHierarchies.size(), "node identifier is invalid")
+        ZENGINE_VALIDATE_ASSERT(node_identifier > INVALID_NODE_ID && node_identifier < SceneData->NodeHierarchies.size(), "node identifier is invalid");
         return SceneData->NodeHierarchies[node_identifier];
     }
 
@@ -598,7 +604,7 @@ namespace ZEngine::Rendering::Scenes
     std::future<void> GraphicScene::SetSceneNodeNameAsync(int node_identifier, std::string_view node_name)
     {
         std::lock_guard lock(m_mutex);
-        ZENGINE_VALIDATE_ASSERT(node_identifier > INVALID_NODE_ID, "node identifier is invalid")
+        ZENGINE_VALIDATE_ASSERT(node_identifier > INVALID_NODE_ID, "node identifier is invalid");
         SceneData->Names[SceneData->NodeNames[node_identifier]] = node_name;
         co_return;
     }
@@ -606,7 +612,7 @@ namespace ZEngine::Rendering::Scenes
     std::future<Meshes::MeshVNext> GraphicScene::GetSceneNodeMeshAsync(int node_identifier)
     {
         std::lock_guard lock(m_mutex);
-        ZENGINE_VALIDATE_ASSERT(SceneData->NodeMeshes.contains(node_identifier), "node identifier is invalid")
+        ZENGINE_VALIDATE_ASSERT(SceneData->NodeMeshes.contains(node_identifier), "node identifier is invalid");
         co_return SceneData->Meshes.at(SceneData->NodeMeshes[node_identifier]);
     }
 

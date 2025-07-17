@@ -2,13 +2,14 @@ export module ZEngine.Core.Containers.InitializerList;
 
 import std;
 import ZEngine.Core.Memory.Allocator;
+import ZEngine.ZEngineDef;
 
 using namespace ZEngine::Core::Memory;
 
-export namespace ZEngine::Core::Containers
+namespace ZEngine::Core::Containers
 {
 
-    template <typename T>
+    export template <typename T>
     struct InitializerList
     {
         using value_type      = T;
@@ -66,12 +67,12 @@ export namespace ZEngine::Core::Containers
         pointer   m_data;
     };
 
-    template <typename T, typename... Args>
+    export template <typename T, typename... Args>
     InitializerList<T> make_initializer_list(Memory::ArenaAllocator* allocator, T first, Args... args)
     {
         std::size_t count  = sizeof...(args) + 1;
 
-        T*     buffer = static_cast<T*>(ZAlloc(allocator, count * sizeof(T), ZAlignof(first)));
+        T*     buffer = static_cast<T*>(ZAlloc(allocator, count * sizeof(T), ZAlignof<T>()));
 
         buffer[0]     = first;
 

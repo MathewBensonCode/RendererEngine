@@ -16,7 +16,7 @@ namespace ZEngine::Rendering::Renderers
     struct GraphicRenderer;
     struct RenderGraph;
 
-    struct ImGUIRenderer
+    export struct ImGUIRenderer
     {
         void Initialize(GraphicRenderer* renderer);
         void Deinitialize();

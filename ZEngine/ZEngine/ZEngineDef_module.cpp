@@ -45,29 +45,32 @@ export constexpr auto* ZPush(auto* allocator, auto size, std::source_location lo
 }
 
 export template<typename type>
-constexpr auto* ZPushArray(auto* arena, auto count, std::source_location location = std::source_location::current())
+constexpr type* ZPushArray(auto* arena, auto count, std::source_location location = std::source_location::current())
 {
-    return ZPush(arena, (sizeof(type) * count), location);
+    return reinterpret_cast<type*>(ZPush(arena, (sizeof(type) * count), location));
 }
 
-export constexpr auto* ZPushString(auto *arena, auto count)
+export constexpr char* ZPushString(auto *arena, auto count)
 {
     return ZPushArray<char>(arena, count);
 }
 
 export template<typename type>
-constexpr auto* ZPushStruct(auto* arena)
+constexpr type* ZPushStruct(auto* arena)
 {
     return ZPushArray<type>(arena, 2);
 }
 
 export template<typename type>
-constexpr auto ZPushStructCtor(auto *arena)
+constexpr type* ZPushStructCtor(auto *arena)
 { 
-    return ZPushStruct<type>(arena);
+    return new (ZPushStruct<type>(arena)) type();
 }
 
-//export constexpr auto ZPushStructCtorArgs(arena, type, ...extra_args) (return new (ZPushStruct(arena, type)) type(__VA_ARGS__))
+export template<typename type, typename ...args>
+constexpr type* ZPushStructCtorArgs(auto *arena, args... extra_args){
+    return new (ZPushStruct<type>(arena)) type(extra_args...);
+}
 
 export void ZENGINE_VALIDATE_ASSERT(bool condition, auto message)
     {
@@ -93,33 +96,37 @@ export void ZENGINE_EXIT_FAILURE(){
 }
 
 
-/*
->>>>>>> 8ccd0cb (more migrate header files to named modules)
-template <typename type>
-export constexpr auto ZPushDynamicArray(auto pool, type type_value, std::location location = std::location::current()){
+export template <typename type>
+constexpr type* ZPushDynamicArray(auto pool, std::source_location location = std::source_location::current()){
     return reintepret_cast<type*>( pool->Allocate(location.file_name(), location.line()));
 }
 
-export constexpr auto ZAlloc(allocator, size, alignment)                     ((allocator)->Allocate((size), (alignment)))
+export constexpr auto* ZAlloc(auto *allocator, auto size, auto alignment)
+{
+    return ((allocator)->Allocate((size), (alignment)));
+}
 
-
-#define ZENGINE_DESTROY_VULKAN_HANDLE(device, function, handle, ...) \
-    if (device && handle)                                            \
-    {                                                                \
-        function(device, handle, __VA_ARGS__);                       \
-        handle = nullptr;                                            \
+export template<typename ...args>
+void ZENGINE_DESTROY_VULKAN_HANDLE(auto *device, auto function, auto *handle, args... extra_args)
+{
+    if (device && handle)                                            
+    {                                                                
+        function(device, handle, extra_args...);                       
+        handle = nullptr;                                            
     }
+}
 
-#define ZENGINE_CLEAR_STD_VECTOR(collection) \
-    if (!collection.empty())                 \
-    {                                        \
-        collection.clear();                  \
-        collection.shrink_to_fit();          \
+export auto ZENGINE_CLEAR_STD_VECTOR(auto &collection){
+    if (!collection.empty())                 
+    {                                        
+        collection.clear();                  
+        collection.shrink_to_fit();          
     }
+}
 
+/*
 #define SINGLE_ARG(...)                   __VA_ARGS__
 
-* Allocator and Memory Macros
 
 #define MAKE_MAGIC(a, b, c, d)            ((uint32_t) (a) << 24 | (uint32_t) (b) << 16 | (uint32_t) (c) << 8 | (uint32_t) (d))
 #define MAKE_VERSION(major, minor, patch) (((uint32_t) (major) << 16) | ((uint32_t) (minor) << 8) | ((uint32_t) (patch)))

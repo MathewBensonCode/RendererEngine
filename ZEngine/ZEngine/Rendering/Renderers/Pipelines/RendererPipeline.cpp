@@ -1,3 +1,6 @@
+module;
+#include <vulkan/vulkan_core.h>
+
 module ZEngine.Rendering;
 
 import std;
@@ -68,7 +71,7 @@ namespace ZEngine::Rendering::Renderers::Pipelines
         for (unsigned i = 0; i < Specification.VertexInputAttributeSpecifications.size(); ++i)
         {
             auto& input = Specification.VertexInputAttributeSpecifications[i];
-            vertex_input_attributes.push(VkVertexInputAttributeDescription{.location = input.Location, .binding = input.Binding, .format = Specifications::ImageFormatMap[VALUE_FROM_SPEC_MAP(input.Format)], .offset = input.Offset});
+            vertex_input_attributes.push(VkVertexInputAttributeDescription{.location = input.Location, .binding = input.Binding, .format = Specifications::ImageFormatMap[static_cast<std::uint32_t>(input.Format)], .offset = input.Offset});
         }
 
         VkPipelineVertexInputStateCreateInfo vertex_input_state_create_info   = {};
@@ -118,7 +121,7 @@ namespace ZEngine::Rendering::Renderers::Pipelines
         /*
          * Color blend state and attachment
          */
-        ZENGINE_VALIDATE_ASSERT(Specification.Attachment, "Attachment can't be null")
+        ZENGINE_VALIDATE_ASSERT(Specification.Attachment, "Attachment can't be null");
 
         std::uint32_t                                   attachment_count = Specification.Attachment->GetColorAttachmentCount();
         Array<VkPipelineColorBlendAttachmentState> color_blend_attachment_states{};
@@ -158,7 +161,7 @@ namespace ZEngine::Rendering::Renderers::Pipelines
         pipeline_layout_create_info.pPushConstantRanges                   = Shader->PushConstants.data();
         pipeline_layout_create_info.flags                                 = 0;
         pipeline_layout_create_info.pNext                                 = nullptr;
-        ZENGINE_VALIDATE_ASSERT(vkCreatePipelineLayout(Device->LogicalDevice, &(pipeline_layout_create_info), nullptr, &Layout) == VK_SUCCESS, "Failed to create pipeline layout")
+        ZENGINE_VALIDATE_ASSERT(vkCreatePipelineLayout(Device->LogicalDevice, &(pipeline_layout_create_info), nullptr, &Layout) == VK_SUCCESS, "Failed to create pipeline layout");
         /*
          * Graphic Pipeline Creation
          */
@@ -181,7 +184,7 @@ namespace ZEngine::Rendering::Renderers::Pipelines
         graphic_pipeline_create_info.basePipelineIndex            = -1;             // Optional
         graphic_pipeline_create_info.flags                        = 0;              // Optional
         graphic_pipeline_create_info.pNext                        = nullptr;        // Optional
-        ZENGINE_VALIDATE_ASSERT(vkCreateGraphicsPipelines(Device->LogicalDevice, VK_NULL_HANDLE, 1, &graphic_pipeline_create_info, nullptr, &Handle) == VK_SUCCESS, "Failed to create Graphics Pipeline")
+        ZENGINE_VALIDATE_ASSERT(vkCreateGraphicsPipelines(Device->LogicalDevice, VK_NULL_HANDLE, 1, &graphic_pipeline_create_info, nullptr, &Handle) == VK_SUCCESS, "Failed to create Graphics Pipeline");
 
         ZEngine::Core::Memory::EndTempArena(scratch);
     }

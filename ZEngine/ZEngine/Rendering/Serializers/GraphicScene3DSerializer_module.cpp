@@ -9,7 +9,7 @@ import ZEngine.Maths.Math;
 import :Serializers.GraphicSceneSerializer;
 import ZEngine.ZEngineDef;
 
-export namespace ZEngine::Rendering::Serializers
+namespace ZEngine::Rendering::Serializers
 {
 
     YAML::Emitter& operator<<(YAML::Emitter& emitter, const ZEngine::Maths::Vector4& v)

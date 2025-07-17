@@ -1,25 +1,24 @@
 export module ZEngine.Rendering:Renderers.RenderGraph;
 
 import std;
-import :Buffers.Framebuffer;
+import :Buffers.FrameBuffer;
 import :Scenes.GraphicScene;
 import :Specifications.TextureSpecification;
 import :Textures.Texture;
 import :Devices.VulkanDevice;
+import :Renderers.RenderPasses.RenderPass;
 import ZEngine.ZEngineDef;
 import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.HashMap;
 import ZEngine.Core.Memory.Allocator;
 
 
-namespace ZEngine::Rendering::Renderers::RenderPasses{
-        struct RenderPass;
-}
+using namespace ZEngine::Rendering::Renderers::RenderPasses;
+
 
 namespace ZEngine::Rendering::Renderers{
     struct GraphicRenderer;
     struct RenderGraphBuilder;
-    struct RenderPassBuilder;
 
     enum RenderGraphResourceType
     {

@@ -2,13 +2,13 @@ module;
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
 
-export module ZEngine.Rendering.Buffers.Bitmap;
+export module ZEngine.Rendering:Buffers.Bitmap;
 
 import std;
 import ZEngine.Helpers.MemoryOperations;
 import ZEngine.ZEngineDef;
 
-export namespace ZEngine::Rendering::Buffers
+namespace ZEngine::Rendering::Buffers
 {
 
     enum BitmapType

@@ -10,7 +10,6 @@ import :Devices.VulkanDevice;
 import ZEngine.Helpers.ThreadSafeQueue;
 import ZEngine.Helpers.IntrusivePtr;
 
-
 namespace ZEngine::Rendering::Renderers{
     struct RenderGraph;
     struct ImGUIRenderer;
@@ -28,9 +27,9 @@ namespace ZEngine::Rendering::Specifications{
     struct RenderPassSpecification;
 }
 
-export namespace ZEngine::Rendering::Renderers
+namespace ZEngine::Rendering::Renderers
 {
-    struct ResizeRequest
+    export struct ResizeRequest
     {
         std::uint32_t Width;
         std::uint32_t Height;
@@ -56,7 +55,8 @@ export namespace ZEngine::Rendering::Renderers
     };
 
     struct AsyncResourceLoader;
-    struct GraphicRenderer
+
+    export struct GraphicRenderer
     {
         GraphicRenderer();
         ~GraphicRenderer();
@@ -106,4 +106,21 @@ export namespace ZEngine::Rendering::Renderers
         Helpers::ThreadSafeQueue<TextureFileRequest>   m_file_requests;
         Helpers::ThreadSafeQueue<TextureUploadRequest> m_upload_requests;
     };
+
 } // namespace ZEngine::Rendering::Renderers
+  
+namespace ZEngine::Rendering::Devices{
+    struct CommandBuffer;
+}
+
+namespace ZEngine::Rendering
+{
+
+    struct IRenderable
+    {
+        IRenderable()                                                                                                                                  = default;
+        virtual ~IRenderable()                                                                                                                         = default;
+
+        virtual void Render(Rendering::Renderers::GraphicRenderer* const renderer = nullptr, Devices::CommandBuffer* const command_buffer = nullptr) = 0;
+    };
+}
