@@ -108,19 +108,3 @@ namespace ZEngine::Rendering::Renderers
     };
 
 } // namespace ZEngine::Rendering::Renderers
-  
-namespace ZEngine::Rendering::Devices{
-    struct CommandBuffer;
-}
-
-namespace ZEngine::Rendering
-{
-
-    struct IRenderable
-    {
-        IRenderable()                                                                                                                                  = default;
-        virtual ~IRenderable()                                                                                                                         = default;
-
-        virtual void Render(Rendering::Renderers::GraphicRenderer* const renderer = nullptr, Devices::CommandBuffer* const command_buffer = nullptr) = 0;
-    };
-}

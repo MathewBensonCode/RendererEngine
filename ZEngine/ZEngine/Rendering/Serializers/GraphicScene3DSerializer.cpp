@@ -1,7 +1,7 @@
 module;
 #include <glm/fwd.hpp>
 #include <yaml-cpp/yaml.h>
-#include <uuid/uuid.h>
+#include <uuid.h>
 
 module ZEngine.Rendering;
 
@@ -26,6 +26,8 @@ using namespace ZEngine::Rendering::Components;
 using namespace ZEngine::Rendering::Scenes;
 using namespace ZEngine::Rendering::Entities;
 using namespace ZEngine::Core;
+
+using uuids::to_string;
 
 namespace YAML
 {

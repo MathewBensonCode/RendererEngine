@@ -1,6 +1,6 @@
 ﻿module;
-#include <entt/entity/fwd.hpp>
-#include <glm/fwd.hpp>
+#include <entt/entity/registry.hpp>
+#include <glm/glm.hpp>
 #include <uuid.h>
 #include <vulkan/vulkan_core.h>
 
@@ -650,6 +650,9 @@ namespace ZEngine::Rendering::Scenes
                         auto spot = reinterpret_cast<Lights::Spotlight*>(light.get());
                         SceneData->SpotLights.push_back(spot->GPUPackedData());
                     }
+                    break;
+                    
+                    case Lights::LightType::UNDEFINED:
                     break;
                 }
             }
