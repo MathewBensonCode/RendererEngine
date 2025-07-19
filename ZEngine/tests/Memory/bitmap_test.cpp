@@ -3,8 +3,6 @@ import ZEngine.Rendering.Buffers.Bitmap;
 #include <stb_image.h>
 #include <stb_image_write.h>
 
-
-
 using namespace ZEngine::Rendering::Buffers;
 
 constexpr float epsilon = 1e-2;

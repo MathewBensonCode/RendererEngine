@@ -19,4 +19,4 @@ export namespace ZEngine::Helpers
         }
         return mm;
     }
-}
+} // namespace ZEngine::Helpers

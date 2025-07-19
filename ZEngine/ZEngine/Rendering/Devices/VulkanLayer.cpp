@@ -18,14 +18,14 @@ namespace ZEngine::Rendering::Devices
     {
         std::uint32_t instance_layer_count{0};
 
-        VkResult result = vkEnumerateInstanceLayerProperties(&instance_layer_count, nullptr);
+        VkResult      result = vkEnumerateInstanceLayerProperties(&instance_layer_count, nullptr);
         if ((result == VK_INCOMPLETE) || (instance_layer_count <= 0))
         {
             return;
         }
 
         std::size_t byte_size               = instance_layer_count * sizeof(VkLayerProperties);
-        auto   vulkan_layer_properties = (VkLayerProperties*) malloc(byte_size);
+        auto        vulkan_layer_properties = (VkLayerProperties*) malloc(byte_size);
         if (vulkan_layer_properties == nullptr)
         {
             return;
@@ -62,7 +62,7 @@ namespace ZEngine::Rendering::Devices
     VkResult VulkanLayer::GetExtensionProperties(Core::Memory::ArenaAllocator* arena, LayerProperty& layer_property, const VkPhysicalDevice* physical_gpu_device)
     {
         std::uint32_t extension_count{0};
-        VkResult result;
+        VkResult      result;
 
         if (physical_gpu_device)
         {
@@ -106,4 +106,4 @@ namespace ZEngine::Rendering::Devices
     {
         return VK_INCOMPLETE;
     }
-} // namespace ZEngine::Hardwares
+} // namespace ZEngine::Rendering::Devices

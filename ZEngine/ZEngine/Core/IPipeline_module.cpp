@@ -3,7 +3,6 @@ export module ZEngine.Core.IPipeline;
 import std;
 import ZEngine.Helpers.IntrusivePtr;
 
-
 export namespace ZEngine::Core
 {
 

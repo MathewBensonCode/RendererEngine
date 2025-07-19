@@ -40,4 +40,4 @@ export namespace ZEngine::Rendering::Meshes
     }
 
     std::vector<Rendering::Meshes::MeshVNext> ConvertAssimpMeshToZEngineMeshModel(const aiScene* assimp_scene, const std::vector<uint32_t>& assimp_mesh_ids);
-} // namespace ZEngine::Helpers
+} // namespace ZEngine::Rendering::Meshes

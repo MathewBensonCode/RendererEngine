@@ -2,7 +2,8 @@ export module ZEngine.Rendering:Geometries.QuadGeometry;
 
 import :Geometries.IGeometry;
 
-namespace ZEngine::Rendering::Renderers::Storages{
+namespace ZEngine::Rendering::Renderers::Storages
+{
     struct GraphicVertex;
 }
 

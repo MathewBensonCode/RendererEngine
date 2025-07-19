@@ -119,4 +119,4 @@ export namespace ZEngine::Rendering::Windows::Events
         double m_offset_x{0};
         double m_offset_y{0};
     };
-} // namespace ZEngine::Windows::Events
+} // namespace ZEngine::Rendering::Windows::Events

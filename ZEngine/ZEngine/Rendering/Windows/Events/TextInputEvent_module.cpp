@@ -34,4 +34,4 @@ export namespace ZEngine::Rendering::Windows::Events
     protected:
         std::string m_text;
     };
-} // namespace ZEngine::Windows::Events
+} // namespace ZEngine::Rendering::Windows::Events

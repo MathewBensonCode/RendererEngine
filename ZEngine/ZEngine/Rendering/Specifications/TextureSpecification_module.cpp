@@ -16,10 +16,10 @@ export namespace ZEngine::Rendering::Specifications
         bool          IsUsageTransfert  = true;
         bool          PerformTransition = true;
         bool          IsCubemap         = false;
-        std::uint32_t      Width             = 0;
-        std::uint32_t      Height            = 0;
-        std::uint32_t      BytePerPixel      = 4;
-        std::uint32_t      LayerCount        = 1;
+        std::uint32_t Width             = 0;
+        std::uint32_t Height            = 0;
+        std::uint32_t BytePerPixel      = 4;
+        std::uint32_t LayerCount        = 1;
         ImageFormat   Format            = ImageFormat::UNDEFINED;
         LoadOperation LoadOp            = LoadOperation::CLEAR;
         const void*   Data              = nullptr;
@@ -35,14 +35,14 @@ export namespace ZEngine::Rendering::Specifications
 
     struct Image2DBufferSpecification
     {
-        std::uint32_t              Width;
-        std::uint32_t              Height;
+        std::uint32_t         Width;
+        std::uint32_t         Height;
         ImageViewTypeEnum     ImageViewType = ImageViewTypeEnum::TYPE_2D;
         ImageBufferUsageType  BufferUsageType;
         VkFormat              ImageFormat;
         VkImageUsageFlags     ImageUsage;
         VkImageAspectFlagBits ImageAspectFlag;
-        std::uint32_t              LayerCount      = 1U;
+        std::uint32_t         LayerCount      = 1U;
         ImageCreateFlagEnum   ImageCreateFlag = ImageCreateFlagEnum::NONE;
     };
 

@@ -29,8 +29,8 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         RenderPass() {}
         ~RenderPass();
 
-        std::uint32_t                                RenderAreaWidth  = 0;
-        std::uint32_t                                RenderAreaHeight = 0;
+        std::uint32_t                           RenderAreaWidth  = 0;
+        std::uint32_t                           RenderAreaHeight = 0;
         Specifications::RenderPassSpecification Specification    = {};
         std::set<std::string>                   Inputs           = {};
         Core::Containers::Array<uint32_t>       RenderTargets    = {};
@@ -46,16 +46,16 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
         void                                    SetInput(std::string_view key_name, const Textures::TextureHandle& texture);
         void                                    SetBindlessInput(std::string_view key_name);
         void                                    UpdateInputBinding();
-        Renderers::RenderPasses::Attachment* GetAttachment() const;
-        void     UpdateRenderTargets();
-        std::uint32_t GetRenderAreaWidth() const;
-        std::uint32_t GetRenderAreaHeight() const;
+        Renderers::RenderPasses::Attachment*    GetAttachment() const;
+        void                                    UpdateRenderTargets();
+        std::uint32_t                           GetRenderAreaWidth() const;
+        std::uint32_t                           GetRenderAreaHeight() const;
 
     private:
         std::pair<bool, Specifications::LayoutBindingSpecification> ValidateInput(std::string_view key);
 
     private:
-        bool                     m_perform_update{false};
+        bool                   m_perform_update{false};
         Devices::VulkanDevice* m_device;
     };
 

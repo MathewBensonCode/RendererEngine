@@ -191,8 +191,8 @@ export namespace ZEngine::Core::Containers
 
             size_type old_alloc_size = m_capacity * sizeof(T);
             size_type new_alloc_size = new_capacity * sizeof(T);
-            m_data                = static_cast<pointer>(ZResize(m_allocator, m_data, old_alloc_size, new_alloc_size, ZAlignof<value_type>()));
-            m_capacity            = new_capacity;
+            m_data                   = static_cast<pointer>(ZResize(m_allocator, m_data, old_alloc_size, new_alloc_size, ZAlignof<value_type>()));
+            m_capacity               = new_capacity;
         }
 
         Memory::ArenaAllocator* m_allocator;
@@ -235,7 +235,7 @@ export namespace ZEngine::Core::Containers
             return m_data;
         }
 
-        T*     m_data;
+        T*          m_data;
         std::size_t m_size;
     };
 } // namespace ZEngine::Core::Containers

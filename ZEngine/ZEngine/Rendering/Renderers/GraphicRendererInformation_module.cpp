@@ -1,8 +1,8 @@
 // module;
 //
-//export module ZEngine.Rendering.Renderers.GraphicRendererInformation;
+// export module ZEngine.Rendering.Renderers.GraphicRendererInformation;
 //
-//import std;
+// import std;
 //
 // #include <ZEngine/ZEngineDef.h>
 //

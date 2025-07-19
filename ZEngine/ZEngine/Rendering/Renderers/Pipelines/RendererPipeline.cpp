@@ -123,7 +123,7 @@ namespace ZEngine::Rendering::Renderers::Pipelines
          */
         ZENGINE_VALIDATE_ASSERT(Specification.Attachment, "Attachment can't be null");
 
-        std::uint32_t                                   attachment_count = Specification.Attachment->GetColorAttachmentCount();
+        std::uint32_t                              attachment_count = Specification.Attachment->GetColorAttachmentCount();
         Array<VkPipelineColorBlendAttachmentState> color_blend_attachment_states{};
         color_blend_attachment_states.init(scratch.Arena, attachment_count, attachment_count);
         for (std::uint32_t i = 0; i < attachment_count; ++i)

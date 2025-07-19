@@ -6,7 +6,8 @@ export module ZEngine.Rendering:Buffers.FrameBuffer;
 import std;
 import :Specifications.FrameBufferSpecification;
 
-namespace ZEngine::Rendering::Devices{
+namespace ZEngine::Rendering::Devices
+{
     struct VulkanDevice;
 }
 
@@ -23,13 +24,13 @@ export namespace ZEngine::Rendering::Buffers
         void                                                 Create();
         void                                                 Resize(std::uint32_t width = 1, std::uint32_t height = 1);
         void                                                 Dispose();
-        std::uint32_t                                             GetWidth() const;
-        std::uint32_t                                             GetHeight() const;
+        std::uint32_t                                        GetWidth() const;
+        std::uint32_t                                        GetHeight() const;
         Specifications::FrameBufferSpecificationVNext&       GetSpecification();
         const Specifications::FrameBufferSpecificationVNext& GetSpecification() const;
 
     private:
         Specifications::FrameBufferSpecificationVNext m_specification{};
-        Devices::VulkanDevice*                      m_device{nullptr};
+        Devices::VulkanDevice*                        m_device{nullptr};
     };
 } // namespace ZEngine::Rendering::Buffers

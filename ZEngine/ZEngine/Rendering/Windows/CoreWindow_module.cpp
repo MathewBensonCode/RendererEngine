@@ -20,7 +20,7 @@ namespace ZEngine::Rendering::Windows
 {
     struct Layer;
 
-   export class CoreWindow : public Inputs::IKeyboardEventCallback, public Inputs::IMouseEventCallback, public Inputs::ITextInputEventCallback, public Inputs::IWindowEventCallback, public IUpdatable, public ZEngine::Rendering::IRenderable, public IEventable
+    export class CoreWindow : public Inputs::IKeyboardEventCallback, public Inputs::IMouseEventCallback, public Inputs::ITextInputEventCallback, public Inputs::IWindowEventCallback, public IUpdatable, public ZEngine::Rendering::IRenderable, public IEventable
 
     {
 
@@ -34,8 +34,8 @@ namespace ZEngine::Rendering::Windows
 
         Core::Containers::Array<const char*> RequiredExtensionLayers                                            = {};
 
-        virtual std::uint32_t                     GetHeight() const                                                  = 0;
-        virtual std::uint32_t                     GetWidth() const                                                   = 0;
+        virtual std::uint32_t                GetHeight() const                                                  = 0;
+        virtual std::uint32_t                GetWidth() const                                                   = 0;
         virtual Core::Containers::StringView GetTitle() const                                                   = 0;
         virtual void                         SetTitle(Core::Containers::StringView title)                       = 0;
         virtual bool                         IsMinimized() const                                                = 0;
@@ -71,16 +71,16 @@ namespace ZEngine::Rendering::Windows
             Name = name;
         }
 
-        virtual ~Layer()                                                                       = default;
+        virtual ~Layer()                                                              = default;
 
-        virtual void                           Initialize(Core::Memory::ArenaAllocator* arena) = 0;
-        virtual void                           Deinitialize() {};
+        virtual void                  Initialize(Core::Memory::ArenaAllocator* arena) = 0;
+        virtual void                  Deinitialize() {};
 
         Core::Memory::ArenaAllocator  LocalArena    = {};
         Core::Memory::ArenaAllocator* Arena         = nullptr;
-        const char*                            Name          = nullptr;
-        void*                                  ParentContext = nullptr;
-        CoreWindow* ParentWindow   = nullptr;
+        const char*                   Name          = nullptr;
+        void*                         ParentContext = nullptr;
+        CoreWindow*                   ParentWindow  = nullptr;
     };
 
     CoreWindow* Create(Core::Memory::ArenaAllocator* arena, const WindowConfiguration& cfg);
@@ -109,4 +109,4 @@ namespace ZEngine::Rendering::Windows
             layer->OnEvent(event);
         }
     }
-} // namespace ZEngine::Windows
+} // namespace ZEngine::Rendering::Windows

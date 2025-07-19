@@ -11,24 +11,24 @@ export namespace ZEngine::Core::Memory
     struct ArenaTemp
     {
         ArenaAllocator* Arena          = nullptr;
-        std::size_t          CurrentOffset  = 0;
-        std::size_t          PreviousOffset = 0;
+        std::size_t     CurrentOffset  = 0;
+        std::size_t     PreviousOffset = 0;
     };
 
     struct ArenaAllocator
     {
         ~ArenaAllocator() {};
 
-        void     Initialize(std::uint64_t size);
-        void     Shutdown();
+        void          Initialize(std::uint64_t size);
+        void          Shutdown();
 
-        void*    Allocate(std::size_t size, std::size_t alignment = DEFAULT_ALIGNMENT);
-        void*    Allocate(std::size_t size, std::size_t alignment, const char* file, int line);
+        void*         Allocate(std::size_t size, std::size_t alignment = DEFAULT_ALIGNMENT);
+        void*         Allocate(std::size_t size, std::size_t alignment, const char* file, int line);
 
-        void*    Resize(void* old_memory, std::size_t old_size, std::size_t new_size, std::size_t alignment = DEFAULT_ALIGNMENT);
-        void     Clear();
+        void*         Resize(void* old_memory, std::size_t old_size, std::size_t new_size, std::size_t alignment = DEFAULT_ALIGNMENT);
+        void          Clear();
 
-        void     CreateSubArena(std::size_t size, ArenaAllocator* out_arena);
+        void          CreateSubArena(std::size_t size, ArenaAllocator* out_arena);
 
         std::uint8_t* m_memory                  = nullptr;
         std::size_t   m_total_size              = 0;
@@ -57,10 +57,10 @@ export namespace ZEngine::Core::Memory
         void          Free(void* ptr);
         void          Clear();
 
-        std::uint8_t*      memory     = nullptr;
+        std::uint8_t* memory     = nullptr;
         PoolFreeNode* head       = nullptr;
-        std::size_t        total_size = 0;
-        std::size_t        chunk_size = 0;
+        std::size_t   total_size = 0;
+        std::size_t   chunk_size = 0;
     };
 
     ArenaTemp BeginTempArena(ArenaAllocator* arena);

@@ -55,4 +55,4 @@ namespace ZEngine::Rendering::Serializers
             }
         }
     };
-} // namespace ZEngine::Serializers
+} // namespace ZEngine::Rendering::Serializers

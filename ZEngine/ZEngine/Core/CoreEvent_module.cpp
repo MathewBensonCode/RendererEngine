@@ -3,7 +3,6 @@ export module ZEngine.Core.CoreEvent;
 import std;
 import ZEngine.ZEngineDef;
 
-
 export namespace ZEngine::Core
 {
     enum EventCategory : std::uint8_t

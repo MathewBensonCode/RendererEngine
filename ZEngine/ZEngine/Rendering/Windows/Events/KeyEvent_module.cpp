@@ -27,7 +27,6 @@ export namespace ZEngine::Rendering::Windows::Events
     public:
         KeyPressedEvent(Inputs::GlfwKeyCode key, int repeat_count) : KeyEvent(key), m_repeat_count(repeat_count) {}
 
-
         virtual Core::EventType GetType() const override
         {
             return Core::EventType::KeyPressed;
@@ -67,4 +66,4 @@ export namespace ZEngine::Rendering::Windows::Events
             return std::format("KeyReleasedEvent : {0}", static_cast<std::int32_t>(m_keycode));
         }
     };
-} // namespace ZEngine::Windows::Events
+} // namespace ZEngine::Rendering::Windows::Events

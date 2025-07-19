@@ -147,12 +147,12 @@ export namespace ZEngine::Rendering::Lights
     template <typename T>
     std::vector<std::uint8_t> CreateLightBuffer(std::span<const T> data)
     {
-        auto                 count       = data.size();
+        auto                      count       = data.size();
         std::size_t               buffer_size = sizeof(LightBuffer) + (sizeof(T) * count);
         std::vector<std::uint8_t> buffer(buffer_size);
 
-        auto                 light_buffer = reinterpret_cast<LightBuffer*>(buffer.data());
-        light_buffer->Count               = count;
+        auto                      light_buffer = reinterpret_cast<LightBuffer*>(buffer.data());
+        light_buffer->Count                    = count;
         Helpers::secure_memset(light_buffer->Padding, 0, sizeof(light_buffer->Padding), sizeof(light_buffer->Padding));
         Helpers::secure_memcpy((buffer.data() + sizeof(Lights::LightBuffer)), data.size_bytes(), data.data(), data.size_bytes());
 

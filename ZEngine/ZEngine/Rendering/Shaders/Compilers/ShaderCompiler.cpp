@@ -61,7 +61,8 @@ namespace ZEngine::Rendering::Shaders::Compilers
             if (!stage_info.IsSuccess)
             {
                 // Log the critical error or perform any necessary cleanup
-                ZEngine::Logging::Logger::Critical(std::format("Compilation process encountered a failure at stage ..."));;
+                ZEngine::Logging::Logger::Critical(std::format("Compilation process encountered a failure at stage ..."));
+                ;
                 co_return ShaderCompilerResult{ShaderOperationResult::FAILURE, ShaderInformation{}};
             }
 

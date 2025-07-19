@@ -8,7 +8,7 @@ export namespace ZEngine
 {
     struct EngineConfiguration
     {
-        Logging::LoggerConfiguration LoggerConfiguration;
+        Logging::LoggerConfiguration            LoggerConfiguration;
         Rendering::Windows::WindowConfiguration WindowConfiguration;
     };
 

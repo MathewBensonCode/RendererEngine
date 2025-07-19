@@ -45,4 +45,4 @@ export namespace ZEngine::Rendering::Windows
             AspectRatio = (float) Width / (float) Height;
         }
     };
-} // namespace ZEngine::Windows
+} // namespace ZEngine::Rendering::Windows

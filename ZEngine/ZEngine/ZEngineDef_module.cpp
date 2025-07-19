@@ -37,90 +37,95 @@ export constexpr auto ZGiga(auto size)
     return ZMega(size) * 1024;
 }
 
-export constexpr auto DEFAULT_ALIGNMENT = (2 * sizeof(void*));
+export constexpr auto  DEFAULT_ALIGNMENT = (2 * sizeof(void*));
 
 export constexpr auto* ZPush(auto* allocator, auto size, std::source_location location = std::source_location::current())
 {
     return allocator->Allocate(size, DEFAULT_ALIGNMENT, location.file_name(), location.line());
 }
 
-export template<typename type>
+export template <typename type>
 constexpr type* ZPushArray(auto* arena, auto count, std::source_location location = std::source_location::current())
 {
     return reinterpret_cast<type*>(ZPush(arena, (sizeof(type) * count), location));
 }
 
-export constexpr char* ZPushString(auto *arena, auto count)
+export constexpr char* ZPushString(auto* arena, auto count)
 {
     return ZPushArray<char>(arena, count);
 }
 
-export template<typename type>
+export template <typename type>
 constexpr type* ZPushStruct(auto* arena)
 {
     return ZPushArray<type>(arena, 2);
 }
 
-export template<typename type>
-constexpr type* ZPushStructCtor(auto *arena)
-{ 
+export template <typename type>
+constexpr type* ZPushStructCtor(auto* arena)
+{
     return new (ZPushStruct<type>(arena)) type();
 }
 
-export template<typename type, typename ...args>
-constexpr type* ZPushStructCtorArgs(auto *arena, args... extra_args){
+export template <typename type, typename... args>
+constexpr type* ZPushStructCtorArgs(auto* arena, args... extra_args)
+{
     return new (ZPushStruct<type>(arena)) type(extra_args...);
 }
 
 export void ZENGINE_VALIDATE_ASSERT(bool condition, auto message)
+{
+    if (!(condition))
     {
-        if (!(condition))
-        {
-            ZEngine::Logging::Logger::Critical(message);
-             assert(condition&& message);
-            ZENGINE_DEBUG_BREAK();
-        }
+        ZEngine::Logging::Logger::Critical(message);
+        assert(condition && message);
+        ZENGINE_DEBUG_BREAK();
     }
-
-export template<typename type>
-constexpr auto ZAlignof(){
-   return ((alignof(type) < DEFAULT_ALIGNMENT) ? DEFAULT_ALIGNMENT : alignof(type));
 }
 
-export constexpr auto ZResize(auto *allocator, auto *ptr, auto old_size, auto new_size, auto alignment){
+export template <typename type>
+constexpr auto ZAlignof()
+{
+    return ((alignof(type) < DEFAULT_ALIGNMENT) ? DEFAULT_ALIGNMENT : alignof(type));
+}
+
+export constexpr auto ZResize(auto* allocator, auto* ptr, auto old_size, auto new_size, auto alignment)
+{
     return allocator->Resize(ptr, old_size, new_size, alignment);
 }
 
-export void ZENGINE_EXIT_FAILURE(){
+export void ZENGINE_EXIT_FAILURE()
+{
     exit(EXIT_FAILURE);
 }
 
-
 export template <typename type>
-constexpr type* ZPushDynamicArray(auto pool, std::source_location location = std::source_location::current()){
-    return reintepret_cast<type*>( pool->Allocate(location.file_name(), location.line()));
+constexpr type* ZPushDynamicArray(auto pool, std::source_location location = std::source_location::current())
+{
+    return reintepret_cast<type*>(pool->Allocate(location.file_name(), location.line()));
 }
 
-export constexpr auto* ZAlloc(auto *allocator, auto size, auto alignment)
+export constexpr auto* ZAlloc(auto* allocator, auto size, auto alignment)
 {
     return ((allocator)->Allocate((size), (alignment)));
 }
 
-export template<typename ...args>
-void ZENGINE_DESTROY_VULKAN_HANDLE(auto *device, auto function, auto *handle, args... extra_args)
+export template <typename... args>
+void ZENGINE_DESTROY_VULKAN_HANDLE(auto* device, auto function, auto* handle, args... extra_args)
 {
-    if (device && handle)                                            
-    {                                                                
-        function(device, handle, extra_args...);                       
-        handle = nullptr;                                            
+    if (device && handle)
+    {
+        function(device, handle, extra_args...);
+        handle = nullptr;
     }
 }
 
-export auto ZENGINE_CLEAR_STD_VECTOR(auto &collection){
-    if (!collection.empty())                 
-    {                                        
-        collection.clear();                  
-        collection.shrink_to_fit();          
+export auto ZENGINE_CLEAR_STD_VECTOR(auto& collection)
+{
+    if (!collection.empty())
+    {
+        collection.clear();
+        collection.shrink_to_fit();
     }
 }
 

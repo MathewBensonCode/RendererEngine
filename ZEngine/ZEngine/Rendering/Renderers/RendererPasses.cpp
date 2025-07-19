@@ -6,7 +6,7 @@ module ZEngine.Rendering;
 
 import std;
 import :Renderers.RendererPasses;
-import :Renderers.GraphicRenderer; 
+import :Renderers.GraphicRenderer;
 import ZEngine.Core.Containers.InitializerList;
 
 using namespace ZEngine::Helpers;

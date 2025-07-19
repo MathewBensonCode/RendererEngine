@@ -29,7 +29,6 @@ export namespace ZEngine::Rendering::Windows::Events
         {
             return std::format("WindowRestoredEvent");
         }
-
     };
 
     class WindowResizedEvent : public Core::CoreEvent
@@ -92,7 +91,7 @@ export namespace ZEngine::Rendering::Windows::Events
 
         Core::EventType GetType() const override
         {
-                return Core::EventType::WindowMinimized;
+            return Core::EventType::WindowMinimized;
         }
 
         int GetCategory() const override
@@ -104,7 +103,6 @@ export namespace ZEngine::Rendering::Windows::Events
         {
             return std::format("WindowMinimizedEvent");
         }
-
     };
 
     class WindowMaximizedEvent : public Core::CoreEvent
@@ -130,7 +128,6 @@ export namespace ZEngine::Rendering::Windows::Events
         {
             return std::format("WindowMaximizedEvent");
         }
-
     };
 
     class WindowClosedEvent : public Core::CoreEvent
@@ -156,6 +153,5 @@ export namespace ZEngine::Rendering::Windows::Events
         {
             return std::format("WindowClosedEvent");
         }
-
     };
-} // namespace ZEngine::Windows::Events
+} // namespace ZEngine::Rendering::Windows::Events

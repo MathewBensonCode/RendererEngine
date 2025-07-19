@@ -35,4 +35,4 @@ export namespace ZEngine::Rendering::Windows::Inputs
         virtual bool OnWindowMaximized(Events::WindowMaximizedEvent&) = 0;
         virtual bool OnWindowRestored(Events::WindowRestoredEvent&)   = 0;
     };
-} // namespace ZEngine::Windows::Inputs
+} // namespace ZEngine::Rendering::Windows::Inputs

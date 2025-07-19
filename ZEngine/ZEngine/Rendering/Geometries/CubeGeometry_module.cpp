@@ -3,7 +3,8 @@ export module ZEngine.Rendering:Geometries.CubeGeometry;
 import std;
 import :Geometries.IGeometry;
 
-namespace ZEngine::Rendering::Renderers::Storages{
+namespace ZEngine::Rendering::Renderers::Storages
+{
     struct GraphicVertex;
 }
 

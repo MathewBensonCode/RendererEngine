@@ -12,11 +12,10 @@ import ZEngine.Core.Containers.Array;
 import ZEngine.Core.Containers.HashMap;
 import ZEngine.Core.Memory.Allocator;
 
-
 using namespace ZEngine::Rendering::Renderers::RenderPasses;
 
-
-namespace ZEngine::Rendering::Renderers{
+namespace ZEngine::Rendering::Renderers
+{
     struct GraphicRenderer;
     struct RenderGraphBuilder;
 
@@ -45,7 +44,7 @@ namespace ZEngine::Rendering::Renderers{
         Specifications::TextureSpecification TextureSpec;
         union
         {
-            Textures::TextureHandle            TextureHandle;
+            Textures::TextureHandle          TextureHandle;
             Devices::UniformBufferSetHandle  UniformBufferSetHandle;
             Devices::StorageBufferSetHandle  StorageBufferSetHandle;
             Devices::IndirectBufferSetHandle IndirectBufferSetHandle;
@@ -78,20 +77,20 @@ namespace ZEngine::Rendering::Renderers{
 
     struct IRenderGraphCallbackPass
     {
-        virtual void Setup(std::string_view name, RenderGraph* const graph)                                                                                                                                                                                   = 0;
-        virtual void Compile(RenderPasses::RenderPass** const pass, RenderGraph* const graph, Rendering::Scenes::SceneRawData* const scene)                                                                                                                   = 0;
+        virtual void Setup(std::string_view name, RenderGraph* const graph)                                                                                                                                                                                      = 0;
+        virtual void Compile(RenderPasses::RenderPass** const pass, RenderGraph* const graph, Rendering::Scenes::SceneRawData* const scene)                                                                                                                      = 0;
         virtual void Execute(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Devices::CommandBuffer* const command_buffer, RenderGraph* const graph)                                              = 0;
         virtual void Render(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Buffers::FramebufferVNext* const framebuffer, Devices::CommandBuffer* const command_buffer, RenderGraph* const graph) = 0;
     };
 
     struct RenderGraphNode
     {
-        bool                                 Enabled   = true;
-        RenderGraphRenderPassCreation        Creation  = {};
-        Core::Containers::Array<const char*> EdgeNodes = {};
-        RenderPasses::RenderPass* Handle       = nullptr;
-        Buffers::FramebufferVNext* Framebuffer = nullptr;
-        IRenderGraphCallbackPass* CallbackPass = nullptr;
+        bool                                 Enabled      = true;
+        RenderGraphRenderPassCreation        Creation     = {};
+        Core::Containers::Array<const char*> EdgeNodes    = {};
+        RenderPasses::RenderPass*            Handle       = nullptr;
+        Buffers::FramebufferVNext*           Framebuffer  = nullptr;
+        IRenderGraphCallbackPass*            CallbackPass = nullptr;
     };
 
     class RenderGraph
@@ -100,28 +99,28 @@ namespace ZEngine::Rendering::Renderers{
         RenderGraph() {}
         ~RenderGraph() {}
 
-        bool                               MarkAsDirty       = false;
-        GraphicRenderer*                   Renderer          = nullptr;
-        RenderGraphBuilder*                Builder           = nullptr;
-        RenderPassBuilder*                 RenderPassBuilder = nullptr;
+        bool                             MarkAsDirty       = false;
+        GraphicRenderer*                 Renderer          = nullptr;
+        RenderGraphBuilder*              Builder           = nullptr;
+        RenderPassBuilder*               RenderPassBuilder = nullptr;
 
-        void                               Initialize(Core::Memory::ArenaAllocator* arena, GraphicRenderer* renderer);
+        void                             Initialize(Core::Memory::ArenaAllocator* arena, GraphicRenderer* renderer);
 
-        void                               Setup();
-        void                               Compile(Rendering::Scenes::SceneRawData* const scene_data);
-        void                               Execute(std::uint32_t frame_index, Devices::CommandBuffer* const command_buffer, Rendering::Scenes::SceneRawData* const scene_data);
-        void                               Resize(std::uint32_t width, std::uint32_t height);
-        void                               Dispose();
-        RenderGraphResource&               GetResource(const char*);
-        Textures::TextureHandle            GetRenderTarget(const char*);
-        Textures::TextureHandle            GetTexture(const char*);
+        void                             Setup();
+        void                             Compile(Rendering::Scenes::SceneRawData* const scene_data);
+        void                             Execute(std::uint32_t frame_index, Devices::CommandBuffer* const command_buffer, Rendering::Scenes::SceneRawData* const scene_data);
+        void                             Resize(std::uint32_t width, std::uint32_t height);
+        void                             Dispose();
+        RenderGraphResource&             GetResource(const char*);
+        Textures::TextureHandle          GetRenderTarget(const char*);
+        Textures::TextureHandle          GetTexture(const char*);
         Devices::StorageBufferSetHandle  GetStorageBufferSet(const char*);
         Devices::VertexBufferSetHandle   GetVertexBufferSet(const char*);
         Devices::IndexBufferSetHandle    GetIndexBufferSet(const char*);
         Devices::UniformBufferSetHandle  GetBufferUniformSet(const char*);
         Devices::IndirectBufferSetHandle GetIndirectBufferSet(const char*);
-        RenderGraphNode&                   GetNode(const char*);
-        void                               AddCallbackPass(const char* pass_name, IRenderGraphCallbackPass* const pass_callback, bool enabled = true);
+        RenderGraphNode&                 GetNode(const char*);
+        void                             AddCallbackPass(const char* pass_name, IRenderGraphCallbackPass* const pass_callback, bool enabled = true);
 
     private:
         Core::Containers::Array<const char*>                        m_sorted_nodes;

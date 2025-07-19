@@ -18,7 +18,6 @@ export namespace ZEngine::Rendering::Meshes
         SQUARE = 3
     };
 
-
     struct MeshVNext
     {
         std::uint32_t VertexCount          = 0;
@@ -32,24 +31,25 @@ export namespace ZEngine::Rendering::Meshes
         std::uint32_t TotalByteSize        = 0;
     };
 
-    struct Mesh : public MeshVNext{
-            bool m_is_MeshLight_mesh_object;
+    struct Mesh : public MeshVNext
+    {
+        bool m_is_MeshLight_mesh_object;
     };
 
     struct MeshMaterial
     {
-        gpuvec4  AmbientColor   = 1.0f;
-        gpuvec4  EmissiveColor  = 0.0f;
-        gpuvec4  AlbedoColor    = 1.0f;
-        gpuvec4  SpecularColor  = 1.0f;
-        gpuvec4  RoughnessColor = 1.0f;
-        gpuvec4  Factors        = 1.0f; // {x : transparency, y : Metallic, z : AlphaTest, w : _padding}
-    std::uint64_t EmissiveMap    = INVALID_MAP_HANDLE;
-    std::uint64_t AlbedoMap      = INVALID_MAP_HANDLE;
-    std::uint64_t SpecularMap    = INVALID_MAP_HANDLE;
-    std::uint64_t NormalMap      = INVALID_MAP_HANDLE;
-    std::uint64_t OpacityMap     = INVALID_MAP_HANDLE;
-    std::uint64_t _padding       = INVALID_MAP_HANDLE;
+        gpuvec4       AmbientColor   = 1.0f;
+        gpuvec4       EmissiveColor  = 0.0f;
+        gpuvec4       AlbedoColor    = 1.0f;
+        gpuvec4       SpecularColor  = 1.0f;
+        gpuvec4       RoughnessColor = 1.0f;
+        gpuvec4       Factors        = 1.0f; // {x : transparency, y : Metallic, z : AlphaTest, w : _padding}
+        std::uint64_t EmissiveMap    = INVALID_MAP_HANDLE;
+        std::uint64_t AlbedoMap      = INVALID_MAP_HANDLE;
+        std::uint64_t SpecularMap    = INVALID_MAP_HANDLE;
+        std::uint64_t NormalMap      = INVALID_MAP_HANDLE;
+        std::uint64_t OpacityMap     = INVALID_MAP_HANDLE;
+        std::uint64_t _padding       = INVALID_MAP_HANDLE;
     };
 
     struct MaterialFile

@@ -25,7 +25,7 @@ namespace ZEngine::Rendering::Materials
 
     void ShaderMaterial::Apply(const Helpers::Ref<Shaders::Shader>& shader)
     {
-       // assert(shader != nullptr);
+        // assert(shader != nullptr);
 
         // shader->Bind();
     }

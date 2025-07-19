@@ -34,10 +34,10 @@ export namespace ZEngine::Helpers
         std::uint32_t                         m_count           = 0;
         std::uint32_t                         m_head            = 0;
         std::uint32_t                         m_free_slot_index = 0;
-        Core::Containers::Array<T>       m_memory          = {};
+        Core::Containers::Array<T>            m_memory          = {};
         Core::Containers::Array<std::uint8_t> m_free_slot       = {};
 
-        mutable std::shared_mutex        m_mutex;
+        mutable std::shared_mutex             m_mutex;
 
     public:
         void Initialize(Core::Memory::ArenaAllocator* arena, std::uint32_t count = 0)
@@ -180,12 +180,13 @@ export namespace ZEngine::Helpers
             return m_head;
         }
 
-        void Dispose() {
+        void Dispose()
+        {
             for (std::size_t i = 0; i < m_count; ++i)
             {
                 m_memory[i].Dispose();
             }
         }
     };
-    
+
 } // namespace ZEngine::Helpers

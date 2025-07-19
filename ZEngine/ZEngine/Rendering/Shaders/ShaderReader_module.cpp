@@ -19,7 +19,7 @@ namespace ZEngine::Rendering::Shaders
         ShaderReader();
         ~ShaderReader();
 
-        static std::vector<std::uint32_t>       ReadAsBinary(std::filesystem::path filename);
+        static std::vector<std::uint32_t>  ReadAsBinary(std::filesystem::path filename);
 
         /**
          * Read asynchronously content of shader file

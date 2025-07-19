@@ -8,7 +8,8 @@ import :Specifications.TextureSpecification;
 import ZEngine.Helpers.HandleManager;
 import ZEngine.Helpers.IntrusivePtr;
 
-namespace ZEngine::Rendering::Devices{
+namespace ZEngine::Rendering::Devices
+{
     struct Image2DBuffer;
 }
 
@@ -22,12 +23,12 @@ namespace ZEngine::Rendering::Textures
         void                                 Initialize(const Specifications::TextureSpecification& spec, Devices::Image2DBuffer* const buffer);
 
         bool                                 IsDepthTexture = false;
-        std::uint32_t                             Width          = 1;
-        std::uint32_t                             Height         = 1;
-        std::uint32_t                             BytePerPixel   = 0;
+        std::uint32_t                        Width          = 1;
+        std::uint32_t                        Height         = 1;
+        std::uint32_t                        BytePerPixel   = 0;
         VkDeviceSize                         BufferSize     = 0;
         Specifications::TextureSpecification Specification  = {};
-        Devices::Image2DBuffer*            ImageBuffer    = nullptr;
+        Devices::Image2DBuffer*              ImageBuffer    = nullptr;
 
         void                                 Dispose();
     };
@@ -42,4 +43,3 @@ namespace ZEngine::Rendering::Textures
     Texture* CreateTexture(unsigned int width, unsigned int height);
     Texture* CreateTexture(unsigned int width, unsigned int height, float r, float g, float b, float a);
 } // namespace ZEngine::Rendering::Textures
-

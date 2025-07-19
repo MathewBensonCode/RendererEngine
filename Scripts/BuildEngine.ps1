@@ -133,8 +133,10 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
         }
         "Linux" {
             $cMakeGenerator = "-G Ninja"
+        }
+    }
 
-    $cMakeArguments = " -S $repositoryRootPath -B $buildDirectoryPath -G $cMakeGenerator $cMakeCacheVariableOverride -DCMAKE_BUILD_TYPE=$configuration"
+    $cMakeArguments = " -S $repositoryRootPath -B $buildDirectoryPath $cMakeGenerator $cMakeCacheVariableOverride -DCMAKE_BUILD_TYPE=$configuration"
 
     # CMake Generation process
     Write-Host $cMakeArguments

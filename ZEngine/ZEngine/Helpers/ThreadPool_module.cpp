@@ -33,8 +33,8 @@ export namespace ZEngine::Helpers
         }
 
     private:
-        std::size_t                                      m_maxThreadCount;
-        std::size_t                                      m_currentThreadCount{0};
+        std::size_t                                 m_maxThreadCount;
+        std::size_t                                 m_currentThreadCount{0};
         std::atomic_bool                            m_cancellationToken{false};
         std::mutex                                  m_mutex;
         Ref<ThreadSafeQueue<std::function<void()>>> m_taskQueue;

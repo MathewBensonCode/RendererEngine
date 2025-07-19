@@ -2,7 +2,6 @@
 import ZEngine.Rendering.Shaders.Compilers.ShaderCompiler;
 import std;
 
-
 using namespace ZEngine::Rendering::Shaders::Compilers;
 namespace fs = std::filesystem;
 

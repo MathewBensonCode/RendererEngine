@@ -1,6 +1,6 @@
-#include <assimp/Importer.hpp>      // C++ importer interface
-#include <assimp/scene.h>           // Output data structure
-#include <assimp/postprocess.h>     // Post processing flags
+#include <assimp/Importer.hpp>  // C++ importer interface
+#include <assimp/scene.h>       // Output data structure
+#include <assimp/postprocess.h> // Post processing flags
 
 import std;
 import ZEngine.Core.Coroutine;
@@ -19,7 +19,7 @@ namespace ZEngine::Helpers
         {
             aiMesh*               assimp_mesh = assimp_scene->mMeshes[assimp_mesh_ids[i]];
 
-            std::uint32_t              vertex_count{0};
+            std::uint32_t         vertex_count{0};
             std::vector<float>    vertices = {};
             std::vector<uint32_t> indices  = {};
 

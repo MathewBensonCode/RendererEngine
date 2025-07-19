@@ -4,7 +4,6 @@ import std;
 
 import ZEngine.Helpers.IntrusivePtr;
 
-
 export namespace ZEngine::Core
 {
     struct SerializeInformation

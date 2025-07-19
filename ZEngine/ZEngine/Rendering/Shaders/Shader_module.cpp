@@ -10,7 +10,8 @@ import ZEngine.Core.Containers.HashMap;
 import ZEngine.Core.Memory.Allocator;
 import ZEngine.ZEngineDef;
 
-namespace ZEngine::Rendering::Devices{
+namespace ZEngine::Rendering::Devices
+{
     struct VulkanDevice;
 }
 
@@ -26,7 +27,7 @@ namespace ZEngine::Rendering::Shaders
         Specifications::LayoutBindingSpecification                                                               GetLayoutBindingSpecification(const char* name);
 
         VkDescriptorPool                                                                                         m_descriptor_pool             = VK_NULL_HANDLE;
-        Specifications::ShaderSpecificationType                                                                      m_specification               = {};
+        Specifications::ShaderSpecificationType                                                                  m_specification               = {};
         Core::Memory::ArenaAllocator                                                                             LocalArena                    = {};
 
         Core::Containers::Array<Specifications::PushConstantSpecification>                                       PushConstantSpecifications    = {};

@@ -14,12 +14,14 @@ import ZEngine.ZEngineDef;
 import ZEngine.Helpers.IntrusivePtr;
 import ZEngine.Logging;
 
-namespace ZEngine::Rendering::Renderers{
+namespace ZEngine::Rendering::Renderers
+{
     struct RenderGraph;
     struct AsyncResourceLoader;
-}
+} // namespace ZEngine::Rendering::Renderers
 
-namespace ZEngine::Rendering::Serializers{
+namespace ZEngine::Rendering::Serializers
+{
     struct GraphicScene3DSerializer;
 }
 
@@ -55,48 +57,48 @@ namespace ZEngine::Rendering::Scenes
 
     struct SceneRawData : public Helpers::RefCounted
     {
-        std::uint32_t                                   SVertexDataSize              = 0;
-        std::uint32_t                                   SIndexDataSize               = 0;
-        std::uint32_t                                   SMeshCountOffset             = 0;
-        std::vector<SceneNodeHierarchy>            NodeHierarchies              = {};
-        std::vector<glm::mat4>                     LocalTransforms              = {};
-        std::vector<glm::mat4>                     GlobalTransforms             = {};
-        std::map<uint32_t, std::set<uint32_t>>     LevelSceneNodeChangedMap     = {};
+        std::uint32_t                                    SVertexDataSize              = 0;
+        std::uint32_t                                    SIndexDataSize               = 0;
+        std::uint32_t                                    SMeshCountOffset             = 0;
+        std::vector<SceneNodeHierarchy>                  NodeHierarchies              = {};
+        std::vector<glm::mat4>                           LocalTransforms              = {};
+        std::vector<glm::mat4>                           GlobalTransforms             = {};
+        std::map<uint32_t, std::set<uint32_t>>           LevelSceneNodeChangedMap     = {};
         /*
          * New Properties
          */
-        std::vector<float>                         Vertices                     = {};
-        std::vector<uint32_t>                      Indices                      = {};
-        std::vector<DrawDataType>                      DrawData                     = {};
-        std::vector<std::string>                   Names                        = {};
-        std::vector<std::string>                   MaterialNames                = {};
-        std::unordered_map<std::uint32_t, std::uint32_t>     NodeMeshes                   = {};
-        std::unordered_map<std::uint32_t, std::uint32_t>     NodeNames                    = {};
-        std::unordered_map<std::uint32_t, std::uint32_t>     NodeMaterials                = {};
-        std::unordered_map<uint32_t, entt::entity> NodeEntities                 = {};
-        std::vector<Meshes::MeshVNext>             Meshes                       = {};
-        std::vector<Meshes::MeshMaterial>          Materials                    = {};
-        std::vector<Meshes::MaterialFile>          MaterialFiles                = {};
+        std::vector<float>                               Vertices                     = {};
+        std::vector<uint32_t>                            Indices                      = {};
+        std::vector<DrawDataType>                        DrawData                     = {};
+        std::vector<std::string>                         Names                        = {};
+        std::vector<std::string>                         MaterialNames                = {};
+        std::unordered_map<std::uint32_t, std::uint32_t> NodeMeshes                   = {};
+        std::unordered_map<std::uint32_t, std::uint32_t> NodeNames                    = {};
+        std::unordered_map<std::uint32_t, std::uint32_t> NodeMaterials                = {};
+        std::unordered_map<uint32_t, entt::entity>       NodeEntities                 = {};
+        std::vector<Meshes::MeshVNext>                   Meshes                       = {};
+        std::vector<Meshes::MeshMaterial>                Materials                    = {};
+        std::vector<Meshes::MaterialFile>                MaterialFiles                = {};
 
         /*
          * Scene Entity Related data
          */
-        std::vector<Lights::GpuDirectionLight>     DirectionalLights            = {};
-        std::vector<Lights::GpuPointLight>         PointLights                  = {};
-        std::vector<Lights::GpuSpotlight>          SpotLights                   = {};
+        std::vector<Lights::GpuDirectionLight>           DirectionalLights            = {};
+        std::vector<Lights::GpuPointLight>               PointLights                  = {};
+        std::vector<Lights::GpuSpotlight>                SpotLights                   = {};
 
         /*
          * Buffers
          */
-        Devices::StorageBufferSetHandle          TransformBufferHandle        = {};
-        Devices::StorageBufferSetHandle          VertexBufferHandle           = {};
-        Devices::StorageBufferSetHandle          IndexBufferHandle            = {};
-        Devices::StorageBufferSetHandle          MaterialBufferHandle         = {};
-        Devices::StorageBufferSetHandle          IndirectDataDrawBufferHandle = {};
-        Devices::IndirectBufferSetHandle         IndirectBufferHandle         = {};
+        Devices::StorageBufferSetHandle                  TransformBufferHandle        = {};
+        Devices::StorageBufferSetHandle                  VertexBufferHandle           = {};
+        Devices::StorageBufferSetHandle                  IndexBufferHandle            = {};
+        Devices::StorageBufferSetHandle                  MaterialBufferHandle         = {};
+        Devices::StorageBufferSetHandle                  IndirectDataDrawBufferHandle = {};
+        Devices::IndirectBufferSetHandle                 IndirectBufferHandle         = {};
 
-        int                                        AddNode(int parent, int depth);
-        bool                                       SetNodeName(int node_id, std::string_view name);
+        int                                              AddNode(int parent, int depth);
+        bool                                             SetNodeName(int node_id, std::string_view name);
     };
 
     entt::registry& GetEntityRegistry();
@@ -207,7 +209,7 @@ namespace ZEngine::Rendering::Scenes
          * Scene Graph operations
          */
         bool                           HasSceneNodes();
-        std::uint32_t                       GetSceneNodeCount() = delete;
+        std::uint32_t                  GetSceneNodeCount() = delete;
         std::vector<int>               GetRootSceneNodes();
         Helpers::Ref<SceneRawData>     GetRawData();
         void                           ComputeAllTransforms();

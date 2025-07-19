@@ -182,7 +182,7 @@ namespace ZEngine::Rendering::Scenes
             int i = 0;
             for (auto& [node, mesh] : SceneData->NodeMeshes)
             {
-                DrawDataType& draw_data      = SceneData->DrawData[i];
+                DrawDataType& draw_data  = SceneData->DrawData[i];
                 draw_data.TransformIndex = node;
                 draw_data.MaterialIndex  = SceneData->NodeMaterials[node];
                 draw_data.VertexOffset   = SceneData->Meshes[mesh].VertexOffset;
@@ -461,7 +461,7 @@ namespace ZEngine::Rendering::Scenes
             MergeVector(std::span{vertices}, SceneData->Vertices);
             MergeVector(std::span{indices}, SceneData->Indices);
 
-            std::uint32_t vtx_off                                            = SceneData->SVertexDataSize / 8;
+            std::uint32_t vtx_off                                       = SceneData->SVertexDataSize / 8;
             SceneData->Meshes[SceneData->SMeshCountOffset].IndexOffset += SceneData->SIndexDataSize;
             SceneData->Indices[SceneData->SIndexDataSize]              += vtx_off;
 
@@ -651,9 +651,9 @@ namespace ZEngine::Rendering::Scenes
                         SceneData->SpotLights.push_back(spot->GPUPackedData());
                     }
                     break;
-                    
+
                     case Lights::LightType::UNDEFINED:
-                    break;
+                        break;
                 }
             }
         }

@@ -108,7 +108,7 @@ namespace ZEngine::Rendering::Renderers
         io.Fonts->TexID                                    = (ImTextureID) font_tex_handle.Index;
 
         auto                        font_image_info        = font_texture->ImageBuffer->GetDescriptorImageInfo();
-        std::uint32_t                    frame_count            = renderer->Device->SwapchainImageCount;
+        std::uint32_t               frame_count            = renderer->Device->SwapchainImageCount;
         auto                        shader                 = m_ui_pass->Pipeline->Shader;
         auto&                       descriptor_set_map     = shader->DescriptorSetMap;
 

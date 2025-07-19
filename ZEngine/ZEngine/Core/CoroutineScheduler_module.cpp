@@ -15,7 +15,7 @@ export namespace ZEngine::Core
         ReadyCallback   Ready  = nullptr;
         ExecuteCallback Action = nullptr;
 
-        operator bool() noexcept
+                        operator bool() noexcept
         {
             return (Ready && Action);
         }

@@ -22,15 +22,15 @@ namespace ZEngine::Rendering::Primitives
         ~Fence();
 
         Devices::VulkanDevice* Device = nullptr;
-        bool                     IsSignaled();
+        bool                   IsSignaled();
 
-        bool                     Wait(uint64_t timeout = 1000000000);
-        void                     Reset();
+        bool                   Wait(uint64_t timeout = 1000000000);
+        void                   Reset();
 
-        void                     SetState(FenceState state);
-        FenceState               GetState() const;
+        void                   SetState(FenceState state);
+        FenceState             GetState() const;
 
-        VkFence                  GetHandle() const;
+        VkFence                GetHandle() const;
 
     private:
         FenceState m_fence_state{FenceState::Idle};

@@ -11,13 +11,13 @@ namespace ZEngine::Rendering::Windows
 
     export struct WindowConfiguration
     {
-        std::uint32_t                                        Width       = 1500;
-        std::uint32_t                                        Height      = 800;
-        bool                                            EnableVsync = true;
-        Core::Containers::String                        Title;
+        std::uint32_t                   Width       = 1500;
+        std::uint32_t                   Height      = 800;
+        bool                            EnableVsync = true;
+        Core::Containers::String        Title;
 
         Core::Containers::Array<Layer*> RenderingLayerCollection;
         Core::Containers::Array<Layer*> OverlayLayerCollection;
     };
 
-} // namespace ZEngine::Windows
+} // namespace ZEngine::Rendering::Windows

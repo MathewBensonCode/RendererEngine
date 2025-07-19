@@ -11,7 +11,6 @@ using namespace ZEngine::Rendering::Buffers;
 using namespace ZEngine::Rendering::Specifications;
 using namespace ZEngine::Helpers;
 
-
 namespace ZEngine::Rendering::Renderers::RenderPasses
 {
     RenderPass::~RenderPass()
@@ -82,7 +81,7 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
                 color_map_index++;
             }
 
-            Attachment                                     = ZPushStructCtorArgs<RenderPasses::Attachment>(m_device->Arena,  m_device, attachment_specification);
+            Attachment                                     = ZPushStructCtorArgs<RenderPasses::Attachment>(m_device->Arena, m_device, attachment_specification);
 
             Specification.PipelineSpecification.Attachment = Attachment; // Todo : Can potential Dispose() issue
             Pipeline                                       = ZPushStructCtorArgs<Pipelines::GraphicPipeline>(m_device->Arena);
@@ -243,9 +242,9 @@ namespace ZEngine::Rendering::Renderers::RenderPasses
 
         for (unsigned i = 0; i < frame_count; ++i)
         {
-            auto                                    set  = descriptor_set_map[binding_spec.Set][i];
+            auto                                  set  = descriptor_set_map[binding_spec.Set][i];
             Devices::WriteDescriptorSetRequestKey key  = {.Binding = binding_spec.Binding, .DstSet = set};
-            auto&                                   reqs = m_device->WriteBindlessDescriptorSetRequests;
+            auto&                                 reqs = m_device->WriteBindlessDescriptorSetRequests;
             reqs.insert(key);
         }
 

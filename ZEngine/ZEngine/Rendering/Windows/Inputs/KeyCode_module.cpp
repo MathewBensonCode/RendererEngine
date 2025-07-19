@@ -4,7 +4,8 @@ import std;
 
 export namespace ZEngine::Rendering::Windows::Inputs
 {
-    enum class GlfwKeyCode : std::int32_t{
+    enum class GlfwKeyCode : std::int32_t
+    {
         KEY_UNKNOWN         = -1,
         KEY_SPACE           = 32,
         KEY_APOSTROPHE      = 39,
@@ -136,4 +137,4 @@ export namespace ZEngine::Rendering::Windows::Inputs
         MOUSE_BUTTON_8      = 7
 
     } GlfwKey;
-} // namespace ZEngine::Windows::Inputs
+} // namespace ZEngine::Rendering::Windows::Inputs

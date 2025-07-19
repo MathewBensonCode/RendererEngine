@@ -7,9 +7,9 @@ namespace ZEngine::Rendering::Windows
 {
     export struct IEventable
     {
-        IEventable()                     = default;
-        virtual ~IEventable()            = default;
-;
+        IEventable()          = default;
+        virtual ~IEventable() = default;
+        ;
         virtual bool OnEvent(ZEngine::Core::CoreEvent&) = 0;
     };
-} // namespace ZEngine::Windows
+} // namespace ZEngine::Rendering::Windows

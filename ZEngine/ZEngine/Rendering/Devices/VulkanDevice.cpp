@@ -215,7 +215,7 @@ namespace ZEngine::Rendering::Devices
         physical_device_queue_family_collection.init(scratch.Arena, physical_device_queue_family_count, physical_device_queue_family_count);
         vkGetPhysicalDeviceQueueFamilyProperties(PhysicalDevice, &physical_device_queue_family_count, physical_device_queue_family_collection.data());
 
-        std::uint32_t                queue_family_index      = 0;
+        std::uint32_t           queue_family_index      = 0;
         VkQueueFamilyProperties queue_family_properties = {};
         for (std::size_t index = 0; index < physical_device_queue_family_count; ++index)
         {
@@ -307,7 +307,7 @@ namespace ZEngine::Rendering::Devices
         }
 
         /* Surface format selection */
-        std::uint32_t                  format_count    = 0;
+        std::uint32_t             format_count    = 0;
         Array<VkSurfaceFormatKHR> surface_formats = {};
         vkGetPhysicalDeviceSurfaceFormatsKHR(PhysicalDevice, Surface, &format_count, nullptr);
         if (format_count != 0)
@@ -328,7 +328,7 @@ namespace ZEngine::Rendering::Devices
         }
 
         /* Present Mode selection */
-        std::uint32_t                present_mode_count = 0;
+        std::uint32_t           present_mode_count = 0;
         Array<VkPresentModeKHR> present_modes      = {};
         vkGetPhysicalDeviceSurfacePresentModesKHR(PhysicalDevice, Surface, &present_mode_count, nullptr);
         if (present_mode_count != 0)
@@ -365,8 +365,8 @@ namespace ZEngine::Rendering::Devices
         ZEngine::Core::Memory::EndTempArena(scratch);
 
         /*
-        * Creating VMA Allocators
-        */
+         * Creating VMA Allocators
+         */
 
         VmaAllocatorCreateInfo vma_allocator_create_info = {.physicalDevice = PhysicalDevice, .device = LogicalDevice, .instance = Instance, .vulkanApiVersion = VK_API_VERSION_1_3};
 
@@ -1015,7 +1015,7 @@ namespace ZEngine::Rendering::Devices
         auto            scratch             = ZEngine::Core::Memory::BeginTempArena(Arena);
 
         Array<uint32_t> family_indice       = {};
-        std::uint32_t        family_indice_count = HasSeperateTransfertQueueFamily ? 2 : 1;
+        std::uint32_t   family_indice_count = HasSeperateTransfertQueueFamily ? 2 : 1;
         family_indice.init(scratch.Arena, family_indice_count, family_indice_count);
         family_indice[0] = GraphicFamilyIndex;
         if (HasSeperateTransfertQueueFamily)
@@ -1169,7 +1169,7 @@ namespace ZEngine::Rendering::Devices
         render_complete_semaphore->SetState(SemaphoreState::Submitted);
 
         VkSwapchainKHR   swapchains[]   = {SwapchainHandle};
-        std::uint32_t         frames[]       = {SwapchainImageIndex};
+        std::uint32_t    frames[]       = {SwapchainImageIndex};
         VkPresentInfoKHR present_info   = {.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR, .pNext = nullptr, .waitSemaphoreCount = 1, .pWaitSemaphores = signal_semaphores, .swapchainCount = 1, .pSwapchains = swapchains, .pImageIndices = frames};
 
         VkResult         present_result = vkQueuePresentKHR(queue, &present_info);
@@ -1529,8 +1529,8 @@ namespace ZEngine::Rendering::Devices
         ZENGINE_VALIDATE_ASSERT(m_command_buffer != nullptr, "Command buffer can't be null");
 
         const auto&         render_pass_spec = render_pass->Specification;
-        const std::uint32_t      width            = render_pass->GetRenderAreaWidth();
-        const std::uint32_t      height           = render_pass->GetRenderAreaHeight();
+        const std::uint32_t width            = render_pass->GetRenderAreaWidth();
+        const std::uint32_t height           = render_pass->GetRenderAreaHeight();
 
         auto                scratch          = ZEngine::Core::Memory::BeginTempArena(&LocalArena);
 
@@ -2214,4 +2214,4 @@ namespace ZEngine::Rendering::Devices
         return m_buffer_image.ViewHandle;
     }
 
-} // namespace ZEngine::Hardwares
+} // namespace ZEngine::Rendering::Devices

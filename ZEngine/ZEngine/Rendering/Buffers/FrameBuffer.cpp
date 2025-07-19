@@ -51,7 +51,7 @@ namespace ZEngine::Rendering::Buffers
     {
         auto                                 scratch = ZEngine::Core::Memory::BeginTempArena(m_device->Arena);
 
-        std::size_t                               count   = m_specification.RenderTargets.size();
+        std::size_t                          count   = m_specification.RenderTargets.size();
         Core::Containers::Array<VkImageView> views   = {};
         views.init(scratch.Arena, count, count);
 

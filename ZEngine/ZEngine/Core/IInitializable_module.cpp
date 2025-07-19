@@ -2,7 +2,6 @@ export module ZEngine.Core.IInitializable;
 
 import std;
 
-
 export namespace ZEngine::Core
 {
 

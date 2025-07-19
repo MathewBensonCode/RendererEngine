@@ -15,7 +15,7 @@ namespace ZEngine::Rendering::Pools
         Device                                           = device;
 
         QueueType                                        = type;
-        Devices::QueueView    queue_view               = device->GetQueue(type);
+        Devices::QueueView      queue_view               = device->GetQueue(type);
         VkCommandPoolCreateInfo command_pool_create_info = {};
         command_pool_create_info.sType                   = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
         command_pool_create_info.flags                   = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;

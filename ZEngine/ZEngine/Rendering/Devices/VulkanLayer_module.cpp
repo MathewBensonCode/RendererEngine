@@ -22,4 +22,4 @@ namespace ZEngine::Rendering::Devices
         VkResult                               GetExtensionProperties(Core::Memory::ArenaAllocator* arena, LayerProperty& layer_property, const VkPhysicalDevice* physical_device = nullptr);
         VkResult                               GetDeviceExtensionProperties(const VkPhysicalDevice* physical_device);
     };
-} // namespace ZEngine::Hardwares
+} // namespace ZEngine::Rendering::Devices

@@ -533,4 +533,4 @@ namespace ZEngine::Rendering::Serializers
         emitter << YAML::EndMap;
     }
 
-} // namespace ZEngine::Serializers
+} // namespace ZEngine::Rendering::Serializers

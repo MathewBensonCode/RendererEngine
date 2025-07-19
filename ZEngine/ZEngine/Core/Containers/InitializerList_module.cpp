@@ -72,9 +72,9 @@ namespace ZEngine::Core::Containers
     {
         std::size_t count  = sizeof...(args) + 1;
 
-        T*     buffer = static_cast<T*>(ZAlloc(allocator, count * sizeof(T), ZAlignof<T>()));
+        T*          buffer = static_cast<T*>(ZAlloc(allocator, count * sizeof(T), ZAlignof<T>()));
 
-        buffer[0]     = first;
+        buffer[0]          = first;
 
         std::size_t i      = 1;
         ((buffer[i++] = static_cast<T>(args)), ...);

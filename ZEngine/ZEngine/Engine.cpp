@@ -8,13 +8,13 @@ import ZEngine.ZEngineDef;
 
 namespace ZEngine
 {
-    static bool              s_request_terminate                     = false;
-    static std::shared_mutex g_mutex                                 = {};
-    static Rendering::Windows::CoreWindow* g_current_window             = nullptr;
-    static Rendering::Renderers::GraphicRenderer* g_renderer = nullptr;
-    static Rendering::Devices::VulkanDevice* g_device                 = nullptr;
+    static bool                                   s_request_terminate = false;
+    static std::shared_mutex                      g_mutex             = {};
+    static Rendering::Windows::CoreWindow*        g_current_window    = nullptr;
+    static Rendering::Renderers::GraphicRenderer* g_renderer          = nullptr;
+    static Rendering::Devices::VulkanDevice*      g_device            = nullptr;
 
-    void Engine::Initialize(ZEngine::Core::Memory::ArenaAllocator* arena, ZEngine::Rendering::Windows::CoreWindow* window) 
+    void                                          Engine::Initialize(ZEngine::Core::Memory::ArenaAllocator* arena, ZEngine::Rendering::Windows::CoreWindow* window)
     {
         g_current_window = window;
         g_device         = ZPushStructCtor<Rendering::Devices::VulkanDevice>(arena);

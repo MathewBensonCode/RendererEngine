@@ -55,13 +55,13 @@ export namespace ZEngine::Rendering::Buffers::Layout
         }
 
     protected:
-        std::string m_name;
-        std::size_t      m_size{0};
-        std::size_t      m_offset{0};
-        std::size_t      m_count{0};
-        bool        m_normalized{false};
-        std::string m_data_type;
-        std::uint32_t    m_format;
+        std::string   m_name;
+        std::size_t   m_size{0};
+        std::size_t   m_offset{0};
+        std::size_t   m_count{0};
+        bool          m_normalized{false};
+        std::string   m_data_type;
+        std::uint32_t m_format;
     };
 
     template <typename T>

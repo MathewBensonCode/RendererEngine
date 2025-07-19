@@ -24,7 +24,7 @@ export namespace ZEngine::Helpers
                 std::lock_guard<std::mutex> lock(m_mutex);
                 m_queue.emplace(task);
             }
-           m_condition.notify_one();
+            m_condition.notify_one();
         }
 
         bool Pop(T& task)

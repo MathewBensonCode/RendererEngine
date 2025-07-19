@@ -39,28 +39,28 @@ namespace ZEngine::Rendering::Specifications
 
     struct LayoutBindingSpecification
     {
-        std::uint32_t         Set{0xFFFFFFFF};
-        std::uint32_t         Binding{0xFFFFFFFF};
-        std::uint32_t         Count{1};
-        std::string           Name;
-        DescriptorTypeEnum   DescriptorType;
-        ShaderStageFlags Flags;
+        std::uint32_t      Set{0xFFFFFFFF};
+        std::uint32_t      Binding{0xFFFFFFFF};
+        std::uint32_t      Count{1};
+        std::string        Name;
+        DescriptorTypeEnum DescriptorType;
+        ShaderStageFlags   Flags;
     };
 
     struct PushConstantSpecification
     {
         std::string      Name;
-        std::uint32_t         Size;
-        std::uint32_t         Offset;
+        std::uint32_t    Size;
+        std::uint32_t    Offset;
         ShaderStageFlags Flags;
     };
 
     struct ShaderSpecificationType
     {
-        std::uint32_t    OverloadMaxSet   = 1;
-        std::uint32_t    OverloadPoolSize = 0;
-        const char* VertexFilename   = {};
-        const char* FragmentFilename = {};
-        const char* Name             = {};
+        std::uint32_t OverloadMaxSet   = 1;
+        std::uint32_t OverloadPoolSize = 0;
+        const char*   VertexFilename   = {};
+        const char*   FragmentFilename = {};
+        const char*   Name             = {};
     };
 } // namespace ZEngine::Rendering::Specifications

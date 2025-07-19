@@ -22,7 +22,6 @@ namespace ZEngine::Rendering::Materials
         Textures::Texture* m_texture;
     };
 
-
     BasicMaterial::BasicMaterial() : ShaderMaterial(Shaders::ShaderBuiltInType::BASIC)
     {
         m_material_name = typeid(*this).name();

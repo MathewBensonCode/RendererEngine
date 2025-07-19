@@ -21,10 +21,10 @@ namespace ZEngine::Rendering::Specifications
 
     struct VertexInputAttributeSpecification
     {
-        std::uint32_t    Location = 0;
-        std::uint32_t    Binding  = 0;
-        std::uint32_t    Offset   = 0;
-        ImageFormat Format   = ImageFormat::UNDEFINED;
+        std::uint32_t Location = 0;
+        std::uint32_t Binding  = 0;
+        std::uint32_t Offset   = 0;
+        ImageFormat   Format   = ImageFormat::UNDEFINED;
     };
 
     struct GraphicRendererPipelineSpecification
@@ -32,10 +32,10 @@ namespace ZEngine::Rendering::Specifications
         bool                                                       EnableBlending                     = false;
         bool                                                       EnableDepthTest                    = false;
         bool                                                       EnableDepthWrite                   = true;
-        std::uint32_t                                                   DepthCompareOp                     = VK_COMPARE_OP_LESS_OR_EQUAL;
+        std::uint32_t                                              DepthCompareOp                     = VK_COMPARE_OP_LESS_OR_EQUAL;
         bool                                                       EnableStencilTest                  = false;
         const char*                                                DebugName                          = {};
-        ShaderSpecificationType                                        ShaderSpecification                = {};
+        ShaderSpecificationType                                    ShaderSpecification                = {};
         Rendering::Buffers::FramebufferVNext*                      TargetFrameBuffer                  = {};
         Renderers::RenderPasses::Attachment*                       Attachment                         = {};
         Core::Containers::Array<VertexInputBindingSpecification>   VertexInputBindingSpecifications   = {};

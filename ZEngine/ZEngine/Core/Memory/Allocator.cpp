@@ -28,7 +28,7 @@ namespace ZEngine::Core::Memory
     {
         std::uintptr_t current_ptr  = (std::uintptr_t) m_memory + (std::uintptr_t) m_current_offset;
         std::uintptr_t offset       = Helpers::memory_align(current_ptr, alignment);
-        offset                -= (std::uintptr_t) m_memory;
+        offset                     -= (std::uintptr_t) m_memory;
 
         assert((offset + size) <= m_total_size);
 
@@ -63,7 +63,7 @@ namespace ZEngine::Core::Memory
                 {
                     if (new_size > old_size)
                     {
-                        void*  dst  = &m_memory[m_previous_offset + old_size];
+                        void*       dst  = &m_memory[m_previous_offset + old_size];
                         std::size_t size = new_size - old_size;
                         Helpers::secure_memset(dst, 0, size, size);
                     }
@@ -72,7 +72,7 @@ namespace ZEngine::Core::Memory
             }
             else
             {
-                auto   new_mem = Allocate(new_size, alignment);
+                auto        new_mem = Allocate(new_size, alignment);
                 std::size_t size    = old_size < new_size ? old_size : new_size;
                 Helpers::secure_memmove(new_mem, size, old_memory, size);
                 return new_mem;
@@ -119,9 +119,9 @@ namespace ZEngine::Core::Memory
     {
         std::uintptr_t initial_start  = (std::uintptr_t) &arena->m_memory[arena->m_current_offset];
         std::uintptr_t start          = Helpers::memory_align(initial_start, (std::uintptr_t) alignment);
-        size                    -= (std::size_t) (start - initial_start);
+        size                         -= (std::size_t) (start - initial_start);
 
-        chk_size                 = Helpers::memory_align_size_t(chk_size, alignment);
+        chk_size                      = Helpers::memory_align_size_t(chk_size, alignment);
 
         ZENGINE_VALIDATE_ASSERT(chk_size >= sizeof(PoolFreeNode), "Chunk size is too small");
         ZENGINE_VALIDATE_ASSERT(size >= chk_size, "Backing buffer length is smaller than the chunk size");
@@ -179,7 +179,7 @@ namespace ZEngine::Core::Memory
 
     void PoolAllocator::Clear()
     {
-        auto   chunk_count = total_size / chunk_size;
+        auto        chunk_count = total_size / chunk_size;
         std::size_t i           = 0;
 
         for (i = 0; i < chunk_count; i++)

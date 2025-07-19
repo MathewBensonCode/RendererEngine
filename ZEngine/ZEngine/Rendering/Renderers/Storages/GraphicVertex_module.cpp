@@ -7,7 +7,6 @@ import std;
 import :Buffers.BufferLayout;
 import :Renderers.Storages.IVertex;
 
-
 export namespace ZEngine::Rendering::Renderers::Storages
 {
 

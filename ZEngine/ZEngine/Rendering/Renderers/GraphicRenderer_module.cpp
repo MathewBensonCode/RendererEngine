@@ -10,20 +10,24 @@ import :Devices.VulkanDevice;
 import ZEngine.Helpers.ThreadSafeQueue;
 import ZEngine.Helpers.IntrusivePtr;
 
-namespace ZEngine::Rendering::Renderers{
+namespace ZEngine::Rendering::Renderers
+{
     struct RenderGraph;
     struct ImGUIRenderer;
+} // namespace ZEngine::Rendering::Renderers
+
+namespace ZEngine::Rendering::Renderers::RenderPasses
+{
+    struct RenderPass;
 }
 
-namespace ZEngine::Rendering::Renderers::RenderPasses{
-        struct RenderPass;
-}
-
-namespace ZEngine::Rendering::Scenes{
+namespace ZEngine::Rendering::Scenes
+{
     struct SceneRawData;
 }
 
-namespace ZEngine::Rendering::Specifications{
+namespace ZEngine::Rendering::Specifications
+{
     struct RenderPassSpecification;
 }
 
@@ -49,7 +53,7 @@ namespace ZEngine::Rendering::Renderers
 
     struct TextureUploadRequest
     {
-        std::size_t                               BufferSize;
+        std::size_t                          BufferSize;
         Textures::TextureHandle              Handle;
         Specifications::TextureSpecification TextureSpec;
     };
@@ -61,16 +65,16 @@ namespace ZEngine::Rendering::Renderers
         GraphicRenderer();
         ~GraphicRenderer();
 
-        const char*                       FrameDepthRenderTargetName   = "g_frame_depth_render_target";
-        const char*                       FrameColorRenderTargetName   = "g_frame_color_render_target";
-        Devices::UniformBufferSetHandle   SceneCameraBufferHandle      = {};
-        Textures::TextureHandle           FrameColorRenderTarget       = {};
-        Textures::TextureHandle           FrameDepthRenderTarget       = {};
-        Devices::VulkanDevice*            Device                       = nullptr;
-        Renderers::ImGUIRenderer* ImguiRenderer                = nullptr;
-        Renderers::RenderGraph* RenderGraph                    = nullptr;
-        Renderers::AsyncResourceLoader* AsyncLoader            = nullptr;
-        Helpers::ThreadSafeQueue<ResizeRequest> EnqueuedResizeRequests = {};
+        const char*                             FrameDepthRenderTargetName = "g_frame_depth_render_target";
+        const char*                             FrameColorRenderTargetName = "g_frame_color_render_target";
+        Devices::UniformBufferSetHandle         SceneCameraBufferHandle    = {};
+        Textures::TextureHandle                 FrameColorRenderTarget     = {};
+        Textures::TextureHandle                 FrameDepthRenderTarget     = {};
+        Devices::VulkanDevice*                  Device                     = nullptr;
+        Renderers::ImGUIRenderer*               ImguiRenderer              = nullptr;
+        Renderers::RenderGraph*                 RenderGraph                = nullptr;
+        Renderers::AsyncResourceLoader*         AsyncLoader                = nullptr;
+        Helpers::ThreadSafeQueue<ResizeRequest> EnqueuedResizeRequests     = {};
 
         void                                    Initialize(Devices::VulkanDevice* device);
         void                                    Deinitialize();
@@ -78,10 +82,10 @@ namespace ZEngine::Rendering::Renderers
         void                                    DrawScene(Devices::CommandBuffer* const command_buffer, Cameras::Camera* const camera, Scenes::SceneRawData* const scene);
         Textures::TextureHandle                 GetFrameOutput();
 
-        RenderPasses::RenderPass* CreateRenderPass(const Specifications::RenderPassSpecification& spec);
-        Textures::TextureHandle CreateTexture(const Specifications::TextureSpecification& spec);
-        Textures::TextureHandle CreateTexture(std::uint32_t width, std::uint32_t height);
-        Textures::TextureHandle CreateTexture(std::uint32_t width, std::uint32_t height, float r, float g, float b, float a);
+        RenderPasses::RenderPass*               CreateRenderPass(const Specifications::RenderPassSpecification& spec);
+        Textures::TextureHandle                 CreateTexture(const Specifications::TextureSpecification& spec);
+        Textures::TextureHandle                 CreateTexture(std::uint32_t width, std::uint32_t height);
+        Textures::TextureHandle                 CreateTexture(std::uint32_t width, std::uint32_t height, float r, float g, float b, float a);
     };
 
     struct AsyncResourceLoader

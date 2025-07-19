@@ -19,8 +19,8 @@ export namespace ZEngine::Rendering::Specifications
         VkImageAspectFlagBits   ImageAspectMask;
         VkPipelineStageFlagBits SourceStageMask;
         VkPipelineStageFlagBits DestinationStageMask;
-        std::uint32_t                LayerCount             = 1;
-        std::uint32_t                SourceQueueFamily      = VK_QUEUE_FAMILY_IGNORED;
-        std::uint32_t                DestinationQueueFamily = VK_QUEUE_FAMILY_IGNORED;
+        std::uint32_t           LayerCount             = 1;
+        std::uint32_t           SourceQueueFamily      = VK_QUEUE_FAMILY_IGNORED;
+        std::uint32_t           DestinationQueueFamily = VK_QUEUE_FAMILY_IGNORED;
     };
 } // namespace ZEngine::Rendering::Specifications

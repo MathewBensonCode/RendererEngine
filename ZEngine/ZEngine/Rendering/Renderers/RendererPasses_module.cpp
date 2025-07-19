@@ -14,9 +14,10 @@ import :Renderers.RenderGraph;
 import ZEngine.ZEngineDef;
 import ZEngine.Core.Containers.Array;
 
-namespace ZEngine::Rendering::Renderers::RenderPasses{
-        struct RenderPass;
-    }
+namespace ZEngine::Rendering::Renderers::RenderPasses
+{
+    struct RenderPass;
+}
 
 export namespace ZEngine::Rendering::Renderers
 {
@@ -29,7 +30,7 @@ export namespace ZEngine::Rendering::Renderers
         virtual void Render(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Buffers::FramebufferVNext* const framebuffer, Devices::CommandBuffer* const command_buffer, RenderGraph* const graph) override;
 
     private:
-        Core::Containers::Array<float>   m_vertex_data = {};
+        Core::Containers::Array<float> m_vertex_data = {};
         Devices::VertexBufferSetHandle m_vb_handle   = {};
     };
 
@@ -49,11 +50,11 @@ export namespace ZEngine::Rendering::Renderers
         virtual void Render(std::uint32_t frame_index, Rendering::Scenes::SceneRawData* const scene, RenderPasses::RenderPass* const pass, Buffers::FramebufferVNext* const framebuffer, Devices::CommandBuffer* const command_buffer, RenderGraph* const graph) override;
 
     private:
-        Devices::VertexBufferSetHandle  m_vb_handle   = {};
-        Devices::IndexBufferSetHandle   m_ib_handle   = {};
-        Textures::TextureHandle           m_env_map     = {};
+        Devices::VertexBufferSetHandle         m_vb_handle   = {};
+        Devices::IndexBufferSetHandle          m_ib_handle   = {};
+        Textures::TextureHandle                m_env_map     = {};
         Core::Containers::Array<std::uint16_t> m_index_data  = {};
-        Core::Containers::Array<float>    m_vertex_data = {};
+        Core::Containers::Array<float>         m_vertex_data = {};
     };
 
     struct GridPass : public IRenderGraphCallbackPass
@@ -65,9 +66,9 @@ export namespace ZEngine::Rendering::Renderers
 
     private:
         Core::Containers::Array<std::uint16_t> m_index_data  = {};
-        Core::Containers::Array<float>    m_vertex_data = {};
-        Devices::VertexBufferSetHandle  m_vb_handle   = {};
-        Devices::IndexBufferSetHandle   m_ib_handle   = {};
+        Core::Containers::Array<float>         m_vertex_data = {};
+        Devices::VertexBufferSetHandle         m_vb_handle   = {};
+        Devices::IndexBufferSetHandle          m_ib_handle   = {};
     };
 
     struct GbufferPass : public IRenderGraphCallbackPass

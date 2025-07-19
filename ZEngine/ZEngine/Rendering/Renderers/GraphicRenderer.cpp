@@ -108,8 +108,8 @@ namespace ZEngine::Rendering::Renderers
     void GraphicRenderer::DrawScene(Devices::CommandBuffer* const command_buffer, Cameras::Camera* const camera, Scenes::SceneRawData* const scene)
     {
         std::uint32_t frame_index     = Device->CurrentFrameIndex;
-        auto     scene_camera    = Device->UniformBufferSetManager.Access(SceneCameraBufferHandle);
-        auto     ubo_camera_data = UBOCameraLayout{.View = camera->GetViewMatrix(), .Projection = camera->GetPerspectiveMatrix(), .Position = glm::vec4(camera->GetPosition(), 1.0f)};
+        auto          scene_camera    = Device->UniformBufferSetManager.Access(SceneCameraBufferHandle);
+        auto          ubo_camera_data = UBOCameraLayout{.View = camera->GetViewMatrix(), .Projection = camera->GetPerspectiveMatrix(), .Position = glm::vec4(camera->GetPosition(), 1.0f)};
 
         scene_camera->At(frame_index)->SetData(&ubo_camera_data, sizeof(UBOCameraLayout));
 
@@ -146,11 +146,11 @@ namespace ZEngine::Rendering::Renderers
         resource->BufferSize                                              = spec.Width * spec.Height * spec.BytePerPixel * spec.LayerCount;
         resource->IsDepthTexture                                          = (spec.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE);
 
-        std::uint32_t                                   storage_bit            = spec.IsUsageStorage ? VK_IMAGE_USAGE_STORAGE_BIT : 0;
-        std::uint32_t                                   transfert_bit          = spec.IsUsageTransfert ? VK_IMAGE_USAGE_TRANSFER_DST_BIT : 0;
-        std::uint32_t                                   sampled_bit            = spec.IsUsageSampled ? VK_IMAGE_USAGE_SAMPLED_BIT : 0;
-        std::uint32_t                                   image_aspect           = (spec.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ? VK_IMAGE_ASPECT_DEPTH_BIT : VK_IMAGE_ASPECT_COLOR_BIT;
-        std::uint32_t                                   image_usage_attachment = (spec.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ? VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT : VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+        std::uint32_t                              storage_bit            = spec.IsUsageStorage ? VK_IMAGE_USAGE_STORAGE_BIT : 0;
+        std::uint32_t                              transfert_bit          = spec.IsUsageTransfert ? VK_IMAGE_USAGE_TRANSFER_DST_BIT : 0;
+        std::uint32_t                              sampled_bit            = spec.IsUsageSampled ? VK_IMAGE_USAGE_SAMPLED_BIT : 0;
+        std::uint32_t                              image_aspect           = (spec.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ? VK_IMAGE_ASPECT_DEPTH_BIT : VK_IMAGE_ASPECT_COLOR_BIT;
+        std::uint32_t                              image_usage_attachment = (spec.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ? VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT : VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
         VkFormat                                   image_format           = (spec.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ? Device->FindDepthFormat() : Specifications::ImageFormatMap[static_cast<std::uint32_t>(spec.Format)];
 
@@ -182,7 +182,7 @@ namespace ZEngine::Rendering::Renderers
 
             if (spec.Data)
             {
-                auto       buffer_size    = spec.Width * spec.Height * spec.BytePerPixel * spec.LayerCount;
+                auto                buffer_size    = spec.Width * spec.Height * spec.BytePerPixel * spec.LayerCount;
                 Devices::BufferView staging_buffer = Device->CreateBuffer(buffer_size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VMA_ALLOCATION_CREATE_HOST_ACCESS_RANDOM_BIT);
                 Device->MapAndCopyToMemory(staging_buffer, buffer_size, spec.Data);
                 command_buffer->CopyBufferToImage(staging_buffer, resource->ImageBuffer->GetBuffer(), spec.Width, spec.Height, spec.LayerCount, barrier_0.GetHandle().newLayout);
@@ -210,7 +210,7 @@ namespace ZEngine::Rendering::Renderers
 
     Textures::TextureHandle GraphicRenderer::CreateTexture(std::uint32_t width, std::uint32_t height)
     {
-        std::uint32_t                             BytePerPixel = Specifications::BytePerChannelMap[static_cast<std::uint32_t>(Specifications::ImageFormat::R8G8B8A8_SRGB)];
+        std::uint32_t                        BytePerPixel = Specifications::BytePerChannelMap[static_cast<std::uint32_t>(Specifications::ImageFormat::R8G8B8A8_SRGB)];
         size_t                               data_size    = width * height * BytePerPixel;
         std::vector<unsigned char>           image_data(data_size, 255);
 
@@ -227,7 +227,7 @@ namespace ZEngine::Rendering::Renderers
 
     Textures::TextureHandle GraphicRenderer::CreateTexture(std::uint32_t width, std::uint32_t height, float r, float g, float b, float a)
     {
-        std::uint32_t                   BytePerPixel = Specifications::BytePerChannelMap[static_cast<std::uint32_t>(Specifications::ImageFormat::R8G8B8A8_SRGB)];
+        std::uint32_t              BytePerPixel = Specifications::BytePerChannelMap[static_cast<std::uint32_t>(Specifications::ImageFormat::R8G8B8A8_SRGB)];
         size_t                     data_size    = width * height * BytePerPixel;
         std::vector<unsigned char> image_data(data_size);
 
@@ -331,9 +331,9 @@ namespace ZEngine::Rendering::Renderers
                 UpdateTextureRequest tr;
                 if (m_update_texture_request.Pop(tr))
                 {
-                    auto     texture      = Renderer->Device->GlobalTextures.Access(tr.Handle);
-                    auto&    spec         = texture->Specification;
-                    auto     image_handle = texture->ImageBuffer->GetHandle();
+                    auto          texture      = Renderer->Device->GlobalTextures.Access(tr.Handle);
+                    auto&         spec         = texture->Specification;
+                    auto          image_handle = texture->ImageBuffer->GetHandle();
                     std::uint32_t image_aspect = (texture->Specification.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ? VK_IMAGE_ASPECT_DEPTH_BIT : VK_IMAGE_ASPECT_COLOR_BIT;
 
                     if (Renderer->Device->HasSeperateTransfertQueueFamily)
@@ -391,10 +391,10 @@ namespace ZEngine::Rendering::Renderers
                 TextureUploadRequest upload_request;
                 if (m_upload_requests.Pop(upload_request))
                 {
-                    auto     texture        = Renderer->Device->GlobalTextures.Access(upload_request.Handle);
+                    auto          texture        = Renderer->Device->GlobalTextures.Access(upload_request.Handle);
                     std::uint32_t image_aspect   = (texture->Specification.Format == Specifications::ImageFormat::DEPTH_STENCIL_FROM_DEVICE) ? VK_IMAGE_ASPECT_DEPTH_BIT : VK_IMAGE_ASPECT_COLOR_BIT;
 
-                    auto     command_buffer = m_buffer_manager.GetInstantCommandBuffer(QueueType::TRANSFER_QUEUE, Renderer->Device->CurrentFrameIndex);
+                    auto          command_buffer = m_buffer_manager.GetInstantCommandBuffer(QueueType::TRANSFER_QUEUE, Renderer->Device->CurrentFrameIndex);
                     {
                         auto                                            image_handle   = texture->ImageBuffer->GetHandle();
                         auto&                                           image_buffer   = texture->ImageBuffer->GetBuffer();

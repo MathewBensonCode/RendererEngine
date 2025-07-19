@@ -2,7 +2,6 @@ export module ZEngine.Helpers.ContainerExtension;
 
 import std;
 
-
 export namespace ZEngine::Helpers
 {
     template <typename T>

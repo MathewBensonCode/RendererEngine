@@ -21,13 +21,13 @@ export namespace ZEngine::Rendering::Renderers
     {
         bool                                                 IsPipelineStatesInitialized{false};
 
-        std::uint32_t                                             DesiredWidth{1};
-        std::uint32_t                                             DesiredHeight{1};
+        std::uint32_t                                        DesiredWidth{1};
+        std::uint32_t                                        DesiredHeight{1};
 
-        std::uint32_t                                             GeometryCollectionCount{0};
-        std::uint32_t                                             MaterialCollectionCount{0};
+        std::uint32_t                                        GeometryCollectionCount{0};
+        std::uint32_t                                        MaterialCollectionCount{0};
 
-        std::vector<Rendering::Meshes::MeshVNext>                 MeshCollection;
+        std::vector<Rendering::Meshes::MeshVNext>            MeshCollection;
         std::vector<Helpers::Ref<Geometries::IGeometry>>     GeometryCollection;
         std::vector<Helpers::Ref<Materials::ShaderMaterial>> MaterialCollection;
         std::vector<GraphicRendererInformationRecord>        RecordCollection;

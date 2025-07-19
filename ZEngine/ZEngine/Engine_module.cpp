@@ -11,12 +11,12 @@ namespace ZEngine
 {
     export struct Engine
     {
-        static void                 Initialize(ZEngine::Core::Memory::ArenaAllocator* arena, ZEngine::Rendering::Windows::CoreWindow*);
-        static void                 Run();
+        static void                            Initialize(ZEngine::Core::Memory::ArenaAllocator* arena, ZEngine::Rendering::Windows::CoreWindow*);
+        static void                            Run();
         static Rendering::Windows::CoreWindow* GetWindow();
-        static void                 Deinitialize();
-        static void                 Dispose();
-        static bool                 OnEngineClosed(Event::EngineClosedEvent&);
+        static void                            Deinitialize();
+        static void                            Dispose();
+        static bool                            OnEngineClosed(Event::EngineClosedEvent&);
 
     private:
         Engine()              = delete;

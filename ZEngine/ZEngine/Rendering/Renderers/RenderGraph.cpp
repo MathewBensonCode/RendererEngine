@@ -175,11 +175,11 @@ namespace ZEngine::Rendering::Renderers
         /*
          * Topological Sorting
          */
-        auto                           scratch       = ZEngine::Core::Memory::BeginTempArena(Renderer->Device->Arena);
+        auto                                scratch       = ZEngine::Core::Memory::BeginTempArena(Renderer->Device->Arena);
 
-        Array<const char*>             sorted_nodes  = {};
+        Array<const char*>                  sorted_nodes  = {};
         HashMap<const char*, std::uint32_t> visited_nodes = {};
-        Array<const char*>             stack         = {};
+        Array<const char*>                  stack         = {};
 
         sorted_nodes.init(scratch.Arena, 6);
         stack.init(scratch.Arena, 6);
