@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ master, develop, arena-integration ]
+    branches: [ master, develop, arena-integration, compile_on_linux_fetchcontent ]
   pull_request:
     branches: [ master, develop, arena-integration ]
 

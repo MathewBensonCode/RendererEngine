@@ -77,5 +77,5 @@ function RunTests {
 }
 # Run tests for each configuration
 foreach ($config in $Configurations) {
-    RunTests -Configuration $config
+RunTests -Configuration $config
 }

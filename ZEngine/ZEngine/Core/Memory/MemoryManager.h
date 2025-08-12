@@ -12,14 +12,14 @@ namespace ZEngine::Core::Memory
     {
         void Initialize(const MemoryConfiguration& config)
         {
-            this->Allocator.Initialize(config.DefaultSize);
+            this->ArenaAllocatorValue.Initialize(config.DefaultSize);
         }
 
         void Shutdowm()
         {
-            Allocator.Shutdown();
+            ArenaAllocatorValue.Shutdown();
         }
 
-        ArenaAllocator Allocator = {};
+        ArenaAllocator ArenaAllocatorValue = {};
     };
 } // namespace ZEngine::Core::Memory
