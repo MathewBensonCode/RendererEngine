@@ -54,7 +54,7 @@ endif()
 set(CMAKE_CXX_MODULE_STD 1)
 
 
-include(externals.cmake)
+include(dependencies.cmake)
 
 # Core engine lib is here
 #

@@ -1,7 +1,7 @@
 module;
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_vulkan.h>
-#include <ImGuizmo.h>
+#include <ImGuizmo/ImGuizmo.h>
 
 module ZEngine.Rendering;
 
