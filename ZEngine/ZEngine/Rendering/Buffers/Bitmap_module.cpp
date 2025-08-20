@@ -17,7 +17,7 @@ namespace ZEngine::Rendering::Buffers
         CUBE
     };
 
-    enum BitmapFormat
+    export enum BitmapFormat
     {
         UNSIGNED_BYTE,
         FLOAT
@@ -85,7 +85,7 @@ namespace ZEngine::Rendering::Buffers
         }
     };
 
-    struct Bitmap
+    export struct Bitmap
     {
         Bitmap() = default;
         Bitmap(int width, int height, int channel, BitmapFormat format) : Width(width), Height(height), Channel(channel), Format(format), Buffer(width * height * channel * BytePerChannel(format)) {}
@@ -145,7 +145,7 @@ namespace ZEngine::Rendering::Buffers
             return glm::vec4();
         }
 
-        inline static int BytePerChannel(BitmapFormat format)
+        static int BytePerChannel(BitmapFormat format)
         {
             if (format == BitmapFormat::UNSIGNED_BYTE)
             {
@@ -159,7 +159,7 @@ namespace ZEngine::Rendering::Buffers
             return 0;
         }
 
-        inline static Bitmap EquirectangularMapToVerticalCross(const Bitmap& input_map)
+        static Bitmap EquirectangularMapToVerticalCross(const Bitmap& input_map)
         {
             if (input_map.Type != BitmapType::TEXTURE_2D)
             {
@@ -220,7 +220,7 @@ namespace ZEngine::Rendering::Buffers
             return vertical_cross;
         }
 
-        inline static Bitmap VerticalCrossToCubemap(const Bitmap& input_map)
+        static Bitmap VerticalCrossToCubemap(const Bitmap& input_map)
         {
             const int face_width       = input_map.Width / 3;
             const int face_height      = input_map.Height / 4;

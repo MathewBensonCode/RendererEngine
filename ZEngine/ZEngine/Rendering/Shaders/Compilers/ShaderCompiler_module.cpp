@@ -7,7 +7,7 @@ import :Shaders.ShaderEnums;
 import ZEngine.Core.IPipeline;
 import ZEngine.Helpers.IntrusivePtr;
 
-export namespace ZEngine::Rendering::Shaders::Compilers
+namespace ZEngine::Rendering::Shaders::Compilers
 {
     struct ShaderCompilerResult
     {
@@ -15,7 +15,7 @@ export namespace ZEngine::Rendering::Shaders::Compilers
         ShaderInformation     Information;
     };
 
-    class ShaderCompiler : public Core::IPipelineContext
+    export class ShaderCompiler : public Core::IPipelineContext
     {
     public:
         /**

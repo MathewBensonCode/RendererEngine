@@ -22,6 +22,7 @@ import :Renderers.RendererPasses;
 import :Buffers.Bitmap;
 import :Renderers.Contracts.RendererDataContract;
 import :Specifications.FormatSpecification;
+import :Primitives.ImageMemoryBarrier;
 import ZEngine.Helpers.ThreadPool;
 import ZEngine.ZEngineDef;
 

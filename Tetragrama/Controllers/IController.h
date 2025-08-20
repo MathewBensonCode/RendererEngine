@@ -1,10 +1,4 @@
-#pragma once
-
-#include <ZEngine/Core/IEventable.h>
-#include <ZEngine/Core/IInitializable.h>
-#include <ZEngine/Core/IRenderable.h>
-#include <ZEngine/Core/IUpdatable.h>
-#include <ZEngine/Helpers/IntrusivePtr.h>
+import ZEngine;
 
 namespace Tetragrama::Controllers
 {

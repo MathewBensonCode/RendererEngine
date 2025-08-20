@@ -1,5 +1,5 @@
-import ZEngine.Core.Maths.Vec;
 #include <gtest/gtest.h>
+import ZEngine;
 
 using namespace ZEngine::Core::Maths;
 

@@ -1,7 +1,11 @@
-import ZEngine.Rendering.Buffers.Bitmap;
 #include <gtest/gtest.h>
 #include <stb_image.h>
 #include <stb_image_write.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp>
+
+import std;
+import ZEngine;
 
 using namespace ZEngine::Rendering::Buffers;
 

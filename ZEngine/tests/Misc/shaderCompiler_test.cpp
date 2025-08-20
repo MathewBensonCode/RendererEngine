@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-import ZEngine.Rendering.Shaders.Compilers.ShaderCompiler;
+import ZEngine;
 import std;
 
 using namespace ZEngine::Rendering::Shaders::Compilers;

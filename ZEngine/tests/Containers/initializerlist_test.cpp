@@ -1,7 +1,5 @@
-import ZEngine.Core.Containers.Array;
-import ZEngine.Core.Containers.InitializerList;
-import ZEngine.Core.Containers.Strings;
 #include <gtest/gtest.h>
+import ZEngine;
 
 using namespace ZEngine::Core::Containers;
 using namespace ZEngine::Core::Memory;

@@ -1,6 +1,4 @@
-#pragma once
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Memory/Allocator.h>
+import ZEngine;
 
 namespace Tetragrama::Helpers
 {

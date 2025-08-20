@@ -1,7 +1,5 @@
-import ZEngine.Core.Memory.Allocator;
-import ZEngine.Core.Memory.MemoryManager;
-import ZEngine.Helpers.MemoryOperations;
 #include <gtest/gtest.h>
+import ZEngine;
 
 using namespace ZEngine;
 using namespace ZEngine::Core::Memory;
@@ -82,8 +80,8 @@ TEST(AllocatorTest, ArenaMemoryManager)
         void  Func() {}
     };
 
-    int* intPtr    = ZPushArray(&(manager.m_ArenaAllocator), int, 1);
-    auto structPtr = ZPushStruct(&(manager.m_ArenaAllocator), Foo);
+    int* intPtr    = ZPushArray<int>(&(manager.m_ArenaAllocator), 1);
+    auto structPtr = ZPushStruct<Foo>(&(manager.m_ArenaAllocator));
 
     *intPtr        = 12;
     structPtr->x   = 12;
@@ -123,7 +121,7 @@ TEST(AllocatorTest, ArenaMemoryTemp)
     manager.Initialize({.DefaultSize = ZKilo(10)});
     auto arena = &(manager.m_ArenaAllocator);
     {
-        auto fooPtr  = ZPushStruct(arena, Foo);
+        auto fooPtr  = ZPushStruct<Foo>(arena);
         fooPtr->x    = 10;
         fooPtr->y    = 789.f;
         fooPtr->name = ZPushString(arena, 23);
@@ -147,9 +145,9 @@ TEST(AllocatorTest, ArenaMemoryPool)
         PoolAllocator pool;
         pool.Initialize(arena, sizeof(Foo) * 100, sizeof(Foo));
 
-        auto fooPtr  = ZPushDynamicArray(&pool, Foo);
-        auto fooPtr1 = ZPushDynamicArray(&pool, Foo);
-        auto fooPtr2 = ZPushDynamicArray(&pool, Foo);
+        auto* fooPtr  = ZPushDynamicArray<Foo>(&pool);
+        auto* fooPtr1 = ZPushDynamicArray<Foo>(&pool);
+        auto* fooPtr2 = ZPushDynamicArray<Foo>(&pool);
         fooPtr->name = ZPushString(arena, 5);
         Helpers::secure_strcpy(fooPtr->name, 5, "helo");
 

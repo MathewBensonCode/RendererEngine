@@ -12,7 +12,7 @@ using namespace ZEngine::Rendering::Specifications;
 
 namespace ZEngine::Rendering::Primitives
 {
-    ImageMemoryBarrier::ImageMemoryBarrier(const Specifications::ImageMemoryBarrierSpecification& specification) : m_specification(specification)
+    ImageMemoryBarrier::ImageMemoryBarrier(const ImageMemoryBarrierSpecification& specification) : m_specification(specification)
     {
         m_handle.sType                           = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
         m_handle.srcQueueFamilyIndex             = specification.SourceQueueFamily;

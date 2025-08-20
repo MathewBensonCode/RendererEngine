@@ -3,9 +3,9 @@ export module ZEngine.Helpers.ThreadSafeQueue;
 import std;
 import ZEngine.Helpers.IntrusivePtr;
 
-export namespace ZEngine::Helpers
+namespace ZEngine::Helpers
 {
-    template <typename T>
+    export template <typename T>
     class ThreadSafeQueue : public Helpers::RefCounted
     {
     public:

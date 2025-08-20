@@ -1,5 +1,5 @@
-import ZEngine.Core.Containers.Array;
 #include <gtest/gtest.h>
+import ZEngine;
 
 using namespace ZEngine::Core::Containers;
 using namespace ZEngine::Core::Memory;

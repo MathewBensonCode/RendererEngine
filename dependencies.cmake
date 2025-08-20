@@ -86,7 +86,6 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Cross.git
   GIT_TAG main
   GIT_SHALLOW TRUE
-  FIND_PACKAGE_ARGS 
   )
 
 FetchContent_Declare(
@@ -102,7 +101,7 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Headers.git
     GIT_SHALLOW TRUE
     GIT_TAG main
-    FIND_PACKAGE_ARGS 
+    #  FIND_PACKAGE_ARGS 
 )
 
 FetchContent_Declare(
@@ -260,13 +259,13 @@ target_link_libraries(External_libs
          fmt::fmt
          glm::glm
          imguizmo
-         spdlog::spdlog
+         spdlog::spdlog_header_only
          EnTT::EnTT
          assimp::assimp
          stduuid
          yaml-cpp::yaml-cpp
-         spirv-cross-core
-         SPIRV-Tools-static
+         spirv-cross-c
+         SPIRV-Tools
          glslang::glslang
          glslang::glslang-default-resource-limits
          glslang::SPIRV

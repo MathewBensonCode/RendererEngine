@@ -7,10 +7,10 @@ import ZEngine.Core.Containers.InitializerList;
 
 using namespace ZEngine::Core::Memory;
 
-export namespace ZEngine::Core::Containers
+namespace ZEngine::Core::Containers
 {
 
-    template <typename T>
+    export template <typename T>
     struct Array
     {
         using value_type      = T;
@@ -201,7 +201,7 @@ export namespace ZEngine::Core::Containers
         pointer                 m_data;
     };
 
-    template <typename T>
+    export template <typename T>
     struct ArrayView
     {
         ArrayView(T* data, std::size_t size) : m_data(data), m_size(size) {}

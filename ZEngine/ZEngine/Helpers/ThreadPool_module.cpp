@@ -4,10 +4,10 @@ import std;
 import ZEngine.Helpers.IntrusivePtr;
 import ZEngine.Helpers.ThreadSafeQueue;
 
-export namespace ZEngine::Helpers
+namespace ZEngine::Helpers
 {
 
-    class ThreadPool
+    export class ThreadPool
     {
     public:
         ThreadPool(std::size_t maxThreadCount = std::thread::hardware_concurrency()) : m_maxThreadCount(maxThreadCount), m_taskQueue(CreateRef<ThreadSafeQueue<std::function<void()>>>()) {}
@@ -72,7 +72,7 @@ export namespace ZEngine::Helpers
         }
     };
 
-    struct ThreadPoolHelper
+    export struct ThreadPoolHelper
     {
         template <typename T>
         static void Submit(T&& f)

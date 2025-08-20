@@ -1,8 +1,6 @@
 #include <gtest/gtest.h>
+import ZEngine; 
 
-import ZEngine.Core.Memory.Allocator;
-import ZEngine.Core.Memory.MemoryManager;
-import ZEngine.Helpers.HandleManager;
 
 class HandleManagerTest : public ::testing::Test
 {
@@ -19,7 +17,7 @@ protected:
         manager.Shutdowm();
     }
 
-    MemoryManager                         manager{};
+    ZEngine::Core::Memory::MemoryManager                         manager{};
     ZEngine::Helpers::HandleManager<int*> handle_manager;
 };
 

@@ -102,7 +102,7 @@ export void ZENGINE_EXIT_FAILURE()
 export template <typename type>
 constexpr type* ZPushDynamicArray(auto pool, std::source_location location = std::source_location::current())
 {
-    return reintepret_cast<type*>(pool->Allocate(location.file_name(), location.line()));
+    return reinterpret_cast<type*>(pool->Allocate(location.file_name(), location.line()));
 }
 
 export constexpr auto* ZAlloc(auto* allocator, auto size, auto alignment)
