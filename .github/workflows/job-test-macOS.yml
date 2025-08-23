@@ -17,6 +17,12 @@ jobs:
     name: test-macOS-${{ inputs.architecture }}-${{ inputs.configuration }}
     runs-on: ${{ inputs.architecture == 'x64' && 'macos-15-intel' || 'macos-latest' }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Install Dependencies
+        run: brew install assimp spirv-headers spirv-tools spirv-cross glslang glfw glew yaml-cpp spdlog googletest fmt
+
       - name: Download Artifacts
         uses: actions/download-artifact@v6
         with:

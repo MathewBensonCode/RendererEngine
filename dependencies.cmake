@@ -5,6 +5,7 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/fmtlib/fmt.git
   GIT_SHALLOW TRUE
   GIT_TAG main
+  FIND_PACKAGE_ARGS CONFIG
     )
 
 FetchContent_Declare(
@@ -28,6 +29,7 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/nothings/stb.git
   GIT_SHALLOW TRUE
   SOURCE_DIR ${FETCHCONTENT_BASE_DIR}/stb
+  FIND_PACKAGE_ARGS CONFIG
   )
 
 FetchContent_Declare(
@@ -35,13 +37,15 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/glfw/glfw.git
   GIT_SHALLOW TRUE
   GIT_TAG 3.3.10
+  FIND_PACKAGE_ARGS CONFIG
   )
 
 FetchContent_Declare(
   spdlog
   GIT_REPOSITORY https://github.com/gabime/spdlog.git
   GIT_SHALLOW TRUE
-  GIT_TAG v1.15.3 
+  GIT_TAG v1.15.3
+  FIND_PACKAGE_ARGS CONFIG
   )
 
 FetchContent_Declare(
@@ -49,27 +53,28 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/skypjack/entt.git
   GIT_SHALLOW TRUE 
   GIT_TAG v3.16.0
+  FIND_PACKAGE_ARGS CONFIG
   )
 
 FetchContent_Declare(
   assimp
   GIT_REPOSITORY https://github.com/assimp/assimp.git
   GIT_SHALLOW TRUE
-   
+  FIND_PACKAGE_ARGS CONFIG 
   )
 
 FetchContent_Declare(
   stduuid
   GIT_REPOSITORY https://github.com/mariusbancila/stduuid.git
   GIT_SHALLOW TRUE
-   
+  FIND_PACKAGE_ARGS CONFIG 
   )
 
 FetchContent_Declare(
   yaml-cpp
   GIT_REPOSITORY https://github.com/jbeder/yaml-cpp
   GIT_SHALLOW TRUE
-   
+  FIND_PACKAGE_ARGS CONFIG 
   )
 
 
@@ -78,6 +83,7 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Cross.git
   GIT_TAG vulkan-sdk-1.3.296.0
   GIT_SHALLOW TRUE
+  FIND_PACKAGE_ARGS CONFIG
   )
 
 FetchContent_Declare(
@@ -85,6 +91,7 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator
   GIT_SHALLOW TRUE
   GIT_TAG v3.3.0
+  FIND_PACKAGE_ARGS CONFIG
 )
 
 FetchContent_Declare(
@@ -92,6 +99,7 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Headers.git
     GIT_SHALLOW TRUE
     GIT_TAG vulkan-sdk-1.3.296.0
+    FIND_PACKAGE_ARGS CONFIG
 )
 
 FetchContent_Declare(
@@ -100,7 +108,7 @@ FetchContent_Declare(
     GIT_SHALLOW TRUE
     GIT_TAG 14.3.0
     SOURCE_DIR "${FETCHCONTENT_BASE_DIR}/glslang"
-    
+    FIND_PACKAGE_ARGS CONFIG
 )
 
 FetchContent_Declare(
@@ -108,6 +116,7 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Tools.git
     GIT_SHALLOW TRUE
     GIT_TAG vulkan-sdk-1.3.296.0
+    FIND_PACKAGE_ARGS CONFIG
 )
 
 
@@ -116,13 +125,14 @@ Fetchcontent_Declare(
     GIT_REPOSITORY https://github.com/google/googletest.git
     GIT_SHALLOW TRUE
     GIT_TAG main 
+    FIND_PACKAGE_ARGS CONFIG
 )
 
 Fetchcontent_Declare(
   nlohmann_json
     GIT_REPOSITORY https://github.com/nlohmann/json.git
     GIT_SHALLOW TRUE
-     
+    FIND_PACKAGE_ARGS CONFIG  
 )
 
 Fetchcontent_Declare(
@@ -130,7 +140,7 @@ Fetchcontent_Declare(
     GIT_REPOSITORY https://github.com/mattconte/tlsf
     GIT_SHALLOW TRUE
     SOURCE_DIR ${FETCHCONTENT_BASE_DIR}/tlsf
-    
+    FIND_PACKAGE_ARGS CONFIG 
 )
 
 Fetchcontent_Declare(
@@ -139,7 +149,7 @@ Fetchcontent_Declare(
     GIT_SHALLOW TRUE
     GIT_TAG main
     SOURCE_DIR ${FETCHCONTENT_BASE_DIR}/CLI11
-    
+    FIND_PACKAGE_ARGS CONFIG 
 )
 
 
@@ -148,21 +158,22 @@ Fetchcontent_Declare(
     GIT_REPOSITORY https://github.com/Nicoshev/rapidhash
     GIT_SHALLOW TRUE
     SOURCE_DIR ${FETCHCONTENT_BASE_DIR}/rapidhash
-    
+    FIND_PACKAGE_ARGS CONFIG
 )
 
 FetchContent_Declare(Vulkan-Headers
     GIT_REPOSITORY https://github.com/KhronosGroup/Vulkan-Headers
     GIT_SHALLOW TRUE
     GIT_TAG vulkan-sdk-1.3.296.0
+    FIND_PACKAGE_ARGS CONFIG
 )
 	
 FetchContent_Declare(Vulkan-Loader
     GIT_REPOSITORY https://github.com/KhronosGroup/Vulkan-Loader
     GIT_SHALLOW TRUE
     GIT_TAG vulkan-sdk-1.3.296.0
+    FIND_PACKAGE_ARGS CONFIG
 )
-
 
 FetchContent_MakeAvailable(
   fmt
@@ -264,7 +275,6 @@ target_link_libraries(External_libs
          nlohmann_json::nlohmann_json
 )
 
-
 add_library(imported::ZEngine_External_Dependencies ALIAS External_libs)
 
 add_library(External_obeliskLibs INTERFACE)
@@ -272,7 +282,6 @@ target_link_libraries(External_obeliskLibs
     INTERFACE 
     CLI11::CLI11
 )
-
 add_library(imported::External_obeliskLibs ALIAS External_obeliskLibs)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/Scripts/CMake/NuGet.cmake)

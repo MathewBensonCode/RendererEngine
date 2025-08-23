@@ -29,6 +29,9 @@ jobs:
       - name: Update LLVM
         run: brew install llvm
 
+      - name: Install Dependencies
+        run: brew install assimp spirv-headers spirv-tools spirv-cross glslang glfw glew yaml-cpp spdlog googletest
+
       - name: CMake Build
         run: .\Scripts\BuildEngine.ps1 -Configurations ${{inputs.configuration}} -Architecture ${{inputs.architecture}} -RunClangFormat 0
         shell: pwsh
