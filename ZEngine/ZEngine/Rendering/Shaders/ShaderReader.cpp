@@ -1,4 +1,3 @@
-#include <pch.h>
 #include <Core/Coroutine.h>
 #include <Logging/LoggerDefinition.h>
 #include <Rendering/Shaders/ShaderReader.h>
@@ -19,7 +18,7 @@ namespace ZEngine::Rendering::Shaders
     std::vector<uint32_t> ShaderReader::ReadAsBinary(std::string_view filename)
     {
         std::ifstream file_stream = {};
-        file_stream.open(filename, std::ifstream::binary | std::ifstream::ate);
+        file_stream.open(std::string(filename), std::ifstream::binary | std::ifstream::ate);
         if (!file_stream.is_open())
         {
             ZENGINE_CORE_ERROR("====== Shader file : {} cannot be opened ======", filename.data())

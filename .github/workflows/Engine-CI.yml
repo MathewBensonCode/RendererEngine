@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ master, develop, arena-integration ]
+    branches: [ master, develop, arena-integration, compile_on_linux_submodules ]
   pull_request:
     branches: [ master, develop, arena-integration ]
 
@@ -22,5 +22,11 @@ jobs:
   macOS:
     needs: clang-format
     uses: ./.github/workflows/macOS-build.yml
+    with:
+      targetFramework: net8.0
+
+  linux:
+    needs: clang-format
+    uses: ./.github/workflows/linux-build.yml
     with:
       targetFramework: net8.0

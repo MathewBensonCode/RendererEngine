@@ -1,6 +1,6 @@
-#include <pch.h>
 #include <Hardwares/VulkanDevice.h>
 #include <Rendering/Renderers/Pipelines/RendererPipeline.h>
+#include <array>
 
 using namespace ZEngine::Helpers;
 using namespace ZEngine::Core::Containers;
@@ -11,7 +11,7 @@ namespace ZEngine::Rendering::Renderers::Pipelines
     {
         Device             = device;
         Specification      = std::move(spec);
-        auto shader_handle = Device->CompileShader(Specification.ShaderSpecification);
+        auto shader_handle = Device->CompileShader(Specification.ShaderSpecificationValue);
         if (!shader_handle)
         {
             ZENGINE_CORE_ERROR("")

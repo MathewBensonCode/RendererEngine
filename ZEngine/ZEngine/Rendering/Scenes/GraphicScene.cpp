@@ -1,10 +1,10 @@
-﻿#include <pch.h>
-#include <Core/Coroutine.h>
-#include <Renderers/GraphicRenderer.h>
+﻿#include <Core/Coroutine.h>
 #include <Rendering/Components/CameraComponent.h>
 #include <Rendering/Components/LightComponent.h>
 #include <Rendering/Components/UUIComponent.h>
+#include <Rendering/Renderers/GraphicRenderer.h>
 #include <Rendering/Scenes/GraphicScene.h>
+#include <entt/entt.hpp>
 
 #define NODE_PARENT_ID  -1
 #define INVALID_NODE_ID -1
@@ -158,7 +158,7 @@ namespace ZEngine::Rendering::Scenes
         SceneData->Indices       = {0};
         SceneData->Materials     = {Meshes::MeshMaterial{}};
         SceneData->MaterialFiles = {Meshes::MaterialFile{}};
-        SceneData->DrawData      = {
+        SceneData->DrawDataValue = {
             DrawData{.TransformIndex = 0, .VertexOffset = 0, .IndexOffset = 0, .VertexCount = 1, .IndexCount = 1}
         };
     }
@@ -170,13 +170,13 @@ namespace ZEngine::Rendering::Scenes
 
         if (draw_count)
         {
-            SceneData->DrawData.resize(draw_count);
+            SceneData->DrawDataValue.resize(draw_count);
             indirect_commmands.resize(draw_count);
 
             int i = 0;
             for (auto& [node, mesh] : SceneData->NodeMeshes)
             {
-                DrawData& draw_data      = SceneData->DrawData[i];
+                DrawData& draw_data      = SceneData->DrawDataValue[i];
                 draw_data.TransformIndex = node;
                 draw_data.MaterialIndex  = SceneData->NodeMaterials[node];
                 draw_data.VertexOffset   = SceneData->Meshes[mesh].VertexOffset;
@@ -190,13 +190,13 @@ namespace ZEngine::Rendering::Scenes
         else
         {
             // We use the default data
-            indirect_commmands.resize(SceneData->DrawData.size());
+            indirect_commmands.resize(SceneData->DrawDataValue.size());
         }
 
-        for (uint32_t i = 0; i < SceneData->DrawData.size(); ++i)
+        for (uint32_t i = 0; i < SceneData->DrawDataValue.size(); ++i)
         {
             indirect_commmands[i] = {
-                .vertexCount   = SceneData->DrawData[i].IndexCount,
+                .vertexCount   = SceneData->DrawDataValue[i].IndexCount,
                 .instanceCount = 1,
                 .firstVertex   = 0,
                 .firstInstance = i,
@@ -645,6 +645,8 @@ namespace ZEngine::Rendering::Scenes
                         SceneData->SpotLights.push_back(spot->GPUPackedData());
                     }
                     break;
+                    case Lights::LightType::UNDEFINED:
+                        break;
                 }
             }
         }
