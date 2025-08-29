@@ -87,13 +87,9 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
 
     $architecture = 'x64'
 
-    # Check if the system supports multiple configurations
-    $isMultipleConfig = $IsWindows
-
     # Check the system name
     if ($IsLinux) {
         $systemName = "Linux"
-        $cMakeGenerator
     }
     elseif ($IsMacOS) {
         $systemName = "Darwin"
@@ -107,36 +103,10 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
 
     Write-Host "Building $systemName $architecture $configuration"
 
-    [string]$BuildDirectoryNameExtension = If ($isMultipleConfig) { "MultiConfig" } Else { $configuration }
-    [string]$BuildDirectoryName = "Result." + $systemName + "." + $architecture + "." + $BuildDirectoryNameExtension
-    [string]$buildDirectoryPath = [IO.Path]::Combine($RepoRoot, $BuildDirectoryName)
-    [string]$cMakeCacheVariableOverride = ""
-    [string]$cMakeGenerator = "Ninja"
+    # Define CMake Generator arguments
+    $configName = $systemName, $architecture, $configuration -join "_"
 
-    # Create build directory
-    if (-Not (Test-Path $buildDirectoryPath)) {
-        $Null = New-Item -ItemType Directory -Path $BuildDirectoryPath -ErrorAction SilentlyContinue
-    }
-
-    # Define CMake Generator argument
-    switch ($systemName) {
-        "Windows" {
-            switch ($VsVersion) {
-                2022 {
-                    $cMakeGenerator = "-G `"Visual Studio 17 2022`" -A $architecture"
-                }
-                Default {
-                    throw 'This version of Visual Studio is not supported'
-                }
-            }
-            $cMakeCacheVariableOverride += ' -DCMAKE_CONFIGURATION_TYPES=Debug;Release '
-        }
-        "Linux" {
-            $cMakeGenerator = "-G Ninja"
-        }
-    }
-
-    $cMakeArguments = " -S $repositoryRootPath -B $buildDirectoryPath $cMakeGenerator $cMakeCacheVariableOverride -DCMAKE_BUILD_TYPE=$configuration"
+    $cMakeArguments = " --preset $configName"
 
     # CMake Generation process
     Write-Host $cMakeArguments
@@ -147,18 +117,7 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
 
     # CMake Build Process
     #
-    if ($runBuild) {
-        if ($cMakeGenerator -like 'Visual Studio*') {
-            # With a Visual Studio Generator, `msbuild.exe` is used to run the build. By default, `msbuild.exe` will
-            # launch worker processes to opportunistically re-use for subsequent builds. To cause the worker processes
-            # to exit at the end of the main process, pass `-nodeReuse:false`.
-            $buildToolOptions = '-nodeReuse:false'
-        }
-
-        $buildArguments = "--build $buildDirectoryPath"
-        if ($buildToolOptions) {
-            $buildArguments = $buildArguments, $buildToolOptions -join " --"
-        }
+        $buildArguments = "--build --preset $configName"
 
         $buildProcess = Start-Process $cMakeProgram -ArgumentList $buildArguments -NoNewWindow -PassThru
 
@@ -171,7 +130,6 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
             throw "cmake failed build for '$buildArguments' with exit code '$buildProcess.ExitCode'"
         }
     }
-}
 
 
 if(-Not $LauncherOnly) {
@@ -195,7 +153,7 @@ if(-Not $LauncherOnly) {
     }
 
 
-#    Run Shader Compilation
+    # Run Shader Compilation
     foreach ($config in $Configurations) {
         $shaderCompileScript = Join-Path $PSScriptRoot -ChildPath "ShaderCompile.ps1"
         & pwsh -File $shaderCompileScript -Configuration:$config -ForceRebuild:$true

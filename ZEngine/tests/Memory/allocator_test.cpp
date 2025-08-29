@@ -148,7 +148,7 @@ TEST(AllocatorTest, ArenaMemoryPool)
         auto* fooPtr  = ZPushDynamicArray<Foo>(&pool);
         auto* fooPtr1 = ZPushDynamicArray<Foo>(&pool);
         auto* fooPtr2 = ZPushDynamicArray<Foo>(&pool);
-        fooPtr->name = ZPushString(arena, 5);
+        fooPtr->name  = ZPushString(arena, 5);
         Helpers::secure_strcpy(fooPtr->name, 5, "helo");
 
         EXPECT_STREQ(fooPtr->name, "helo");

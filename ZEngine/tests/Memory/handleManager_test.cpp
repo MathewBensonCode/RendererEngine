@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
-import ZEngine; 
-
+import ZEngine;
 
 class HandleManagerTest : public ::testing::Test
 {
@@ -17,7 +16,7 @@ protected:
         manager.Shutdowm();
     }
 
-    ZEngine::Core::Memory::MemoryManager                         manager{};
+    ZEngine::Core::Memory::MemoryManager  manager{};
     ZEngine::Helpers::HandleManager<int*> handle_manager;
 };
 
