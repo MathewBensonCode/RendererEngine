@@ -1,3 +1,6 @@
+module;
+#include <vulkan/vulkan.h>
+
 module ZEngine.Rendering;
 
 import :Primitives.Semaphore;
@@ -10,7 +13,7 @@ namespace ZEngine::Rendering::Primitives
         Device                                      = device;
         VkSemaphoreCreateInfo semaphore_create_info = {};
         semaphore_create_info.sType                 = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
-        ZENGINE_VALIDATE_ASSERT(vkCreateSemaphore(Device->LogicalDevice, &semaphore_create_info, nullptr, &m_handle) == VK_SUCCESS, "Failed to create Semaphore")
+        ZENGINE_VALIDATE_ASSERT(vkCreateSemaphore(Device->LogicalDevice, &semaphore_create_info, nullptr, &m_handle) == VK_SUCCESS, "Failed to create Semaphore");
     }
 
     Semaphore::~Semaphore()

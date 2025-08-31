@@ -5,7 +5,6 @@ module;
 export module ZEngine.Rendering:Devices.VulkanDevice;
 
 import std;
-import :Primitives.ImageMemoryBarrier;
 import :ResourceTypes;
 import :Devices.VulkanLayer;
 import ZEngine.Helpers.HandleManager;
@@ -55,6 +54,7 @@ namespace ZEngine::Rendering::Primitives
 {
     struct Fence;
     struct Semaphore;
+    struct ImageMemoryBarrier;
 } // namespace ZEngine::Rendering::Primitives
 
 namespace ZEngine::Rendering::windows

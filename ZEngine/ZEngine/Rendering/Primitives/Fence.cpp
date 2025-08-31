@@ -1,3 +1,6 @@
+module;
+#include <vulkan/vulkan.h>
+
 module ZEngine.Rendering;
 
 import :Primitives.Fence;
@@ -15,7 +18,7 @@ namespace ZEngine::Rendering::Primitives
             frame_fence_create_info.flags = VK_FENCE_CREATE_SIGNALED_BIT;
         }
 
-        ZENGINE_VALIDATE_ASSERT(vkCreateFence(Device->LogicalDevice, &frame_fence_create_info, nullptr, &m_handle) == VK_SUCCESS, "Failed to create Fence")
+        ZENGINE_VALIDATE_ASSERT(vkCreateFence(Device->LogicalDevice, &frame_fence_create_info, nullptr, &m_handle) == VK_SUCCESS, "Failed to create Fence");
     }
 
     Fence::~Fence()
@@ -43,7 +46,7 @@ namespace ZEngine::Rendering::Primitives
 
     void Fence::Reset()
     {
-        ZENGINE_VALIDATE_ASSERT(vkResetFences(Device->LogicalDevice, 1, &m_handle) == VK_SUCCESS, "Failed to reset Fence")
+        ZENGINE_VALIDATE_ASSERT(vkResetFences(Device->LogicalDevice, 1, &m_handle) == VK_SUCCESS, "Failed to reset Fence");
         m_fence_state = FenceState::Idle;
     }
 

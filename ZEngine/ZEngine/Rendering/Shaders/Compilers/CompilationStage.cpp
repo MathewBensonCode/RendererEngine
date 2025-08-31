@@ -72,7 +72,7 @@ namespace ZEngine::Rendering::Shaders::Compilers
             m_information = {false, "Failed to initialize glslang"};
             co_return;
         }
-        information_list.BinarySource = std::vector<uint32_t>();
+        information_list.BinarySource = std::vector<std::uint32_t>();
         glslang::TShader shader(GetEShLanguage(information_list.Type));
 
         TBuiltInResource Resources = DefaultTBuiltInResource;

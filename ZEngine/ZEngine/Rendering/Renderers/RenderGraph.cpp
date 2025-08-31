@@ -6,6 +6,7 @@ module ZEngine.Rendering;
 import :Renderers.RenderGraph;
 import :Renderers.GraphicRenderer;
 import :Devices.VulkanDevice;
+import :Primitives.ImageMemoryBarrier;
 import ZEngine.ZEngineDef;
 
 using namespace ZEngine::Core::Containers;

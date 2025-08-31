@@ -46,10 +46,9 @@
                 "SPIRV_SKIP_EXECUTABLES": "ON",
                 "SPIRV_SKIP_TESTS": "ON",
                 "ALLOW_EXTERNAL_SPIRV_TOOLS": "OFF",
+                "ENABLE_OPT": "OFF",
 
-                "SPIRV_CROSS_ENABLE_TESTS": "OFF",
-
-                "CMAKE_POLICY_VERSION_MINIMUM": "3.5"
+                "SPIRV_CROSS_ENABLE_TESTS": "OFF"
             }
         },
         {

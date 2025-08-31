@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
-import ZEngine.Helpers.MemoryOperations;
+import std;
+import ZEngine;
 
 using namespace ZEngine::Helpers;
 

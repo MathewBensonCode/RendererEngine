@@ -9,6 +9,8 @@ import :Pools.CommandPool;
 import :Renderers.RenderPasses.Attachment;
 import :Primitives.Semaphore;
 import :Primitives.Fence;
+import :Primitives.ImageMemoryBarrier;
+import :Specifications.ImageMemoryBarrierSpecification;
 import ZEngine.ZEngineDef;
 import ZEngine.Helpers.MemoryOperations;
 import ZEngine.Helpers.ThreadPool;
@@ -1039,18 +1041,18 @@ namespace ZEngine::Rendering::Devices
         {
             for (int i = 0; i < SwapchainImages.size(); ++i)
             {
-                Rendering::Specifications::ImageMemoryBarrierSpecification barrier_spec = {};
-                barrier_spec.ImageHandle                                                = SwapchainImages[i];
-                barrier_spec.OldLayout                                                  = Specifications::ImageLayout::UNDEFINED;
-                barrier_spec.NewLayout                                                  = Specifications::ImageLayout::PRESENT_SRC;
-                barrier_spec.ImageAspectMask                                            = VK_IMAGE_ASPECT_COLOR_BIT;
-                barrier_spec.SourceAccessMask                                           = 0;
-                barrier_spec.DestinationAccessMask                                      = VK_ACCESS_MEMORY_READ_BIT;
-                barrier_spec.SourceStageMask                                            = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
-                barrier_spec.DestinationStageMask                                       = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
-                barrier_spec.LayerCount                                                 = 1;
+                Specifications::ImageMemoryBarrierSpecification barrier_spec = {};
+                barrier_spec.ImageHandle                                     = SwapchainImages[i];
+                barrier_spec.OldLayout                                       = Specifications::ImageLayout::UNDEFINED;
+                barrier_spec.NewLayout                                       = Specifications::ImageLayout::PRESENT_SRC;
+                barrier_spec.ImageAspectMask                                 = VK_IMAGE_ASPECT_COLOR_BIT;
+                barrier_spec.SourceAccessMask                                = 0;
+                barrier_spec.DestinationAccessMask                           = VK_ACCESS_MEMORY_READ_BIT;
+                barrier_spec.SourceStageMask                                 = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+                barrier_spec.DestinationStageMask                            = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+                barrier_spec.LayerCount                                      = 1;
 
-                Rendering::Primitives::ImageMemoryBarrier barrier{barrier_spec};
+                Primitives::ImageMemoryBarrier barrier{barrier_spec};
                 command_buffer->TransitionImageLayout(barrier);
             }
         }

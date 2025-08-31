@@ -41,7 +41,6 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/gabime/spdlog.git
   GIT_SHALLOW TRUE
   GIT_TAG v1.15.3
-  FIND_PACKAGE_ARGS 
   )
 
 FetchContent_Declare(
@@ -86,6 +85,7 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Cross.git
   GIT_TAG main
   GIT_SHALLOW TRUE
+  SOURCE_DIR "${FETCHCONTENT_BASE_DIR}/spirv_cross_core"
   )
 
 FetchContent_Declare(
@@ -101,7 +101,7 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Headers.git
     GIT_SHALLOW TRUE
     GIT_TAG main
-    #  FIND_PACKAGE_ARGS 
+    FIND_PACKAGE_ARGS 
 )
 
 FetchContent_Declare(
@@ -264,13 +264,11 @@ target_link_libraries(External_libs
          assimp::assimp
          stduuid
          yaml-cpp::yaml-cpp
-         spirv-cross-c
-         SPIRV-Tools
+         spirv-cross-core
          glslang::glslang
          glslang::glslang-default-resource-limits
          glslang::SPIRV
          glslang::SPVRemapper
-         GPUOpen::VulkanMemoryAllocator 
 )
 
 add_library(imported::External_libs ALIAS External_libs)

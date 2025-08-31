@@ -182,6 +182,9 @@ target_sources(
           Rendering/Cameras/PerspectiveCamera.cpp
           Rendering/Pools/CommandPool.cpp
           Rendering/Buffers/FrameBuffer.cpp
+          Rendering/Primitives/ImageMemoryBarrier.cpp
+          Rendering/Primitives/Fence.cpp
+          Rendering/Primitives/Semaphore.cpp
           #      Rendering/Textures/Texture2D.cpp
           Rendering/Textures/Texture.cpp
           Rendering/Serializers/GraphicScene3DSerializer.cpp
