@@ -1,9 +1,5 @@
-#pragma once
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/ZEngineDef.h>
-#include <atomic>
-#include <mutex>
-#include <string>
+import std;
+import ZEngine;
 
 #define REPORT_PROGRESS(ctx, value)          \
     {                                        \

@@ -1,4 +1,4 @@
-#include <Tetragrama/EditorWindow.h>
+import Tetragrama.EditorWindow;
 #include <ZEngine/Core/Coroutine.h>
 #include <ZEngine/Engine.h>
 #include <ZEngine/Event/EngineClosedEvent.h>

@@ -1,8 +1,8 @@
-#include <Tetragrama/Controllers/PerspectiveCameraController.h>
+import Tetragrama.Controllers.PerspectiveCameraController;
 #include <ZEngine/Windows/Inputs/IDevice.h>
 #include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
-#include <Tetragrama/Inputs/Keyboard.h>
-#include <Tetragrama/Inputs/Mouse.h>
+import Tetragrama.Inputs.Keyboard;
+import Tetragrama.Inputs.Mouse;
 #include <ZEngine/Core/EventDispatcher.h>
 
 using namespace ZEngine;

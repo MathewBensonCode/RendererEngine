@@ -1,4 +1,3 @@
-#pragma once
 #include <ZEngine/Maths/Math.h>
 #include <ZEngine/Rendering/Scenes/GraphicScene.h>
 #include <imgui_internal.h>

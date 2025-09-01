@@ -1,4 +1,3 @@
-#pragma once
 #include <ZEngine/Core/CoreEvent.h>
 
 namespace Tetragrama::Components::Event

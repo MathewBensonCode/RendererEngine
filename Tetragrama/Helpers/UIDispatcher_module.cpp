@@ -1,4 +1,3 @@
-#pragma once
 #include <ZEngine/Helpers/ThreadPool.h>
 
 namespace Tetragrama::Helpers

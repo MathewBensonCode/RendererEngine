@@ -1,4 +1,4 @@
-#include <Tetragrama/Importers/AssimpImporter.h>
+import Tetragrama.Importers.AssimpImporter;
 #include <ZEngine/Core/Coroutine.h>
 #include <ZEngine/Helpers/MemoryOperations.h>
 #include <ZEngine/Helpers/ThreadPool.h>

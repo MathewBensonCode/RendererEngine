@@ -1,6 +1,6 @@
-#include <Tetragrama/Editor.h>
-#include <Tetragrama/MessageToken.h>
-#include <Tetragrama/Messengers/Messenger.h>
+import Tetragrama.Editor;
+import Tetragrama.MessageToken;
+import Tetragrama.Messengers.Messenger;
 #include <fmt/format.h>
 #include <nlohmann/json.hpp>
 #include <fstream>

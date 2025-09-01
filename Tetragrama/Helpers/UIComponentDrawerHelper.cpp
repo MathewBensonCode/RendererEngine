@@ -1,4 +1,4 @@
-#include <Tetragrama/Helpers/UIComponentDrawerHelper.h>
+import Tetragrama.Helpers.UIComponentDrawerHelper;
 
 namespace Tetragrama::Helpers
 {

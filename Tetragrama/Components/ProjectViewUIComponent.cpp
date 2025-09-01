@@ -1,6 +1,6 @@
-#include <Tetragrama/Editor.h>
-#include <Tetragrama/Helpers/SearchPatternAlgorithm.h>
-#include <Tetragrama/Components/ProjectViewUIComponent.h>
+import Tetragrama.Editor;
+import Tetragrama.Helpers.SearchPatternAlgorithm;
+import Tetragrama.Components.ProjectViewUIComponent;
 #include <ZEngine/Helpers/MemoryOperations.h>
 #include <imgui.h>
 #include <fstream>

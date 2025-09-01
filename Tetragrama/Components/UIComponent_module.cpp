@@ -1,5 +1,4 @@
-#pragma once
-#include <Tetragrama/Layers/ImguiLayer.h>
+import Tetragrama.Layers.ImguiLayer;
 #include <ZEngine/Core/Containers/Array.h>
 #include <ZEngine/Core/IRenderable.h>
 #include <ZEngine/Core/IUpdatable.h>

@@ -1,5 +1,4 @@
-#pragma once
-#include <Tetragrama/Components/UIComponent.h>
+import Tetragrama.Components.UIComponent;
 #include <ZEngine/Core/Memory/Allocator.h>
 #include <ZEngine/Logging/Logger.h>
 #include <atomic>

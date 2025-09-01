@@ -1,11 +1,11 @@
-#include <Tetragrama/MessageToken.h>
-#include <Tetragrama/Messengers/Messenger.h>
-#include <Tetragrama/Components/SceneViewportUIComponent.h>
+import Tetragrama.MessageToken;
+import Tetragrama.Messengers.Messenger;
+import Tetragrama.Components.SceneViewportUIComponent;
 #include <ZEngine/Logging/LoggerDefinition.h>
 #include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
 #include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
 /**/
-#include <Tetragrama/Editor.h>
+import Tetragrama.Editor;
 #include <ImGuizmo.h>
 
 using namespace Tetragrama::Components::Event;

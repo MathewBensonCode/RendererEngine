@@ -1,5 +1,5 @@
-#include <Tetragrama/Helpers/SerializerCommonHelper.h>
-#include <Tetragrama/Importers/IAssetImporter.h>
+import Tetragrama.Helpers.SerializerCommonHelper;
+import Tetragrama.Importers.IAssetImporter;
 #include <ZEngine/Core/Containers/Array.h>
 #include <fstream>
 

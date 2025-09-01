@@ -1,10 +1,10 @@
-#include <Tetragrama/Components/DockspaceUIComponent.h>
-#include <Tetragrama/Editor.h>
-#include <Tetragrama/Helpers/UIComponentDrawerHelper.h>
-#include <Tetragrama/Helpers/UIDispatcher.h>
-#include <Tetragrama/Importers/AssimpImporter.h>
-#include <Tetragrama/MessageToken.h>
-#include <Tetragrama/Messengers/Messenger.h>
+import Tetragrama.Components.DockspaceUIComponent;
+import Tetragrama.Editor;
+import Tetragrama.Helpers.UIComponentDrawerHelper;
+import Tetragrama.Helpers.UIDispatcher;
+import Tetragrama.Importers.AssimpImporter;
+import Tetragrama.MessageToken;
+import Tetragrama.Messengers.Messenger;
 #include <ZEngine/Logging/LoggerDefinition.h>
 #include <fmt/format.h>
 #include <imgui.h>

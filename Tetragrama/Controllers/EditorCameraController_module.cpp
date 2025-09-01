@@ -1,6 +1,5 @@
-#pragma once
-#include <Tetragrama/Controllers/PerspectiveCameraController.h>
-#include <ZEngine/Windows/CoreWindow.h>
+import Tetragrama.Controllers.PerspectiveCameraController;
+import ZEngine;
 
 namespace Tetragrama::Controllers
 {

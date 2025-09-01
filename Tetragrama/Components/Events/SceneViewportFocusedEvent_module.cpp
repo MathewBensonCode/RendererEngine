@@ -1,5 +1,4 @@
-#pragma once
-#include <Tetragrama/Components/Events/UIComponentEvent.h>
+import Tetragrama.Components.Events.UIComponentEvent;
 
 namespace Tetragrama::Components::Event
 {

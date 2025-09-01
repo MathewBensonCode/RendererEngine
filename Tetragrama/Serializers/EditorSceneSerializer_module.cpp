@@ -1,7 +1,6 @@
-#pragma once
-#include <Tetragrama/Editor.h>
-#include <Tetragrama/Importers/IAssetImporter.h>
-#include <Tetragrama/Serializers/Serializer.h>
+import Tetragrama.Editor;
+import Tetragrama.Importers.IAssetImporter;
+import Tetragrama.Serializers.Serializer;
 
 namespace Tetragrama::Serializers
 {

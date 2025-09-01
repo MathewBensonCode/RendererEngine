@@ -1,5 +1,5 @@
-#include <Tetragrama/EditorScene.h>
-#include <Tetragrama/Managers/AssetManager.h>
+import Tetragrama.EditorScene;
+import Tetragrama.Managers.AssetManager;
 #include <stack>
 
 namespace Tetragrama

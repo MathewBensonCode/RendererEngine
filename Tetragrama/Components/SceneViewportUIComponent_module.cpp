@@ -1,9 +1,8 @@
-#pragma once
-#include <Tetragrama/Components/Events/SceneViewportFocusedEvent.h>
-#include <Tetragrama/Components/Events/SceneViewportResizedEvent.h>
-#include <Tetragrama/Components/Events/SceneViewportUnfocusedEvent.h>
-#include <Tetragrama/Messengers/Message.h>
-#include <Tetragrama/Components/UIComponent.h>
+import Tetragrama.Components.Events.SceneViewportFocusedEvent;
+import Tetragrama.Components.Events.SceneViewportResizedEvent;
+import Tetragrama.Components.Events.SceneViewportUnfocusedEvent;
+import Tetragrama.Messengers.Message;
+import Tetragrama.Components.UIComponent;
 #include <imgui.h>
 #include <vulkan/vulkan.h>
 

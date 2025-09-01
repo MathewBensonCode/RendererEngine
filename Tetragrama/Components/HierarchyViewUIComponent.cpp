@@ -1,10 +1,10 @@
-#include <Tetragrama/Editor.h>
-#include <Tetragrama/Components/HierarchyViewUIComponent.h>
+import Tetragrama.Editor;
+import Tetragrama.Components.HierarchyViewUIComponent;
 #include <ImGuizmo.h>
-#include <Tetragrama/Inputs/Keyboard.h>
-#include <Tetragrama/Inputs/Mouse.h>
-#include <Tetragrama/MessageToken.h>
-#include <Tetragrama/Messengers/Messenger.h>
+import Tetragrama.Inputs.Keyboard;
+import Tetragrama.Inputs.Mouse;
+import Tetragrama.MessageToken;
+import Tetragrama.Messengers.Messenger;
 #include <ZEngine/Engine.h>
 #include <ZEngine/Rendering/Scenes/GraphicScene.h>
 #include <ZEngine/Windows/Inputs/IDevice.h>

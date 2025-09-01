@@ -1,5 +1,4 @@
-#pragma once
-#include <Tetragrama/Importers/AssetTypes.h>
+import Tetragrama.Importers.AssetTypes;
 #include <ZEngine/Helpers/IntrusivePtr.h>
 #include <ZEngine/Rendering/Meshes/Mesh.h>
 #include <ZEngine/Rendering/Scenes/GraphicScene.h>

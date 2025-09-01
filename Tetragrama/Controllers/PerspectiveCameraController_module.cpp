@@ -1,5 +1,4 @@
-#pragma once
-#include <Tetragrama/Controllers/ICameraController.h>
+import Tetragrama.Controllers.ICameraController;
 #include <ZEngine/Core/Memory/Allocator.h>
 #include <ZEngine/Rendering/Cameras/PerspectiveCamera.h>
 #include <ZEngine/Windows/Inputs/IInputEventCallback.h>

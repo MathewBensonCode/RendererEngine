@@ -1,5 +1,5 @@
-#include <Tetragrama/Managers/AssetManager.h>
-#include <Tetragrama/Importers/IAssetImporter.h>
+import Tetragrama.Managers.AssetManager;
+import Tetragrama.Importers.IAssetImporter;
 #include <ZEngine/Helpers/MemoryOperations.h>
 #include <ZEngine/Helpers/ThreadPool.h>
 

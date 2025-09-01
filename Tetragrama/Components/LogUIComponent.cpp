@@ -1,6 +1,6 @@
 #include <ZEngine/Helpers/MemoryOperations.h>
-#include <Tetragrama/Components/LogUIComponent.h>
-#include <Tetragrama/Helpers/SearchPatternAlgorithm.h>
+import Tetragrama.Components.LogUIComponent;
+import Tetragrama.Helpers.SearchPatternAlgorithm;
 #include <ZEngine/Core/Containers/Array.h>
 #include <imgui.h>
 

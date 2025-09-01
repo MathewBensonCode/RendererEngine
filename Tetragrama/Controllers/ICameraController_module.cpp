@@ -1,8 +1,6 @@
-#pragma once
-#include <Tetragrama/Controllers/CameraControllerTypeEnums.h>
-#include <Tetragrama/Controllers/IController.h>
-#include <ZEngine/Rendering/Cameras/Camera.h>
-#include <ZEngine/Windows/CoreWindow.h>
+import Tetragrama.Controllers.CameraControllerTypeEnums;
+import Tetragrama.Controllers.IController;
+import ZEngine;
 
 namespace Tetragrama::Controllers
 {

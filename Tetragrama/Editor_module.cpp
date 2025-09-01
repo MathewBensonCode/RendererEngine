@@ -1,10 +1,9 @@
-#pragma once
-#include <Tetragrama/Managers/AssetManager.h>
-#include <Tetragrama/Controllers/EditorCameraController.h>
-#include <Tetragrama/EditorScene.h>
-#include <Tetragrama/Helpers/NodeHierarchyHelper.h>
-#include <Tetragrama/Layers/ImguiLayer.h>
-#include <Tetragrama/Layers/RenderLayer.h>
+import Tetragrama.Managers.AssetManager;
+import Tetragrama.Controllers.EditorCameraController;
+import Tetragrama.EditorScene;
+import Tetragrama.Helpers.NodeHierarchyHelper;
+import Tetragrama.Layers.ImguiLayer;
+import Tetragrama.Layers.RenderLayer;
 #include <ZEngine/Core/Containers/Array.h>
 #include <ZEngine/Core/Containers/Strings.h>
 #include <ZEngine/Core/Memory/Allocator.h>

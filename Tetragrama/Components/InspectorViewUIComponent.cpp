@@ -1,5 +1,5 @@
-#include <Tetragrama/Components/InspectorViewUIComponent.h>
-#include <Tetragrama/Helpers/UIComponentDrawerHelper.h>
+import Tetragrama.Components.InspectorViewUIComponent;
+import Tetragrama.Helpers.UIComponentDrawerHelper;
 #include <ZEngine/Core/Coroutine.h>
 #include <ZEngine/Helpers/MeshHelper.h>
 #include <ZEngine/Rendering/Components/GeometryComponent.h>

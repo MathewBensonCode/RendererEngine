@@ -2,7 +2,7 @@
 #include <ZEngine/Core/Memory/MemoryManager.h>
 #include <ZEngine/EngineConfiguration.h>
 #include <ZEngine/Logging/Logger.h>
-#include <Tetragrama/Editor.h>
+import Tetragrama.Editor;
 
 #ifdef ZENGINE_PLATFORM
 

@@ -1,4 +1,4 @@
-#include <Tetragrama/Helpers/SearchPatternAlgorithm.h>
+import Tetragrama.Helpers.SearchPatternAlgorithm;
 #include <ZEngine/Helpers/MemoryOperations.h>
 
 using namespace ZEngine::Core::Memory;

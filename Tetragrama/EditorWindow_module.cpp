@@ -1,4 +1,3 @@
-#pragma once
 #include <GLFW/glfw3.h>
 #include <ZEngine/Core/Memory/Allocator.h>
 #include <ZEngine/Helpers/IntrusivePtr.h>

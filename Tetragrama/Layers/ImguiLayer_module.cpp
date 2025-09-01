@@ -1,6 +1,5 @@
-#pragma once
-#include <Tetragrama/Helpers/NodeHierarchyHelper.h>
-#include <Tetragrama/Components/UIComponent.h>
+import Tetragrama.Helpers.NodeHierarchyHelper;
+import Tetragrama.Components.UIComponent;
 #include <ZEngine/Core/Containers/Array.h>
 #include <ZEngine/Core/Containers/HashMap.h>
 #include <ZEngine/Core/Containers/Strings.h>

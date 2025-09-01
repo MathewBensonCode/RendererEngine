@@ -1,6 +1,5 @@
-#pragma once
-#include <Tetragrama/Importers/AssetTypes.h>
-#include <Tetragrama/Importers/IAssetImporter.h>
+import Tetragrama.Importers.AssetTypes;
+import Tetragrama.Importers.IAssetImporter;
 #include <assimp/Importer.hpp>
 #include <assimp/ProgressHandler.hpp>
 #include <assimp/scene.h>

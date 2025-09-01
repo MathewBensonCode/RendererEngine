@@ -1,7 +1,6 @@
-#pragma once
-#include <Tetragrama/Controllers/EditorCameraController.h>
-#include <Tetragrama/Messengers/Message.h>
-#include <Tetragrama/Components/UIComponent.h>
+import Tetragrama.Controllers.EditorCameraController;
+import Tetragrama.Messengers.Message;
+import Tetragrama.Components.UIComponent;
 #include <imgui.h>
 #include <future>
 #include <mutex>

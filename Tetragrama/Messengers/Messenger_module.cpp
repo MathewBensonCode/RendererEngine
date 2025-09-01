@@ -1,6 +1,5 @@
-#pragma once
-#include <Tetragrama/Components/UIComponent.h>
-#include <Tetragrama/Messengers/Message.h>
+import Tetragrama.Components.UIComponent;
+import Tetragrama.Messengers.Message;
 #include <ZEngine/Core/Coroutine.h>
 #include <ZEngine/ZEngineDef.h>
 #include <functional>
