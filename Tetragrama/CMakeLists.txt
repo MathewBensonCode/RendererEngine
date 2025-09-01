@@ -13,7 +13,50 @@ target_include_directories (Tetragrama
     ${CMAKE_CURRENT_SOURCE_DIR}/..
 )
 
-target_sources(Tetragrama PRIVATE 
+target_sources(Tetragrama 
+    PUBLIC
+    Controllers/EditorCameraController_module.cpp
+    Controllers/ICameraController_module.cpp
+    Controllers/CameraControllerTypeEnums_module.cpp
+    Controllers/PerspectiveCameraController_module.cpp
+    Controllers/IController_module.cpp
+    Importers/AssimpImporter_module.cpp
+    Importers/AssetTypes_module.cpp
+    Importers/IAssetImporter_module.cpp
+    EditorScene_module.cpp
+    Helpers/NodeHierarchyHelper_module.cpp
+    Helpers/SearchPatternAlgorithm_module.cpp
+    Helpers/UIComponentDrawerHelper_module.cpp
+    Helpers/SerializerCommonHelper_module.cpp
+    Helpers/UIDispatcher_module.cpp
+    Managers/AssetManager_module.cpp
+    Messengers/Message_module.cpp
+    Messengers/Messenger_module.cpp
+    EditorWindow_module.cpp
+    Serializers/Serializer_module.cpp
+    Serializers/EditorSceneSerializer_module.cpp
+    Editor_module.cpp
+    Components/HierarchyViewUIComponent_module.cpp
+    Components/InspectorViewUIComponent_module.cpp
+    Components/LogUIComponent_module.cpp
+    Components/DockspaceUIComponent_module.cpp
+    Components/SceneViewportUIComponent_module.cpp
+    Components/AboutUIComponent_module.cpp
+    Components/ProjectViewUIComponent_module.cpp
+    Components/UIComponent_module.cpp
+    Components/DemoUIComponent_module.cpp
+    Components/Events/SceneViewportUnfocusedEvent_module.cpp
+    Components/Events/UIComponentEvent_module.cpp
+    Components/Events/SceneTextureAvailableEvent_module.cpp
+    Components/Events/SceneViewportResizedEvent_module.cpp
+    Components/Events/SceneViewportFocusedEvent_module.cpp
+    Layers/RenderLayer_module.cpp
+    Layers/ImguiLayer_module.cpp
+    Inputs/Keyboard_module.cpp
+    Inputs/Mouse_module.cpp
+    MessageToken_module.cpp
+
+    PRIVATE 
     Controllers/EditorCameraController.cpp
     Controllers/PerspectiveCameraController.cpp
     EntryPoint.cpp

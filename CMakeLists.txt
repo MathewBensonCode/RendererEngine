@@ -62,7 +62,7 @@ add_subdirectory(ZEngine)
 
 # Editor is here
 #
-#add_subdirectory(Tetragrama)
+add_subdirectory(Tetragrama)
 
 # Launcher is here
 #
