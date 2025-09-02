@@ -1,10 +1,13 @@
-import Tetragrama.Components.Events.SceneViewportFocusedEvent;
-import Tetragrama.Components.Events.SceneViewportResizedEvent;
-import Tetragrama.Components.Events.SceneViewportUnfocusedEvent;
-import Tetragrama.Messengers.Message;
-import Tetragrama.Components.UIComponent;
+module;
 #include <imgui.h>
 #include <vulkan/vulkan.h>
+
+export module Tetragrama.Components.SceneViewportUIComponent;
+
+import :UIComponent;
+import :Events.SceneViewportResizedEvent;
+import :Events.SceneViewportUnfocusedEvent;
+import Tetragrama.Messengers;
 
 namespace Tetragrama::Components
 {

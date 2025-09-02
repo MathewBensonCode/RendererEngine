@@ -1,9 +1,7 @@
-#include <GLFW/glfw3.h>
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <ZEngine/Windows/CoreWindow.h>
-#include <ZEngine/Windows/WindowConfiguration.h>
-#include <ZEngine/ZEngineDef.h>
+export module Tetragrama.EditorWindow;
+
+import ZEngine;
+import std;
 
 namespace Tetragrama
 {

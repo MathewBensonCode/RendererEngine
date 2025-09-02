@@ -1,7 +1,9 @@
-import Tetragrama.Helpers.SerializerCommonHelper;
-import Tetragrama.Importers.IAssetImporter;
-#include <ZEngine/Core/Containers/Array.h>
-#include <fstream>
+module Tetragrama.Helpers;
+
+import :SerializerCommonHelper;
+import :IAssetImporter;
+import ZEngine;
+import std;
 
 using namespace uuids;
 using namespace ZEngine::Helpers;

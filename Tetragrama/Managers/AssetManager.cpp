@@ -1,7 +1,8 @@
-import Tetragrama.Managers.AssetManager;
-import Tetragrama.Importers.IAssetImporter;
-#include <ZEngine/Helpers/MemoryOperations.h>
-#include <ZEngine/Helpers/ThreadPool.h>
+module Tetragrama.Managers;
+
+import :AssetManager;
+import Tetragrama.Importers;
+import ZEngine;
 
 using namespace ZEngine::Core::Containers;
 using namespace Tetragrama::Importers;

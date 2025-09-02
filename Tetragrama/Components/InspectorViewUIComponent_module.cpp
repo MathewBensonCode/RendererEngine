@@ -1,10 +1,12 @@
-import Tetragrama.Messengers.Message;
-import Tetragrama.Components.UIComponent;
-#include <ZEngine/ZEngineDef.h>
+module;
 #include <imgui.h>
-#include <future>
-#include <mutex>
-#include <string>
+
+export module Tetragrama.Components:InspectorViewUIComponent;
+
+import std;
+import ZEngine;
+import :UIComponent;
+import Tetragrama.Messengers;
 
 namespace Tetragrama::Components
 {

@@ -1,9 +1,10 @@
+module Tetragrama.Layers;
+
 import Tetragrama.Editor;
 import Tetragrama.MessageToken;
 import Tetragrama.Messengers.Messenger;
-import Tetragrama.Layers.RenderLayer;
-#include <ZEngine/Core/CoreEvent.h>
-#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
+import ZEngine;
+
 using namespace Tetragrama::Controllers;
 
 using namespace ZEngine;

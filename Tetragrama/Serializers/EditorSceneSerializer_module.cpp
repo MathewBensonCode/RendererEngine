@@ -1,6 +1,7 @@
-import Tetragrama.Editor;
-import Tetragrama.Importers.IAssetImporter;
-import Tetragrama.Serializers.Serializer;
+export module Tetragrama.Serializers:EditorSceneSerializer;
+
+import :Serializer;
+import Tetragrama.Importers;
 
 namespace Tetragrama::Serializers
 {

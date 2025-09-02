@@ -1,16 +1,13 @@
-import Tetragrama.Layers.ImguiLayer;
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/IRenderable.h>
-#include <ZEngine/Core/IUpdatable.h>
+export module Tetragrama.Components:UIComponent;
 
-namespace Tetragrama::Layers
-{
-    class ImguiLayer;
-}
+import std;
+import Tetragrama.Layers;
+import ZEngine;
+
 
 namespace Tetragrama::Components
 {
-    struct UIComponent : public ZEngine::Core::IRenderable, public ZEngine::Core::IUpdatable
+    struct UIComponent : public ZEngine::Windows::IRenderable, public ZEngine::Rendering::Windows::IUpdatable
     {
         UIComponent()          = default;
         virtual ~UIComponent() = default;
@@ -26,7 +23,7 @@ namespace Tetragrama::Components
         bool                                                   IsVisible     = true;
         bool                                                   CanBeClosed   = false;
         const char*                                            Name          = "";
-        uint32_t                                               ChildrenCount = 0;
+        std::uint32_t                                               ChildrenCount = 0;
         Tetragrama::Layers::ImguiLayer*                        ParentLayer   = nullptr;
         ZEngine::Core::Containers::Array<ZRawPtr(UIComponent)> Children      = {};
     };

@@ -1,8 +1,13 @@
-#include <ZEngine/Helpers/MemoryOperations.h>
-import Tetragrama.Components.LogUIComponent;
-import Tetragrama.Helpers.SearchPatternAlgorithm;
-#include <ZEngine/Core/Containers/Array.h>
+module;
 #include <imgui.h>
+
+module Tetragrama.Components;
+
+import std;
+import ZEngine;
+import :LogUIComponent;
+import Tetragrama.Helpers;
+import ZEngine;
 
 using namespace ZEngine::Logging;
 using namespace ZEngine::Helpers;

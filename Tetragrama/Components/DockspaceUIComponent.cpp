@@ -1,14 +1,18 @@
-import Tetragrama.Components.DockspaceUIComponent;
+module;
+#include <fmt/format.h>
+#include <imgui.h>
+#include <ImGuizmo.h>
+
+module Tetragrama.Components;
+
+import :DockspaceUIComponent;
 import Tetragrama.Editor;
 import Tetragrama.Helpers.UIComponentDrawerHelper;
 import Tetragrama.Helpers.UIDispatcher;
 import Tetragrama.Importers.AssimpImporter;
 import Tetragrama.MessageToken;
 import Tetragrama.Messengers.Messenger;
-#include <ZEngine/Logging/LoggerDefinition.h>
-#include <fmt/format.h>
-#include <imgui.h>
-#include <ImGuizmo.h>
+import ZEngine;
 
 namespace fs = std::filesystem;
 

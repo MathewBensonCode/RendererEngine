@@ -1,13 +1,11 @@
-import Tetragrama.Components.InspectorViewUIComponent;
-import Tetragrama.Helpers.UIComponentDrawerHelper;
-#include <ZEngine/Core/Coroutine.h>
-#include <ZEngine/Helpers/MeshHelper.h>
-#include <ZEngine/Rendering/Components/GeometryComponent.h>
-#include <ZEngine/Rendering/Components/LightComponent.h>
-#include <ZEngine/Rendering/Components/MaterialComponent.h>
-#include <ZEngine/Rendering/Textures/Texture2D.h>
-
+module;
 #include <glm/gtx/matrix_decompose.hpp>
+
+module Tetragrama.Components;
+
+import :InspectorViewUIComponent;
+import Tetragrama.Helpers;
+import ZEngine;
 
 using namespace ZEngine::Rendering::Materials;
 using namespace ZEngine::Rendering::Textures;

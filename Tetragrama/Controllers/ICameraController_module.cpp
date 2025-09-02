@@ -1,5 +1,6 @@
-import Tetragrama.Controllers.CameraControllerTypeEnums;
-import Tetragrama.Controllers.IController;
+export module Tetragrama.Controllers:ICameraController;
+
+import :IController;
 import ZEngine;
 
 namespace Tetragrama::Controllers

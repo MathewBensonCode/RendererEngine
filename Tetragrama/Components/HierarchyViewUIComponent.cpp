@@ -1,18 +1,22 @@
-import Tetragrama.Editor;
-import Tetragrama.Components.HierarchyViewUIComponent;
+module;
 #include <ImGuizmo.h>
-import Tetragrama.Inputs.Keyboard;
-import Tetragrama.Inputs.Mouse;
-import Tetragrama.MessageToken;
-import Tetragrama.Messengers.Messenger;
-#include <ZEngine/Engine.h>
-#include <ZEngine/Rendering/Scenes/GraphicScene.h>
-#include <ZEngine/Windows/Inputs/IDevice.h>
-#include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui.h>
 #include <stack>
+
+module Tetragrama.Components;
+
+import :HierarchyViewUIComponent;
+import Tetragrama.Editor;
+import Tetragrama.Inputs.Keyboard;
+import Tetragrama.Inputs.Mouse;
+import Tetragrama.MessageToken;
+import Tetragrama.Messengers.Messenger;
+import ZEngine.Engine;
+import ZEngine.Rendering.Scenes.GraphicScene;
+import ZEngine.Windows.Inputs.IDevice;
+import ZEngine.Windows.Inputs.KeyCodeDefinition;
 
 using namespace ZEngine;
 using namespace ZEngine::Helpers;

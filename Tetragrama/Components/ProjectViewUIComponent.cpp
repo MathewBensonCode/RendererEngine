@@ -1,9 +1,13 @@
+module;
+#include <imgui.h>
+
+module Tetragrama.Components;
+
+import std;
 import Tetragrama.Editor;
 import Tetragrama.Helpers.SearchPatternAlgorithm;
-import Tetragrama.Components.ProjectViewUIComponent;
-#include <ZEngine/Helpers/MemoryOperations.h>
-#include <imgui.h>
-#include <fstream>
+import :ProjectViewUIComponent;
+import ZEngine;
 
 using namespace ZEngine::Helpers;
 

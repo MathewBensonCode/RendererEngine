@@ -1,14 +1,13 @@
-import Tetragrama.Controllers.PerspectiveCameraController;
-#include <ZEngine/Windows/Inputs/IDevice.h>
-#include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
-import Tetragrama.Inputs.Keyboard;
-import Tetragrama.Inputs.Mouse;
-#include <ZEngine/Core/EventDispatcher.h>
+module Tetragrama.Controllers;
+
+import :PerspectiveCameraController;
+import Tetragrama.Inputs;
+import ZEngine;
 
 using namespace ZEngine;
 using namespace ZEngine::Helpers;
-using namespace ZEngine::Windows::Inputs;
-using namespace ZEngine::Windows::Events;
+using namespace ZEngine::Rendering::Windows::Inputs;
+using namespace ZEngine::Rendering::Windows::Events;
 using namespace Tetragrama::Inputs;
 
 namespace Tetragrama::Controllers

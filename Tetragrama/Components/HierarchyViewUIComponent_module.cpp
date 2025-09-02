@@ -1,10 +1,11 @@
-import Tetragrama.Controllers.EditorCameraController;
-import Tetragrama.Messengers.Message;
-import Tetragrama.Components.UIComponent;
+module;
 #include <imgui.h>
-#include <future>
-#include <mutex>
-#include <string>
+
+export module Tetragrama.Components:HierarchyViewUIComponent;
+
+import std;
+import Tetragrama.Messengers;
+import :UIComponent;
 
 namespace Tetragrama::Components
 {

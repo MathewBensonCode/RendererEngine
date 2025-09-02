@@ -1,4 +1,6 @@
-#include <ZEngine/Core/CoreEvent.h>
+export module Tetragrama.Components:Events.UIComponentEvent;
+
+import ZEngine;
 
 namespace Tetragrama::Components::Event
 {

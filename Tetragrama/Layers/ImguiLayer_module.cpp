@@ -1,16 +1,7 @@
-import Tetragrama.Helpers.NodeHierarchyHelper;
-import Tetragrama.Components.UIComponent;
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Containers/HashMap.h>
-#include <ZEngine/Core/Containers/Strings.h>
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Windows/Inputs/IInputEventCallback.h>
-#include <ZEngine/Windows/Layers/Layer.h>
+export module Tetragrama.Layers:ImguiLayer;
 
-namespace Tetragrama::Components
-{
-    struct UIComponent;
-}
+import Tetragrama.Components;
+import ZEngine;
 
 namespace Tetragrama::Layers
 {

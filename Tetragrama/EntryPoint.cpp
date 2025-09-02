@@ -1,7 +1,5 @@
 #include <CLI/CLI.hpp>
-#include <ZEngine/Core/Memory/MemoryManager.h>
-#include <ZEngine/EngineConfiguration.h>
-#include <ZEngine/Logging/Logger.h>
+import ZEngine;
 import Tetragrama.Editor;
 
 #ifdef ZENGINE_PLATFORM

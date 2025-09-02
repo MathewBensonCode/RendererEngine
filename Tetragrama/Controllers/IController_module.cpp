@@ -1,8 +1,10 @@
+export module Tetragrama.Controllers:IController;
+
 import ZEngine;
 
 namespace Tetragrama::Controllers
 {
-    struct IController : public ZEngine::Core::IUpdatable, public ZEngine::Core::IEventable
+    struct IController : public ZEngine::Rendering::Windows::IUpdatable, public ZEngine::Rendering::IEventable
     {
         IController()  = default;
         ~IController() = default;

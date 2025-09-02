@@ -1,3 +1,4 @@
+export module Tetragrama.Helpers.NodeHierarchyHelper;
 
 namespace Tetragrama::Helpers
 {

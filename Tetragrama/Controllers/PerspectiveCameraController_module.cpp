@@ -1,8 +1,11 @@
-import Tetragrama.Controllers.ICameraController;
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Rendering/Cameras/PerspectiveCamera.h>
-#include <ZEngine/Windows/Inputs/IInputEventCallback.h>
-#include <mutex>
+module;
+#include <glm/glm.hpp>
+
+export module Tetragrama.Controllers:PerspectiveCameraController;
+
+import :ICameraController;
+import std;
+import ZEngine;
 
 namespace Tetragrama::Controllers
 {

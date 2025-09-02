@@ -1,12 +1,13 @@
+module;
+#include <ImGuizmo/ImGuizmo.h>
+
+module Tetragrama.Components;
+
+import :SceneViewportUIComponent;
 import Tetragrama.MessageToken;
-import Tetragrama.Messengers.Messenger;
-import Tetragrama.Components.SceneViewportUIComponent;
-#include <ZEngine/Logging/LoggerDefinition.h>
-#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
-#include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
-/**/
+import Tetragrama.Messengers;
 import Tetragrama.Editor;
-#include <ImGuizmo.h>
+import ZEngine;
 
 using namespace Tetragrama::Components::Event;
 using namespace ZEngine::Rendering::Renderers;

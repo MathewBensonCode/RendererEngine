@@ -1,4 +1,7 @@
-#include <ZEngine/Helpers/ThreadPool.h>
+export module Tetragrama.Helpers:UIDispatcher;
+
+import std;
+import ZEngine;
 
 namespace Tetragrama::Helpers
 {

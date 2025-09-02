@@ -1,6 +1,4 @@
-import std;
-import ZEngine;
-
+module;
 #define REPORT_PROGRESS(ctx, value)          \
     {                                        \
         if (m_progress_callback)             \
@@ -16,6 +14,11 @@ import ZEngine;
             m_log_callback(ctx, msg); \
         }                             \
     }
+
+export module Tetragrama.Serializers:Serializer;
+
+import ZEngine;
+import std;
 
 namespace Tetragrama::Serializers
 {

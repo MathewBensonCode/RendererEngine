@@ -1,3 +1,5 @@
+export module Tetragrama.Helpers:SearchPatternAlgorithm;
+
 import ZEngine;
 
 namespace Tetragrama::Helpers

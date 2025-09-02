@@ -1,11 +1,4 @@
-import Tetragrama.EditorWindow;
-#include <ZEngine/Core/Coroutine.h>
-#include <ZEngine/Engine.h>
-#include <ZEngine/Event/EngineClosedEvent.h>
-#include <ZEngine/Logging/LoggerDefinition.h>
-#include <ZEngine/Windows/Inputs/IDevice.h>
-#include <ZEngine/Windows/Inputs/KeyCode.h>
-
+module;
 #ifdef _WIN32
 #define GLFW_EXPOSE_NATIVE_WIN32
 
@@ -22,6 +15,10 @@ using namespace winrt::Windows::Storage::Pickers;
 
 #endif
 #include <GLFW/glfw3native.h>
+
+module Tetragrama.EditorWindow;
+
+import ZEngine;
 
 using namespace ZEngine;
 using namespace ZEngine::Windows::Events;

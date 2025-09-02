@@ -1,6 +1,7 @@
-#include <GLFW/glfw3.h>
-#include <ZEngine/Windows/Inputs/IDevice.h>
-#include <array>
+export module Tetragrama.Inputs:Mouse;
+
+import ZEngine;
+import std;
 
 namespace Tetragrama::Inputs
 {

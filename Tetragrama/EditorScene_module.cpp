@@ -1,18 +1,12 @@
-import Tetragrama.Helpers.NodeHierarchyHelper;
-import Tetragrama.Importers.IAssetImporter;
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Containers/HashMap.h>
-#include <ZEngine/Core/Containers/Strings.h>
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Rendering/Scenes/GraphicScene.h>
-#include <ZEngine/ZEngineDef.h>
+module;
 #include <glm/glm.hpp>
 #include <uuid.h>
 
-namespace Tetragrama::Serializers
-{
-    struct EditorSceneSerializer;
-} // namespace Tetragrama::Serializers
+export module Tetragrama.EditorScene;
+
+import Tetragrama.Importers;
+import Tetragrama.Serializers;
+import ZEngine;
 
 namespace Tetragrama
 {

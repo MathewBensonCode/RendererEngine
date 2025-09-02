@@ -1,8 +1,11 @@
-import Tetragrama.Importers.IAssetImporter;
-import Tetragrama.Messengers.Message;
-import Tetragrama.Serializers.EditorSceneSerializer;
-import Tetragrama.Components.UIComponent;
+module;
 #include <imgui.h>
+
+export module Tetragrama.Components:DockspaceUIComponent;
+
+import :UIComponent;
+import Tetragrama.Messengers;
+import Tetragrama.Serializers;
 
 namespace Tetragrama::Components
 {

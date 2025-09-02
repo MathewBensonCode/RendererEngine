@@ -1,3 +1,4 @@
+module Tetragrama.Controllers:CameraControllerTypeEnums;
 
 namespace Tetragrama::Controllers
 {

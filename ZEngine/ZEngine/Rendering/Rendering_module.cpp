@@ -2,7 +2,6 @@ export module ZEngine.Rendering;
 
 export import :Scenes.GraphicScene;
 
-export import :Windows.IUpdatable;
 export import :IRenderable;
 export import :Meshes.Mesh;
 export import :Meshes.MeshHelper;
@@ -14,6 +13,9 @@ export import :Shaders.Compilers.ShaderCompiler;
 
 export import :Windows.WindowConfiguration;
 export import :Windows.CoreWindow;
+export import :Windows.IUpdatable;
+export import :Windows.IEventable;
+export import :Windows.Inputs.IInputEventCallback;
 
 export import :Buffers.FrameBuffer;
 export import :Buffers.Bitmap;

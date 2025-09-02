@@ -1,18 +1,14 @@
-import Tetragrama.Components.DemoUIComponent;
-import Tetragrama.Components.DockspaceUIComponent;
-import Tetragrama.Components.HierarchyViewUIComponent;
-import Tetragrama.Components.InspectorViewUIComponent;
-import Tetragrama.Components.LogUIComponent;
-import Tetragrama.Components.ProjectViewUIComponent;
-import Tetragrama.Components.SceneViewportUIComponent;
-import Tetragrama.Layers.ImguiLayer;
-import Tetragrama.MessageToken;
-import Tetragrama.Messengers.Messenger;
-#include <ZEngine/Rendering/Renderers/GraphicRenderer.h>
-#include <ZEngine/Rendering/Renderers/ImGUIRenderer.h>
-#include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
+module;
 #include <fmt/format.h>
 #include <imgui.h>
+
+module Tetragrama.Layers;
+
+import :ImguiLayer;
+import Tetragrama.Components;
+import Tetragrama.MessageToken;
+import Tetragrama.Messengers;
+import ZEngine;
 
 using namespace ZEngine;
 using namespace ZEngine::Rendering::Renderers;

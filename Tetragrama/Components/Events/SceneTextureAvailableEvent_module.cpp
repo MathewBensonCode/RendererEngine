@@ -1,4 +1,4 @@
-import Tetragrama.Components.Events.UIComponentEvent;
+export module Tetragrama.Components:Events.SceneTextureAvailableEvent;
 
 namespace Tetragrama::Components::Event
 {

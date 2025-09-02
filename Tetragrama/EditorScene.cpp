@@ -1,6 +1,6 @@
 import Tetragrama.EditorScene;
-import Tetragrama.Managers.AssetManager;
-#include <stack>
+import Tetragrama.Managers;
+import std;
 
 namespace Tetragrama
 {

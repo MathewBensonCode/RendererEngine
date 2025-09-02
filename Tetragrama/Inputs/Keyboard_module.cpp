@@ -1,5 +1,9 @@
-#include <GLFW/glfw3.h>
-#include <ZEngine/Windows/Inputs/IDevice.h>
+module;
+struct GLFWwindow;
+
+export module Tetragrama.Inputs:Keyboard;
+
+import ZEngine;
 
 namespace Tetragrama::Inputs
 {

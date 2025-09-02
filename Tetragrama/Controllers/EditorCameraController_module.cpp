@@ -1,4 +1,6 @@
-import Tetragrama.Controllers.PerspectiveCameraController;
+export module Tetragrama.Controllers:EditorCameraController;
+
+import :PerspectiveCameraController;
 import ZEngine;
 
 namespace Tetragrama::Controllers

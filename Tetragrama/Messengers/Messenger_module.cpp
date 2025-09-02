@@ -1,12 +1,8 @@
-import Tetragrama.Components.UIComponent;
-import Tetragrama.Messengers.Message;
-#include <ZEngine/Core/Coroutine.h>
-#include <ZEngine/ZEngineDef.h>
-#include <functional>
-#include <mutex>
-#include <string_view>
-#include <unordered_map>
-#include <vector>
+export module Tetragrama.Messengers:Messenger;
+
+import :Message;
+import ZEngine;
+import std;
 
 namespace Tetragrama::Messengers
 {

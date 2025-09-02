@@ -1,4 +1,6 @@
-#include <array>
+export module Tetragrama.Messengers:Message;
+
+import std;
 
 namespace Tetragrama::Messengers
 {

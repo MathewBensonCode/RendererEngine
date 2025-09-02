@@ -1,7 +1,8 @@
-import Tetragrama.Components.UIComponent;
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Logging/Logger.h>
-#include <atomic>
+export module Tetragrama.Components:LogUIComponent;
+
+import :UIComponent;
+import ZEngine;
+import std;
 
 namespace Tetragrama::Components
 {

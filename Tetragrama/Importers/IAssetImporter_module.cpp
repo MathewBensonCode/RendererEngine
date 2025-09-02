@@ -1,21 +1,18 @@
-import Tetragrama.Importers.AssetTypes;
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <ZEngine/Rendering/Meshes/Mesh.h>
-#include <ZEngine/Rendering/Scenes/GraphicScene.h>
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Containers/Strings.h>
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <atomic>
-#include <future>
-#include <mutex>
+module;
 
-#define REPORT_LOG(ctx, msg)          \
-    {                                 \
-        if (m_log_callback)           \
-        {                             \
-            m_log_callback(ctx, msg); \
-        }                             \
+export void ::REPORT_LOG(ctx, msg)
+{
+    if (m_log_callback)
+    {
+        m_log_callback(ctx, msg);
     }
+}
+
+module export module Tetragrama.Importers:IAssetImporter;
+
+import ZEngine;
+import std;
+
 
 namespace Tetragrama::Importers
 {

@@ -86,6 +86,7 @@ FetchContent_Declare(
   GIT_TAG main
   GIT_SHALLOW TRUE
   SOURCE_DIR "${FETCHCONTENT_BASE_DIR}/spirv_cross_core"
+  FIND_PACKAGE_ARGS 
   )
 
 FetchContent_Declare(
@@ -236,7 +237,10 @@ target_sources(imguizmo
     PRIVATE ${FETCHCONTENT_BASE_DIR}/ImGuizmo/ImGuizmo.cpp)
 
 target_include_directories(imguizmo
-                           PUBLIC ${FETCHCONTENT_BASE_DIR}/imguizmo-src)
+                           PUBLIC 
+                           ${FETCHCONTENT_BASE_DIR}
+                           ${FETCHCONTENT_BASE_DIR}/ImGuizmo
+                       )
 
 target_link_libraries(imguizmo PUBLIC imgui)
 

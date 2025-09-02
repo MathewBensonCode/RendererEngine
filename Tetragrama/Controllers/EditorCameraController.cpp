@@ -1,11 +1,14 @@
-import Tetragrama.Controllers.EditorCameraController;
+module Tetragrama.Controllers;
+
+import :EditorCameraController;
+import ZEngine;
 
 using namespace ZEngine::Rendering::Cameras;
 using namespace ZEngine::Helpers;
 
 namespace Tetragrama::Controllers
 {
-    void EditorCameraController::Initialize(ZEngine::Core::Memory::ArenaAllocator* arena, ZEngine::Windows::CoreWindow* window, double distance, float yaw_degree, float pitch_degree)
+    void EditorCameraController::Initialize(ZEngine::Core::Memory::ArenaAllocator* arena, ZEngine::Rendering::Windows::CoreWindow* window, double distance, float yaw_degree, float pitch_degree)
     {
         m_position           = {0.0f, 0.0f, 1.5f};
         m_process_event      = true;

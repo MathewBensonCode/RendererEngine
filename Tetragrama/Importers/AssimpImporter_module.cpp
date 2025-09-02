@@ -1,9 +1,13 @@
-import Tetragrama.Importers.AssetTypes;
-import Tetragrama.Importers.IAssetImporter;
+module;
 #include <assimp/Importer.hpp>
 #include <assimp/ProgressHandler.hpp>
 #include <assimp/scene.h>
 #include <uuid.h>
+
+export module Tetragrama.Importers:AssimpImporter;
+
+import :IAssetImporter;
+import ZEngine;
 
 namespace Tetragrama::Importers
 {

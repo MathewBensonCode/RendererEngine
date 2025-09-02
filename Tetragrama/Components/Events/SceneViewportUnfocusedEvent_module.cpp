@@ -1,4 +1,4 @@
-import Tetragrama.Components.Events.UIComponentEvent;
+export module Tetragrama.Components.Events.SceneViewportUnfocusedEvent;
 
 namespace Tetragrama::Components::Event
 {

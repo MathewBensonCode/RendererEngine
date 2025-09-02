@@ -1,12 +1,12 @@
-import Tetragrama.Importers.AssetTypes;
+export module Tetragrama.Managers:AssetManager;
+
 import Tetragrama.Importers.IAssetImporter;
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Containers/HashMap.h>
-#include <ZEngine/Core/Containers/Strings.h>
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Helpers/ThreadSafeQueue.h>
-#include <condition_variable>
-#include <mutex>
+import ZEngine.Core.Containers.Array;
+import ZEngine.Core.Containers.HashMap;
+import ZEngine.Core.Containers.Strings;
+import ZEngine.Core.Memory.Allocator;
+import ZEngine.Helpers.ThreadSafeQueue;
+import std;
 
 namespace Tetragrama::Managers
 {

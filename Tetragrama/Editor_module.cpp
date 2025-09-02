@@ -1,20 +1,11 @@
-import Tetragrama.Managers.AssetManager;
-import Tetragrama.Controllers.EditorCameraController;
-import Tetragrama.EditorScene;
-import Tetragrama.Helpers.NodeHierarchyHelper;
-import Tetragrama.Layers.ImguiLayer;
-import Tetragrama.Layers.RenderLayer;
-#include <ZEngine/Core/Containers/Array.h>
-#include <ZEngine/Core/Containers/Strings.h>
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <ZEngine/Engine.h>
-#include <ZEngine/Helpers/IntrusivePtr.h>
-#include <ZEngine/Windows/CoreWindow.h>
+export module Tetragrama.Editor;
 
-namespace Tetragrama::Serializers
-{
-    struct EditorSceneSerializer;
-} // namespace Tetragrama::Serializers
+import Tetragrama.Controllers;
+import Tetragrama.EditorScene;
+import Tetragrama.Helpers;
+import Tetragrama.Layers;
+import Tetragrama.Serializers;
+import ZEngine;
 
 namespace Tetragrama
 {

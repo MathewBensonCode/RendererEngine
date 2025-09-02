@@ -1,6 +1,10 @@
-#include <ZEngine/Maths/Math.h>
-#include <ZEngine/Rendering/Scenes/GraphicScene.h>
+module;
 #include <imgui_internal.h>
+
+export module Tetragrama.Helpers:UIComponentDrawerHelper;
+
+import std;
+import ZEngine;
 
 namespace Tetragrama::Helpers
 {

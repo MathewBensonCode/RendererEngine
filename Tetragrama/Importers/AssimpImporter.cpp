@@ -1,12 +1,12 @@
-import Tetragrama.Importers.AssimpImporter;
-#include <ZEngine/Core/Coroutine.h>
-#include <ZEngine/Helpers/MemoryOperations.h>
-#include <ZEngine/Helpers/ThreadPool.h>
+module;
 #include <assimp/postprocess.h>
 #include <fmt/format.h>
-#include <filesystem>
-#include <random>
-#include <fstream>
+
+module Tetragrama.Importers;
+
+import :AssimpImporter;
+import ZEngine;
+import std;
 
 using namespace ZEngine::Helpers;
 using namespace Tetragrama::Helpers;

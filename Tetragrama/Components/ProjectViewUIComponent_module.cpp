@@ -1,6 +1,7 @@
-import Tetragrama.Components.UIComponent;
-#include <ZEngine/Core/Memory/Allocator.h>
-#include <filesystem>
+export module Tetragrama.Components:ProjectViewUIComponent;
+
+import std;
+import ZEngine;
 
 namespace Tetragrama::Components
 {

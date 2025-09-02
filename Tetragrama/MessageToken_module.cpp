@@ -1,4 +1,4 @@
-#include <string_view>
+export module Tetragrama.MessageToken;
 
 namespace Tetragrama
 {

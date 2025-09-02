@@ -1,7 +1,4 @@
-import Tetragrama.Helpers.SerializerCommonHelper;
-#include <ZEngine/Helpers/MemoryOperations.h>
-
-using namespace ZEngine::Core::Containers;
+module Tetragrama.Helpers:SerializerCommonHelper;
 
 namespace Tetragrama::Helpers
 {

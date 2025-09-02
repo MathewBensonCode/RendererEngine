@@ -1,5 +1,9 @@
-import Tetragrama.Components.UIComponent;
+module;
 #include <imgui.h>
+
+export module Tetragrama.Components:DemoUIComponent;
+
+import ZEngine;
 
 namespace Tetragrama::Components
 {
