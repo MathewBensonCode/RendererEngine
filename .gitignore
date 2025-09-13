@@ -428,3 +428,6 @@ CMakeSettings.json
 
 # MacOS files
 .DS_Store
+
+# Vcpkg Install Directory
+vcpkg_installed/

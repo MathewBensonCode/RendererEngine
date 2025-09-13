@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ master, develop, arena-integration, compile_on_linux_fetchcontent ]
+    branches: [ master, develop, arena-integration, vcpkg_binary_cache ]
   pull_request:
     branches: [ master, develop, arena-integration ]
 

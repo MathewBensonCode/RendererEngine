@@ -24,10 +24,7 @@
                 "SPDLOG_FMT_EXTERNAL": "ON",
                 "SPDLOG_FMT_EXTERNAL_HO": "OFF",
 
-                "GLFW_BUILD_DOCS": "OFF",
-                "GLFW_BUILD_EXAMPLES": "OFF",
-
-                "ASSIMP_BUILD_TESTS": "OFF",
+                "GLFW_BUILD_DOCS": "OFF", "GLFW_BUILD_EXAMPLES": "OFF", "ASSIMP_BUILD_TESTS": "OFF",
                 "ASSIMP_INSTALL": "OFF",
                 "ASSIMP_BUILD_SAMPLES": "OFF",
                 "ASSIMP_BUILD_ASSIMP_TOOLS": "OFF",
@@ -52,8 +49,7 @@
                 "GLSLANG_ENABLE_INSTALL": "ON",
                 "ALLOW_EXTERNAL_SPIRV_TOOLS": "ON",
 
-                "SPIRV_CROSS_ENABLE_TESTS": "OFF",
-                "CMAKE_POLICY_VERSION_MINIMUM": "3.5"
+                "SPIRV_CROSS_ENABLE_TESTS": "OFF"
             }
         },
         {

@@ -1,0 +1,21 @@
+{
+    "dependencies": [
+        "fmt",
+        "spirv-tools",
+        "spirv-headers",
+        "assimp",
+        "glslang",
+        "nlohmann-json",
+        "gtest",
+        "glfw3",
+        "spdlog",
+        "entt",
+        "stduuid",
+        "yaml-cpp",
+        "spirv-cross",
+        "cli11",
+        "vulkan-headers",
+        "vulkan-loader",
+        "vulkan-memory-allocator"
+    ]
+}

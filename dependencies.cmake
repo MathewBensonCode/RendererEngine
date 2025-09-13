@@ -6,7 +6,7 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE
   GIT_TAG main
   FIND_PACKAGE_ARGS CONFIG
-    )
+)
 
 FetchContent_Declare(
   imgui
@@ -14,7 +14,7 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE
   GIT_TAG v1.89.9-docking
   SOURCE_DIR "${FETCHCONTENT_BASE_DIR}/imgui"
-  )
+)
 
 FetchContent_Declare(
   imguizmo
@@ -22,7 +22,7 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE
   GIT_TAG 1.83
   SOURCE_DIR "${FETCHCONTENT_BASE_DIR}/ImGuizmo"
-  )
+)
 
 FetchContent_Declare(
   stb
@@ -30,7 +30,7 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE
   SOURCE_DIR ${FETCHCONTENT_BASE_DIR}/stb
   FIND_PACKAGE_ARGS CONFIG
-  )
+)
 
 FetchContent_Declare(
   glfw3
@@ -38,7 +38,7 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE
   GIT_TAG 3.3.10
   FIND_PACKAGE_ARGS CONFIG
-  )
+)
 
 FetchContent_Declare(
   spdlog
@@ -46,7 +46,7 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE
   GIT_TAG v1.15.3
   FIND_PACKAGE_ARGS CONFIG
-  )
+)
 
 FetchContent_Declare(
   EnTT 
@@ -54,14 +54,14 @@ FetchContent_Declare(
   GIT_SHALLOW TRUE 
   GIT_TAG v3.16.0
   FIND_PACKAGE_ARGS CONFIG
-  )
+)
 
 FetchContent_Declare(
   assimp
   GIT_REPOSITORY https://github.com/assimp/assimp.git
   GIT_SHALLOW TRUE
   FIND_PACKAGE_ARGS CONFIG 
-  )
+)
 
 FetchContent_Declare(
   stduuid
@@ -75,7 +75,7 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/jbeder/yaml-cpp
   GIT_SHALLOW TRUE
   FIND_PACKAGE_ARGS CONFIG 
-  )
+)
 
 
 FetchContent_Declare(
@@ -84,7 +84,7 @@ FetchContent_Declare(
   GIT_TAG vulkan-sdk-1.3.296.0
   GIT_SHALLOW TRUE
   FIND_PACKAGE_ARGS CONFIG
-  )
+)
 
 FetchContent_Declare(
   VulkanMemoryAllocator
@@ -124,7 +124,7 @@ Fetchcontent_Declare(
     GTest
     GIT_REPOSITORY https://github.com/google/googletest.git
     GIT_SHALLOW TRUE
-    GIT_TAG main 
+    GIT_TAG main
     FIND_PACKAGE_ARGS CONFIG
 )
 
@@ -132,7 +132,7 @@ Fetchcontent_Declare(
   nlohmann_json
     GIT_REPOSITORY https://github.com/nlohmann/json.git
     GIT_SHALLOW TRUE
-    FIND_PACKAGE_ARGS CONFIG  
+    FIND_PACKAGE_ARGS CONFIG
 )
 
 Fetchcontent_Declare(
@@ -140,7 +140,7 @@ Fetchcontent_Declare(
     GIT_REPOSITORY https://github.com/mattconte/tlsf
     GIT_SHALLOW TRUE
     SOURCE_DIR ${FETCHCONTENT_BASE_DIR}/tlsf
-    FIND_PACKAGE_ARGS CONFIG 
+    FIND_PACKAGE_ARGS CONFIG
 )
 
 Fetchcontent_Declare(
@@ -149,7 +149,7 @@ Fetchcontent_Declare(
     GIT_SHALLOW TRUE
     GIT_TAG main
     SOURCE_DIR ${FETCHCONTENT_BASE_DIR}/CLI11
-    FIND_PACKAGE_ARGS CONFIG 
+    FIND_PACKAGE_ARGS CONFIG
 )
 
 
@@ -175,6 +175,7 @@ FetchContent_Declare(Vulkan-Loader
     FIND_PACKAGE_ARGS CONFIG
 )
 
+
 FetchContent_MakeAvailable(
   fmt
   Vulkan-Headers
@@ -199,6 +200,8 @@ FetchContent_MakeAvailable(
   glslang
   GTest
   )
+
+find_package(SPIRV-Tools-opt CONFIG)
 
 set(IMGUIDIR ${FETCHCONTENT_BASE_DIR}/imgui)
 
@@ -274,6 +277,7 @@ target_link_libraries(External_libs
          GPUOpen::VulkanMemoryAllocator 
          nlohmann_json::nlohmann_json
 )
+
 
 add_library(imported::ZEngine_External_Dependencies ALIAS External_libs)
 

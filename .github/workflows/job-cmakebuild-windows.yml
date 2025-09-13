@@ -5,6 +5,14 @@ name: Windows Build Workflow
 permissions:
   packages: write
 
+env: 
+  USERNAME: mathewbensoncode
+  VCPKG_EXE: ${{ github.workspace }}/vcpkg/vcpkg
+  FEED_URL: https://nuget.pkg.github.com/mathewbensoncode/index.json
+  VCPKG_BINARY_SOURCES: "clear;nuget,https://nuget.pkg.github.com/mathewbensoncode/index.json,readwrite"
+  VCPKG_ROOT: ${{ github.workspace }}/vcpkg
+  CMAKE_TOOLCHAIN_FILE: ${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
+
 on:
   workflow_call:
     inputs:
@@ -25,6 +33,28 @@ jobs:
 
       - name: update llvm to version 22
         run: choco upgrade llvm
+
+      - name: Install vcpkg
+        shell: pwsh
+        run: git clone --depth=1 https://github.com/Microsoft/vcpkg ${{github.workspace}}/vcpkg
+
+      - name: Bootstrap vcpkg
+        shell: pwsh
+        run: ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat
+
+      - name: Add NuGet sources
+        shell: pwsh
+        run: |
+          .$(${{ env.VCPKG_EXE }} fetch nuget) `
+          sources add `
+          -Source "${{ env.FEED_URL }}" `
+          -StorePasswordInClearText `
+          -Name GitHubPackages `
+          -UserName "${{ env.USERNAME }}" `
+          -Password "${{ secrets.GITHUB_TOKEN }}"
+          .$(${{ env.VCPKG_EXE }} fetch nuget) `
+          setapikey "${{ secrets.GITHUB_TOKEN }}" `
+          -Source "${{ env.FEED_URL }}"
 
       - name: CMake Build
         run: .\Scripts\BuildEngine.ps1 -Configurations ${{inputs.configuration}} -RunClangFormat 0
