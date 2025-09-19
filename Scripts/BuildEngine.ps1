@@ -174,6 +174,24 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
             throw "cmake failed to install to '$install_directory'"
         }
     }
+
+        $install_directory =""
+
+        if($IsWindows){
+            $install_directory = "Result.$systemName.$architecture.MultiConfig"
+        }
+
+        else{
+            $install_directory = "Result.$systemName.$architecture.$configuration"
+        }
+
+        $installProcess = Start-Process $cMakeProgram -ArgumentList "--install $install_directory --prefix $install_directory" -NoNewWindow -PassThru
+
+        $installProcess.WaitForExit();
+
+        if($installProcess.ExitCode -ne 0){
+            throw "cmake failed to install to '$install_directory'"
+        }
 }
 
 if(-Not $LauncherOnly) {
