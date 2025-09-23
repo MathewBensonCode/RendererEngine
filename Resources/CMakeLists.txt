@@ -31,7 +31,7 @@ foreach(FragmentShader ${FragmentShaders})
     cmake_path(APPEND ShaderOutputPath ${FragmentShaderOutputFileName} OUTPUT_VARIABLE FragmentShaderOutputPath)
 
 
-    add_custom_target("Compile-${shaderfilename}-fragment" ALL COMMAND glslang-standalone "-I${ShaderPath}" "-V" ${Flags}  "-o" "${FragmentShaderOutputPath}" "${FragmentShader}")
+    add_custom_target("Compile-${shaderfilename}-fragment" ALL COMMAND glslang::glslang-standalone "-I${ShaderPath}" "-V" ${Flags}  "-o" "${FragmentShaderOutputPath}" "${FragmentShader}")
 
 endforeach()
 

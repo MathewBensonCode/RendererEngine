@@ -21,9 +21,10 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: Build-linux-${{ inputs.configuration }}
+          path: Result.Linux.${{inputs.architecture}}.${{ inputs.configuration }}
 
       - name: Install Dependencies
-        run: sudo apt-get install libasound2-dev libgl1-mesa-dev libpulse-dev libdbus-1-dev libx11-dev libxcursor-dev libxext-dev libxi-dev libxinerama-dev libxrandr-dev libxss-dev libxt-dev libxxf86vm-dev cmake apt-transport-https software-properties-common gcc g++ powershell clang-format-22 glslang-tools libwayland-dev libxkbcommon-dev
+        run: sudo apt-get install libasound2-dev libgl1-mesa-dev libpulse-dev libdbus-1-dev libx11-dev libxcursor-dev libxext-dev libxi-dev libxinerama-dev libxrandr-dev libxss-dev libxt-dev libxxf86vm-dev cmake apt-transport-https software-properties-common gcc g++ powershell glslang-tools libwayland-dev libxkbcommon-dev
 
       - name: Update access permission of ZEngineTests
         run: chmod +x ${{github.workspace}}/tests/ZEngineTests

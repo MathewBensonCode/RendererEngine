@@ -201,8 +201,6 @@ FetchContent_MakeAvailable(
   GTest
   )
 
-find_package(SPIRV-Tools-opt CONFIG)
-
 set(IMGUIDIR ${FETCHCONTENT_BASE_DIR}/imgui)
 
 add_library(imgui STATIC)
@@ -264,15 +262,12 @@ target_link_libraries(External_libs
          glfw
          fmt::fmt
          imguizmo
-         spdlog::spdlog
+         spdlog::spdlog_header_only
          EnTT::EnTT
          assimp::assimp
          stduuid
          yaml-cpp::yaml-cpp
          spirv-cross-core
-         SPIRV-Tools-opt
-         glslang::glslang
-         glslang::glslang-default-resource-limits
          glslang::SPIRV
          GPUOpen::VulkanMemoryAllocator 
          nlohmann_json::nlohmann_json
