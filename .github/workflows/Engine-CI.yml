@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ master, develop, arena-integration ]
+    branches: [ master, develop, arena-integration, semantic-versioning-test ]
   pull_request:
     branches: [ master, develop, arena-integration ]
 
