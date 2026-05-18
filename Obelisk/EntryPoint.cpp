@@ -1,5 +1,5 @@
 #include <CLI/CLI.hpp>
-#include <Tetragrama/Editor.h>
+#include <Editor.h>
 #include <ZEngine/Applications/GameApplication.h>
 #include <ZEngine/Core/Memory/MemoryManager.h>
 #include <ZEngine/EngineConfiguration.h>

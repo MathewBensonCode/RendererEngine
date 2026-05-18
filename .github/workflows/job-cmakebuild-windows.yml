@@ -36,7 +36,7 @@ jobs:
 
       - name: Install vcpkg
         shell: pwsh
-        run: git clone --depth=1 https://github.com/Microsoft/vcpkg ${{github.workspace}}/vcpkg
+        run: git clone https://github.com/Microsoft/vcpkg ${{github.workspace}}/vcpkg
 
       - name: Bootstrap vcpkg
         shell: pwsh

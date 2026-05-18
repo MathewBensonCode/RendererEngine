@@ -7,7 +7,7 @@
 #include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
 /**/
 #include <Editor.h>
-#include <ImGuizmo/ImGuizmo.h>
+#include <ImGuizmo.h>
 #include <filesystem>
 
 using namespace Tetragrama::Components::Event;

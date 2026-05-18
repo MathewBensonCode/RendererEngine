@@ -51,7 +51,7 @@ target_include_directories (zEngineLib
 		./Serializers
 )
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 	target_compile_definitions (zEngineLib PUBLIC ENABLE_VULKAN_VALIDATION_LAYER)
 endif()
 
@@ -72,8 +72,10 @@ endif()
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_link_libraries(zEngineLib PUBLIC stdc++fs)
     target_compile_definitions(zEngineLib PUBLIC GLFW_EXPOSE_NATIVE_WAYLAND)
+    target_compile_options(zEngineLib PUBLIC -Wno-interference-size)
 endif ()
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     target_compile_definitions(zEngineLib PUBLIC GLFW_EXPOSE_NATIVE_COCOA)
 endif()
+

@@ -7,7 +7,7 @@
 #include <Messengers/Messenger.h>
 #include <ZEngine/Logging/LoggerDefinition.h>
 #include <fmt/format.h>
-#include <imgui/imgui_internal.h>
+#include <imgui_internal.h>
 #include <atomic>
 #include <filesystem>
 #include <future>

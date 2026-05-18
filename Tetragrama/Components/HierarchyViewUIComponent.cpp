@@ -1,7 +1,7 @@
 #include <Controllers/EditorCameraController.h>
 #include <Editor.h>
 #include <HierarchyViewUIComponent.h>
-#include <ImGuizmo/ImGuizmo.h>
+#include <ImGuizmo.h>
 #include <ZEngine/Core/Maths/Matrix.h>
 #include <ZEngine/Managers/AssetManager.h>
 #include <ZEngine/Rendering/Scenes/GraphicScene.h>
