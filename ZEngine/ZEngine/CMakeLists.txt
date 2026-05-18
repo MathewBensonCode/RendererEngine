@@ -51,8 +51,6 @@ target_include_directories (zEngineLib
 		./Serializers
 )
 
-target_precompile_headers(zEngineLib PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/pch.h)
-
 if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
 	target_compile_definitions (zEngineLib PUBLIC ENABLE_VULKAN_VALIDATION_LAYER)
 endif()

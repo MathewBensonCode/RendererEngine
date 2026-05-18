@@ -33,8 +33,6 @@ target_include_directories (${TARGET_NAME}
         ${ENLISTMENT_ROOT}/ZEngine
 )
 
-target_precompile_headers(${TARGET_NAME} PRIVATE pch.h)
-
 target_compile_definitions(${TARGET_NAME}
     PRIVATE
         NOMINMAX

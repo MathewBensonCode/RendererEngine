@@ -4,6 +4,9 @@
 #include <Messengers/Messenger.h>
 #include <fmt/format.h>
 #include <nlohmann/json.hpp>
+#include <filesystem>
+#include <fstream>
+#include <string>
 
 using namespace ZEngine;
 using namespace ZEngine::Core::Containers;

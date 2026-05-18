@@ -42,8 +42,6 @@ target_include_directories (${TARGET_NAME}
         ./Managers
 )
 
-target_precompile_headers(${TARGET_NAME} PRIVATE pch.h)
-
 target_compile_definitions(${TARGET_NAME}
     PRIVATE
         NOMINMAX

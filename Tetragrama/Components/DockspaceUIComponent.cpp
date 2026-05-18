@@ -8,6 +8,11 @@
 #include <ZEngine/Logging/LoggerDefinition.h>
 #include <fmt/format.h>
 #include <imgui/imgui_internal.h>
+#include <atomic>
+#include <filesystem>
+#include <future>
+#include <string_view>
+#include <vector>
 
 namespace fs = std::filesystem;
 

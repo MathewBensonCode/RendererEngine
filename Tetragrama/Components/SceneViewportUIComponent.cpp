@@ -8,6 +8,7 @@
 /**/
 #include <Editor.h>
 #include <ImGuizmo/ImGuizmo.h>
+#include <filesystem>
 
 using namespace Tetragrama::Components::Event;
 using namespace ZEngine::Rendering::Renderers;

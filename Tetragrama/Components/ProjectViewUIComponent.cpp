@@ -3,6 +3,8 @@
 #include <ProjectViewUIComponent.h>
 #include <ZEngine/Helpers/MemoryOperations.h>
 #include <imgui.h>
+#include <filesystem>
+#include <fstream>
 
 using namespace ZEngine::Helpers;
 

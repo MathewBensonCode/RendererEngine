@@ -203,7 +203,7 @@ FetchContent_MakeAvailable(
 
 set(IMGUIDIR ${FETCHCONTENT_BASE_DIR}/imgui)
 
-add_library(imgui STATIC)
+add_library(imgui STATIC EXCLUDE_FROM_ALL)
 
 target_sources(
   imgui
@@ -225,7 +225,7 @@ target_compile_definitions(imgui PUBLIC GLFW_INCLUDE_VULKAN IMGUI_DEFINE_MATH_OP
 
 target_link_libraries(imgui PRIVATE glfw Vulkan::Headers Vulkan::Loader)
 
-add_library(imguizmo STATIC)
+add_library(imguizmo STATIC EXCLUDE_FROM_ALL)
 
 target_sources(imguizmo
     PRIVATE ${FETCHCONTENT_BASE_DIR}/ImGuizmo/ImGuizmo.cpp)
@@ -235,7 +235,7 @@ target_include_directories(imguizmo
 
 target_link_libraries(imguizmo PUBLIC imgui)
 
-add_library(External_libs INTERFACE)
+add_library(External_libs INTERFACE EXCLUDE_FROM_ALL)
 
 target_include_directories(External_libs
     INTERFACE
@@ -301,7 +301,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
         OPTIMIZE
     )
 
-    add_library(imported::cppwinrt_headers INTERFACE IMPORTED)
+    add_library(imported::cppwinrt_headers INTERFACE)
     target_include_directories(imported::cppwinrt_headers INTERFACE
         ${CMAKE_BINARY_DIR}/__winrt
     )

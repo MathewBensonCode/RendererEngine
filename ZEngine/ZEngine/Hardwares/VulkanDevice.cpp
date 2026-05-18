@@ -13,6 +13,7 @@
 #include <Rendering/Renderers/RenderPasses/Attachment.h>
 #include <Rendering/Renderers/RenderPasses/RenderPass.h>
 #include <Windows/CoreWindow.h>
+#include <filesystem>
 
 using namespace std::chrono_literals;
 using namespace ZEngine::Rendering::Primitives;

@@ -1,6 +1,9 @@
 #include <Core/Coroutine.h>
 #include <Logging/LoggerDefinition.h>
 #include <Rendering/Shaders/Compilers/ShaderFileGenerator.h>
+#include <filesystem>
+#include <fstream>
+#include <string>
 
 namespace ZEngine::Rendering::Shaders::Compilers
 {
@@ -23,9 +26,13 @@ namespace ZEngine::Rendering::Shaders::Compilers
     {
         std::filesystem::path file_path;
         if (information_list.Type == ShaderType::VERTEX)
+        {
             file_path = std::filesystem::path(outputDirectory) / fmt::format("{}_vertex.spv", information_list.Name);
+        }
         if (information_list.Type == ShaderType::FRAGMENT)
+        {
             file_path = std::filesystem::path(outputDirectory) / fmt::format("{}_fragment.spv", information_list.Name);
+        }
 
         return file_path.string();
     }

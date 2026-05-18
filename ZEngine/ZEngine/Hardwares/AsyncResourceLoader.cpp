@@ -3,6 +3,7 @@
 #include <Importers/EnvironmentMapImporter.h>
 #include <Rendering/Buffers/Bitmap.h>
 #include <VulkanDevice.h>
+#include <filesystem>
 
 #define STB_IMAGE_IMPLEMENTATION
 #ifdef __GNUC__

@@ -8,6 +8,7 @@
 #include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
 #include <ZEngine/Windows/Inputs/Keyboard.h>
 #include <ZEngine/Windows/Inputs/Mouse.h>
+#include <stack>
 
 using namespace ZEngine;
 using namespace ZEngine::Helpers;

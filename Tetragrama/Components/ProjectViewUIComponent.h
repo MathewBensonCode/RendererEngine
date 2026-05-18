@@ -2,6 +2,7 @@
 #include <UIComponent.h>
 #include <ZEngine/Core/Memory/Allocator.h>
 #include <ZEngine/Importers/AssetTypes.h>
+#include <filesystem>
 
 namespace Tetragrama::Components
 {

@@ -12,7 +12,7 @@
 #include <signal.h>
 #define ZENGINE_DEBUG_BREAK() __builtin_trap();
 #else
-#include <signal.h>
+#include <csignal>
 #define ZENGINE_DEBUG_BREAK() raise(SIGTRAP);
 #endif
 
@@ -104,7 +104,7 @@
 #define ASSET_FILE_VERSION                                     MAKE_VERSION(1, 0, 0)
 #define SCENE_FILE_VERSION                                     MAKE_VERSION(1, 0, 0)
 
-typedef const char* cstring;
+using cstring = const char*;
 
 #ifdef __cpp_lib_hardware_interference_size
 #include <atomic>

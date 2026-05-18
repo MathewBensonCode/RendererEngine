@@ -4,6 +4,8 @@
 #include <Helpers/ThreadPool.h>
 #include <assimp/postprocess.h>
 #include <fmt/format.h>
+#include <filesystem>
+#include <fstream>
 
 using namespace ZEngine::Helpers;
 using namespace ZEngine::Rendering::Meshes;

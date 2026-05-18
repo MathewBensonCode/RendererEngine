@@ -1,6 +1,8 @@
 #include <Core/Containers/Array.h>
 #include <Helpers/SerializerCommonHelper.h>
 #include <IAssetImporter.h>
+#include <filesystem>
+#include <fstream>
 
 using namespace uuids;
 using namespace ZEngine::Helpers;

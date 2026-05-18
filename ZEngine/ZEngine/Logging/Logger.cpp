@@ -8,6 +8,7 @@
 #include <spdlog/async_logger.h>
 #include <spdlog/details/thread_pool.h>
 #include <spdlog/sinks/rotating_file_sink.h>
+#include <filesystem>
 
 using namespace ZEngine::Core::Memory;
 

@@ -4,6 +4,7 @@
 #include <ZEngine/Helpers/SerializerCommonHelper.h>
 #include <ZEngine/Helpers/ThreadPool.h>
 #include <fmt/format.h>
+#include <fstream>
 
 using namespace ZEngine::Helpers;
 using namespace ZEngine::Core::Containers;

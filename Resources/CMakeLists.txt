@@ -19,7 +19,7 @@ foreach(VertexShader ${VertexShaders})
       cmake_path(APPEND_STRING shaderfilename "_vertex.spv" OUTPUT_VARIABLE VertexShaderOutputFileName )
       cmake_path(APPEND ShaderOutputPath ${VertexShaderOutputFileName} OUTPUT_VARIABLE VertexShaderOutputPath)
 
-      add_custom_target("Compile-${shaderfilename}-vertex" ALL COMMAND glslang-standalone "-I${ShaderPath}" "-V" ${Flags} "-o" "${VertexShaderOutputPath}" "${VertexShader}")
+      add_custom_target("Compile-${shaderfilename}-vertex" ALL COMMAND glslang::glslang-standalone "-I${ShaderPath}" "-V" ${Flags} "-o" "${VertexShaderOutputPath}" "${VertexShader}")
 
     
 endforeach()

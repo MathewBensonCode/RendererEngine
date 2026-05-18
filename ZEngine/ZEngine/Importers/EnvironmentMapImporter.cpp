@@ -2,6 +2,7 @@
 #include <EnvironmentMapImporter.h>
 #include <Helpers/ThreadPool.h>
 #include <fmt/format.h>
+#include <filesystem>
 
 // stb_image implementation is defined once in AsyncResourceLoader.cpp.
 #include <stb/stb_image.h>

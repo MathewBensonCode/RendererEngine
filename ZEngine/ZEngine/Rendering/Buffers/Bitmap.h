@@ -202,8 +202,8 @@ namespace ZEngine::Rendering::Buffers
                         const int                         U2    = ZEngine::Core::Maths::clamp(U1 + 1, 0, clamped_width);
                         const int                         V2    = ZEngine::Core::Maths::clamp(V1 + 1, 0, clamped_height);
 
-                        const float                       s     = Uf - U1;
-                        const float                       t     = Vf - V1;
+                        const float                       s     = Uf - static_cast<float>(U1);
+                        const float                       t     = Vf - static_cast<float>(V1);
 
                         const ZEngine::Core::Maths::Vec4f A     = input_map.GetPixel(U1, V1);
                         const ZEngine::Core::Maths::Vec4f B     = input_map.GetPixel(U2, V1);

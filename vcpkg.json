@@ -1,27 +1,31 @@
 {
-    "dependencies": [
-        "fmt",
-        "spirv-tools",
-        "spirv-headers",
-        "assimp",
-        {
-            "name": "glslang",
-            "features": [
-                "opt",
-                "tools"
-            ]
-        },
-        "nlohmann-json",
-        "gtest",
-        "glfw3",
-        "spdlog",
-        "entt",
-        "stduuid",
-        "yaml-cpp",
-        "spirv-cross",
-        "cli11",
-        "vulkan-headers",
-        "vulkan-loader",
-        "vulkan-memory-allocator"
-    ]
+  "dependencies": [
+    "fmt",
+    "spirv-tools",
+    "spirv-headers",
+    "assimp",
+    {
+      "name": "glslang",
+      "features": [
+        "opt",
+        "tools"
+      ]
+    },
+    "nlohmann-json",
+    "gtest",
+    "glfw3",
+    "spdlog",
+    "entt",
+    "stduuid",
+    "yaml-cpp",
+    "spirv-cross",
+    "cli11",
+    "vulkan-headers",
+    "vulkan-loader",
+    "vulkan-memory-allocator"
+  ],
+  "builtin-baseline": "495848814af4cc2760e70f7440c2dbe66d3ff196",
+  "overrides" : [
+
+  ]
 }
