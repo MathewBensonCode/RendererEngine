@@ -59,7 +59,7 @@ include(CTest)
 
 # Setup Dependencies
 #
-include(dependencies.cmake)
+include(findpackagedependencies.cmake)
 
 # Compile Shaders
 #
