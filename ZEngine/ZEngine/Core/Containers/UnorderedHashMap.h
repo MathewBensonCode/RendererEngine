@@ -1,119 +1,16 @@
 ﻿#pragma once
-#include <Allocator.h>
-#include <Array.h>
-#include <Helpers/MemoryOperations.h>
-#include <ZEngineDef.h>
+#include <ZEngine/Core/Containers/Array.h>
+#include <ZEngine/Core/Containers/HashMap.h>
+#include <ZEngine/Core/Memory/Allocator.h>
+#include <ZEngine/Helpers/MemoryOperations.h>
+#include <ZEngine/ZEngineDef.h>
 #include <rapidhash.h>
 #include <cstddef>
-#include <iterator>
 #include <stdexcept>
 #include <type_traits>
-#include <utility>
 
 namespace ZEngine::Core::Containers
 {
-    enum class EntryState
-    {
-        Empty,
-        Occupied,
-        Deleted
-    };
-
-    template <typename K, typename V>
-    struct HashEntry
-    {
-        K          key;
-        V          value;
-        EntryState state = EntryState::Empty;
-    };
-
-    template <typename K, typename V, bool IsConst>
-    class HashMapIterator
-    {
-    public:
-        using Entry             = HashEntry<K, V>;
-        using EntryPointer      = std::conditional_t<IsConst, const Entry*, Entry*>;
-        using value_type        = std::conditional_t<IsConst, std::pair<const K, const V>, std::pair<const K, V>>;
-        using reference         = value_type;
-        using pointer           = value_type*;
-        using iterator_category = std::input_iterator_tag;
-        using difference_type   = std::ptrdiff_t;
-
-        // Constructs an iterator for the hash map's entries, starting at the given index.
-        // @param entries Value to the array of hash map entries.
-        // @param index Starting index for iteration.
-        HashMapIterator(EntryPointer entries, std::size_t index, std::size_t size) : m_entries(entries), m_index(index), m_size(size)
-        {
-            advance_to_valid();
-        }
-
-        // Advances the iterator to the next occupied entry.
-        // @return Reference to the incremented iterator.
-        HashMapIterator& operator++()
-        {
-            ++m_index;
-            advance_to_valid();
-            return *this;
-        }
-
-        // Checks if two iterators are not equal based on their index.
-        // @param other The iterator to compare with.
-        // @return True if the iterators point to different indices, false otherwise.
-        bool operator!=(const HashMapIterator& other) const
-        {
-            return m_index != other.m_index;
-        }
-
-        // Checks if two iterators are equal based on their index.
-        // @param other The iterator to compare with.
-        // @return True if the iterators point to the same index, false otherwise.
-        bool operator==(const HashMapIterator& other) const
-        {
-            return m_index == other.m_index;
-        }
-
-        // Dereferences the iterator to return a key-value pair for the current entry.
-        // @return A pair containing references to the key and value (const or non-const based on IsConst).
-        value_type operator*() const
-        {
-            const auto& entry = m_entries[m_index];
-            if constexpr (IsConst)
-            {
-                return {entry.key, entry.value};
-            }
-            else
-            {
-                return {entry.key, const_cast<V&>(entry.value)};
-            }
-        }
-
-        // Provides pointer-like access to the current key-value pair.
-        // @return A pointer to a temporary key-value pair.
-        pointer operator->() const
-        {
-            return std::addressof(**this);
-        }
-
-        // Returns a const reference to the key at the current position.
-        const K& key() const
-        {
-            return m_entries[m_index].key;
-        }
-
-    private:
-        // Advances the iterator to the next occupied entry, skipping empty or deleted entries.
-        void advance_to_valid()
-        {
-            while (m_index < m_size && m_entries[m_index].state != EntryState::Occupied)
-            {
-                ++m_index;
-            }
-        }
-
-        EntryPointer m_entries;
-        std::size_t  m_index;
-        std::size_t  m_size;
-    };
 
     template <typename K, typename V>
     class UnorderedHashMap
