@@ -1,6 +1,6 @@
 #pragma once
 #include <Tetragrama/Components/UIComponent.h>
-#include <imgui.h>
+#include <imgui/imgui.h>
 
 namespace Tetragrama::Components
 {

@@ -1,0 +1,11 @@
+prefix=/home/runner/work/RenderEngineDependencies/RenderEngineDependencies/linux_install
+exec_prefix=/home/runner/work/RenderEngineDependencies/RenderEngineDependencies/linux_install
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: fmt
+Description: A modern formatting library
+Version: 12.2.1
+Libs: -L${libdir} -lfmt
+Cflags: -I${includedir}
+

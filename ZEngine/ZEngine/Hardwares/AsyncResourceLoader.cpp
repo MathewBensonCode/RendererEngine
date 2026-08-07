@@ -13,7 +13,7 @@
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STB_IMAGE_RESIZE_IMPLEMENTATION
-#include <stb/deprecated/stb_image_resize.h>
+#include <stb/stb_image_resize2.h>
 #include <stb/stb_image_write.h>
 
 using namespace ZEngine::Helpers;
@@ -680,7 +680,7 @@ namespace ZEngine::Hardwares
                                 size_t total_pixel = width * height;
                                 size_t buffer_size = total_pixel * 4;
                                 output_buffer.resize(buffer_size);
-                                stbir_resize_float(image_data, width, height, 0, output_buffer.data(), width, height, 0, 4);
+                                stbir_resize_float_linear(image_data, width, height, 0, output_buffer.data(), width, height, 0, static_cast<stbir_pixel_layout>(4));
 
                                 for (int i = 0; i < total_pixel; ++i)
                                 {
@@ -738,7 +738,7 @@ namespace ZEngine::Hardwares
                             size_t total_pixel = width * height;
                             size_t buffer_size = total_pixel * 4;
                             upload_req.Buffer.resize(buffer_size);
-                            stbir_resize_uint8(image_data, width, height, 0, upload_req.Buffer.data(), width, height, 0, 4);
+                            stbir_resize_uint8_linear(image_data, width, height, 0, upload_req.Buffer.data(), width, height, 0, static_cast<stbir_pixel_layout>(4));
 
                             for (int i = 0; i < total_pixel; ++i)
                             {

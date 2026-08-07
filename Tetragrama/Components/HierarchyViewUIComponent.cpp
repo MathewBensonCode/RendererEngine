@@ -1,7 +1,7 @@
 // clang-format off
 #include <Tetragrama/Components/HierarchyViewUIComponent.h>
 #include <Tetragrama/Controllers/EditorCameraController.h>
-#include <ImGuizmo/ImGuizmo.h>
+#include <imguizmo/ImGuizmo.h>
 #include <Tetragrama/Editor.h>
 #include <ZEngine/Core/Maths/Matrix.h>
 #include <ZEngine/Managers/AssetManager.h>

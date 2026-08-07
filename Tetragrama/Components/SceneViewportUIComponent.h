@@ -4,7 +4,7 @@
 #include <Tetragrama/Components/Events/SceneViewportUnfocusedEvent.h>
 #include <Tetragrama/Components/UIComponent.h>
 #include <Tetragrama/Messengers/Message.h>
-#include <imgui.h>
+#include <imgui/imgui.h>
 #include <vulkan/vulkan.h>
 
 namespace Tetragrama::Components

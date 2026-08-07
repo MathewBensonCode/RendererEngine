@@ -2,7 +2,7 @@
 #include <Tetragrama/Helpers/SearchPatternAlgorithm.h>
 #include <ZEngine/Core/Containers/Array.h>
 #include <ZEngine/Helpers/MemoryOperations.h>
-#include <imgui.h>
+#include <imgui/imgui.h>
 
 using namespace ZEngine::Logging;
 using namespace ZEngine::Helpers;

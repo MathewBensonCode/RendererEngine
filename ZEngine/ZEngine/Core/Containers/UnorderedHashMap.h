@@ -3,7 +3,7 @@
 #include <ZEngine/Core/Memory/Allocator.h>
 #include <ZEngine/Helpers/MemoryOperations.h>
 #include <ZEngine/ZEngineDef.h>
-#include <rapidhash.h>
+#include <rapidhash/rapidhash.h>
 #include <cstddef>
 #include <stdexcept>
 #include <type_traits>

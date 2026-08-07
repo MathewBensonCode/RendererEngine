@@ -12,7 +12,7 @@
 #include <ZEngine/Rendering/Renderers/ImGUIRenderer.h>
 #include <ZEngine/Windows/Inputs/KeyCodeDefinition.h>
 #include <fmt/format.h>
-#include <imgui.h>
+#include <imgui/imgui.h>
 
 using namespace ZEngine;
 using namespace ZEngine::Rendering::Renderers;

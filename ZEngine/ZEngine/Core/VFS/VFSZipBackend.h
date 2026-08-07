@@ -5,7 +5,7 @@
 #include <ZEngine/Core/VFS/IVFSBackend.h>
 #include <ZEngine/Core/VFS/IVFSFile.h>
 #include <ZEngine/ZEngineDef.h>
-#include <miniz.h>
+#include <miniz/miniz.h>
 #include <mutex>
 
 namespace ZEngine::Core::VFS

@@ -1,0 +1,8 @@
+includedir=/Users/runner/work/RenderEngineDependencies/RenderEngineDependencies/install_x64/include
+
+Name: SPIRV-Headers
+Description: Header files from the SPIR-V registry
+Version: 1.3.296
+Requires:
+Libs:
+Cflags: -I${includedir}

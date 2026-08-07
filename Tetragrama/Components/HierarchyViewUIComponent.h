@@ -1,7 +1,7 @@
 #pragma once
 #include <Tetragrama/Components/UIComponent.h>
 #include <Tetragrama/EditorScene.h>
-#include <imgui.h>
+#include <imgui/imgui.h>
 
 namespace Tetragrama::Components
 {

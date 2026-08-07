@@ -1,0 +1,9 @@
+libdir=/Users/runner/work/RenderEngineDependencies/RenderEngineDependencies/install_x64/lib
+includedir=/Users/runner/work/RenderEngineDependencies/RenderEngineDependencies/install_x64/include
+
+Name: RendererEngine-Dependencies
+Description: Import various well-known 3D model formats in an uniform manner.
+Version: 6.0.5
+Libs: -L${libdir} -lassimp
+Libs.private:  -loptimized;/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libz.tbd;debug;/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libz.tbd
+Cflags: -I${includedir}

@@ -1,0 +1,9 @@
+prefix=/Users/runner/work/RenderEngineDependencies/RenderEngineDependencies/install_x64
+exec_prefix=${prefix}
+includedir=${prefix}/include
+
+Name: CLI11
+Description: C++ command line parser
+Version: 2.7.2
+
+Cflags: -I${includedir}

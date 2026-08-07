@@ -2,7 +2,7 @@
 #include <Tetragrama/Components/UIComponent.h>
 #include <Tetragrama/Messengers/Message.h>
 #include <ZEngine/ZEngineDef.h>
-#include <imgui.h>
+#include <imgui/imgui.h>
 
 namespace Tetragrama::Components
 {

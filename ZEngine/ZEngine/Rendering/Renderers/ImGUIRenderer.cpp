@@ -2,9 +2,9 @@
 #include <ZEngine/Rendering/Renderers/ImGUIRenderer.h>
 #include <ZEngine/Windows/CoreWindow.h>
 // clang-format off
-#include <backends/imgui_impl_glfw.h>
-#include <backends/imgui_impl_vulkan.h>
-#include <ImGuizmo/ImGuizmo.h>
+#include <imgui/backends/imgui_impl_glfw.h>
+#include <imgui/backends/imgui_impl_vulkan.h>
+#include <imguizmo/ImGuizmo.h>
 #include <filesystem>
 // clang-format on
 
