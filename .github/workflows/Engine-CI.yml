@@ -2,7 +2,7 @@ name: Engine CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, findpackagedependencies ]
     paths:
       - 'ZEngine/**'
       - 'Tetragrama/**'
@@ -13,6 +13,7 @@ on:
       - 'CMakePresets.json'
       - 'dependencies.cmake'
       - '.github/workflows/**'
+      - 'precompiled_dependencies'
   pull_request:
     branches: [ main, develop ]
     paths:

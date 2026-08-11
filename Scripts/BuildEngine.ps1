@@ -89,15 +89,20 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
     # Check if the system supports multiple configurations
     $isMultipleConfig = $IsWindows
 
+    $buildName = ""
+
     # Check the system name
     if ($IsLinux) {
         $systemName = "Linux"
+        $buildName = "Build-linux"
     }
     elseif ($IsMacOS) {
         $systemName = "Darwin"
+        $buildName = "Build-macOS-$Architecture"
     }
     elseif ($IsWindows) {
         $systemName = "Windows"
+        $buildName = "Build-windows"
     }
     else {
         throw 'The OS is not supported'
@@ -105,7 +110,7 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
 
     Write-Host "Configuring $systemName $architecture $configuration"
 
-    [string]$cMakeCacheVariableOverride = ""
+    [string]$cMakeCacheVariableOverride = "-DCMAKE_PREFIX_PATH=$PSScriptRoot/../precompiled_dependencies/$buildName"
 
     # Define CMake Generator arguments
     $configName = $systemName, $architecture, $configuration -join "_"
@@ -113,6 +118,8 @@ function Build([string]$configuration, [int]$VsVersion , [bool]$runBuild) {
     if($IsWindows){
         $configName += '_'+$VsVersion
     }
+
+
 
     $cMakeArguments = " --preset $configName $cMakeCacheVariableOverride"
 
