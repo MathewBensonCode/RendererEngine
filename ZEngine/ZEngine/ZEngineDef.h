@@ -1,11 +1,10 @@
 #pragma once
 #include <ZEngine/CrashHandlers/CrashHandler.h>
 #include <ZEngine/Logging/LoggerDefinition.h>
+#include <ZEngine/Windows/Inputs/KeyCode.h>
 
 #define BIT(x)                 (1 << (x))
 #define ZENGINE_EXIT_FAILURE() exit(EXIT_FAILURE);
-
-#define ZENGINE_KEYCODE        ZEngine::Windows::Inputs::GlfwKeyCode
 
 #ifdef _MSC_VER
 #define ZENGINE_DEBUG_BREAK() \
@@ -138,3 +137,5 @@ struct alignas(CACHE_LINE_SIZE) PaddedAtomic
 {
     std::atomic<T> value = {};
 };
+
+using ZENGINE_KEYCODE = ZEngine::Windows::Inputs::GlfwKeyCode;

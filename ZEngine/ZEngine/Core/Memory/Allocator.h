@@ -6,7 +6,6 @@
 namespace ZEngine::Core::Memory
 {
     struct ArenaAllocator;
-    struct ArenaTemp;
 
     struct ArenaTemp
     {

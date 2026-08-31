@@ -21,7 +21,7 @@
         fputs(__vma_buf, stderr);                                                  \
     } while (0)
 #else
-#define VMA_DEBUG_LOG_FORMAT(format, ...) fprintf(stderr, "[VMA] " format "\n", __VA_ARGS__)
+// #define VMA_DEBUG_LOG_FORMAT(format, ...) fprintf(stderr, "[VMA] " format "\n", __VA_ARGS__)
 #endif
 #endif
 

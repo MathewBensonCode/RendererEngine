@@ -141,6 +141,7 @@
             "binaryDir": "Result.Linux.x64.Debug",
             "generator": "Ninja",
             "cacheVariables": {
+                "CMAKE_PREFIX_PATH": "/home/benson/Projects/cpp/builds/zengineinstall",
                 "CMAKE_INSTALL_PREFIX": "Result.Linux.x64.Debug"
             }
         },

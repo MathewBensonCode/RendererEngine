@@ -5,7 +5,7 @@
 #include <ZEngine/Rendering/Renderers/Pipelines/PSOCache.h>
 #include <ZEngine/Rendering/Shaders/Shader.h>
 #include <ZEngine/Rendering/Shaders/ShaderReader.h>
-#include <spirv_cross.hpp>
+#include <spirv_cross/spirv_cross.hpp>
 #include <vulkan/vulkan.h>
 #include <algorithm>
 

@@ -122,7 +122,7 @@ source_group(TREE ${PROJECT_SOURCE_DIR}/../Resources PREFIX "Resources Files" FI
 
 # ZEngine source files
 #
-add_library(zEngineLib STATIC)
+add_library(zEngineLib)
 
 target_sources(zEngineLib PUBLIC FILE_SET HEADERS BASE_DIRS ${PROJECT_SOURCE_DIR})
 

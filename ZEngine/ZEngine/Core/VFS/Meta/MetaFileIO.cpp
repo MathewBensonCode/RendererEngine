@@ -1,7 +1,7 @@
 #include <ZEngine/Core/VFS/Meta/MetaFileIO.h>
 #include <ZEngine/Helpers/MemoryOperations.h>
 #include <nlohmann/json.hpp>
-#include <rapidhash.h>
+#include <rapidhash/rapidhash.h>
 #include <uuid.h>
 #include <chrono>
 #include <cstring>
