@@ -60,9 +60,9 @@ function(add_shader_compiler shader stage suffix)
 
     add_custom_command(
         OUTPUT ${packaged_outputs}
-        COMMAND $<TARGET_FILE:glslang-standalone> "-I${ShaderPath}" "-V" ${Flags} "-o" "${shader_output}" "${shader}"
+        COMMAND $<TARGET_FILE:glslang::glslang-standalone> "-I${ShaderPath}" "-V" ${Flags} "-o" "${shader_output}" "${shader}"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different "${shader_output}" "${ShaderBinOutputPath}/${output_name}"
-        DEPENDS glslang-standalone ${shader_dependencies}
+        DEPENDS glslang::glslang-standalone ${shader_dependencies}
         VERBATIM
     )
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")

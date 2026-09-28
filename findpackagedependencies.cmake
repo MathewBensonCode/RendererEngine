@@ -23,6 +23,9 @@ find_package(glslang CONFIG REQUIRED NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_
 find_package(GTest CONFIG REQUIRED NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_PATH)
 find_package(fastgltf CONFIG REQUIRED NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_PATH)
 find_package(Tracy CONFIG REQUIRED NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_PATH)
+find_package(freetype CONFIG REQUIRED NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_PATH)
+find_package(ufbx CONFIG REQUIRED NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_PATH)
+find_package(simdjson CONFIG REQUIRED NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_PATH)
 
 add_library(External_libs INTERFACE)
 
@@ -47,6 +50,10 @@ target_link_libraries(External_libs
          GPUOpen::VulkanMemoryAllocator 
          nlohmann_json::nlohmann_json
          miniz::miniz
+         Freetype::Freetype
+         fastgltf::fastgltf
+         ufbx::ufbx
+         simdjson::simdjson
 )
 
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <ZEngine/Helpers/MemoryOperations.h>
-#include <rapidhash.h>
+#include <rapidhash/rapidhash.h>
 #include <cstdint>
 
 namespace ZEngine::Core::Containers

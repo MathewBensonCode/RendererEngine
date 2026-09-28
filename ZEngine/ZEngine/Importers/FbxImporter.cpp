@@ -6,7 +6,7 @@
 #include <ZEngine/Logging/LoggerDefinition.h>
 #include <ZEngine/Managers/AssetManager.h>
 #include <fmt/format.h>
-#include <ufbx.h>
+#include <ufbx/ufbx.h>
 #include <filesystem>
 #include <fstream>
 #include <random>

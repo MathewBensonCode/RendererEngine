@@ -30,7 +30,7 @@
 #include <ZEngine/Rendering/Buffers/Bitmap.h>
 #include <ZEngine/Rendering/RenderResourceManager.h>
 #include <ZEngine/ZEngineDef.h>
-#include <stb/deprecated/stb_image_resize.h>
+#include <stb/stb_image_resize2.h>
 #include <stb/stb_image_write.h>
 #include <algorithm>
 #include <cmath>
@@ -1926,7 +1926,7 @@ namespace ZEngine::Rendering
                 pixels                    = static_cast<uint8_t*>(slab->Alloc(byte_size));
                 if (channels <= STBI_rgb)
                 {
-                    stbir_resize_uint8(image_data, width, height, 0, pixels, width, height, 0, STBI_rgb_alpha);
+                    stbir_resize_uint8_linear(image_data, width, height, 0, pixels, width, height, 0, static_cast<stbir_pixel_layout>(channels));
                     for (size_t i = 0; i < total_pixels; ++i)
                         pixels[i * STBI_rgb_alpha + 3] = 255;
                 }

@@ -7,7 +7,7 @@
 #include <ZEngine/Hardwares/VulkanDevice.h>
 #include <ZEngine/Rendering/RenderResourceManager.h>
 #include <ZEngine/UI/ZUIFont.h>
-#include <ft2build.h>
+#include <freetype2/ft2build.h>
 #include <stb/stb_rect_pack.h>
 #include FT_FREETYPE_H
 

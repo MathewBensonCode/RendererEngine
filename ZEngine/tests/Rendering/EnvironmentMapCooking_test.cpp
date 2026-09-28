@@ -3,9 +3,8 @@
 #include <ZEngine/Rendering/Buffers/Bitmap.h>
 #include <ZEngine/ZEngineDef.h>
 #include <gtest/gtest.h>
-#include <tinyexr.h>
+#include <tinyexr/tinyexr.h>
 #include <array>
-#include <cmath>
 #include <cstdint>
 #include <cstring>
 #include <filesystem>

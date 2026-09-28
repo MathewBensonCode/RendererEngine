@@ -168,8 +168,8 @@ TEST_F(SchedulerFixture, ParallelSystemsBothSpawn_BothEntitiesCreated)
     auto                    SpawnerB = [](Scene&, float, WorldCommands& cmds) { cmds.SpawnEntity({nullptr, [](void*, EntityID) { s_spawn_count.fetch_add(1, std::memory_order_relaxed); }}); };
 
     // Disjoint masks → same wave (no conflict, no OrderBefore required).
-    m_tick.RegisterSystem(SpawnerA, {.UsesCommands = true});
-    m_tick.RegisterSystem(SpawnerB, {.UsesCommands = true});
+    auto                    A        = m_tick.RegisterSystem(SpawnerA, {.UsesCommands = true});
+    auto                    B        = m_tick.RegisterSystem(SpawnerB, {.UsesCommands = true});
     m_tick.Commit();
 
     EXPECT_EQ(m_tick.WaveCount(), 1u);
@@ -193,8 +193,8 @@ TEST_F(SchedulerFixture, ParallelSpawnCallbacks_IndicesRemappedCorrectly)
     auto            SpawnerA = [](Scene&, float, WorldCommands& cmds) { cmds.SpawnEntity({&s_from_a, [](void* ctx, EntityID id) { *static_cast<EntityID*>(ctx) = id; }}); };
     auto            SpawnerB = [](Scene&, float, WorldCommands& cmds) { cmds.SpawnEntity({&s_from_b, [](void* ctx, EntityID id) { *static_cast<EntityID*>(ctx) = id; }}); };
 
-    m_tick.RegisterSystem(SpawnerA, {.UsesCommands = true});
-    m_tick.RegisterSystem(SpawnerB, {.UsesCommands = true});
+    const auto      A        = m_tick.RegisterSystem(SpawnerA, {.UsesCommands = true});
+    const auto      B        = m_tick.RegisterSystem(SpawnerB, {.UsesCommands = true});
     m_tick.Commit();
 
     s_from_a = INVALID_ENTITY;

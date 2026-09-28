@@ -13,7 +13,7 @@
 
 // stb_image implementation is defined once in RenderResourceManager.cpp.
 #include <stb/stb_image.h>
-#include <tinyexr.h>
+#include <tinyexr/tinyexr.h>
 
 using namespace ZEngine::Rendering::Buffers;
 
